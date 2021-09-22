@@ -17,19 +17,16 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           headline1: TextStyle(
             fontSize: 64,
-            fontWeight: FontWeight.w800,
-            fontFamily: 'Roboto',
+            fontWeight: FontWeight.w700,
             color: kHeaderColor,
           ),
           headline5: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w700,
-            fontFamily: 'Roboto',
           ),
           bodyText1: TextStyle(
             fontSize: 13.0,
             fontWeight: FontWeight.w700,
-            fontFamily: 'Roboto',
           ),
         ),
         fontFamily: 'Poppins',

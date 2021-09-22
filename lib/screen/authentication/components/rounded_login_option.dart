@@ -42,7 +42,7 @@ class RoundedLoginOption extends StatelessWidget {
                         height: height,
                         width: 20,
                       ),
-                      SizedBox(width: 15),
+                      SizedBox(width: 10),
                       Text(text,
                           style: Theme.of(context)
                               .textTheme
