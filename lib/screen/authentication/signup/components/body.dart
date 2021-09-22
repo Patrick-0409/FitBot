@@ -1,23 +1,13 @@
-import 'package:fiton/constant.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
-import 'package:fiton/screen/authentication/components/rounded_login_option.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
-import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/authentication/signup/signup_screen.dart';
+import 'package:fiton/screen/authentication/login/components/account_checker.dart';
+import 'package:fiton/screen/authentication/login/components/background.dart';
+import 'package:fiton/screen/authentication/login/login_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'account_checker.dart';
-import 'background.dart';
-import 'login_option.dart';
-import 'or_divider.dart';
 
 class Body extends StatelessWidget {
-  const Body({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,9 +20,7 @@ class Body extends StatelessWidget {
               "FitOn",
               style: Theme.of(context).textTheme.headline1,
             ),
-            SizedBox(height: size.height * 0.11),
-            LoginOption(),
-            OrDivider(),
+            SizedBox(height: size.height * 0.25),
             RoundedInputField(
               onChanged: (value) {},
             ),
@@ -42,16 +30,26 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.01),
             RoundedButton(
-              text: "Login",
-              press: () {},
-            ),
-            AccountChecker(
+              text: "Sign Up",
               press: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return LoginScreen();
+                    },
+                  ),
+                );
+              },
+            ),
+            AccountChecker(
+              login: false,
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return LoginScreen();
                     },
                   ),
                 );
