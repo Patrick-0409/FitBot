@@ -1,5 +1,7 @@
+import 'package:fiton/google_sign_in.dart';
 import 'package:fiton/screen/authentication/components/rounded_login_option.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constant.dart';
 
@@ -17,7 +19,10 @@ class LoginOption extends StatelessWidget {
         RoundedLoginOption(
           text: 'WITH GOOGLE',
           img: 'google',
-          press: () {},
+          press: () {
+            final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
+            provider.googleLogin();
+          },
           color: Colors.white,
           tcolor: Colors.black,
           height: 30,
