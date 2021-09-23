@@ -15,7 +15,7 @@ class AccountChecker extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
-          login ? "Don't have account ? " : "Already have an Account ?",
+          login ? "Don't have Account ? " : "Already have an Account ? ",
           style: TextStyle(
             color: Colors.white,
             fontSize: 15,

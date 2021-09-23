@@ -1,5 +1,5 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/google_sign_in.dart';
+import 'package:fiton/provider/google_sign_in.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
