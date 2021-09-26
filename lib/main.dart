@@ -1,16 +1,26 @@
 import 'package:fiton/constant.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
+import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/google_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) => MultiProvider (
     // TODO: implement build
-    return MaterialApp(
+    providers: [
+      ChangeNotifierProvider(create: (context) => GoogleSignInProvider()),
+      ChangeNotifierProvider(create: (context) => EmailSignInProvider()),
+    ],
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FitOn',
       theme: ThemeData(
@@ -32,6 +42,6 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
       ),
       home: LoginScreen(),
-    );
-  }
+    ),
+  );
 }

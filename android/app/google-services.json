@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "495362468900",
+    "firebase_url": "https://fiton-541c8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "fiton-541c8",
+    "storage_bucket": "fiton-541c8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495362468900:android:cca59f7fa58ecce5073cb1",
+        "android_client_info": {
+          "package_name": "com.example.fiton"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495362468900-5fqfk23iverbd6g01nu8mkibmqaov9g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvx3QTxrRwm9SR_-USftffM9CYpH8SXRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495362468900-5fqfk23iverbd6g01nu8mkibmqaov9g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
