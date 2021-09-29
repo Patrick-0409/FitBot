@@ -5,11 +5,13 @@ import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
-class RoundedPasswordField extends StatelessWidget {
+class RoundedNameField extends StatelessWidget {
   final ValueChanged<String> onChanged;
-  const RoundedPasswordField({
+  final String hint;
+  const RoundedNameField({
     Key? key,
     required this.onChanged,
+    required this.hint,
   }) : super(key: key);
 
   @override
@@ -18,31 +20,17 @@ class RoundedPasswordField extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
       height: size.height * 0.08,
-      width: size.width * 0.87,
+      width: size.width * 0.5,
       child: TextFormField(
-        key: ValueKey('password'),
-        obscureText: true,
-        onChanged: onChanged,
+        textCapitalization: TextCapitalization.none,
         decoration: InputDecoration(
           icon: Icon(
-            Icons.lock,
+            Icons.person,
             color: kFacebookColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: kFacebookColor,
-          ),
+          hintText: hint,
           border: InputBorder.none,
-          hintText: "Your Password",
         ),
-        validator: (value) {
-          if (value!.isEmpty || value.length < 6) {
-            return 'Password must be at least 6 characters long.';
-          } else {
-            return null;
-          }
-        },
-        onSaved: (password) => provider.userPassword = password!,
       ),
     );
   }

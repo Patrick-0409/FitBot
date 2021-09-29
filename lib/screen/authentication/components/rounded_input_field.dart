@@ -15,8 +15,11 @@ class RoundedInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
+    Size size = MediaQuery.of(context).size;
 
     return TextFieldContainer(
+      height: size.height * 0.08,
+      width: size.width * 0.87,
       child: TextFormField(
         key: ValueKey('email'),
         autocorrect: false,
@@ -24,7 +27,7 @@ class RoundedInputField extends StatelessWidget {
         enableSuggestions: false,
         decoration: InputDecoration(
           icon: Icon(
-            Icons.person,
+            Icons.email,
             color: kFacebookColor,
           ),
           hintText: 'Your Email',
