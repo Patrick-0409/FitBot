@@ -28,15 +28,13 @@ class Body extends StatelessWidget {
             AvatarName(),
             GenderSelector(),
             SizedBox(height: size.height * 0.01),
+            DobSelector(),
+            SizedBox(height: size.height * 0.01),
             RoundedInputField(
               onChanged: (value) {},
             ),
             SizedBox(height: size.height * 0.01),
-            RoundedPasswordField(
-              onChanged: (value) {},
-            ),
-            SizedBox(height: size.height * 0.01),
-            DobSelector(),
+            RoundedPasswordField(),
             SizedBox(height: size.height * 0.01),
             RoundedButton(
               text: "Sign Up",

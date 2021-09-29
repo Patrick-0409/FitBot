@@ -5,12 +5,15 @@ import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
-class RoundedPasswordField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
-  const RoundedPasswordField({
-    Key? key,
-    required this.onChanged,
-  }) : super(key: key);
+class RoundedPasswordField extends StatefulWidget {
+  RoundedPasswordField({Key? key}) : super(key: key);
+
+  @override
+  _RoundedPasswordFieldState createState() => _RoundedPasswordFieldState();
+}
+
+class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +24,24 @@ class RoundedPasswordField extends StatelessWidget {
       width: size.width * 0.87,
       child: TextFormField(
         key: ValueKey('password'),
-        obscureText: true,
-        onChanged: onChanged,
+        obscureText: !_passwordVisible,
+        onChanged: (value) {},
         decoration: InputDecoration(
           icon: Icon(
             Icons.lock,
             color: kFacebookColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: kFacebookColor,
+          suffixIcon: IconButton(
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: kFacebookColor,
+            ),
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+                // print(_passwordVisible);
+              });
+            },
           ),
           border: InputBorder.none,
           hintText: "Your Password",
