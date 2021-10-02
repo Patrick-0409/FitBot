@@ -13,14 +13,12 @@ import 'background.dart';
 import 'login_option.dart';
 import 'or_divider.dart';
 
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-
   final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -44,13 +42,11 @@ class _BodyState extends State<Body> {
                 LoginOption(),
                 OrDivider(),
                 RoundedInputField(
-                    onChanged: (value) {},
+                  onChanged: (value) {},
                 ),
                 // buildEmailField(),
                 SizedBox(height: size.height * 0.02),
-                RoundedPasswordField(
-                  onChanged: (value) {},
-                ),
+                RoundedPasswordField(),
                 SizedBox(height: size.height * 0.01),
                 RoundedButton(
                   text: "Login",
@@ -77,7 +73,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
 
   Future submit() async {
     final provider = Provider.of<EmailSignInProvider>(context, listen: false);
@@ -129,5 +124,4 @@ class _BodyState extends State<Body> {
       },
     );
   }
-
 }

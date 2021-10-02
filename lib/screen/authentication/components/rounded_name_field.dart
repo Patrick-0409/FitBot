@@ -5,45 +5,32 @@ import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
-class RoundedInputField extends StatelessWidget {
+class RoundedNameField extends StatelessWidget {
   final ValueChanged<String> onChanged;
-  const RoundedInputField({
+  final String hint;
+  const RoundedNameField({
     Key? key,
     required this.onChanged,
+    required this.hint,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
-
     return TextFieldContainer(
       height: size.height * 0.08,
-      width: size.width * 0.87,
+      width: size.width * 0.5,
       child: TextFormField(
-        key: ValueKey('email'),
-        autocorrect: false,
         textCapitalization: TextCapitalization.none,
-        enableSuggestions: false,
         decoration: InputDecoration(
           icon: Icon(
-            Icons.email,
+            Icons.person,
             color: kFacebookColor,
           ),
-          hintText: 'Your Email',
+          hintText: hint,
           border: InputBorder.none,
         ),
-        validator: (value) {
-          final pattern = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
-          final regExp = RegExp(pattern);
-          if (!regExp.hasMatch(value!)) {
-            return 'Enter a valid mail';
-          } else {
-            return null;
-          }
-        },
-        keyboardType: TextInputType.emailAddress,
-        onSaved: (email) => provider.userEmail = email!,
       ),
     );
   }
