@@ -59,7 +59,7 @@ class _GenderSelectorState extends State<GenderSelector> {
             Radio(
               fillColor:
                   MaterialStateColor.resolveWith((states) => Colors.white),
-              value: 'female',
+              value: 'other',
               groupValue: _selectedGender,
               onChanged: (value) {
                 setState(() {
