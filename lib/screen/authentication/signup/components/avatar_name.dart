@@ -27,7 +27,7 @@ class AvatarName extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: 22, right: 28),
+          padding: EdgeInsets.only(left: 13.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[

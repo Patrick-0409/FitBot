@@ -52,6 +52,7 @@ class _GenderSelectorState extends State<GenderSelector> {
                 });
                 provider.gender = _selectedGender;
               },
+
             ),
             Text(
               'Female',

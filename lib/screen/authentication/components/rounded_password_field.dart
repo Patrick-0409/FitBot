@@ -20,14 +20,14 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
     final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
-      height: size.height * 0.08,
+      height: size.height * 0.064,
       width: size.width * 0.87,
       child: TextFormField(
         key: ValueKey('password'),
         obscureText: !_passwordVisible,
         onChanged: (value) {},
         decoration: InputDecoration(
-          icon: Icon(
+          prefixIcon: Icon(
             Icons.lock,
             color: kFacebookColor,
           ),
@@ -45,10 +45,20 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
           ),
           border: InputBorder.none,
           hintText: "Your Password",
+          contentPadding: EdgeInsets.only(top: 10, bottom: 10),
+          errorStyle: TextStyle(fontSize: 0, height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 3, color: Colors.red),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 3, color: Colors.red),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
         ),
         validator: (value) {
           if (value!.isEmpty || value.length < 6) {
-            return 'Password must be at least 6 characters long.';
+            return '';
           } else {
             return null;
           }
