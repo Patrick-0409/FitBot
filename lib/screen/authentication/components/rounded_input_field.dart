@@ -37,7 +37,7 @@ class RoundedInputField extends StatelessWidget {
           final pattern = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
           final regExp = RegExp(pattern);
           if (!regExp.hasMatch(value!)) {
-            return 'Enter a valid mail';
+            return 'Please enter a valid email!';
           } else {
             return null;
           }

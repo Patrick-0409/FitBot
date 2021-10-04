@@ -1,5 +1,7 @@
 import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
+import 'package:fiton/screen/provider/email_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AvatarName extends StatelessWidget {
   const AvatarName({
@@ -8,6 +10,7 @@ class AvatarName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     return Row(
       children: <Widget>[
@@ -29,12 +32,12 @@ class AvatarName extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
               RoundedNameField(
-                onChanged: (value) {},
+                onChanged: (firstName) => provider.firstName = firstName!,
                 hint: 'First Name',
               ),
               SizedBox(height: size.height * 0.01),
               RoundedNameField(
-                onChanged: (value) {},
+                onChanged: (lastName) => provider.lastName = lastName!,
                 hint: 'Last Name',
               ),
             ],

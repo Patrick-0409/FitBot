@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../constant.dart';
 
 class RoundedNameField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
+  final ValueSetter<String?>? onChanged;
   final String hint;
   const RoundedNameField({
     Key? key,
@@ -31,6 +31,14 @@ class RoundedNameField extends StatelessWidget {
           hintText: hint,
           border: InputBorder.none,
         ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter your name!';
+          } else {
+            return null;
+          }
+        },
+        onSaved: onChanged,
       ),
     );
   }

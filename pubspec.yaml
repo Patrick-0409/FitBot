@@ -30,13 +30,15 @@ dependencies:
   flutter_svg: ^0.22.0
 
   # google & email signin
-  firebase_auth: ^0.18.3
+  firebase_auth: ^0.20.0
 
   # google signin
-  google_sign_in: ^4.5.6
+  google_sign_in: ^4.5.9
 
   # state management
   provider: ^5.0.0
+
+  cloud_firestore: ^0.16.0
 
 dev_dependencies:
   flutter_test:
