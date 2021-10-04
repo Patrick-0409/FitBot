@@ -78,6 +78,8 @@ flutter:
           style: italic
         - asset: fonts/Poppins-Bold.ttf
           weight: 700
+        - asset: fonts/Poppins-Medium.ttf
+          weight: 600
     - family: Roboto
       fonts:
         - asset: fonts/Roboto-Regular.ttf
