@@ -1,4 +1,5 @@
 import 'package:fiton/models/news.dart';
+import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
@@ -24,13 +25,28 @@ class ReadNews extends StatelessWidget {
                     onTap: () => Navigator.pop(context),
                   ),
                   Spacer(),
-                  CircleButton(
-                    icon: Icons.share,
-                    onTap: () {},
+                  Text(
+                    "FitOn",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline5,
                   ),
-                  CircleButton(
-                    icon: Icons.favorite_border,
-                    onTap: () {},
+                  // CircleButton(
+                  //   icon: Icons.share,
+                  //   onTap: () {},
+                  // ),
+                  Spacer(),
+                  IconButton(
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomeScreen();
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -43,6 +59,47 @@ class ReadNews extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(height: 12.0),
+            Row(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 10.0,
+                  ),
+                  decoration: BoxDecoration(
+                    color: kTagColor,
+                    border: Border.all(color: kGrey3, width: 1.0),
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 5.0,
+                        backgroundColor: kGrey3,
+                      ),
+                      SizedBox(width: 6.0),
+                      Text(
+                        news.category,
+                        style: kCategoryTitle.copyWith(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 10.0),
+                Status(
+                  icon: Icons.remove_red_eye,
+                  total: news.seen,
+                ),
+                SizedBox(width: 15.0),
+                Status(
+                  icon: Icons.favorite_border,
+                  total: news.favorite,
+                ),
+              ],
+            ),
+            SizedBox(height: 12.0),
+            Text(news.title, style: kTitleCard.copyWith(fontSize: 20.0)),
+            SizedBox(height: 15.0),
             Hero(
               tag: news.seen,
               child: Container(
@@ -56,46 +113,6 @@ class ReadNews extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 15.0),
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 15.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: kGrey3, width: 1.0),
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 5.0,
-                        backgroundColor: kGrey3,
-                      ),
-                      SizedBox(width: 6.0),
-                      Text(
-                        news.category,
-                        style: kCategoryTitle,
-                      ),
-                    ],
-                  ),
-                ),
-                Spacer(),
-                Status(
-                  icon: Icons.remove_red_eye,
-                  total: news.seen,
-                ),
-                SizedBox(width: 15.0),
-                Status(
-                  icon: Icons.favorite_border,
-                  total: news.favorite,
-                ),
-              ],
-            ),
-            SizedBox(height: 12.0),
-            Text(news.title, style: kTitleCard.copyWith(fontSize: 28.0)),
             SizedBox(height: 15.0),
             Row(
               children: [
@@ -118,7 +135,8 @@ class ReadNews extends StatelessWidget {
             SizedBox(height: 15.0),
             Text(
               news.content,
-              style: descriptionStyle,
+              style:
+                  descriptionStyle.copyWith(color: Colors.black, fontSize: 14),
             ),
             SizedBox(height: 25.0)
           ],
