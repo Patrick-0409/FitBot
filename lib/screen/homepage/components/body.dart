@@ -1,15 +1,15 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/provider/google_sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Body extends StatelessWidget{
+class Body extends StatelessWidget {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
 
     return Scaffold(
@@ -19,11 +19,15 @@ class Body extends StatelessWidget{
         centerTitle: true,
         actions: [
           TextButton(
-              child: Text('Logout',style: TextStyle(color: Colors.red),),
-              onPressed: (){
-                final provider = Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-              },
+            child: Text(
+              'Logout',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              final provider =
+                  Provider.of<GoogleSignInProvider>(context, listen: false);
+              provider.logout();
+            },
           ),
         ],
       ),
@@ -43,11 +47,28 @@ class Body extends StatelessWidget{
                 'Hello, ' + user.displayName,
                 style: TextStyle(fontSize: 36),
               ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               user.email!,
               style: TextStyle(fontSize: 20),
-            )
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ArticleScreen();
+                    },
+                  ),
+                );
+              },
+              icon: Icon(
+                Icons.article,
+              ),
+            ),
           ],
         ),
       ),
