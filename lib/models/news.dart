@@ -24,7 +24,7 @@ class News {
   });
 }
 
-List<News> TrendingList = [
+List<News> PopularList = [
   News(
     author: "Nick Chong",
     estimate: "3",
@@ -106,7 +106,7 @@ List<News> TrendingList = [
   ),
 ];
 
-List<News> trendingList = [
+List<News> TrendingList = [
   News(
     author: "Nick Chong",
     estimate: "3",
@@ -244,7 +244,8 @@ List<News> recentList = [
     seen: "31.1K",
     time: "22 Hours ago",
     title: "'Fallout Shelter' joins Tesla arcade in latest software update",
-    image: "https://yonulis.com/wp-content/uploads/2020/02/tesla-1.jpg",
+    image:
+        "https://cdn.arstechnica.net/wp-content/uploads/2020/05/hearing-ios-1-760x380.jpg",
     subtitle:
         "J.K. Rowling has been drinking a lot and you'd better believe she has some thoughts on Bitcoin.\nNoted TERF and author of The Cuckoo’s Calling, Rowling decided Friday was the perfect time to learn about the cryptocurrency Bitcoin",
     content:

@@ -37,6 +37,7 @@ dependencies:
 
   # state management
   provider: ^5.0.0
+  google_fonts: ^1.1.2
 
   cloud_firestore: ^0.16.0
 
