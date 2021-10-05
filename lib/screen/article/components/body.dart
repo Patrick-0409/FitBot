@@ -24,8 +24,11 @@ class Body extends StatelessWidget {
                 var news = TrendingList[index];
                 return InkWell(
                   onTap: () {
-                    MaterialPageRoute(
-                      builder: (context) => ReadNews(news: news),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ReadNews(news: news),
+                      ),
                     );
                   },
                   child: Container(
@@ -48,8 +51,11 @@ class Body extends StatelessWidget {
               var recent = recentList[index];
               return InkWell(
                 onTap: () {
-                  MaterialPageRoute(
-                    builder: (context) => ReadNews(news: recent),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ReadNews(news: recent),
+                    ),
                   );
                 },
                 child: Container(
