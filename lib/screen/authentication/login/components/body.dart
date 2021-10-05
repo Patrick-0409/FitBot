@@ -1,8 +1,6 @@
-import 'package:fiton/constant.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
-import 'package:fiton/screen/authentication/components/text_field_container.dart';
 import 'package:fiton/screen/authentication/signup/signup_screen.dart';
 import 'package:fiton/screen/provider/email_sign_in.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +18,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
+import 'package:fiton/screen/provider/email_sign_in.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GenderSelector extends StatefulWidget {
   GenderSelector({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class _GenderSelectorState extends State<GenderSelector> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmailSignInProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -27,6 +30,7 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   _selectedGender = value.toString();
                 });
+                provider.gender = _selectedGender;
               },
             ),
             Text(
@@ -46,29 +50,12 @@ class _GenderSelectorState extends State<GenderSelector> {
                 setState(() {
                   _selectedGender = value.toString();
                 });
+                provider.gender = _selectedGender;
               },
+
             ),
             Text(
               'Female',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
-              ),
-            ),
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              value: 'other',
-              groupValue: _selectedGender,
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Other',
               style: TextStyle(
                 color: Colors.white70,
                 fontWeight: FontWeight.w700,
