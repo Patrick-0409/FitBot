@@ -45,14 +45,14 @@ class Body extends StatelessWidget {
             if (user.displayName != null)
               Text(
                 'Hello, ' + user.displayName,
-                style: TextStyle(fontSize: 36),
+                style: TextStyle(fontSize: 36, color: Colors.black),
               ),
             SizedBox(
               height: 20,
             ),
             Text(
               user.email!,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: Colors.black),
             ),
             IconButton(
               onPressed: () {
