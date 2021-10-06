@@ -27,16 +27,21 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
 
   # google & email signin
-  firebase_auth: ^0.20.0
+  firebase_auth: ^3.1.2
 
   # google signin
-  google_sign_in: ^4.5.9
+  google_sign_in:
 
   # state management
-  provider: ^5.0.0
+  provider: ^6.0.1
+
+  cloud_firestore: ^2.5.3
+  firebase_storage: ^10.0.4
+  image_picker: ^0.8.4+2
 
   cloud_firestore: ^0.16.0
 
@@ -80,6 +85,8 @@ flutter:
           style: italic
         - asset: fonts/Poppins-Bold.ttf
           weight: 700
+        - asset: fonts/Poppins-Medium.ttf
+          weight: 600
     - family: Roboto
       fonts:
         - asset: fonts/Roboto-Regular.ttf

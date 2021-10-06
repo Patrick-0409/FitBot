@@ -1,4 +1,4 @@
-import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +15,9 @@ class _GenderSelectorState extends State<GenderSelector> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      provider.gender = _selectedGender;
+    });
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
