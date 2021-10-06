@@ -3,19 +3,16 @@ import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constant.dart';
+import '../../../../constant.dart';
 
-class RoundedInputField extends StatefulWidget {
-  RoundedInputField({Key? key, this.onChanged}) : super(key: key);
-
-  final ValueSetter<String?>? onChanged;
+class DobSelector extends StatefulWidget {
+  DobSelector({Key? key}) : super(key: key);
 
   @override
-  _RoundedInputFieldState createState() => _RoundedInputFieldState();
+  _DobSelectorState createState() => _DobSelectorState();
 }
 
-
-class _RoundedInputFieldState extends State<RoundedInputField> {
+class _DobSelectorState extends State<DobSelector> {
 
   ErrorIcon _errorWidget = new ErrorIcon(false);
 
@@ -25,26 +22,48 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
     });
   }
 
+  TextEditingController TEController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
-
+    late String birthDateInString;
+    bool isDateSelected = false;
+    late DateTime birthDate;
     return TextFieldContainer(
       height: size.height * 0.064,
       width: size.width * 0.87,
       child: TextFormField(
-        key: ValueKey('email'),
-        autocorrect: false,
+        readOnly: true,
+        onTap: () async {
+          final datePick = await showDatePicker(
+              context: context,
+              initialDate: new DateTime.now(),
+              firstDate: new DateTime(1900),
+              lastDate: new DateTime(2100)
+          );
+          if (datePick != null) {
+            setState(
+              () {
+                birthDate = datePick;
+                isDateSelected = true;
+                // put it here
+                birthDateInString =
+                    "${birthDate.day}-${birthDate.month}-${birthDate.year}"; // 08/14/2019
+                provider.dob = birthDate;
+                TEController.text=birthDateInString;
+              },
+            );
+          }
+        },
         textCapitalization: TextCapitalization.none,
-        enableSuggestions: false,
         decoration: InputDecoration(
           prefixIcon: Icon(
-            Icons.email,
+            Icons.date_range_rounded,
             color: kFacebookColor,
           ),
-          hintText: 'Your Email',
           border: InputBorder.none,
+          hintText: 'Your Birthday',
           contentPadding: EdgeInsets.only(top: 10, bottom: 10),
           errorStyle: TextStyle(fontSize: 10, height: 0),
           errorBorder: OutlineInputBorder(
@@ -57,10 +76,9 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
           ),
           suffixIcon: _errorWidget,
         ),
+        controller: TEController,
         validator: (value) {
-          final pattern = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
-          final regExp = RegExp(pattern);
-          if (!regExp.hasMatch(value!)) {
+          if (value!.isEmpty) {
             errorWidget = new ErrorIcon(true);
             return '';
           } else {
@@ -68,8 +86,6 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
             return null;
           }
         },
-        keyboardType: TextInputType.emailAddress,
-        onSaved: (email) => provider.userEmail = email!,
       ),
     );
   }

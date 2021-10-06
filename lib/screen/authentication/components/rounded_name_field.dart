@@ -5,17 +5,19 @@ import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
-class RoundedInputField extends StatefulWidget {
-  RoundedInputField({Key? key, this.onChanged}) : super(key: key);
+class RoundedNameField extends StatefulWidget {
+  RoundedNameField({Key? key, this.hint, this.onChanged}) : super(key: key);
 
+  final String? hint;
   final ValueSetter<String?>? onChanged;
 
   @override
-  _RoundedInputFieldState createState() => _RoundedInputFieldState();
+  _RoundedNameFieldState createState() => _RoundedNameFieldState();
 }
 
 
-class _RoundedInputFieldState extends State<RoundedInputField> {
+
+class _RoundedNameFieldState extends State<RoundedNameField> {
 
   ErrorIcon _errorWidget = new ErrorIcon(false);
 
@@ -27,23 +29,18 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
-
     return TextFieldContainer(
       height: size.height * 0.064,
-      width: size.width * 0.87,
+      width: size.width * 0.5,
       child: TextFormField(
-        key: ValueKey('email'),
-        autocorrect: false,
         textCapitalization: TextCapitalization.none,
-        enableSuggestions: false,
         decoration: InputDecoration(
           prefixIcon: Icon(
-            Icons.email,
+            Icons.person,
             color: kFacebookColor,
           ),
-          hintText: 'Your Email',
+          hintText: widget.hint,
           border: InputBorder.none,
           contentPadding: EdgeInsets.only(top: 10, bottom: 10),
           errorStyle: TextStyle(fontSize: 10, height: 0),
@@ -58,9 +55,7 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
           suffixIcon: _errorWidget,
         ),
         validator: (value) {
-          final pattern = r'(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)';
-          final regExp = RegExp(pattern);
-          if (!regExp.hasMatch(value!)) {
+          if (value!.isEmpty) {
             errorWidget = new ErrorIcon(true);
             return '';
           } else {
@@ -68,8 +63,7 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
             return null;
           }
         },
-        keyboardType: TextInputType.emailAddress,
-        onSaved: (email) => provider.userEmail = email!,
+        onSaved: widget.onChanged,
       ),
     );
   }

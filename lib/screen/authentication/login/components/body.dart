@@ -1,10 +1,8 @@
-import 'package:fiton/constant.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
-import 'package:fiton/screen/authentication/components/text_field_container.dart';
 import 'package:fiton/screen/authentication/signup/signup_screen.dart';
-import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,16 +11,13 @@ import 'background.dart';
 import 'login_option.dart';
 import 'or_divider.dart';
 
-
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-
   final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +39,11 @@ class _BodyState extends State<Body> {
                 LoginOption(),
                 OrDivider(),
                 RoundedInputField(
-                    onChanged: (value) {},
+                  onChanged: (value) {},
                 ),
                 // buildEmailField(),
                 SizedBox(height: size.height * 0.02),
-                RoundedPasswordField(
-                  onChanged: (value) {},
-                ),
+                RoundedPasswordField(),
                 SizedBox(height: size.height * 0.01),
                 RoundedButton(
                   text: "Login",
@@ -77,7 +70,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
 
   Future submit() async {
     final provider = Provider.of<EmailSignInProvider>(context, listen: false);
@@ -129,5 +121,4 @@ class _BodyState extends State<Body> {
       },
     );
   }
-
 }

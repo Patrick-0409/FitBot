@@ -1,40 +1,64 @@
 import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
-class RoundedPasswordField extends StatelessWidget {
-  final ValueChanged<String> onChanged;
-  const RoundedPasswordField({
-    Key? key,
-    required this.onChanged,
-  }) : super(key: key);
+class RoundedPasswordField extends StatefulWidget {
+  RoundedPasswordField({Key? key}) : super(key: key);
+
+  @override
+  _RoundedPasswordFieldState createState() => _RoundedPasswordFieldState();
+}
+
+class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
+  bool _passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
+    Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
+      height: size.height * 0.064,
+      width: size.width * 0.87,
       child: TextFormField(
         key: ValueKey('password'),
-        obscureText: true,
-        onChanged: onChanged,
+        obscureText: !_passwordVisible,
+        onChanged: (value) {},
         decoration: InputDecoration(
-          icon: Icon(
+          prefixIcon: Icon(
             Icons.lock,
             color: kFacebookColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: kFacebookColor,
+          suffixIcon: IconButton(
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: kFacebookColor,
+            ),
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+                // print(_passwordVisible);
+              });
+            },
           ),
           border: InputBorder.none,
           hintText: "Your Password",
+          contentPadding: EdgeInsets.only(top: 10, bottom: 10),
+          errorStyle: TextStyle(fontSize: 0, height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 3, color: Colors.red),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 3, color: Colors.red),
+            borderRadius: BorderRadius.circular(8.0),
+          ),
         ),
         validator: (value) {
           if (value!.isEmpty || value.length < 6) {
-            return 'Password must be at least 6 characters long.';
+            return '';
           } else {
             return null;
           }
