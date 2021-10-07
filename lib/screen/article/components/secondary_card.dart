@@ -14,17 +14,21 @@ class SecondaryCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15.0),
         border: Border.all(color: kGrey3, width: 1.0),
+        color: Colors.white,
       ),
       child: Row(
         children: [
-          Container(
-            width: 90.0,
-            height: 135.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              image: DecorationImage(
-                image: NetworkImage(news.image),
-                fit: BoxFit.cover,
+          Hero(
+            tag: news.author,
+            child: Container(
+              width: 90.0,
+              height: 135.0,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12.0),
+                image: DecorationImage(
+                  image: NetworkImage(news.image),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

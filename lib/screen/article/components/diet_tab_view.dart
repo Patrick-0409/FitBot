@@ -33,6 +33,5 @@ class DietTabView extends StatelessWidget {
         );
       },
     );
-    ;
   }
 }

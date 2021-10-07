@@ -33,6 +33,7 @@ class ArticleScreen extends StatelessWidget {
                     icon: Icon(
                       Icons.home,
                       color: Colors.black,
+                      size: 35,
                     ),
                     onPressed: () {
                       Navigator.push(

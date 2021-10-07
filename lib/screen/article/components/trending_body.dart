@@ -66,7 +66,7 @@ class TrendingBody extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 535,
+              height: 525,
               child: TabBarView(
                 children: [
                   Container(child: TrainingTabView()),
