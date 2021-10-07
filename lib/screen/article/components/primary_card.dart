@@ -8,67 +8,69 @@ class PrimaryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: Colors.grey,
-          width: 1,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 5,
-                backgroundColor: Colors.grey,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(
-                news.category,
-                style: kCategoryTitle,
-              ),
-            ],
+    return Hero(
+      tag: news.seen,
+      child: Container(
+        width: 300,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            color: Colors.white,
+            width: 1,
           ),
-          SizedBox(height: 5),
-          Expanded(
-            child: Hero(
-              tag: news.seen,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: NetworkImage(news.image),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+          image: DecorationImage(
+            image: NetworkImage(news.image),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          height: 200,
+          margin: EdgeInsets.only(top: 165),
+          padding: EdgeInsets.only(top: 5, left: 20, right: 15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(24),
+              topRight: Radius.circular(24),
+              bottomLeft: Radius.circular(15),
+              bottomRight: Radius.circular(15),
             ),
           ),
-          SizedBox(height: 5),
-          Text(
-            news.title,
-            style: kTitleCard,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-          SizedBox(height: 5),
-          Row(
-            children: [
-              Text(news.time, style: kDetailContent),
-              SizedBox(width: 10),
-              CircleAvatar(radius: 5, backgroundColor: kGrey1),
-              SizedBox(width: 10),
-              Text("${news.estimate} min read", style: kDetailContent),
+          child: Column(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(height: 5),
+              Text(
+                news.title,
+                style: kTitleCard,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Icon(Icons.read_more_sharp, color: kGrey1),
+                  SizedBox(width: 5),
+                  Text("${news.estimate} min read", style: kDetailContent),
+                  SizedBox(width: 15),
+                  CircleAvatar(radius: 5, backgroundColor: Colors.grey),
+                  SizedBox(width: 5),
+                  Text(news.category, style: kCategoryTitle),
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                children: [
+                  Icon(Icons.collections_bookmark),
+                  SizedBox(width: 5),
+                  Text(news.time, style: kDetailContent),
+                  Spacer(),
+                  Icon(Icons.local_movies)
+                ],
+              ),
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
