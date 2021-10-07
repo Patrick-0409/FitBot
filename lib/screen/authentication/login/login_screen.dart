@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
-import 'package:fiton/screen/provider/email_sign_in.dart';
-import 'package:fiton/screen/provider/google_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/screen/provider/google_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

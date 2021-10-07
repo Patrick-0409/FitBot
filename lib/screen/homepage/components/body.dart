@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/article/article_screen.dart';
-import 'package:fiton/screen/provider/google_sign_in.dart';
+import 'package:fiton/screen/provider/google_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,12 +39,12 @@ class Body extends StatelessWidget {
             if (user.photoURL != null)
               CircleAvatar(
                 maxRadius: 40,
-                backgroundImage: NetworkImage(user.photoURL),
+                backgroundImage: NetworkImage(user.photoURL!),
               ),
             SizedBox(height: 20),
             if (user.displayName != null)
               Text(
-                'Hello, ' + user.displayName,
+                'Hello, ' + user.displayName!,
                 style: TextStyle(fontSize: 36, color: Colors.black),
               ),
             SizedBox(

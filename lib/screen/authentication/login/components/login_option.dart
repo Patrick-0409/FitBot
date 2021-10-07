@@ -1,5 +1,5 @@
 import 'package:fiton/screen/authentication/components/rounded_login_option.dart';
-import 'package:fiton/screen/provider/google_sign_in.dart';
+import 'package:fiton/screen/provider/google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

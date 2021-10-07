@@ -2,7 +2,7 @@ import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
 import 'package:fiton/screen/authentication/signup/signup_screen.dart';
-import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

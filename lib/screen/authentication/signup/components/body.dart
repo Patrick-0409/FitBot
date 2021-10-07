@@ -4,7 +4,7 @@ import 'package:fiton/screen/authentication/components/rounded_password_field.da
 import 'package:fiton/screen/authentication/login/components/account_checker.dart';
 import 'package:fiton/screen/authentication/login/components/background.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
-import 'package:fiton/screen/provider/email_sign_in.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
