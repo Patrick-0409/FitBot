@@ -1,4 +1,7 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/models/news.dart';
+import 'package:fiton/screen/article/detail/components/status.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constant.dart';
@@ -49,10 +52,13 @@ class Body extends StatelessWidget {
                 icon: Icons.remove_red_eye,
                 total: news.seen,
               ),
-              SizedBox(width: 15.0),
-              Status(
-                icon: Icons.favorite_border,
-                total: news.favorite,
+              Spacer(),
+              FavoriteButton(
+                isFavorite: false,
+                iconSize: 40.0,
+                valueChanged: (_isFavorite) {
+                  print('Is Favorite : $_isFavorite');
+                },
               ),
             ],
           ),
@@ -99,22 +105,6 @@ class Body extends StatelessWidget {
           SizedBox(height: 25.0)
         ],
       ),
-    );
-  }
-}
-
-class Status extends StatelessWidget {
-  final IconData icon;
-  final String total;
-  Status({required this.icon, required this.total});
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(icon, color: kGrey2),
-        SizedBox(width: 4.0),
-        Text(total, style: kDetailContent),
-      ],
     );
   }
 }

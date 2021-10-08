@@ -1,3 +1,4 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class PrimaryCard extends StatelessWidget {
         child: Container(
           height: 200,
           margin: EdgeInsets.only(top: 165),
-          padding: EdgeInsets.only(top: 5, left: 20, right: 15),
+          padding: EdgeInsets.only(left: 20, right: 15),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -65,7 +66,6 @@ class PrimaryCard extends StatelessWidget {
                   SizedBox(width: 5),
                   Text(news.time, style: kDetailContent),
                   Spacer(),
-                  Icon(Icons.local_movies)
                 ],
               ),
             ],

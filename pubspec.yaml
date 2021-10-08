@@ -29,6 +29,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.1.0
   flutter_svg: ^0.22.0
+  favorite_button: ^0.0.4
 
   # google & email signin
   firebase_auth: ^3.1.2
