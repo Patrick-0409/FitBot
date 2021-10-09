@@ -113,24 +113,6 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> login() async {
-    try {
-      isLoading = true;
-
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userEmail,
-        password: userPassword,
-      );
-
-      isLoading = false;
-      return true;
-    } catch (err) {
-      print(err);
-      isLoading = false;
-      return false;
-    }
-  }
-
   Future<bool> register() async {
     User? user;
     UserCredential? result;
@@ -201,5 +183,4 @@ class EmailSignInProvider extends ChangeNotifier {
       return false;
     }
   }
-
 }

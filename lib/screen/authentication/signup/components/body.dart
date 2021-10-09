@@ -42,9 +42,7 @@ class _BodyState extends State<Body> {
                 SizedBox(height: size.height * 0.01),
                 DobSelector(),
                 SizedBox(height: size.height * 0.01),
-                RoundedInputField(
-                  onChanged: (value) {},
-                ),
+                RoundedInputField(),
                 SizedBox(height: size.height * 0.01),
                 RoundedPasswordField(),
                 SizedBox(height: size.height * 0.01),

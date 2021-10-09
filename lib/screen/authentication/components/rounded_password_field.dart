@@ -1,12 +1,11 @@
 import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../../constant.dart';
 
 class RoundedPasswordField extends StatefulWidget {
-  RoundedPasswordField({Key? key}) : super(key: key);
+  RoundedPasswordField({Key? key, this.onChanged}) : super(key: key);
+
+  final ValueSetter<String?>? onChanged;
 
   @override
   _RoundedPasswordFieldState createState() => _RoundedPasswordFieldState();
@@ -17,7 +16,6 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
       height: size.height * 0.064,
@@ -25,7 +23,6 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
       child: TextFormField(
         key: ValueKey('password'),
         obscureText: !_passwordVisible,
-        onChanged: (value) {},
         decoration: InputDecoration(
           prefixIcon: Icon(
             Icons.lock,
@@ -39,7 +36,6 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             onPressed: () {
               setState(() {
                 _passwordVisible = !_passwordVisible;
-                // print(_passwordVisible);
               });
             },
           ),
@@ -63,7 +59,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
             return null;
           }
         },
-        onSaved: (password) => provider.userPassword = password!,
+        onChanged: widget.onChanged,
       ),
     );
   }

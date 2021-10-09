@@ -1,8 +1,5 @@
 import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
 import '../../../constant.dart';
 
 class RoundedInputField extends StatefulWidget {
@@ -27,7 +24,6 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
 
     return TextFieldContainer(
@@ -69,7 +65,7 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
           }
         },
         keyboardType: TextInputType.emailAddress,
-        onSaved: (email) => provider.userEmail = email!,
+        onChanged: widget.onChanged,
       ),
     );
   }
@@ -86,14 +82,12 @@ class ErrorIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget out;
 
-    debugPrint("Rebuilding ErrorWidget");
     isError
         ? out = new Icon(
       Icons.error,
       color: Color(Colors.red.value),
     )
         : out = new Icon(null);
-
     return out;
   }
 }
