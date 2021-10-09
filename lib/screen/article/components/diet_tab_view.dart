@@ -1,0 +1,37 @@
+import 'package:fiton/models/news.dart';
+import 'package:fiton/screen/article/components/secondary_card.dart';
+import 'package:fiton/screen/article/detail/read_news.dart';
+import 'package:flutter/material.dart';
+
+class DietTabView extends StatelessWidget {
+  const DietTabView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: PopularList.length,
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      physics: ScrollPhysics(),
+      itemBuilder: (context, index) {
+        var recent = PopularList[index];
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ReadNews(news: recent),
+              ),
+            );
+          },
+          child: Container(
+            width: double.infinity,
+            height: 150,
+            margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+            child: SecondaryCard(news: recent),
+          ),
+        );
+      },
+    );
+  }
+}

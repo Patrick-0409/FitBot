@@ -37,7 +37,10 @@ class ReadNews extends StatelessWidget {
                   // ),
                   Spacer(),
                   IconButton(
-                    icon: Icon(Icons.home),
+                    icon: Icon(
+                      Icons.home,
+                      size: 35,
+                    ),
                     onPressed: () {
                       Navigator.push(
                         context,
