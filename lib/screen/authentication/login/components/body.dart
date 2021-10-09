@@ -3,10 +3,7 @@ import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
 import 'package:fiton/screen/authentication/signup/signup_screen.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'account_checker.dart';
 import 'background.dart';
@@ -24,6 +21,7 @@ class _BodyState extends State<Body> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool loading = false;
+  bool success = false;
 
   _logIn() async {
     setState(() {
@@ -68,6 +66,7 @@ class _BodyState extends State<Body> {
       });
     } finally {
       setState(() {
+        success = true;
         loading = false;
       });
     }
@@ -76,7 +75,21 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
+    return Stack(
+      children: <Widget>[ loading && success ?
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+        child: Center(
+          child:SizedBox(
+            child: CircularProgressIndicator()
+          ),
+        ),
+      )
+            :
+      SingleChildScrollView(
       child: Background(
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -123,6 +136,7 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
+    )]
     );
   }
 

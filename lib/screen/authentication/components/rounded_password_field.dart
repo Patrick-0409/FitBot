@@ -1,5 +1,7 @@
 import 'package:fiton/screen/authentication/components/text_field_container.dart';
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../constant.dart';
 
 class RoundedPasswordField extends StatefulWidget {
@@ -16,6 +18,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
       height: size.height * 0.064,
@@ -60,6 +63,7 @@ class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
           }
         },
         onChanged: widget.onChanged,
+        onSaved: (password) => provider.userPassword = password!,
       ),
     );
   }
