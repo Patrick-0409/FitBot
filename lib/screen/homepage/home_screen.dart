@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/article/article_screen.dart';
+import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,14 @@ class HomeScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   _signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginScreen();
+                      },
+                    ),
+                  );
                 },
               ),
               title: Text(
