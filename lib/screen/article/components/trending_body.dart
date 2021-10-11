@@ -22,7 +22,6 @@ class TrendingBody extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 300,
-              padding: EdgeInsets.only(left: 18),
               child: ListView.builder(
                 itemCount: 5,
                 scrollDirection: Axis.horizontal,
@@ -39,7 +38,7 @@ class TrendingBody extends StatelessWidget {
                       );
                     },
                     child: Container(
-                      margin: EdgeInsets.only(right: 12),
+                      margin: EdgeInsets.only(right: 4, left: 10),
                       child: PrimaryCard(
                         news: news,
                       ),
