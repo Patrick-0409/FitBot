@@ -1,10 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:fiton/screen/provider/google_auth.dart';
+import 'package:provider/provider.dart';
 
 import '../../constant.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatelessWidget {
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +28,9 @@ class HomeScreen extends StatelessWidget {
                   size: 35,
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return ArticleScreen();
-                      },
-                    ),
-                  );
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.logout();
                 },
               ),
               title: Text(
