@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
@@ -23,6 +24,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: SingleChildScrollView(
@@ -42,9 +44,7 @@ class _BodyState extends State<Body> {
                 SizedBox(height: size.height * 0.01),
                 DobSelector(),
                 SizedBox(height: size.height * 0.01),
-                RoundedInputField(
-                  onChanged: (value) {},
-                ),
+                RoundedInputField(),
                 SizedBox(height: size.height * 0.01),
                 RoundedPasswordField(),
                 SizedBox(height: size.height * 0.01),
@@ -75,6 +75,36 @@ class _BodyState extends State<Body> {
     );
   }
 
+  void _handleSignUpError(FirebaseAuthException e) {
+    String messageToDisplay;
+    switch (e.code) {
+      case 'email-already-in-use':
+        messageToDisplay = 'This email is already in use';
+        break;
+      case 'invalid-email':
+        messageToDisplay = 'The email you ented is invalid';
+        break;
+      case 'operation-not-allowed':
+        messageToDisplay = 'This operation is not allowed';
+        break;
+      case 'weak-password':
+        messageToDisplay = 'The password you entered is too weak';
+        break;
+      default:
+        messageToDisplay = 'An unknown error occurred';
+        break;
+    }
+
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: Text('Sign up failed'),
+      content: Text(messageToDisplay),
+      actions: [TextButton(onPressed: () {
+        Navigator.of(context).pop();
+
+      }, child: Text('Ok'))],
+    ));
+  }
+
   Future submit() async {
     final provider = Provider.of<EmailSignInProvider>(context, listen: false);
 
@@ -93,14 +123,14 @@ class _BodyState extends State<Body> {
         });
       } else {
         if (mounted) {
-          showAlertDialog(context);
+          _handleSignUpError(provider.message);
+          // showAlertDialog(context);
         }
       }
     }
   }
 
   showAlertDialog(BuildContext context) {
-    // Create button
     Widget okButton = FlatButton(
       child: Text("OK"),
       onPressed: () {
@@ -108,16 +138,14 @@ class _BodyState extends State<Body> {
       },
     );
 
-    // Create AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("Register Failed"),
-      content: Text("Please enter correct data!"),
+      title: Text("Register failed"),
+      content: Text("content"),
       actions: [
         okButton,
       ],
     );
 
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {

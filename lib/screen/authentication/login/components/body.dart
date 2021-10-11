@@ -1,10 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
 import 'package:fiton/screen/authentication/components/rounded_input_field.dart';
 import 'package:fiton/screen/authentication/components/rounded_password_field.dart';
 import 'package:fiton/screen/authentication/signup/signup_screen.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'account_checker.dart';
 import 'background.dart';
@@ -19,10 +18,78 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
 
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool loading = false;
+  bool success = false;
+
+  _logIn() async {
+    setState(() {
+      loading = true;
+    });
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text
+      );
+
+    } on FirebaseAuthException catch (e) {
+      var message = '';
+
+      switch (e.code) {
+        case 'invalid-email':
+          message = 'The email you entered was invalid';
+          break;
+        case 'user-disabled':
+          message = 'The user you tried to log into is disabled';
+          break;
+        case 'user-not-found':
+          message = 'The user you tried to log into was not found';
+          break;
+        case 'wrong-password':
+          message = 'Incorrect password';
+          break;
+      }
+
+      showDialog(context: context, builder: (context) {
+        return AlertDialog(
+          title: Text('Login failed'),
+          content: Text(message),
+          actions: [
+            TextButton(onPressed: () {
+              Navigator.of(context).pop();
+
+            }, child: Text('Ok')),
+          ],
+        );
+      });
+    } finally {
+      setState(() {
+        success = true;
+        loading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SingleChildScrollView(
+    return Stack(
+      children: <Widget>[ loading && success ?
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+        ),
+        child: Center(
+          child:SizedBox(
+            child: CircularProgressIndicator()
+          ),
+        ),
+      )
+            :
+      SingleChildScrollView(
       child: Background(
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -39,16 +106,17 @@ class _BodyState extends State<Body> {
                 LoginOption(),
                 OrDivider(),
                 RoundedInputField(
-                  onChanged: (value) {},
+                  onChanged: (value) => _emailController.text = value!,
                 ),
-                // buildEmailField(),
                 SizedBox(height: size.height * 0.02),
-                RoundedPasswordField(),
+                RoundedPasswordField(
+                  onChanged: (value) => _passwordController.text = value!,
+                ),
                 SizedBox(height: size.height * 0.01),
                 RoundedButton(
                   text: "Login",
                   press: () {
-                    submit();
+                    _logIn();
                   },
                 ),
                 AccountChecker(
@@ -68,57 +136,11 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
+    )]
     );
   }
 
   Future submit() async {
-    final provider = Provider.of<EmailSignInProvider>(context, listen: false);
-
-    final isValid = _formKey.currentState!.validate();
-    FocusScope.of(context).unfocus();
-
-    if (isValid) {
-      _formKey.currentState!.save();
-
-      final isSuccess = await provider.login();
-      if (isSuccess) {
-        new Future.delayed(const Duration(seconds: 1), () {
-          if (mounted) {
-            Navigator.of(context).pop();
-          }
-        });
-      } else {
-        if (mounted) {
-          showAlertDialog(context);
-        }
-      }
-    }
-  }
-
-  showAlertDialog(BuildContext context) {
-    // Create button
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    // Create AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Login Failed"),
-      content: Text("Please enter correct email and password!"),
-      actions: [
-        okButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
+    print(_passwordController.text);
   }
 }

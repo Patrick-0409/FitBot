@@ -22,6 +22,7 @@ class EmailSignInProvider extends ChangeNotifier {
   String? _basename;
   String? _gender;
   String? _urlImage;
+  FirebaseAuthException? _message;
   File? _image;
   DateTime? _dob;
 
@@ -106,29 +107,18 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  FirebaseAuthException get message => _message!;
+
+  set message(FirebaseAuthException value) {
+    _message = value;
+    notifyListeners();
+  }
+
   DateTime get dob => _dob!;
 
   set dob(DateTime value) {
     _dob = value;
     notifyListeners();
-  }
-
-  Future<bool> login() async {
-    try {
-      isLoading = true;
-
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: userEmail,
-        password: userPassword,
-      );
-
-      isLoading = false;
-      return true;
-    } catch (err) {
-      print(err);
-      isLoading = false;
-      return false;
-    }
   }
 
   Future<bool> register() async {
@@ -141,17 +131,20 @@ class EmailSignInProvider extends ChangeNotifier {
           email: userEmail,
           password: userPassword
       );
-
+      _message = null;
       // isLoading = false;
-    } catch (err) {
+    } on FirebaseAuthException catch (err) {
       print(err);
       isLoading = false;
+      _message = err;
+      print(userEmail);
+      print(userPassword);
+      print(err);
+      return false;
     }
 
-    print("masuk broo");
-
     try{
-      user = result!.user;
+      user = result.user;
       if(user!=null && _image!=null){
         await uploadImage(user.uid);
       }
@@ -162,8 +155,6 @@ class EmailSignInProvider extends ChangeNotifier {
     }
 
     try{
-      // isLoading = true;
-
       await userCollection.doc(user?.uid).set({
         'uid': user?.uid,
         'firstName': firstName,
@@ -183,7 +174,7 @@ class EmailSignInProvider extends ChangeNotifier {
   }
 
   Future uploadImage(String uid) async{
-    // if(_image==null) return;
+    if(_image==null) return;
     try{
       // isLoading = true;
       final imageName = _basename;
@@ -192,14 +183,11 @@ class EmailSignInProvider extends ChangeNotifier {
       if(task == null) return;
       final snapshot = await task!.whenComplete(() => {});
       _urlImage = await snapshot.ref.getDownloadURL();
-      print("upppp");
       // isLoading = false;
     }catch(err){
-      print("upload image2");
       print(err);
       isLoading = false;
       return false;
     }
   }
-
 }

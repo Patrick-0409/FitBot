@@ -1,15 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/screen/article/article_screen.dart';
-import 'package:fiton/screen/provider/google_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../home_screen.dart';
 
 class Body extends StatelessWidget {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  Future<void> _signOut() async {
+    await firebaseAuth.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
