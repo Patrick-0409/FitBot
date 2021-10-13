@@ -1,14 +1,7 @@
 import 'dart:io';
 
-<<<<<<< Updated upstream
 import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
 import 'package:fiton/screen/provider/email_auth.dart';
-=======
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
-import 'package:fiton/screen/provider/firebase_api.dart';
->>>>>>> Stashed changes
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -66,13 +59,8 @@ class _AvatarNameState extends State<AvatarName> {
                             onPressed: () => {
                               pickImage(),
                               if(this.image!=null){
-<<<<<<< Updated upstream
-                                provider.basename = this.basename!,
-                                provider.image = this.image!
-=======
                                 provider.image = this.image!,
                                 provider.basename = this.basename!,
->>>>>>> Stashed changes
                               }
                             },
                             elevation: 2.0,
@@ -122,10 +110,4 @@ class _AvatarNameState extends State<AvatarName> {
       print('Failed to pick image $e');
     }
   }
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
 }

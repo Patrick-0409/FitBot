@@ -143,7 +143,6 @@ class EmailSignInProvider extends ChangeNotifier {
       return false;
     }
 
-<<<<<<< Updated upstream:lib/screen/provider/email_auth.dart
     try{
       user = result.user;
       if(user!=null && _image!=null){
@@ -156,14 +155,10 @@ class EmailSignInProvider extends ChangeNotifier {
     }
 
     try{
-      await userCollection.doc(user?.uid).set({
-        'uid': user?.uid,
-=======
       User? user = result.user;
 
       await userCollection.doc(user!.uid).set({
         'uid': user.uid,
->>>>>>> Stashed changes:lib/screen/provider/email_sign_in.dart
         'firstName': firstName,
         'lastName': lastName,
         'gender': _gender,
