@@ -12,11 +12,29 @@ const kGrey2 = Color(0xFF6D6D6D);
 const kGrey3 = Color(0xFFEAEAEA);
 const kBlack = Color(0xFF1C1C1C);
 const kTagColor = Color(0xFF39BBC4);
+const kArticle = Color(0xFFFDD1C3);
+const kTrain = Color(0xFFD8FFD4);
+const kChat = Color(0xFFC3F2FD);
+const kArticleText = Color(0XFFDA3B3B);
+const kTrainText = Color(0XFF579823);
+const kChatText = Color(0XFF3B71DA);
 
 const kDefaultPaddin = 20.0;
 
 var kNonActiveTabStyle = GoogleFonts.poppins(
   textStyle: TextStyle(fontSize: 14.0, color: kGrey1),
+);
+
+var kArticleTitle = GoogleFonts.poppins(
+  textStyle: TextStyle(fontSize: 15.0, color: kArticleText),
+);
+
+var kTrainTitle = GoogleFonts.poppins(
+  textStyle: TextStyle(fontSize: 15.0, color: kTrainText),
+);
+
+var kChatTitle = GoogleFonts.poppins(
+  textStyle: TextStyle(fontSize: 15.0, color: kChatText),
 );
 
 var kActiveTabStyle = GoogleFonts.poppins(
@@ -46,6 +64,14 @@ var kTitleCard = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 18.0,
     color: kBlack,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+var kDistanceTitle = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 11.0,
+    color: Colors.white,
     fontWeight: FontWeight.bold,
   ),
 );
