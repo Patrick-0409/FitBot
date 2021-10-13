@@ -59,8 +59,8 @@ class _AvatarNameState extends State<AvatarName> {
                             onPressed: () => {
                               pickImage(),
                               if(this.image!=null){
+                                provider.image = this.image!,
                                 provider.basename = this.basename!,
-                                provider.image = this.image!
                               }
                             },
                             elevation: 2.0,

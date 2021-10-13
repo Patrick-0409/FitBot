@@ -9,10 +9,6 @@ import '../home_screen.dart';
 class Body extends StatelessWidget {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future<void> _signOut() async {
-    await firebaseAuth.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
