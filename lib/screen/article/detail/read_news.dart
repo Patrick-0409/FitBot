@@ -7,7 +7,7 @@ import 'components/body.dart';
 import 'components/circle_button.dart';
 
 class ReadNews extends StatelessWidget {
-  final News news;
+  final Article news;
   ReadNews({required this.news});
   @override
   Widget build(BuildContext context) {

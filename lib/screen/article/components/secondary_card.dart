@@ -3,7 +3,7 @@ import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
 
 class SecondaryCard extends StatelessWidget {
-  final News news;
+  final Article news;
   const SecondaryCard({Key? key, required this.news}) : super(key: key);
 
   @override
@@ -19,14 +19,14 @@ class SecondaryCard extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-            tag: news.author,
+            tag: news.title!,
             child: Container(
               width: 90.0,
               height: 135.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.0),
                 image: DecorationImage(
-                  image: NetworkImage(news.image),
+                  image: NetworkImage(news.urlToImage!),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -40,14 +40,14 @@ class SecondaryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    news.title,
+                    news.title!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: kTitleCard,
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                    news.subtitle,
+                    news.description!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: kDetailContent,
@@ -56,7 +56,7 @@ class SecondaryCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        news.time,
+                        news.publishedAt.toString(),
                         overflow: TextOverflow.ellipsis,
                         style: kDetailContent,
                       ),
@@ -66,10 +66,6 @@ class SecondaryCard extends StatelessWidget {
                         backgroundColor: kGrey1,
                       ),
                       SizedBox(width: 10.0),
-                      Text(
-                        "${news.estimate} min read",
-                        style: kDetailContent,
-                      )
                     ],
                   )
                 ],

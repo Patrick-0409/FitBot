@@ -8,9 +8,22 @@ import 'package:flutter/material.dart';
 import '../../../constant.dart';
 import 'diet_tab_view.dart';
 import 'food_tab_view.dart';
+import '../../../services/news_api_manager.dart';
 
-class TrendingBody extends StatelessWidget {
+class TrendingBody extends StatefulWidget {
   const TrendingBody({Key? key}) : super(key: key);
+  @override
+  _TrendingBodyState createState() => _TrendingBodyState();
+}
+
+class _TrendingBodyState extends State<TrendingBody> {
+  late Future<NewsModel> _newsModel;
+
+  @override
+  void initState() {
+    _newsModel = API_Manager().getNews(trending_url);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,30 +35,37 @@ class TrendingBody extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 300,
-              child: ListView.builder(
-                itemCount: 5,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  var news = TrendingList[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ReadNews(news: news),
+              child: FutureBuilder<NewsModel>(
+                future: _newsModel,
+                builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data?.articles.length,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      var news = snapshot.data?.articles[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ReadNews(news: news!),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(right: 4, left: 10),
+                          child: PrimaryCard(
+                            news: news!,
+                          ),
                         ),
                       );
                     },
-                    child: Container(
-                      margin: EdgeInsets.only(right: 4, left: 10),
-                      child: PrimaryCard(
-                        news: news,
-                      ),
-                    ),
                   );
-                },
-              ),
+                }
+                  return Center(child: CircularProgressIndicator());
+              }),
             ),
             SizedBox(height: 25),
             Container(

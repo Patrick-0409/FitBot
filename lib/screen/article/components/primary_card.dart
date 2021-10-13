@@ -4,13 +4,13 @@ import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
 
 class PrimaryCard extends StatelessWidget {
-  final News news;
+  final Article news;
   const PrimaryCard({Key? key, required this.news}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: news.seen,
+      tag: news.title!,
       child: Container(
         width: 300,
         decoration: BoxDecoration(
@@ -20,7 +20,7 @@ class PrimaryCard extends StatelessWidget {
             width: 1,
           ),
           image: DecorationImage(
-            image: NetworkImage(news.image),
+            image: NetworkImage(news.urlToImage!),
             fit: BoxFit.cover,
           ),
         ),
@@ -42,7 +42,7 @@ class PrimaryCard extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 5),
               Text(
-                news.title,
+                news.title!,
                 style: kTitleCard,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -52,11 +52,9 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.read_more_sharp, color: kGrey1),
                   SizedBox(width: 5),
-                  Text("${news.estimate} min read", style: kDetailContent),
                   SizedBox(width: 15),
                   CircleAvatar(radius: 5, backgroundColor: Colors.grey),
                   SizedBox(width: 5),
-                  Text(news.category, style: kCategoryTitle),
                 ],
               ),
               SizedBox(height: 5),
@@ -64,7 +62,7 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.collections_bookmark),
                   SizedBox(width: 5),
-                  Text(news.time, style: kDetailContent),
+                  Text(news.publishedAt.toString(), style: kDetailContent),
                   Spacer(),
                 ],
               ),

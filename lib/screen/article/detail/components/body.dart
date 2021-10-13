@@ -12,7 +12,7 @@ class Body extends StatelessWidget {
     required this.news,
   }) : super(key: key);
 
-  final News news;
+  final Article news;
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +41,13 @@ class Body extends StatelessWidget {
                     ),
                     SizedBox(width: 6.0),
                     Text(
-                      news.category,
+                      news.source!.name!,
                       style: kCategoryTitle.copyWith(color: Colors.black),
                     ),
                   ],
                 ),
               ),
               SizedBox(width: 10.0),
-              Status(
-                icon: Icons.remove_red_eye,
-                total: news.seen,
-              ),
               Spacer(),
               FavoriteButton(
                 isFavorite: false,
@@ -63,16 +59,16 @@ class Body extends StatelessWidget {
             ],
           ),
           SizedBox(height: 12.0),
-          Text(news.title, style: kTitleCard.copyWith(fontSize: 20.0)),
+          Text(news.title!, style: kTitleCard.copyWith(fontSize: 20.0)),
           SizedBox(height: 15.0),
           Hero(
-            tag: news.seen,
+            tag: news.title!,
             child: Container(
               height: 220.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
-                  image: NetworkImage(news.image),
+                  image: NetworkImage(news.urlToImage!),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -81,7 +77,7 @@ class Body extends StatelessWidget {
           SizedBox(height: 15.0),
           Row(
             children: [
-              Text(news.time, style: kDetailContent),
+              Text(news.publishedAt.toString(), style: kDetailContent),
               SizedBox(width: 5.0),
               SizedBox(
                 width: 10.0,
@@ -92,14 +88,14 @@ class Body extends StatelessWidget {
               ),
               SizedBox(width: 5.0),
               Text(
-                news.author,
+                news.source!.name!,
                 style: kDetailContent.copyWith(color: Colors.black),
               ),
             ],
           ),
           SizedBox(height: 15.0),
           Text(
-            news.content,
+            news.content!,
             style: descriptionStyle.copyWith(color: Colors.black, fontSize: 14),
           ),
           SizedBox(height: 25.0)
