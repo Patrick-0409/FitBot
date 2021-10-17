@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
+import 'package:fiton/screen/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,9 +28,21 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-              leading: CircleAvatar(
-                maxRadius: 25,
-                backgroundImage: NetworkImage(user.photoURL!),
+              leading: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProfileScreen();
+                      },
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  maxRadius: 25,
+                  backgroundImage: NetworkImage(user.photoURL!),
+                ),
               ),
               title: Text(
                 "FitOn",
