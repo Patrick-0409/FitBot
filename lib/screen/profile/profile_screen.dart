@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../constant.dart';
 import 'components/body.dart';
@@ -43,13 +44,18 @@ class ProfileScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.apps_sharp,
-                  color: Colors.white,
-                  size: 35,
-                ),
-                onPressed: () {},
+              trailing: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return HomeScreen();
+                      },
+                    ),
+                  );
+                },
+                child: SvgPicture.asset("assets/images/menu.svg"),
               ),
             ),
           ],

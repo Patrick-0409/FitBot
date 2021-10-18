@@ -18,6 +18,10 @@ const kChat = Color(0xFFC3F2FD);
 const kArticleText = Color(0XFFDA3B3B);
 const kTrainText = Color(0XFF579823);
 const kChatText = Color(0XFF3B71DA);
+const kGender = Color(0XFF7E9ACF);
+const kWeight = Color(0XFFE9A464);
+const kProfile = Color(0XFF57A3A8);
+const kPip = Color(0XFF8EB3B6);
 
 const kDefaultPaddin = 20.0;
 
