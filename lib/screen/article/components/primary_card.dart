@@ -2,6 +2,8 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as TimeAgo;
+import 'network_image_ssl.dart';
 
 class PrimaryCard extends StatelessWidget {
   final Article news;
@@ -20,7 +22,7 @@ class PrimaryCard extends StatelessWidget {
             width: 1,
           ),
           image: DecorationImage(
-            image: NetworkImage(news.urlToImage!),
+            image: NetworkImageSSL(news.urlToImage!, headers: {}),
             fit: BoxFit.cover,
           ),
         ),
@@ -52,9 +54,11 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.read_more_sharp, color: kGrey1),
                   SizedBox(width: 5),
-                  SizedBox(width: 15),
-                  CircleAvatar(radius: 5, backgroundColor: Colors.grey),
-                  SizedBox(width: 5),
+                  Text(
+                    news.source!.name!,
+                    overflow: TextOverflow.ellipsis,
+                    style: kDetailContent,
+                  ),
                 ],
               ),
               SizedBox(height: 5),
@@ -62,7 +66,7 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.collections_bookmark),
                   SizedBox(width: 5),
-                  Text(news.publishedAt.toString(), style: kDetailContent),
+                  Text(TimeAgo.format(news.publishedAt!), style: kDetailContent),
                   Spacer(),
                 ],
               ),

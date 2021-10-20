@@ -25,18 +25,37 @@ class _FoodTabViewState extends State<FoodTabView> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              itemCount: PopularList.length,
+              itemCount: snapshot.data?.articles.length,
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               physics: ScrollPhysics(),
               itemBuilder: (context, index) {
                 var recent = snapshot.data?.articles[index];
                 return InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    bool temp = await API_Manager().checkContains(await API_Manager().checkNews(
+                                                recent!.source!.name,
+                                                recent.author,
+                                                recent.title,
+                                                recent.description,
+                                                recent.url,
+                                                recent.urlToImage,
+                                                recent.publishedAt!,
+                                                recent.content
+                                                ));
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ReadNews(news: recent!),
+                        builder: (context) => ReadNews(contain: temp,   
+                                                        source: recent.source!.name,
+                                                        author: recent.author,
+                                                        title: recent.title,
+                                                        description: recent.description,
+                                                        url: recent.url,
+                                                        urlToImage: recent.urlToImage,
+                                                        publishedAt: recent.publishedAt!,
+                                                        content: recent.content,
+                        ),
                       ),
                     );
                   },
@@ -44,7 +63,16 @@ class _FoodTabViewState extends State<FoodTabView> {
                     width: double.infinity,
                     height: 150,
                     margin: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                    child: SecondaryCard(news: recent!),
+                    child: SecondaryCard(
+                      source: recent!.source!.name,
+                      author: recent.author,
+                      title: recent.title,
+                      description: recent.description,
+                      url: recent.url,
+                      urlToImage: recent.urlToImage,
+                      publishedAt: recent.publishedAt!,
+                      content: recent.content,
+                    ),
                   ),
                 );
               },

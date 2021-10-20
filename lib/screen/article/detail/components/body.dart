@@ -1,18 +1,42 @@
 import 'package:favorite_button/favorite_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/news.dart';
+import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:fiton/screen/article/detail/components/status.dart';
+import 'package:fiton/services/news_api_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
+import 'package:timeago/timeago.dart' as TimeAgo;
 import '../../../../constant.dart';
 
 class Body extends StatelessWidget {
-  const Body({
-    Key? key,
-    required this.news,
-  }) : super(key: key);
+  var id;
+  final bool? contain;
+  final String? uid;
+  final String? source;
+  final String? author;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? urlToImage;
+  final DateTime? publishedAt;
+  final String? content;
 
-  final Article news;
+
+  Body({
+    Key? key,
+    required this.contain,
+    required this.uid,
+    required this.source,
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.publishedAt,
+    required this.content,
+  }
+  ) : id = API_Manager().getFavID(title), super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +65,7 @@ class Body extends StatelessWidget {
                     ),
                     SizedBox(width: 6.0),
                     Text(
-                      news.source!.name!,
+                      source!,
                       style: kCategoryTitle.copyWith(color: Colors.black),
                     ),
                   ],
@@ -50,26 +74,32 @@ class Body extends StatelessWidget {
               SizedBox(width: 10.0),
               Spacer(),
               FavoriteButton(
-                isFavorite: false,
+                isFavorite: contain,
                 iconSize: 40.0,
-                valueChanged: (_isFavorite) {
+                valueChanged: (_isFavorite) async {
                   print('Is Favorite : $_isFavorite');
+                  // if(favorite.favorited!.contains(user!.uid))
+                  //   print("ada usernya");
+                  if(_isFavorite)
+                    await API_Manager().addFav(await API_Manager().getFavID(title));
+                  else
+                    await API_Manager().deleteFav(await API_Manager().getFavID(title));
                 },
               ),
             ],
           ),
           SizedBox(height: 12.0),
-          Text(news.title!, style: kTitleCard.copyWith(fontSize: 20.0)),
+          Text(title!, style: kTitleCard.copyWith(fontSize: 20.0)),
           SizedBox(height: 15.0),
           Hero(
-            tag: news.title!,
+            tag: title!,
             child: Container(
               height: 220.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 image: DecorationImage(
-                  image: NetworkImage(news.urlToImage!),
-                  fit: BoxFit.fill,
+                  image: NetworkImageSSL(urlToImage!, headers: {}),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
@@ -77,7 +107,7 @@ class Body extends StatelessWidget {
           SizedBox(height: 15.0),
           Row(
             children: [
-              Text(news.publishedAt.toString(), style: kDetailContent),
+              Text(TimeAgo.format(publishedAt!), style: kDetailContent),
               SizedBox(width: 5.0),
               SizedBox(
                 width: 10.0,
@@ -88,14 +118,14 @@ class Body extends StatelessWidget {
               ),
               SizedBox(width: 5.0),
               Text(
-                news.source!.name!,
+                source!,
                 style: kDetailContent.copyWith(color: Colors.black),
               ),
             ],
           ),
           SizedBox(height: 15.0),
           Text(
-            news.content!,
+            content!,
             style: descriptionStyle.copyWith(color: Colors.black, fontSize: 14),
           ),
           SizedBox(height: 25.0)

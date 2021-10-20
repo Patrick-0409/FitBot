@@ -46,11 +46,30 @@ class _TrendingBodyState extends State<TrendingBody> {
                     itemBuilder: (context, index) {
                       var news = snapshot.data?.articles[index];
                       return InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          bool temp = await API_Manager().checkContains(await API_Manager().checkNews(
+                                                news!.source!.name,
+                                                news.author,
+                                                news.title,
+                                                news.description,
+                                                news.url,
+                                                news.urlToImage,
+                                                news.publishedAt!,
+                                                news.content
+                                                ));
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ReadNews(news: news!),
+                              builder: (context) => ReadNews(contain: temp, 
+                                                        source: news.source!.name,
+                                                        author: news.author,
+                                                        title: news.title,
+                                                        description: news.description,
+                                                        url: news.url,
+                                                        urlToImage: news.urlToImage,
+                                                        publishedAt: news.publishedAt!,
+                                                        content: news.content,
+                              ),
                             ),
                           );
                         },
