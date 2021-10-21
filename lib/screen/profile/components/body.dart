@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
+import 'package:fiton/screen/profile/components/button_stats.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'common_stats.dart';
 import 'description.dart';
@@ -10,6 +13,8 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = FirebaseAuth.instance.currentUser!;
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -28,6 +33,48 @@ class Body extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10, top: 3, right: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  maxRadius: 32,
+                                  backgroundImage: NetworkImage(user.photoURL!),
+                                ),
+                                Spacer(),
+                                Column(
+                                  children: [
+                                    Text(
+                                      user.displayName!,
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 15),
+                                    ),
+                                    Text(
+                                      "Indonesia",
+                                      textAlign: TextAlign.start,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 15),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Spacer(),
@@ -83,7 +130,90 @@ class Body extends StatelessWidget {
                           color: kPip,
                         ),
                         child: Column(
-                          children: <Widget>[],
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(left: 25, right: 25, top: 5),
+                              child: Row(
+                                children: [
+                                  ButtonStats(
+                                    size: size,
+                                    picture: SvgPicture.asset(
+                                      "assets/images/sleep.svg",
+                                      color: kStastC,
+                                    ),
+                                    text: Text(
+                                      "40 hrs",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  ButtonStats(
+                                    size: size,
+                                    picture: SvgPicture.asset(
+                                      "assets/images/calories.svg",
+                                      color: kStastC,
+                                    ),
+                                    text: Text(
+                                      "40 hrs",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Padding(
+                              padding: EdgeInsets.only(left: 25, right: 25),
+                              child: Row(
+                                children: [
+                                  ButtonStats(
+                                    size: size,
+                                    picture: SvgPicture.asset(
+                                      "assets/images/step.svg",
+                                      color: kStastC,
+                                    ),
+                                    text: Text(
+                                      "40 hrs",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  ButtonStats(
+                                    size: size,
+                                    picture: SvgPicture.asset(
+                                      "assets/images/weight.svg",
+                                      color: kStastC,
+                                    ),
+                                    text: Text(
+                                      "40 hrs",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              color: Colors.black,
+                                              fontSize: 20),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     ],
@@ -93,6 +223,50 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ButtonStats extends StatelessWidget {
+  const ButtonStats({
+    Key? key,
+    required this.size,
+    required this.picture,
+    required this.text,
+  }) : super(key: key);
+
+  final Size size;
+  final SvgPicture picture;
+  final Text text;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      // height: size.height * 0.5,
+      width: size.width * 0.35,
+      child: Column(
+        children: [
+          AspectRatio(
+            aspectRatio: 3,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: Row(
+                  children: [
+                    picture,
+                    Spacer(),
+                    text,
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

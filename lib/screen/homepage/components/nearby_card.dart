@@ -31,7 +31,7 @@ class NearbyCard extends StatelessWidget {
             padding: EdgeInsets.only(left: 15),
             child: Text(
               news.title,
-              style: kDistanceTitle,
+              style: kDistanceTitle.copyWith(color: Colors.black),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
             ),

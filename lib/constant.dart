@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-String trending_url = 'https://newsapi.org/v2/top-headlines?category=health&q=kesehatan&apiKey=e08220ae586347369accb7f48b746c39';
-String training_url = 'https://newsapi.org/v2/everything?q=olahraga sehat&apiKey=e08220ae586347369accb7f48b746c39';
-String food_url = 'https://newsapi.org/v2/everything?q=makanan sehat&apiKey=e08220ae586347369accb7f48b746c39';
-String diet_url = 'https://newsapi.org/v2/everything?q=diet sehat&apiKey=e08220ae586347369accb7f48b746c39';
+String trending_url =
+    'https://newsapi.org/v2/top-headlines?category=health&q=kesehatan&apiKey=e08220ae586347369accb7f48b746c39';
+String training_url =
+    'https://newsapi.org/v2/everything?q=olahraga sehat&apiKey=e08220ae586347369accb7f48b746c39';
+String food_url =
+    'https://newsapi.org/v2/everything?q=makanan sehat&apiKey=e08220ae586347369accb7f48b746c39';
+String diet_url =
+    'https://newsapi.org/v2/everything?q=diet sehat&apiKey=e08220ae586347369accb7f48b746c39';
 
 const kHeaderColor = Color(0xFF39BBC3);
 const kTextLightColor = Color(0xFFACACAC);
@@ -27,6 +31,7 @@ const kGender = Color(0XFF7E9ACF);
 const kWeight = Color(0XFFE9A464);
 const kProfile = Color(0XFF57A3A8);
 const kPip = Color(0XFF8EB3B6);
+const kStastC = Color(0XFF2B5558);
 
 const kDefaultPaddin = 20.0;
 
