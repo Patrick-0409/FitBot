@@ -21,6 +21,21 @@ class _LoginOption extends State<LoginOption> {
 
   var loading = false;
 
+  Future<bool> checkAccount(String email) async {
+    bool temp = await FirebaseFirestore.instance
+              .collection('users')
+              .where('email',isEqualTo: email)
+              .get()
+              .then((QuerySnapshot querySnapshot) {
+                  if (querySnapshot.docs.length>0) {
+                      return true;
+                  } else {
+                      return false;
+                  }
+              });
+              return temp;
+  }
+
   void _logInWithFacebook() async {
     if (this.mounted) {setState(() { loading = true; });}
 
@@ -31,11 +46,17 @@ class _LoginOption extends State<LoginOption> {
       final facebookAuthCredential = FacebookAuthProvider.credential(facebookLoginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 
-      await FirebaseFirestore.instance.collection('users').add({
-        'email': userData['email'],
-        'imageUrl': userData['picture']['data']['url'],
-        'name': userData['name'],
-      });
+      bool temp = await checkAccount(userData['email']);
+
+      if(!temp) {
+        final user = FirebaseAuth.instance.currentUser;
+        await FirebaseFirestore.instance.collection('users').add({
+          'uid': user!.uid,
+          'email': userData['email'],
+          'imageUrl': userData['picture']['data']['url'],
+          'name': userData['name'],
+        });
+      }
 
     } on FirebaseAuthException catch (e) {
       var content = '';
@@ -88,12 +109,16 @@ class _LoginOption extends State<LoginOption> {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      await FirebaseFirestore.instance.collection('users').add({
-        'email': googleSignInAccount.email,
-        'imageUrl': googleSignInAccount.photoUrl,
-        'name': googleSignInAccount.photoUrl,
-      });
-
+      
+      bool temp = await checkAccount(googleSignInAccount.email);
+      if(!temp) {
+        await FirebaseFirestore.instance.collection('users').add({
+          'uid': googleSignInAccount.id,
+          'email': googleSignInAccount.email,
+          'imageUrl': googleSignInAccount.photoUrl,
+          'name': googleSignInAccount.photoUrl,
+        });
+      }
     } on FirebaseAuthException catch (e) {
       var content = '';
       switch (e.code) {

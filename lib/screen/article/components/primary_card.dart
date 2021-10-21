@@ -2,15 +2,17 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
+import 'package:timeago/timeago.dart' as TimeAgo;
+import 'network_image_ssl.dart';
 
 class PrimaryCard extends StatelessWidget {
-  final News news;
+  final Article news;
   const PrimaryCard({Key? key, required this.news}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: news.seen,
+      tag: news.title!,
       child: Container(
         width: 300,
         decoration: BoxDecoration(
@@ -20,7 +22,7 @@ class PrimaryCard extends StatelessWidget {
             width: 1,
           ),
           image: DecorationImage(
-            image: NetworkImage(news.image),
+            image: NetworkImageSSL(news.urlToImage!, headers: {}),
             fit: BoxFit.cover,
           ),
         ),
@@ -42,7 +44,7 @@ class PrimaryCard extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 5),
               Text(
-                news.title,
+                news.title!,
                 style: kTitleCard,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
@@ -52,11 +54,11 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.read_more_sharp, color: kGrey1),
                   SizedBox(width: 5),
-                  Text("${news.estimate} min read", style: kDetailContent),
-                  SizedBox(width: 15),
-                  CircleAvatar(radius: 5, backgroundColor: Colors.grey),
-                  SizedBox(width: 5),
-                  Text(news.category, style: kCategoryTitle),
+                  Text(
+                    news.source!.name!,
+                    overflow: TextOverflow.ellipsis,
+                    style: kDetailContent,
+                  ),
                 ],
               ),
               SizedBox(height: 5),
@@ -64,7 +66,7 @@ class PrimaryCard extends StatelessWidget {
                 children: [
                   Icon(Icons.collections_bookmark),
                   SizedBox(width: 5),
-                  Text(news.time, style: kDetailContent),
+                  Text(TimeAgo.format(news.publishedAt!), style: kDetailContent),
                   Spacer(),
                 ],
               ),

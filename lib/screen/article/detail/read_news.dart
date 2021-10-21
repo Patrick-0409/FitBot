@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,27 @@ import 'components/body.dart';
 import 'components/circle_button.dart';
 
 class ReadNews extends StatelessWidget {
-  final News news;
-  ReadNews({required this.news});
+  final bool? contain;
+  final String? source;
+  final String? author;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? urlToImage;
+  final DateTime? publishedAt;
+  final String? content;
+  final user = FirebaseAuth.instance.currentUser;
+  ReadNews({
+    required this.contain,
+    required this.source,
+    required this.author,
+    required this.title,
+    required this.description,
+    required this.url,
+    required this.urlToImage,
+    required this.publishedAt,
+    required this.content
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +78,18 @@ class ReadNews extends StatelessWidget {
           ),
         ),
       ),
-      body: Body(news: news),
+      body: Body(
+        contain: contain,
+        source: source!,
+        author: author,
+        title: title,
+        description: description,
+        url: url,
+        urlToImage: urlToImage,
+        publishedAt: publishedAt!,
+        content: content,
+        uid: user!.uid,
+      ),
     );
   }
 }
