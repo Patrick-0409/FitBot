@@ -1,20 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/screen/article/article_screen.dart';
-import 'package:fiton/screen/authentication/login/login_screen.dart';
-import 'package:fiton/screen/profile/profile_screen.dart';
+import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../constant.dart';
 import 'components/body.dart';
 
-class HomeScreen extends StatelessWidget {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-
-  Future<void> _signOut() async {
-    await firebaseAuth.signOut();
-  }
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,35 +22,35 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-              leading: GestureDetector(
-                onTap: () {
+              leading: IconButton(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                  size: 35,
+                ),
+                onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ProfileScreen();
+                        return HomeScreen();
                       },
                     ),
                   );
                 },
-                child: CircleAvatar(
-                  maxRadius: 25,
-                  backgroundImage: NetworkImage(user.photoURL!),
-                ),
               ),
               title: Text(
-                "FitOn",
+                "Profile",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
               trailing: GestureDetector(
                 onTap: () {
-                  _signOut();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return LoginScreen();
+                        return HomeScreen();
                       },
                     ),
                   );
