@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/news.dart';
+import 'package:fiton/models/dummy.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
@@ -69,7 +69,7 @@ class Body extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    var news = PopularList[index];
+                    var news = popularList[index];
                     return InkWell(
                       onTap: () {},
                       child: Container(

@@ -1,10 +1,10 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/news.dart';
+import 'package:fiton/models/dummy.dart';
 import 'package:flutter/material.dart';
 
 class NearbyCard extends StatelessWidget {
-  final News news;
+  final Dummy news;
   const NearbyCard({Key? key, required this.news}) : super(key: key);
 
   @override
