@@ -35,7 +35,7 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "FitOn",
+                  "FitBot",
                   style: Theme.of(context).textTheme.headline1,
                 ),
                 // SizedBox(height: size.height * 0.25),
@@ -95,14 +95,19 @@ class _BodyState extends State<Body> {
         break;
     }
 
-    showDialog(context: context, builder: (context) => AlertDialog(
-      title: Text('Sign up failed'),
-      content: Text(messageToDisplay),
-      actions: [TextButton(onPressed: () {
-        Navigator.of(context).pop();
-
-      }, child: Text('Ok'))],
-    ));
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text('Sign up failed'),
+              content: Text(messageToDisplay),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Ok'))
+              ],
+            ));
   }
 
   Future submit() async {

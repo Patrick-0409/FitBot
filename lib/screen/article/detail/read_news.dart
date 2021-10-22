@@ -18,17 +18,16 @@ class ReadNews extends StatelessWidget {
   final DateTime? publishedAt;
   final String? content;
   final user = FirebaseAuth.instance.currentUser;
-  ReadNews({
-    required this.contain,
-    required this.source,
-    required this.author,
-    required this.title,
-    required this.description,
-    required this.url,
-    required this.urlToImage,
-    required this.publishedAt,
-    required this.content
-  });
+  ReadNews(
+      {required this.contain,
+      required this.source,
+      required this.author,
+      required this.title,
+      required this.description,
+      required this.url,
+      required this.urlToImage,
+      required this.publishedAt,
+      required this.content});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +46,7 @@ class ReadNews extends StatelessWidget {
                   ),
                   Spacer(),
                   Text(
-                    "FitOn",
+                    "FitBot",
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.headline5,
                   ),

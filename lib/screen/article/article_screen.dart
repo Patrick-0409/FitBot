@@ -25,7 +25,7 @@ class ArticleScreen extends StatelessWidget {
               children: [
                 ListTile(
                   title: Text(
-                    "FitOn",
+                    "FitBot",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.headline5,
                   ),

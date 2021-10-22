@@ -46,7 +46,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               title: Text(
-                "FitOn",
+                "FitBot",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
