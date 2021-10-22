@@ -32,10 +32,10 @@ class Body extends StatelessWidget {
                       height: size.height * 0.10,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
+                        color: kBackgroundColor,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10, top: 3, right: 10),
+                        padding: EdgeInsets.only(left: 10, top: 3, right: 1),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,29 +47,41 @@ class Body extends StatelessWidget {
                                   backgroundImage: NetworkImage(user.photoURL!),
                                 ),
                                 Spacer(),
-                                Column(
-                                  children: [
-                                    Text(
-                                      user.displayName!,
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 15),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 16),
+                                  child: Container(
+                                    width: size.width * 0.33,
+                                    height: size.height * 0.07,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: kGender,
                                     ),
-                                    Text(
-                                      "Indonesia",
-                                      textAlign: TextAlign.start,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 15),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(height: 3),
+                                        Text(
+                                          user.displayName!,
+                                          textAlign: TextAlign.start,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 15),
+                                        ),
+                                        Text(
+                                          "INA",
+                                          textAlign: TextAlign.start,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 15),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 )
                               ],
                             ),
@@ -79,7 +91,7 @@ class Body extends StatelessWidget {
                     ),
                     Spacer(),
                     Padding(
-                      padding: EdgeInsets.only(top: 35),
+                      padding: EdgeInsets.only(top: 30),
                       child: Container(
                         width: size.width * 0.35,
                         height: size.height * 0.05,
