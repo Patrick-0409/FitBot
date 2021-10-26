@@ -145,7 +145,7 @@ class Body extends StatelessWidget {
                           children: <Widget>[
                             Padding(
                               padding:
-                                  EdgeInsets.only(left: 25, right: 25, top: 5),
+                                  EdgeInsets.only(left: 25, right: 25, top: 10),
                               child: Row(
                                 children: [
                                   ButtonStats(

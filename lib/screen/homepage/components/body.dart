@@ -169,7 +169,7 @@ class Body extends StatelessWidget {
                     },
                     color: kTrain,
                     text: Text(
-                      "Diet",
+                      "Eat",
                       style: kTrainTitle,
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
