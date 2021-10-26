@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/dummy.dart';
 import 'package:fiton/screen/article/article_screen.dart';
+import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:flutter/cupertino.dart';
@@ -162,7 +163,7 @@ class Body extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ArticleScreen();
+                            return EatScreen();
                           },
                         ),
                       );
