@@ -1,5 +1,6 @@
 import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/article/components/primary_card.dart';
+import 'package:fiton/screen/article/detail/components/body.dart';
 import 'package:fiton/screen/article/detail/read_news.dart';
 import 'package:fiton/screen/article/components/secondary_card.dart';
 import 'package:fiton/services/news_api_manager.dart';
@@ -7,13 +8,13 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
-class Bod extends StatefulWidget {
-  const Bod({Key? key}) : super(key: key);
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
   @override
-  _BodState createState() => _BodState();
+  _BodyState createState() => _BodyState();
 }
 
-class _BodState extends State<Bod> {
+class _BodyState extends State<Body> {
   late Future<NewsModel> _newsModel;
 
   @override

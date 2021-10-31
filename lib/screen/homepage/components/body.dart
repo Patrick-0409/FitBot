@@ -1,25 +1,53 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/dummy.dart';
+import 'package:fiton/models/place.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
+import 'package:fiton/services/geolocator_service.dart';
+import 'package:fiton/services/places_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../home_screen.dart';
 import 'button_explore.dart';
 
-class Body extends StatelessWidget {
+
+class Body extends StatefulWidget {
+  const Body({Key? key}) : super(key: key);
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  Future<PlaceModel>? _placeModel;
+  Position? position;
+
+  Future<Position?> getPosition() async {
+    position = await GeoLocatorService().getLocation();
+    return position;
+  }
+
+  @override
+  void initState() {
+    getPosition().then((value) => {
+      setState(() {
+        _placeModel = PlacesService().getPlaces(value!.latitude,value.longitude);
+      }),
+    });
+    super.initState();
+  }
+
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     final size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -65,24 +93,32 @@ class Body extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: size.height * 0.14,
-                child: ListView.builder(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var news = popularList[index];
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 200,
-                        margin: EdgeInsets.only(right: 4, left: 13),
-                        child: NearbyCard(
-                          news: news,
-                        ),
-                      ),
-                    );
-                  },
-                ),
+                child: FutureBuilder<PlaceModel>(
+                  future: _placeModel,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: (snapshot.data?.places.length != null) ? (snapshot.data!.places.length > 5) ? 5 : snapshot.data?.places.length : 0,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          var place = snapshot.data?.places[index];
+                          return InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: 200,
+                              margin: EdgeInsets.only(right: 4, left: 13),
+                              child: NearbyCard(
+                                place: place!,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }
+                )
               ),
               SizedBox(height: 10),
               Padding(
