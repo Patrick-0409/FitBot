@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-String trending_url =
+const String trending_url =
     'https://newsapi.org/v2/top-headlines?category=health&q=kesehatan&apiKey=e08220ae586347369accb7f48b746c39';
-String training_url =
+const String training_url =
     'https://newsapi.org/v2/everything?q=olahraga sehat&apiKey=e08220ae586347369accb7f48b746c39';
-String food_url =
+const String food_url =
     'https://newsapi.org/v2/everything?q=makanan sehat&apiKey=e08220ae586347369accb7f48b746c39';
-String diet_url =
+const String diet_url =
     'https://newsapi.org/v2/everything?q=diet sehat&apiKey=e08220ae586347369accb7f48b746c39';
+
+const String apiKey = "AIzaSyC0_N9rxMEYDCPiQva-dqDhHVHnDg9I7Bc";
 
 const kHeaderColor = Color(0xFF39BBC3);
 const kTextLightColor = Color(0xFFACACAC);

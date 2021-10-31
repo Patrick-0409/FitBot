@@ -1,11 +1,10 @@
-import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/dummy.dart';
+import 'package:fiton/models/place.dart';
 import 'package:flutter/material.dart';
 
 class NearbyCard extends StatelessWidget {
-  final Dummy news;
-  const NearbyCard({Key? key, required this.news}) : super(key: key);
+  final Place place;
+  const NearbyCard({Key? key, required this.place}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class NearbyCard extends StatelessWidget {
           width: 1,
         ),
         image: DecorationImage(
-          image: NetworkImage(news.image),
+          image: NetworkImage('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+place.photos[0].photo_reference!+'&key='+apiKey),
           fit: BoxFit.cover,
         ),
       ),
@@ -30,7 +29,7 @@ class NearbyCard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 15),
             child: Text(
-              news.title,
+              place.name!,
               style: kDistanceTitle.copyWith(color: Colors.black),
               overflow: TextOverflow.ellipsis,
               maxLines: 1,
