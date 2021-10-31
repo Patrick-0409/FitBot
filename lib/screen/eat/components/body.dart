@@ -1,3 +1,4 @@
+import 'package:fiton/constant.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatelessWidget {
@@ -5,9 +6,9 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: EdgeInsets.only(left: 15),
+    final Size = MediaQuery.of(context).size;
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Text(
@@ -25,6 +26,16 @@ class Body extends StatelessWidget {
                   .bodyText1!
                   .copyWith(fontWeight: FontWeight.w600),
             ),
+            SizedBox(height: 2),
+            // Container(
+            //   width: Size.width * 0.6,
+            //   height: 50,
+            //   decoration: BoxDecoration(
+            //     color: kSearchBarColor.withOpacity(0.1),
+            //     borderRadius: BorderRadius.circular(15),
+            //   ),
+            //   child: TextField(),
+            // )
           ],
         ),
       ),
