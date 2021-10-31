@@ -18,21 +18,33 @@ class NearbyCard extends StatelessWidget {
           width: 1,
         ),
         image: DecorationImage(
-          image: NetworkImage('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+place.photos[0].photo_reference!+'&key='+apiKey),
+          image: NetworkImage(
+              'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
+                  place.photos[0].photo_reference! +
+                  '&key=' +
+                  apiKey),
           fit: BoxFit.cover,
         ),
       ),
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 65),
           Padding(
-            padding: EdgeInsets.only(left: 15),
-            child: Text(
-              place.name!,
-              style: kDistanceTitle.copyWith(color: Colors.black),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
+            padding: EdgeInsets.only(left: 12),
+            child: Container(
+              padding: EdgeInsets.only(left: 7, right: 7, top: 3, bottom: 3),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Text(
+                place.name!,
+                style: kDistanceTitle.copyWith(color: Colors.black),
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
           ),
         ],
