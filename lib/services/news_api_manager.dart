@@ -4,13 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:fiton/models/news.dart';
 
-import '../constant.dart';
-
 // ignore: camel_case_types
 class API_Manager {
   
-  final CollectionReference newsCol =
-      FirebaseFirestore.instance.collection("favorites");
+  final CollectionReference newsCol = FirebaseFirestore.instance.collection("favorites");
   final user = FirebaseAuth.instance.currentUser;
   
   Future<NewsModel> getNews(String url) async {

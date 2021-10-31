@@ -51,7 +51,7 @@ List<Dummy> popularList = [
     title:
         "Hertz: Car rental firm files for US bankruptcy protection - BBC Dummy",
     image:
-        "https://ichef.bbci.co.uk/Dummy/1024/branded_Dummy/55A2/production/_112422912_tv061593010.jpg",
+        "https://bitcoinist.com/wp-content/uploads/2020/05/shutterstock_717244969-1920x1142.jpg",
     subtitle:
         "The company said the coronavirus pandemic had led to an \"abrupt\" decline in bookings.",
     content:
