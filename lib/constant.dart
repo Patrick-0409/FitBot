@@ -87,7 +87,7 @@ var kTitleCard = GoogleFonts.poppins(
 
 var kDistanceTitle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 15.0,
+    fontSize: 12.0,
     color: Colors.white,
     fontWeight: FontWeight.bold,
   ),

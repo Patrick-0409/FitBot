@@ -31,7 +31,7 @@ class NearbyCard extends StatelessWidget {
         children: <Widget>[
           SizedBox(height: 65),
           Padding(
-            padding: EdgeInsets.only(left: 12),
+            padding: EdgeInsets.only(left: 12, right: 20),
             child: Container(
               padding: EdgeInsets.only(left: 7, right: 7, top: 3, bottom: 3),
               decoration: BoxDecoration(
