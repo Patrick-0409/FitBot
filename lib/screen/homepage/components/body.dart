@@ -6,6 +6,7 @@ import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
+import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +17,6 @@ import 'package:geolocator/geolocator.dart';
 
 import '../home_screen.dart';
 import 'button_explore.dart';
-
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -36,10 +36,11 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     getPosition().then((value) => {
-      setState(() {
-        _placeModel = PlacesService().getPlaces(value!.latitude,value.longitude);
-      }),
-    });
+          setState(() {
+            _placeModel =
+                PlacesService().getPlaces(value!.latitude, value.longitude);
+          }),
+        });
     super.initState();
   }
 
@@ -72,11 +73,20 @@ class _BodyState extends State<Body> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
-                          .copyWith(color: Colors.black),
+                          .copyWith(color: Colors.white),
                     ),
                     Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SeeAllScreen();
+                            },
+                          ),
+                        );
+                      },
                       child: Text(
                         "See All",
                         textAlign: TextAlign.start,
@@ -98,7 +108,11 @@ class _BodyState extends State<Body> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
-                        itemCount: (snapshot.data?.places.length != null) ? (snapshot.data!.places.length > 5) ? 5 : snapshot.data?.places.length : 0,
+                        itemCount: (snapshot.data?.places.length != null)
+                            ? (snapshot.data!.places.length > 5)
+                                ? 5
+                                : snapshot.data?.places.length
+                            : 0,
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
@@ -117,8 +131,8 @@ class _BodyState extends State<Body> {
                       );
                     }
                     return Center(child: CircularProgressIndicator());
-                  }
-                )
+                  },
+                ),
               ),
               SizedBox(height: 10),
               Padding(
@@ -129,7 +143,7 @@ class _BodyState extends State<Body> {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
-                      .copyWith(color: Colors.black),
+                      .copyWith(color: Colors.white),
                 ),
               ),
               SizedBox(height: 10),

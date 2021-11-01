@@ -34,6 +34,7 @@ const kWeight = Color(0XFFE9A464);
 const kProfile = Color(0XFF57A3A8);
 const kPip = Color(0XFF8EB3B6);
 const kStastC = Color(0XFF2B5558);
+const kSearchBarColor = Color(0xFF979797);
 
 const kDefaultPaddin = 20.0;
 
@@ -86,7 +87,7 @@ var kTitleCard = GoogleFonts.poppins(
 
 var kDistanceTitle = GoogleFonts.poppins(
   textStyle: TextStyle(
-    fontSize: 11.0,
+    fontSize: 12.0,
     color: Colors.white,
     fontWeight: FontWeight.bold,
   ),
