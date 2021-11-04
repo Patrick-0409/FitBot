@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class ButtonDishes extends StatelessWidget {
-  const ButtonDishes({
+class ButtonTimeBased extends StatelessWidget {
+  const ButtonTimeBased({
     Key? key,
     required this.size,
     required this.press,
@@ -21,14 +21,15 @@ class ButtonDishes extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
-      child: SizedBox(
-        width: size.width * 0.21,
-        child: Column(
-          children: <Widget>[
-            AspectRatio(
-              aspectRatio: 1,
-              child: Container(
-                padding: EdgeInsets.only(top: 25),
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: SizedBox(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 15),
+                width: size.width * 0.28,
+                height: size.height * 0.11,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(10),
@@ -41,8 +42,8 @@ class ButtonDishes extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

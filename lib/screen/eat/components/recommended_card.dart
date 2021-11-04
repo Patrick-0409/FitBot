@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
-class DishesCard extends StatelessWidget {
+class RecommendedCard extends StatelessWidget {
   final Dummy news;
-  const DishesCard({Key? key, required this.news}) : super(key: key);
+  const RecommendedCard({Key? key, required this.news}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 20),
       child: Container(
-        width: 300,
+        width: 132,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImageSSL(news.image, headers: {}),
@@ -42,7 +42,7 @@ class DishesCard extends StatelessWidget {
             ),
             Padding(
               padding:
-                  EdgeInsets.only(left: 15, top: 8, right: 150, bottom: 100),
+                  EdgeInsets.only(left: 10, top: 8, right: 20, bottom: 115),
               child: Text.rich(
                 TextSpan(
                   style: TextStyle(color: Colors.white),
@@ -51,7 +51,7 @@ class DishesCard extends StatelessWidget {
                       text: news.title,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 14,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -60,7 +60,7 @@ class DishesCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15, top: 135),
+              padding: EdgeInsets.only(left: 10, top: 185),
               child: Row(
                 children: <Widget>[
                   Container(
@@ -71,18 +71,6 @@ class DishesCard extends StatelessWidget {
                     ),
                     child: Text(
                       "40 min",
-                      style: kTitleCardEat,
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Container(
-                    padding: EdgeInsets.only(left: 5, right: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: KEatCardCategory,
-                    ),
-                    child: Text(
-                      "Seafood",
                       style: kTitleCardEat,
                     ),
                   ),
