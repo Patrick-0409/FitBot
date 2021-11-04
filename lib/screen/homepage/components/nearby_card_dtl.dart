@@ -1,11 +1,12 @@
 import 'package:fiton/models/dummy.dart';
+import 'package:fiton/models/place.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
 class NearbyCardDtl extends StatelessWidget {
-  final Dummy news;
-  NearbyCardDtl({required this.news});
+  final Place place;
+  NearbyCardDtl({required this.place});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,11 @@ class NearbyCardDtl extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               image: DecorationImage(
-                image: NetworkImage(news.image),
+                image: place.photos.length > 0 ? NetworkImage(
+              'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
+                  place.photos[0].photo_reference! +
+                  '&key=' +
+                  apiKey) : NetworkImage('https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,14 +43,14 @@ class NearbyCardDtl extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    news.title,
+                    place.name!,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: kTitleCard,
                   ),
                   SizedBox(height: 4.0),
                   Text(
-                    news.subtitle,
+                    'temp description',
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: kDetailContent,

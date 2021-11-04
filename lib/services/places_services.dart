@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class PlacesService {
 
   Future<PlaceModel> getPlaces(double lat, double lng) async {
-    var tempUri = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&type=restaurant&rankby=distance&key=$apiKey';
+    var tempUri = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=$lat,$lng&type=meal_takeaway&rankby=distance&key=$apiKey';
     var client = http.Client();
     var placeModel;
     try {

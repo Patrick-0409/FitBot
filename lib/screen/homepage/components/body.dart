@@ -109,9 +109,9 @@ class _BodyState extends State<Body> {
                     if (snapshot.hasData) {
                       return ListView.builder(
                         itemCount: (snapshot.data?.places.length != null)
-                            ? (snapshot.data!.places.length > 5)
+                            ? ((snapshot.data!.places.length > 5)
                                 ? 5
-                                : snapshot.data?.places.length
+                                : snapshot.data?.places.length)
                             : 0,
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,

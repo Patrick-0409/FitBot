@@ -18,11 +18,11 @@ class NearbyCard extends StatelessWidget {
           width: 1,
         ),
         image: DecorationImage(
-          image: NetworkImage(
+          image: place.photos.length > 0 ? NetworkImage(
               'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
                   place.photos[0].photo_reference! +
                   '&key=' +
-                  apiKey),
+                  apiKey) : NetworkImage('https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp'),
           fit: BoxFit.cover,
         ),
       ),
