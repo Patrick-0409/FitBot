@@ -35,6 +35,8 @@ const kProfile = Color(0XFF57A3A8);
 const kPip = Color(0XFF8EB3B6);
 const kStastC = Color(0XFF2B5558);
 const kSearchBarColor = Color(0xFF979797);
+const KEatCardCategory = Color(0XFF9FC9DB);
+const KEatCardCalories = Color(0XFFDFB472);
 
 const kDefaultPaddin = 20.0;
 
@@ -80,6 +82,14 @@ var kDetailContent = GoogleFonts.poppins(
 var kTitleCard = GoogleFonts.poppins(
   textStyle: TextStyle(
     fontSize: 18.0,
+    color: kBlack,
+    fontWeight: FontWeight.bold,
+  ),
+);
+
+var kTitleCardEat = GoogleFonts.poppins(
+  textStyle: TextStyle(
+    fontSize: 10.0,
     color: kBlack,
     fontWeight: FontWeight.bold,
   ),
