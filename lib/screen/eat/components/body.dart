@@ -5,6 +5,7 @@ import 'package:fiton/screen/eat/components/button_dishes.dart';
 import 'package:fiton/screen/eat/components/button_time_based.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/components/recommended_card.dart';
+import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -68,7 +69,14 @@ class Body extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var news = popularList[index];
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EatDetailScreen(News: news),
+                          ),
+                        );
+                      },
                       child: DishesCard(news: news),
                     );
                   },
@@ -151,7 +159,14 @@ class Body extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var news = popularList[index];
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EatDetailScreen(News: news),
+                          ),
+                        );
+                      },
                       child: RecommendedCard(news: news),
                     );
                   },

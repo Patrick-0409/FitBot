@@ -37,6 +37,7 @@ const kStastC = Color(0XFF2B5558);
 const kSearchBarColor = Color(0xFF979797);
 const KEatCardCategory = Color(0XFF9FC9DB);
 const KEatCardCalories = Color(0XFFDFB472);
+const KEatCardBackground = Color(0XFFD7D3D3);
 
 const kDefaultPaddin = 20.0;
 
