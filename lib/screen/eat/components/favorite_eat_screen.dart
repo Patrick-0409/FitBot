@@ -1,19 +1,19 @@
-import 'package:fiton/constant.dart';
 import 'package:fiton/models/dummy.dart';
-import 'package:fiton/models/news.dart';
-import 'package:fiton/screen/eat/eat_screen.dart';
+import 'package:fiton/screen/eat/components/dishes_card_fav.dart';
+import 'package:fiton/screen/eat/detail/components/circle_button.dart';
+import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'components/body.dart';
-import 'components/circle_button.dart';
+import '../../../constant.dart';
+import 'dishes_card.dart';
 
-class EatDetailScreen extends StatelessWidget {
-  final Dummy News;
-  const EatDetailScreen({Key? key, required this.News}) : super(key: key);
+class FavoriteEatScreen extends StatelessWidget {
+  const FavoriteEatScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -59,7 +59,36 @@ class EatDetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Body(news: News),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(bottom: 85),
+                width: double.infinity,
+                height: size.height,
+                child: ListView.builder(
+                  itemCount: popularList.length,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    var news = popularList[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EatDetailScreen(News: news),
+                          ),
+                        );
+                      },
+                      child: DishesCardFav(news: news),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

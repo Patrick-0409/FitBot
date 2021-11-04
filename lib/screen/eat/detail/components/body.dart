@@ -17,45 +17,6 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 18.0),
       child: ListView(
         children: [
-          // SizedBox(height: 12.0),
-          // Row(
-          //   children: [
-          //     Container(
-          //       padding: EdgeInsets.symmetric(
-          //         horizontal: 12.0,
-          //         vertical: 10.0,
-          //       ),
-          //       decoration: BoxDecoration(
-          //         color: kTagColor,
-          //         border: Border.all(color: kGrey3, width: 1.0),
-          //         borderRadius: BorderRadius.circular(15.0),
-          //       ),
-          //       child: Row(
-          //         children: [
-          //           CircleAvatar(
-          //             radius: 5.0,
-          //             backgroundColor: kGrey3,
-          //           ),
-          //           SizedBox(width: 6.0),
-          //           Text(
-          //             news.author,
-          //             style: kCategoryTitle.copyWith(color: Colors.black),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //     SizedBox(width: 10.0),
-          //     Spacer(),
-          //     FavoriteButton(
-          //       isFavorite: true,
-          //       iconSize: 40.0,
-          //       valueChanged: () {},
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 12.0),
-          // Text(news.title, style: kTitleCard.copyWith(fontSize: 20.0)),
-          // SizedBox(height: 15.0),
           SizedBox(height: 10),
           Hero(
             tag: news.image,
