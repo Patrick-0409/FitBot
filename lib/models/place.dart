@@ -27,7 +27,6 @@ class Place{
   factory Place.fromJson(Map<String, dynamic> json) => Place(
     photos: json["photos"] != null ? List<Photo>.from(
         json["photos"].map((x) => Photo.fromJson(x))) : [],
-    // photos: json["photos"][0]["photo_reference"] as String,
     name: json["name"],
     rating: json["rating"],
     userRatingCount: json["userRatingCount"],
@@ -39,11 +38,13 @@ class Place{
 
 class Photo{
   final String? photo_reference;
+  final String? html_attributions;
 
-  Photo({required this.photo_reference});
+  Photo({required this.photo_reference,required this.html_attributions});
 
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
-    photo_reference: json["photo_reference"] as String
+    photo_reference: json["photo_reference"] as String,
+    html_attributions: json["html_attributions"][0] as String
   );
 
 }
