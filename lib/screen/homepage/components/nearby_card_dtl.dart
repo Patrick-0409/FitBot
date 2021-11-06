@@ -60,7 +60,7 @@ class NearbyCardDtl extends StatelessWidget {
                     style: kDetailContent,
                   ),
                   SizedBox(height: 4.0),
-                  RatingBar(),
+                  RatingBar(place: place),
                 ],
               ),
             ),
