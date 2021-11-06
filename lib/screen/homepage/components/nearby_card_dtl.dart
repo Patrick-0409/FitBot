@@ -1,5 +1,6 @@
 import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/place.dart';
+import 'package:fiton/screen/homepage/components/rating_bar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
@@ -26,11 +27,14 @@ class NearbyCardDtl extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               image: DecorationImage(
-                image: place.photos.length > 0 ? NetworkImage(
-              'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
-                  place.photos[0].photo_reference! +
-                  '&key=' +
-                  apiKey) : NetworkImage('https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp'),
+                image: place.photos.length > 0
+                    ? NetworkImage(
+                        'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
+                            place.photos[0].photo_reference! +
+                            '&key=' +
+                            apiKey)
+                    : NetworkImage(
+                        'https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,6 +59,8 @@ class NearbyCardDtl extends StatelessWidget {
                     maxLines: 2,
                     style: kDetailContent,
                   ),
+                  SizedBox(height: 4.0),
+                  RatingBar(place: place),
                 ],
               ),
             ),
