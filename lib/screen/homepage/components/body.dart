@@ -19,7 +19,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../home_screen.dart';
 import 'button_explore.dart';
 
-const _url = 'https://flutter.dev';
+const _url = 'https://maps.google.com/maps/contrib/112325889484460917434';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
