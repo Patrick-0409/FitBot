@@ -14,9 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../home_screen.dart';
 import 'button_explore.dart';
+
+const _url = 'https://maps.google.com/maps/contrib/112325889484460917434';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -118,7 +121,7 @@ class _BodyState extends State<Body> {
                         itemBuilder: (context, index) {
                           var place = snapshot.data?.places[index];
                           return InkWell(
-                            onTap: () {},
+                            onTap: _launchURL,
                             child: Container(
                               width: 200,
                               margin: EdgeInsets.only(right: 4, left: 13),
@@ -234,3 +237,6 @@ class _BodyState extends State<Body> {
     );
   }
 }
+
+void _launchURL() async =>
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
