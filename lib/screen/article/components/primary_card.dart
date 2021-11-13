@@ -1,4 +1,3 @@
-import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';

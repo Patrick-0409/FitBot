@@ -15,7 +15,7 @@ class PlacesService {
       var jsonString = response.body;
       var jsonMap = json.decode(jsonString);
       placeModel = PlaceModel.fromJson(jsonMap);
-      print(placeModel);
+      // print(placeModel);
     } catch (e) {
       print("places api");
       print(e);

@@ -14,7 +14,6 @@ Future main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiProvider(
-        // TODO: implement build
         providers: [
           ChangeNotifierProvider(create: (context) => EmailSignInProvider()),
         ],

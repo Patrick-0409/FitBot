@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constant.dart';
 import 'components/body.dart';
 import 'components/circle_button.dart';
 

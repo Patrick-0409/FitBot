@@ -1,12 +1,12 @@
-import 'package:fiton/models/dummy.dart';
+import 'package:fiton/models/recipe.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
 class DishesCard extends StatelessWidget {
-  final Dummy news;
-  const DishesCard({Key? key, required this.news}) : super(key: key);
+  final Recipe recipe;
+  const DishesCard({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class DishesCard extends StatelessWidget {
         width: 300,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImageSSL(news.image, headers: {}),
+            image: NetworkImageSSL(recipe.image!, headers: {}),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -48,7 +48,7 @@ class DishesCard extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                   children: [
                     TextSpan(
-                      text: news.title,
+                      text: recipe.label,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -70,7 +70,7 @@ class DishesCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Text(
-                      "40 min",
+                      recipe.totalTime!.toInt().toString()+" min",
                       style: kTitleCardEat,
                     ),
                   ),
@@ -82,7 +82,7 @@ class DishesCard extends StatelessWidget {
                       color: KEatCardCategory,
                     ),
                     child: Text(
-                      "Seafood",
+                      recipe.cuisineType!,
                       style: kTitleCardEat,
                     ),
                   ),
@@ -94,7 +94,7 @@ class DishesCard extends StatelessWidget {
                       color: KEatCardCalories,
                     ),
                     child: Text(
-                      "179 kcal",
+                      recipe.calories!.toInt().toString() + " kcal",
                       style: kTitleCardEat,
                     ),
                   ),

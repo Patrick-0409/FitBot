@@ -1,18 +1,10 @@
-import 'dart:typed_data';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/place.dart';
-import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-import 'dart:ui' as ui;
 import '../../constant.dart';
 import 'components/body.dart';
 

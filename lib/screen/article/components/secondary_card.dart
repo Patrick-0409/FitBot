@@ -1,5 +1,4 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/news.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as TimeAgo;
 import 'network_image_ssl.dart';

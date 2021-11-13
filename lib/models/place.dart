@@ -1,6 +1,3 @@
-import 'package:fiton/models/geometry.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 class PlaceModel {
   PlaceModel({
     required this.places,

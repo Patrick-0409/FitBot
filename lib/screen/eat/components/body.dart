@@ -1,16 +1,31 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/dummy.dart';
-import 'package:fiton/screen/article/components/trending_body.dart';
+import 'package:fiton/models/recipe.dart';
 import 'package:fiton/screen/eat/components/button_dishes.dart';
 import 'package:fiton/screen/eat/components/button_time_based.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/components/recommended_card.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
+import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class Body extends StatelessWidget {
+
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+
+  late Future<RecipeModel> _recipeModel;
+
+  @override
+  void initState() {
+    _recipeModel = RecipesService().getRecipes(fish_url);
+    // print(_recipeModel);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,25 +77,51 @@ class Body extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 162,
-                child: ListView.builder(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var news = popularList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EatDetailScreen(News: news),
-                          ),
-                        );
-                      },
-                      child: DishesCard(news: news),
-                    );
-                  },
-                ),
+                child: FutureBuilder<RecipeModel>(
+                  future: _recipeModel,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                        return ListView.builder(
+                        itemCount: 5,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          var recent = snapshot.data?.recipes[index];
+                          return InkWell(
+                            onTap: () async {
+                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
+                                                    recent!.label,
+                                                    recent.image,
+                                                    recent.cuisineType,
+                                                    recent.calories,
+                                                    recent.totalTime,
+                                                    recent.ingredientLines,
+                                                    recent.url
+                                                  ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EatDetailScreen(
+                                    contain: temp,
+                                    label: recent.label,
+                                    image: recent.image,
+                                    cuisineType: recent.cuisineType,
+                                    calories: recent.calories,
+                                    totalTime: recent.totalTime,
+                                    ingredientLines: recent.ingredientLines,
+                                    url: recent.url,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: DishesCard(recipe: recent!),
+                          );
+                        },
+                      );
+                    }
+                      return Center(child: CircularProgressIndicator());
+                  }
+                )
               ),
               SizedBox(height: 13),
               Text(
@@ -152,25 +193,52 @@ class Body extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 210,
-                child: ListView.builder(
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var news = popularList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EatDetailScreen(News: news),
-                          ),
-                        );
-                      },
-                      child: RecommendedCard(news: news),
-                    );
-                  },
-                ),
+                child: FutureBuilder<RecipeModel>(
+                  future: _recipeModel,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: 5,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          // var news = popularList[index];
+                          var recent = snapshot.data?.recipes[index];
+                          return InkWell(
+                            onTap: () async {
+                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
+                                                    recent!.label,
+                                                    recent.image,
+                                                    recent.cuisineType,
+                                                    recent.calories,
+                                                    recent.totalTime,
+                                                    recent.ingredientLines,
+                                                    recent.url
+                                                  ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EatDetailScreen(
+                                    contain: temp,
+                                    label: recent.label,
+                                    image: recent.image,
+                                    cuisineType: recent.cuisineType,
+                                    calories: recent.calories,
+                                    totalTime: recent.totalTime,
+                                    ingredientLines: recent.ingredientLines,
+                                    url: recent.url,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: RecommendedCard(recipe: recent!),
+                          );
+                        },
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }
+                )
               ),
               SizedBox(height: 10),
               Text(

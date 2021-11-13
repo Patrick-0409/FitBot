@@ -1,15 +1,31 @@
-import 'package:fiton/models/dummy.dart';
+
 import 'package:fiton/screen/eat/components/dishes_card_fav.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constant.dart';
-import 'dishes_card.dart';
 
-class FavoriteEatScreen extends StatelessWidget {
+class FavoriteEatScreen extends StatefulWidget {
   const FavoriteEatScreen({Key? key}) : super(key: key);
+  @override
+  _FavoriteEatScreenState createState() => _FavoriteEatScreenState();
+}
+
+class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
+  List userProfilesList = [];
+
+  @override
+  void initState(){
+    fetchRecipesList();
+    super.initState();
+  }
+
+  fetchRecipesList() async {
+      userProfilesList = await RecipesService().getFavs();
+      return userProfilesList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +82,58 @@ class FavoriteEatScreen extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 85),
                 width: double.infinity,
                 height: size.height,
-                child: ListView.builder(
-                  itemCount: popularList.length,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var news = popularList[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EatDetailScreen(News: news),
-                          ),
-                        );
-                      },
-                      child: DishesCardFav(news: news),
-                    );
-                  },
-                ),
+                child: FutureBuilder(
+                  future: fetchRecipesList(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                        return ListView.builder(
+                        itemCount: userProfilesList.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () async {
+                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
+                                    userProfilesList[index]['label'].toString(),
+                                    userProfilesList[index]['image'].toString(),
+                                    userProfilesList[index]['cuisineType'].toString(),
+                                    userProfilesList[index]['calories'],
+                                    userProfilesList[index]['totalTime'],
+                                    userProfilesList[index]['ingredientLines'].cast<String>(),
+                                    userProfilesList[index]['url'].toString(),
+                              ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EatDetailScreen(
+                                    contain: temp,
+                                    label: userProfilesList[index]['label'].toString(),
+                                    image: userProfilesList[index]['image'].toString(),
+                                    cuisineType: userProfilesList[index]['cuisineType'].toString(),
+                                    calories: userProfilesList[index]['calories'],
+                                    totalTime: userProfilesList[index]['totalTime'],
+                                    ingredientLines: userProfilesList[index]['ingredientLines'].cast<String>(),
+                                    url: userProfilesList[index]['url'].toString(),
+                                  ),
+                                ),
+                              );
+                            },
+                            child: DishesCardFav(
+                              label: userProfilesList[index]['label'].toString(),
+                              image: userProfilesList[index]['image'].toString(),
+                              cuisineType: userProfilesList[index]['cuisineType'].toString(),
+                              calories: userProfilesList[index]['calories'],
+                              totalTime: userProfilesList[index]['totalTime'],
+                              ingredientLines: userProfilesList[index]['ingredientLines'].cast<String>(),
+                              url: userProfilesList[index]['url'].toString(),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  return Center(child: CircularProgressIndicator());
+                  }
+                )
               ),
             ],
           ),

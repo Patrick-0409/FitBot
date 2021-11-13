@@ -1,5 +1,4 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'components/trending_body.dart';
 class ArticleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return DefaultTabController(
       length: 2,
       child: Scaffold(

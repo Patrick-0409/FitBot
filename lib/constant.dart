@@ -12,6 +12,11 @@ const String diet_url =
 
 const String apiKey = "AIzaSyC0_N9rxMEYDCPiQva-dqDhHVHnDg9I7Bc";
 
+const String edamamApiKey = "3c614dc88a61b8f65d06c33c98e1bf87";
+const String edamamApiId = "767fe783";
+const String fish_url =
+    'https://api.edamam.com/search?q=fish&app_id='+edamamApiId+'&app_key='+edamamApiKey;
+
 const kHeaderColor = Color(0xFF39BBC3);
 const kTextLightColor = Color(0xFFACACAC);
 const kPrimaryLightColor = Color(0xFFF1E6FF);

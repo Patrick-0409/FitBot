@@ -1,4 +1,3 @@
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/screen/homepage/components/rating_bar.dart';
 import 'package:flutter/material.dart';

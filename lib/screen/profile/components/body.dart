@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/screen/profile/components/button_stats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'common_stats.dart';
 import 'description.dart';
 
 class Body extends StatelessWidget {

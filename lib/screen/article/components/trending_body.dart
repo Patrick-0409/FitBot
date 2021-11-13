@@ -2,7 +2,6 @@ import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/article/components/primary_card.dart';
 import 'package:fiton/screen/article/components/training_tab_view.dart';
 import 'package:fiton/screen/article/detail/read_news.dart';
-import 'package:fiton/screen/article/components/secondary_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';

@@ -1,6 +1,5 @@
 import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/article/components/primary_card.dart';
-import 'package:fiton/screen/article/detail/components/body.dart';
 import 'package:fiton/screen/article/detail/read_news.dart';
 import 'package:fiton/screen/article/components/secondary_card.dart';
 import 'package:fiton/services/news_api_manager.dart';
@@ -53,19 +52,20 @@ class _BodyState extends State<Body> {
                                                 news.urlToImage,
                                                 news.publishedAt!,
                                                 news.content
-                                                ));
+                                              ));
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ReadNews(contain: temp,     
-                                                        source: news.source!.name,
-                                                        author: news.author,
-                                                        title: news.title,
-                                                        description: news.description,
-                                                        url: news.url,
-                                                        urlToImage: news.urlToImage,
-                                                        publishedAt: news.publishedAt!,
-                                                        content: news.content,
+                              builder: (context) => ReadNews(
+                                contain: temp,     
+                                source: news.source!.name,
+                                author: news.author,
+                                title: news.title,
+                                description: news.description,
+                                url: news.url,
+                                urlToImage: news.urlToImage,
+                                publishedAt: news.publishedAt!,
+                                content: news.content,
                               ),
                             ),
                           );

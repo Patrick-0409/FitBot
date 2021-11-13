@@ -1,7 +1,4 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/dummy.dart';
-import 'package:fiton/models/news.dart';
-import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +6,25 @@ import 'components/body.dart';
 import 'components/circle_button.dart';
 
 class EatDetailScreen extends StatelessWidget {
-  final Dummy News;
-  const EatDetailScreen({Key? key, required this.News}) : super(key: key);
+  final bool? contain;
+  final String? label;
+  final String? image;
+  final String? cuisineType;
+  final num? calories;
+  final num? totalTime;
+  final List<String>? ingredientLines;
+  final String? url;
+
+  const EatDetailScreen({
+    required this.contain,
+    required this.label, 
+    required this.image, 
+    required this.calories, 
+    required this.totalTime, 
+    required this.cuisineType, 
+    required this.ingredientLines, 
+    required this.url
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +73,16 @@ class EatDetailScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Body(news: News),
+        body: Body(
+          contain: contain,
+          label: label,
+          image: image,
+          cuisineType: cuisineType,
+          calories: calories,
+          totalTime: totalTime,
+          ingredientLines: ingredientLines,
+          url: url,
+        ),
       ),
     );
   }
