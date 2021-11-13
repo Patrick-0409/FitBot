@@ -1,4 +1,3 @@
-import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,6 @@ import 'detail/components/circle_button.dart';
 class EatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
@@ -11,12 +10,9 @@ import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../home_screen.dart';
 import 'button_explore.dart';
 
 const _url = 'https://maps.google.com/maps/contrib/112325889484460917434';

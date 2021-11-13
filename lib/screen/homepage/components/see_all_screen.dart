@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-
 import '../../../constant.dart';
 import '../home_screen.dart';
 import 'body_see.dart';

@@ -1,8 +1,5 @@
 import 'package:favorite_button/favorite_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/news.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
-import 'package:fiton/screen/article/detail/components/status.dart';
 import 'package:fiton/services/news_api_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +18,6 @@ class Body extends StatelessWidget {
   final String? urlToImage;
   final DateTime? publishedAt;
   final String? content;
-
 
   Body({
     Key? key,

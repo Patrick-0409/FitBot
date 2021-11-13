@@ -8,7 +8,6 @@ class NearbyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       // width: 300,
       decoration: BoxDecoration(

@@ -1,10 +1,8 @@
-import 'package:fiton/models/news.dart';
+
 import 'package:fiton/screen/article/components/secondary_card.dart';
 import 'package:fiton/screen/article/detail/read_news.dart';
 import 'package:fiton/services/news_api_manager.dart';
 import 'package:flutter/material.dart';
-
-import '../../../constant.dart';
 
 class FavoriteBody extends StatefulWidget {
   const FavoriteBody({Key? key}) : super(key: key);
@@ -13,12 +11,10 @@ class FavoriteBody extends StatefulWidget {
 }
 
 class _FavoriteBodyState extends State<FavoriteBody> {
-  late Future<NewsModel> _newsModel;
   List userProfilesList = [];
-  // late News news;
+  
   @override
   void initState(){
-    _newsModel = API_Manager().getNews(trending_url);
     fetchNewsList();
     super.initState();
   }

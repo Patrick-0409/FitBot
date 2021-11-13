@@ -1,14 +1,48 @@
 import 'package:favorite_button/favorite_button.dart';
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
+import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constant.dart';
 
-class Body extends StatelessWidget {
-  final Dummy news;
+class Body extends StatefulWidget {
+  var id;
+  final bool? contain;
+  final String? label;
+  final String? image;
+  final String? cuisineType;
+  final num? calories;
+  final num? totalTime;
+  final List<String>? ingredientLines;
+  final String? url;
 
-  const Body({Key? key, required this.news}) : super(key: key);
+  Body({
+    Key? key,
+    required this.contain,
+    required this.label, 
+    required this.image, 
+    required this.calories, 
+    required this.totalTime, 
+    required this.cuisineType, 
+    required this.ingredientLines, 
+    required this.url,
+  }) : super(key: key);
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+
+  var tempFav = TextEditingController();
+  @override
+  void initState() {
+    RecipesService().getFav(widget.label).then((value) => {
+      setState(() {
+        tempFav.text = value.toString();
+      }),
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +53,13 @@ class Body extends StatelessWidget {
         children: [
           SizedBox(height: 10),
           Hero(
-            tag: news.image,
+            tag: widget.image.toString(),
             child: Container(
               height: 220.0,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: DecorationImage(
-                  image: NetworkImageSSL(news.image, headers: {}),
+                  image: NetworkImageSSL(widget.image!, headers: {}),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -41,7 +75,7 @@ class Body extends StatelessWidget {
                   color: KEatCardBackground,
                 ),
                 child: Text(
-                  "40 min",
+                  widget.totalTime!.toInt().toString() + " min",
                   style: kTitleCardEat.copyWith(fontSize: 12),
                 ),
               ),
@@ -53,7 +87,7 @@ class Body extends StatelessWidget {
                   color: KEatCardCategory,
                 ),
                 child: Text(
-                  "Seafood",
+                  widget.cuisineType!,
                   style: kTitleCardEat.copyWith(fontSize: 12),
                 ),
               ),
@@ -65,18 +99,29 @@ class Body extends StatelessWidget {
                   color: KEatCardCalories,
                 ),
                 child: Text(
-                  "179 kcal",
+                  widget.calories!.toInt().toString() + " kcal",
                   style: kTitleCardEat.copyWith(fontSize: 12),
                 ),
               ),
               Spacer(),
               FavoriteButton(
+                isFavorite: widget.contain,
                 iconSize: 30,
-                valueChanged: () {},
+                valueChanged: (_isFavorite) async {
+                  if(_isFavorite)
+                    await RecipesService().addFav(await RecipesService().getFavID(widget.label));
+                  else
+                    await RecipesService().deleteFav(await RecipesService().getFavID(widget.label));
+                  RecipesService().getFav(widget.label).then((value) => {
+                    setState(() {
+                      tempFav.text = value.toString();
+                    }),
+                  });
+                },
               ),
               SizedBox(width: 3),
               Text(
-                "179",
+                tempFav.text,
                 style: kTitleCardEat.copyWith(fontSize: 18),
               ),
               SizedBox(width: 5),
@@ -84,7 +129,7 @@ class Body extends StatelessWidget {
           ),
           SizedBox(height: 10.0),
           Text(
-            news.title,
+            widget.label!,
             style: kTitleCardEat.copyWith(
               color: Colors.black,
               fontSize: 17,
@@ -151,8 +196,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 3),
+                for (int i=0; i<widget.ingredientLines!.length; i++) 
                 Text(
-                  news.subtitle,
+                  widget.ingredientLines![i],
                   style: descriptionStyle.copyWith(
                       color: Colors.black, fontSize: 12),
                 ),
@@ -181,7 +227,7 @@ class Body extends StatelessWidget {
                 ),
                 SizedBox(height: 3),
                 Text(
-                  news.subtitle,
+                  widget.url!,
                   style: descriptionStyle.copyWith(
                       color: Colors.black, fontSize: 12),
                 ),

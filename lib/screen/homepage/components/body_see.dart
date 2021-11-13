@@ -1,4 +1,3 @@
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/screen/homepage/components/nearby_card_dtl.dart';
 import 'package:fiton/services/geolocator_service.dart';

@@ -1,12 +1,26 @@
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
 class DishesCardFav extends StatelessWidget {
-  final Dummy news;
-  const DishesCardFav({Key? key, required this.news}) : super(key: key);
+  final String? label;
+  final String? image;
+  final String? cuisineType;
+  final num? calories;
+  final num? totalTime;
+  final List<String>? ingredientLines;
+  final String? url;
+  const DishesCardFav({
+    Key? key, 
+    required this.label, 
+    required this.image, 
+    required this.calories, 
+    required this.totalTime, 
+    required this.cuisineType, 
+    required this.ingredientLines, 
+    required this.url
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +32,7 @@ class DishesCardFav extends StatelessWidget {
         height: size.height * 0.24,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImageSSL(news.image, headers: {}),
+            image: NetworkImageSSL(image!, headers: {}),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -50,7 +64,7 @@ class DishesCardFav extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                   children: [
                     TextSpan(
-                      text: news.title,
+                      text: label,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
