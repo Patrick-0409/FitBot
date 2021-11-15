@@ -19,12 +19,12 @@ class Body extends StatefulWidget {
   Body({
     Key? key,
     required this.contain,
-    required this.label, 
-    required this.image, 
-    required this.calories, 
-    required this.totalTime, 
-    required this.cuisineType, 
-    required this.ingredientLines, 
+    required this.label,
+    required this.image,
+    required this.calories,
+    required this.totalTime,
+    required this.cuisineType,
+    required this.ingredientLines,
     required this.url,
   }) : super(key: key);
   @override
@@ -32,15 +32,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   var tempFav = TextEditingController();
   @override
   void initState() {
     RecipesService().getFav(widget.label).then((value) => {
-      setState(() {
-        tempFav.text = value.toString();
-      }),
-    });
+          setState(() {
+            tempFav.text = value.toString();
+          }),
+        });
     super.initState();
   }
 
@@ -108,15 +107,17 @@ class _BodyState extends State<Body> {
                 isFavorite: widget.contain,
                 iconSize: 30,
                 valueChanged: (_isFavorite) async {
-                  if(_isFavorite)
-                    await RecipesService().addFav(await RecipesService().getFavID(widget.label));
+                  if (_isFavorite)
+                    await RecipesService()
+                        .addFav(await RecipesService().getFavID(widget.label));
                   else
-                    await RecipesService().deleteFav(await RecipesService().getFavID(widget.label));
+                    await RecipesService().deleteFav(
+                        await RecipesService().getFavID(widget.label));
                   RecipesService().getFav(widget.label).then((value) => {
-                    setState(() {
-                      tempFav.text = value.toString();
-                    }),
-                  });
+                        setState(() {
+                          tempFav.text = value.toString();
+                        }),
+                      });
                 },
               ),
               SizedBox(width: 3),
@@ -154,14 +155,9 @@ class _BodyState extends State<Body> {
                   color: kBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-              ),
-              SizedBox(width: 5.0),
-              Container(
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor,
-                  borderRadius: BorderRadius.circular(15.0),
+                child: Text(
+                  "SSS",
+                  textAlign: TextAlign.center,
                 ),
               ),
               SizedBox(width: 5.0),
@@ -171,6 +167,23 @@ class _BodyState extends State<Body> {
                 decoration: BoxDecoration(
                   color: kBackgroundColor,
                   borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Text(
+                  "SSS",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(width: 5.0),
+              Container(
+                width: size.width * 0.2,
+                height: size.height * 0.05,
+                decoration: BoxDecoration(
+                  color: kBackgroundColor,
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                child: Text(
+                  "SSS",
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],
@@ -196,12 +209,12 @@ class _BodyState extends State<Body> {
                   ),
                 ),
                 SizedBox(height: 3),
-                for (int i=0; i<widget.ingredientLines!.length; i++) 
-                Text(
-                  widget.ingredientLines![i],
-                  style: descriptionStyle.copyWith(
-                      color: Colors.black, fontSize: 12),
-                ),
+                for (int i = 0; i < widget.ingredientLines!.length; i++)
+                  Text(
+                    widget.ingredientLines![i],
+                    style: descriptionStyle.copyWith(
+                        color: Colors.black, fontSize: 12),
+                  ),
               ],
             ),
           ),
