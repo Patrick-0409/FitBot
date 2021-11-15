@@ -5,10 +5,16 @@ import 'package:fiton/screen/eat/components/button_time_based.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/components/recommended_card.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
+import 'package:fiton/screen/eat/ingridients/breakfast_screen.dart';
+import 'package:fiton/screen/eat/ingridients/chicken_screen.dart';
+import 'package:fiton/screen/eat/ingridients/dinner_screen.dart';
+import 'package:fiton/screen/eat/ingridients/lunch_screen.dart';
+import 'package:fiton/screen/eat/ingridients/meat_screen.dart';
+import 'package:fiton/screen/eat/ingridients/salad_screen.dart';
+import 'package:fiton/screen/eat/ingridients/seafood_screen.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -17,7 +23,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-
   late Future<RecipeModel> _recipeModel;
 
   @override
@@ -75,54 +80,53 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: 15),
               Container(
-                width: double.infinity,
-                height: 162,
-                child: FutureBuilder<RecipeModel>(
-                  future: _recipeModel,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                        return ListView.builder(
-                        itemCount: 5,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          var recent = snapshot.data?.recipes[index];
-                          return InkWell(
-                            onTap: () async {
-                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
-                                                    recent!.label,
-                                                    recent.image,
-                                                    recent.cuisineType,
-                                                    recent.calories,
-                                                    recent.totalTime,
-                                                    recent.ingredientLines,
-                                                    recent.url
-                                                  ));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EatDetailScreen(
-                                    contain: temp,
-                                    label: recent.label,
-                                    image: recent.image,
-                                    cuisineType: recent.cuisineType,
-                                    calories: recent.calories,
-                                    totalTime: recent.totalTime,
-                                    ingredientLines: recent.ingredientLines,
-                                    url: recent.url,
-                                  ),
-                                ),
+                  width: double.infinity,
+                  height: 162,
+                  child: FutureBuilder<RecipeModel>(
+                      future: _recipeModel,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: 5,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              var recent = snapshot.data?.recipes[index];
+                              return InkWell(
+                                onTap: () async {
+                                  bool temp = await RecipesService()
+                                      .checkContains(await RecipesService()
+                                          .checkNews(
+                                              recent!.label,
+                                              recent.image,
+                                              recent.cuisineType,
+                                              recent.calories,
+                                              recent.totalTime,
+                                              recent.ingredientLines,
+                                              recent.url));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EatDetailScreen(
+                                        contain: temp,
+                                        label: recent.label,
+                                        image: recent.image,
+                                        cuisineType: recent.cuisineType,
+                                        calories: recent.calories,
+                                        totalTime: recent.totalTime,
+                                        ingredientLines: recent.ingredientLines,
+                                        url: recent.url,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: DishesCard(recipe: recent!),
                               );
                             },
-                            child: DishesCard(recipe: recent!),
                           );
-                        },
-                      );
-                    }
-                      return Center(child: CircularProgressIndicator());
-                  }
-                )
-              ),
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      })),
               SizedBox(height: 13),
               Text(
                 "Main ingridients",
@@ -137,7 +141,16 @@ class _BodyState extends State<Body> {
                 children: <Widget>[
                   ButtonDishes(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ChickenScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Chicken",
@@ -148,7 +161,16 @@ class _BodyState extends State<Body> {
                   SizedBox(width: 10),
                   ButtonDishes(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return MeatScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Meat",
@@ -159,7 +181,16 @@ class _BodyState extends State<Body> {
                   SizedBox(width: 10),
                   ButtonDishes(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SaladScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Salad",
@@ -170,7 +201,16 @@ class _BodyState extends State<Body> {
                   SizedBox(width: 10),
                   ButtonDishes(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SeafoodScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Seafood",
@@ -191,55 +231,54 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: 5),
               Container(
-                width: double.infinity,
-                height: 210,
-                child: FutureBuilder<RecipeModel>(
-                  future: _recipeModel,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        itemCount: 5,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          // var news = popularList[index];
-                          var recent = snapshot.data?.recipes[index];
-                          return InkWell(
-                            onTap: () async {
-                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
-                                                    recent!.label,
-                                                    recent.image,
-                                                    recent.cuisineType,
-                                                    recent.calories,
-                                                    recent.totalTime,
-                                                    recent.ingredientLines,
-                                                    recent.url
-                                                  ));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EatDetailScreen(
-                                    contain: temp,
-                                    label: recent.label,
-                                    image: recent.image,
-                                    cuisineType: recent.cuisineType,
-                                    calories: recent.calories,
-                                    totalTime: recent.totalTime,
-                                    ingredientLines: recent.ingredientLines,
-                                    url: recent.url,
-                                  ),
-                                ),
+                  width: double.infinity,
+                  height: 210,
+                  child: FutureBuilder<RecipeModel>(
+                      future: _recipeModel,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: 5,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              // var news = popularList[index];
+                              var recent = snapshot.data?.recipes[index];
+                              return InkWell(
+                                onTap: () async {
+                                  bool temp = await RecipesService()
+                                      .checkContains(await RecipesService()
+                                          .checkNews(
+                                              recent!.label,
+                                              recent.image,
+                                              recent.cuisineType,
+                                              recent.calories,
+                                              recent.totalTime,
+                                              recent.ingredientLines,
+                                              recent.url));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EatDetailScreen(
+                                        contain: temp,
+                                        label: recent.label,
+                                        image: recent.image,
+                                        cuisineType: recent.cuisineType,
+                                        calories: recent.calories,
+                                        totalTime: recent.totalTime,
+                                        ingredientLines: recent.ingredientLines,
+                                        url: recent.url,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: RecommendedCard(recipe: recent!),
                               );
                             },
-                            child: RecommendedCard(recipe: recent!),
                           );
-                        },
-                      );
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  }
-                )
-              ),
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      })),
               SizedBox(height: 10),
               Text(
                 "Time-Based",
@@ -254,7 +293,16 @@ class _BodyState extends State<Body> {
                 children: <Widget>[
                   ButtonTimeBased(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return BreakfastScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Breakfast",
@@ -265,7 +313,16 @@ class _BodyState extends State<Body> {
                   SizedBox(width: 20),
                   ButtonTimeBased(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LunchScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Lunch",
@@ -276,7 +333,16 @@ class _BodyState extends State<Body> {
                   SizedBox(width: 20),
                   ButtonTimeBased(
                     size: Size,
-                    press: () {},
+                    press: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return DinnerScreen();
+                          },
+                        ),
+                      );
+                    },
                     color: kChat,
                     text: Text(
                       "Dinner",
