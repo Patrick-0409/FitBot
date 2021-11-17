@@ -11,9 +11,10 @@ import '../../../constant.dart';
 
 class GroupScreen extends StatefulWidget {
   final String? title;
+  final String? sectitle;
   final String? url;
 
-  GroupScreen({Key? key, required this.title, required this.url})
+  GroupScreen({Key? key, required this.title, required this.url, required this.sectitle})
       : super(key: key);
 
   @override
@@ -25,7 +26,17 @@ class _GroupScreenState extends State<GroupScreen> {
 
   @override
   void initState() {
-    _recipeModel = RecipesService().getRecipes(widget.url!);
+    if(widget.url != '')
+      _recipeModel = RecipesService().getRecipes(widget.url!);
+    else {
+      String tempTitle;
+      if(widget.sectitle!='')
+        tempTitle = widget.title! + ' ' + widget.sectitle!;
+      else
+        tempTitle = widget.title!;
+
+      _recipeModel = RecipesService().getRecipes('https://api.edamam.com/search?q='+tempTitle+'&app_id='+edamamApiId+'&app_key='+edamamApiKey);
+    }
     // print(_recipeModel);
     super.initState();
   }
@@ -86,7 +97,7 @@ class _GroupScreenState extends State<GroupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.title!,
+                  widget.url == '' ? 'Result of '+ widget.title! : widget.title!,
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -102,6 +113,19 @@ class _GroupScreenState extends State<GroupScreen> {
                     // borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
+                    textInputAction: TextInputAction.go,
+                    onSubmitted: (value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            // print(value);
+                            return GroupScreen(title:widget.title, url: '', sectitle: value);
+                          },
+                        ),
+                      );
+                    },
+                    controller: TextEditingController()..text = widget.url! == "" ? widget.sectitle! == "" ? widget.title! : widget.sectitle! : '',
                     style: TextStyle(fontSize: 13),
                     decoration: InputDecoration(
                       enabledBorder: InputBorder.none,
@@ -121,7 +145,7 @@ class _GroupScreenState extends State<GroupScreen> {
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             return ListView.builder(
-                              itemCount: popularList.length,
+                              itemCount: snapshot.data?.recipes.length,
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {

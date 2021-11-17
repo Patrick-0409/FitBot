@@ -62,6 +62,18 @@ class _BodyState extends State<Body> {
                   // borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (value) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          print(value);
+                          return GroupScreen(title:value, url: '', sectitle: '');
+                        },
+                      ),
+                    );
+                  },
                   style: TextStyle(fontSize: 13),
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
@@ -140,7 +152,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title:'Chicken',url:chic_url);
+                            return GroupScreen(title:'Chicken',url:chic_url, sectitle: '');
                           },
                         ),
                       );
@@ -160,7 +172,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title:'Beef', url:beef_url);
+                            return GroupScreen(title:'Beef', url:beef_url, sectitle: '');
                           },
                         ),
                       );
@@ -180,7 +192,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Salad', url : salad_url);
+                            return GroupScreen(title: 'Salad', url : salad_url, sectitle: '');
                           },
                         ),
                       );
@@ -200,7 +212,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Seafood', url : sea_url);
+                            return GroupScreen(title: 'Seafood', url : sea_url, sectitle: '');
                           },
                         ),
                       );
@@ -292,7 +304,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Breakfast', url : breakfast_url);
+                            return GroupScreen(title: 'Breakfast', url : breakfast_url, sectitle: '');
                           },
                         ),
                       );
@@ -312,7 +324,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Lunch', url : lunch_url);
+                            return GroupScreen(title: 'Lunch', url : lunch_url, sectitle: '');
                           },
                         ),
                       );
@@ -332,7 +344,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Dinner', url : dinner_url);
+                            return GroupScreen(title: 'Dinner', url : dinner_url, sectitle: '');
                           },
                         ),
                       );
