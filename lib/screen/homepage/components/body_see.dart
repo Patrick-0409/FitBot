@@ -4,6 +4,7 @@ import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BodySee extends StatefulWidget {
   const BodySee({Key? key}) : super(key: key);
@@ -49,12 +50,7 @@ class _BodySeeState extends State<BodySee> {
                     var place = snapshot.data?.places[index];
                     return InkWell(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => ReadNewsView(news: recent),
-                        //   ),
-                        // );
+                        _launchURL('https://www.google.com/maps/search/?api=1&query='+place!.lat!.toString()+'%2C'+place.lng!.toString()+'&query_place_id='+place.place_id!);
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(top: 5),
@@ -77,4 +73,8 @@ class _BodySeeState extends State<BodySee> {
       ),
     );
   }
+}
+
+void _launchURL(String value) async {
+  await canLaunch(value) ? await launch(value) : throw 'Could not launch $value';
 }

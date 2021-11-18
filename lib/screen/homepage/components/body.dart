@@ -117,7 +117,7 @@ class _BodyState extends State<Body> {
                         itemBuilder: (context, index) {
                           var place = snapshot.data?.places[index];
                           return InkWell(
-                            onTap: _launchURL,
+                            onTap: () => _launchURL('https://www.google.com/maps/search/?api=1&query='+place!.lat!.toString()+'%2C'+place.lng!.toString()+'&query_place_id='+place.place_id!),
                             child: Container(
                               width: 200,
                               margin: EdgeInsets.only(right: 4, left: 13),
@@ -234,5 +234,6 @@ class _BodyState extends State<Body> {
   }
 }
 
-void _launchURL() async =>
-    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+void _launchURL(String value) async {
+  await canLaunch(value) ? await launch(value) : throw 'Could not launch $value';
+}
