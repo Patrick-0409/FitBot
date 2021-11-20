@@ -1,9 +1,13 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
+import 'package:fiton/screen/eat/detail/components/button_nutrision.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constant.dart';
+
+const _url = 'https://flutter.dev';
 
 class Body extends StatefulWidget {
   var id;
@@ -148,44 +152,11 @@ class _BodyState extends State<Body> {
           SizedBox(height: 5.0),
           Row(
             children: <Widget>[
-              Container(
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Text(
-                  "SSS",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(width: 5.0),
-              Container(
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Text(
-                  "SSS",
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SizedBox(width: 5.0),
-              Container(
-                width: size.width * 0.2,
-                height: size.height * 0.05,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor,
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Text(
-                  "SSS",
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              ButtonNutrision(size: size),
+              SizedBox(width: 7.0),
+              ButtonNutrision(size: size),
+              SizedBox(width: 7.0),
+              ButtonNutrision(size: size),
             ],
           ),
           SizedBox(height: 20.0),
@@ -224,27 +195,30 @@ class _BodyState extends State<Body> {
             // height: size.height * 0.05,
             padding: EdgeInsets.only(top: 5, left: 10, right: 10, bottom: 10),
             decoration: BoxDecoration(
-              color: KEatCardBackground,
+              color: kBackgroundColor,
               borderRadius: BorderRadius.circular(15.0),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Steps",
-                  textAlign: TextAlign.start,
-                  style: kTitleCard.copyWith(
-                    color: Colors.black,
-                    fontSize: 16,
+            child: GestureDetector(
+              onTap: _launchURL,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "See Full Steps",
+                    textAlign: TextAlign.center,
+                    style: kTitleCard.copyWith(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  widget.url!,
-                  style: descriptionStyle.copyWith(
-                      color: Colors.black, fontSize: 12),
-                ),
-              ],
+                  // SizedBox(height: 3),
+                  // Text(
+                  //   widget.url!,
+                  //   style: descriptionStyle.copyWith(
+                  //       color: Colors.black, fontSize: 12),
+                  // ),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 25.0),
@@ -253,3 +227,6 @@ class _BodyState extends State<Body> {
     );
   }
 }
+
+void _launchURL() async =>
+    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
