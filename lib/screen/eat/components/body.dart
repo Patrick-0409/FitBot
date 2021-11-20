@@ -5,13 +5,7 @@ import 'package:fiton/screen/eat/components/button_time_based.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/components/recommended_card.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
-import 'package:fiton/screen/eat/ingridients/breakfast_screen.dart';
-import 'package:fiton/screen/eat/ingridients/chicken_screen.dart';
-import 'package:fiton/screen/eat/ingridients/dinner_screen.dart';
-import 'package:fiton/screen/eat/ingridients/lunch_screen.dart';
-import 'package:fiton/screen/eat/ingridients/meat_screen.dart';
-import 'package:fiton/screen/eat/ingridients/salad_screen.dart';
-import 'package:fiton/screen/eat/ingridients/seafood_screen.dart';
+import 'package:fiton/screen/eat/ingridients/group_screen.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -27,7 +21,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    _recipeModel = RecipesService().getRecipes(fish_url);
+    _recipeModel = RecipesService().getRecipes(sea_url);
     // print(_recipeModel);
     super.initState();
   }
@@ -68,6 +62,18 @@ class _BodyState extends State<Body> {
                   // borderRadius: BorderRadius.circular(15),
                 ),
                 child: TextField(
+                  textInputAction: TextInputAction.go,
+                  onSubmitted: (value) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          print(value);
+                          return GroupScreen(title:value, url: '', sectitle: '');
+                        },
+                      ),
+                    );
+                  },
                   style: TextStyle(fontSize: 13),
                   decoration: InputDecoration(
                     enabledBorder: InputBorder.none,
@@ -146,7 +152,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ChickenScreen();
+                            return GroupScreen(title:'Chicken',url:chic_url, sectitle: '');
                           },
                         ),
                       );
@@ -166,14 +172,14 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return MeatScreen();
+                            return GroupScreen(title:'Beef', url:beef_url, sectitle: '');
                           },
                         ),
                       );
                     },
                     color: kChat,
                     text: Text(
-                      "Meat",
+                      "Beef",
                       style: kChatTitle,
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
@@ -186,7 +192,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return SaladScreen();
+                            return GroupScreen(title: 'Salad', url : salad_url, sectitle: '');
                           },
                         ),
                       );
@@ -206,7 +212,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return SeafoodScreen();
+                            return GroupScreen(title: 'Seafood', url : sea_url, sectitle: '');
                           },
                         ),
                       );
@@ -298,7 +304,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return BreakfastScreen();
+                            return GroupScreen(title: 'Breakfast', url : breakfast_url, sectitle: '');
                           },
                         ),
                       );
@@ -318,7 +324,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return LunchScreen();
+                            return GroupScreen(title: 'Lunch', url : lunch_url, sectitle: '');
                           },
                         ),
                       );
@@ -338,7 +344,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return DinnerScreen();
+                            return GroupScreen(title: 'Dinner', url : dinner_url, sectitle: '');
                           },
                         ),
                       );

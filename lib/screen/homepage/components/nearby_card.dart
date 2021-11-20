@@ -8,6 +8,7 @@ class NearbyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(place.lat);
     return Container(
       // width: 300,
       decoration: BoxDecoration(
