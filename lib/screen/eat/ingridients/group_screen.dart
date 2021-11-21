@@ -3,6 +3,7 @@ import 'package:fiton/models/recipe.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
+import 'package:fiton/screen/eat/ingridients/components/group_card.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,11 @@ class GroupScreen extends StatefulWidget {
   final String? sectitle;
   final String? url;
 
-  GroupScreen({Key? key, required this.title, required this.url, required this.sectitle})
+  GroupScreen(
+      {Key? key,
+      required this.title,
+      required this.url,
+      required this.sectitle})
       : super(key: key);
 
   @override
@@ -26,16 +31,22 @@ class _GroupScreenState extends State<GroupScreen> {
 
   @override
   void initState() {
-    if(widget.url != '')
+    if (widget.url != '')
       _recipeModel = RecipesService().getRecipes(widget.url!);
     else {
       String tempTitle;
-      if(widget.sectitle!='')
+      if (widget.sectitle != '')
         tempTitle = widget.title! + ' ' + widget.sectitle!;
       else
         tempTitle = widget.title!;
 
-      _recipeModel = RecipesService().getRecipes('https://api.edamam.com/search?q='+tempTitle+'&app_id='+edamamApiId+'&app_key='+edamamApiKey);
+      _recipeModel = RecipesService().getRecipes(
+          'https://api.edamam.com/search?q=' +
+              tempTitle +
+              '&app_id=' +
+              edamamApiId +
+              '&app_key=' +
+              edamamApiKey);
     }
     // print(_recipeModel);
     super.initState();
@@ -97,7 +108,9 @@ class _GroupScreenState extends State<GroupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.url == '' ? 'Result of '+ widget.title! : widget.title!,
+                  widget.url == ''
+                      ? 'Result of ' + widget.title!
+                      : widget.title!,
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -120,12 +133,18 @@ class _GroupScreenState extends State<GroupScreen> {
                         MaterialPageRoute(
                           builder: (context) {
                             // print(value);
-                            return GroupScreen(title:widget.title, url: '', sectitle: value);
+                            return GroupScreen(
+                                title: widget.title, url: '', sectitle: value);
                           },
                         ),
                       );
                     },
-                    controller: TextEditingController()..text = widget.url! == "" ? widget.sectitle! == "" ? widget.title! : widget.sectitle! : '',
+                    controller: TextEditingController()
+                      ..text = widget.url! == ""
+                          ? widget.sectitle! == ""
+                              ? widget.title!
+                              : widget.sectitle!
+                          : '',
                     style: TextStyle(fontSize: 13),
                     decoration: InputDecoration(
                       enabledBorder: InputBorder.none,
@@ -137,56 +156,63 @@ class _GroupScreenState extends State<GroupScreen> {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.only(bottom: 85),
-                    width: double.infinity,
-                    height: size.height,
-                    child: FutureBuilder<RecipeModel>(
-                        future: _recipeModel,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            return ListView.builder(
-                              itemCount: snapshot.data?.recipes.length,
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                var recent = snapshot.data?.recipes[index];
-                                return InkWell(
-                                  onTap: () async {
-                                    bool temp = await RecipesService()
-                                        .checkContains(await RecipesService()
-                                            .checkNews(
-                                                recent!.label,
-                                                recent.image,
-                                                recent.cuisineType,
-                                                recent.calories,
-                                                recent.totalTime,
-                                                recent.ingredientLines,
-                                                recent.url));
+                  padding: EdgeInsets.only(bottom: 85),
+                  width: double.infinity,
+                  height: size.height,
+                  child: FutureBuilder<RecipeModel>(
+                    future: _recipeModel,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return ListView.builder(
+                          itemCount: snapshot.data?.recipes.length,
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var recent = snapshot.data?.recipes[index];
+                            return InkWell(
+                              onTap: () async {
+                                bool temp = await RecipesService()
+                                    .checkContains(await RecipesService()
+                                        .checkNews(
+                                            recent!.label,
+                                            recent.image,
+                                            recent.cuisineType,
+                                            recent.calories,
+                                            recent.fat,
+                                            recent.sugar,
+                                            recent.protein,
+                                            recent.totalTime,
+                                            recent.ingredientLines,
+                                            recent.url));
 
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => EatDetailScreen(
-                                          contain: temp,
-                                          label: recent.label,
-                                          image: recent.image,
-                                          cuisineType: recent.cuisineType,
-                                          calories: recent.calories,
-                                          totalTime: recent.totalTime,
-                                          ingredientLines:
-                                              recent.ingredientLines,
-                                          url: recent.url,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: DishesCard(recipe: recent!),
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EatDetailScreen(
+                                      contain: temp,
+                                      label: recent.label,
+                                      image: recent.image,
+                                      cuisineType: recent.cuisineType,
+                                      calories: recent.calories,
+                                      fat: recent.fat,
+                                      sugar: recent.sugar,
+                                      protein: recent.protein,
+                                      totalTime: recent.totalTime,
+                                      ingredientLines: recent.ingredientLines,
+                                      url: recent.url,
+                                    ),
+                                  ),
                                 );
                               },
+                              child: IngridientsCardFav(recipe: recent!),
                             );
-                          }
-                          return Center(child: CircularProgressIndicator());
-                        })),
+                          },
+                        );
+                      }
+                      return Center(child: CircularProgressIndicator());
+                    },
+                  ),
+                ),
               ],
             ),
           ),

@@ -16,6 +16,9 @@ class Body extends StatefulWidget {
   final String? image;
   final String? cuisineType;
   final num? calories;
+  final num? fat;
+  final num? sugar;
+  final num? protein;
   final num? totalTime;
   final List<String>? ingredientLines;
   final String? url;
@@ -26,6 +29,9 @@ class Body extends StatefulWidget {
     required this.label,
     required this.image,
     required this.calories,
+    required this.fat,
+    required this.sugar,
+    required this.protein,
     required this.totalTime,
     required this.cuisineType,
     required this.ingredientLines,
@@ -152,11 +158,11 @@ class _BodyState extends State<Body> {
           SizedBox(height: 5.0),
           Row(
             children: <Widget>[
-              ButtonNutrision(size: size),
+              ButtonNutrision(name:"Fat", quantity: widget.fat!, size: size),
               SizedBox(width: 7.0),
-              ButtonNutrision(size: size),
+              ButtonNutrision(name:"Sugar", quantity: widget.sugar!, size: size),
               SizedBox(width: 7.0),
-              ButtonNutrision(size: size),
+              ButtonNutrision(name:"Protein", quantity: widget.protein!, size: size),
             ],
           ),
           SizedBox(height: 20.0),
@@ -199,7 +205,7 @@ class _BodyState extends State<Body> {
               borderRadius: BorderRadius.circular(15.0),
             ),
             child: GestureDetector(
-              onTap: _launchURL,
+              onTap: () => _launchURL(widget.url!),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -228,5 +234,6 @@ class _BodyState extends State<Body> {
   }
 }
 
-void _launchURL() async =>
-    await canLaunch(_url) ? await launch(_url) : throw 'Could not launch $_url';
+void _launchURL(String url) async {
+    await canLaunch(url) ? await launch(url) : throw 'Could not launch $url';
+}

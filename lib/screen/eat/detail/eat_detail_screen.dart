@@ -11,6 +11,9 @@ class EatDetailScreen extends StatelessWidget {
   final String? image;
   final String? cuisineType;
   final num? calories;
+  final num? fat;
+  final num? sugar;
+  final num? protein;
   final num? totalTime;
   final List<String>? ingredientLines;
   final String? url;
@@ -20,6 +23,9 @@ class EatDetailScreen extends StatelessWidget {
     required this.label, 
     required this.image, 
     required this.calories, 
+    required this.fat, 
+    required this.sugar, 
+    required this.protein, 
     required this.totalTime, 
     required this.cuisineType, 
     required this.ingredientLines, 
@@ -79,6 +85,9 @@ class EatDetailScreen extends StatelessWidget {
           image: image,
           cuisineType: cuisineType,
           calories: calories,
+          fat: fat,
+          sugar: sugar,
+          protein: protein,
           totalTime: totalTime,
           ingredientLines: ingredientLines,
           url: url,
