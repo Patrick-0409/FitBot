@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constant.dart';
 
-const _url = 'https://flutter.dev';
 
 class Body extends StatefulWidget {
   var id;

@@ -130,8 +130,6 @@ class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
                               cuisineType: userProfilesList[index]['cuisineType'].toString(),
                               calories: userProfilesList[index]['calories'],
                               totalTime: userProfilesList[index]['totalTime'],
-                              ingredientLines: userProfilesList[index]['ingredientLines'].cast<String>(),
-                              url: userProfilesList[index]['url'].toString(),
                             ),
                           );
                         },

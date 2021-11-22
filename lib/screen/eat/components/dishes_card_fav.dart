@@ -9,17 +9,13 @@ class DishesCardFav extends StatelessWidget {
   final String? cuisineType;
   final num? calories;
   final num? totalTime;
-  final List<String>? ingredientLines;
-  final String? url;
   const DishesCardFav({
     Key? key, 
     required this.label, 
     required this.image, 
     required this.calories, 
     required this.totalTime, 
-    required this.cuisineType, 
-    required this.ingredientLines, 
-    required this.url
+    required this.cuisineType,
   }) : super(key: key);
 
   @override
