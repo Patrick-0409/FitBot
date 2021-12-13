@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
+import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'description.dart';
@@ -11,7 +12,6 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final user = FirebaseAuth.instance.currentUser!;
-
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -39,9 +39,17 @@ class Body extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                CircleAvatar(
-                                  maxRadius: 32,
-                                  backgroundImage: NetworkImage(user.photoURL!),
+                                FutureBuilder<String>(
+                                  future: user_service().getImgUser(user.uid),
+                                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                    if (snapshot.hasData) {
+                                      return CircleAvatar(
+                                        maxRadius: 32,
+                                        backgroundImage: NetworkImage(user.photoURL == null ? snapshot.data! : user.photoURL!),
+                                      );
+                                    }
+                                    return CircularProgressIndicator();
+                                  }
                                 ),
                                 Spacer(),
                                 Padding(
@@ -56,15 +64,23 @@ class Body extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         SizedBox(height: 3),
-                                        Text(
-                                          user.displayName!,
-                                          textAlign: TextAlign.start,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                  color: Colors.black,
-                                                  fontSize: 15),
+                                        FutureBuilder<String>(
+                                          future: user_service().getData(user.uid, 'firstName'),
+                                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                                            if (snapshot.hasData) {
+                                              return Text(
+                                                    snapshot.data!,
+                                                    textAlign: TextAlign.start,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2!
+                                                        .copyWith(
+                                                            color: Colors.black,
+                                                            fontSize: 15),
+                                              );
+                                            }
+                                            return CircularProgressIndicator();
+                                          }
                                         ),
                                         Text(
                                           "INA",
@@ -96,14 +112,30 @@ class Body extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: kGender,
                         ),
-                        child: Text(
-                          "Male",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 20),
+                        child: FutureBuilder<String>(
+                          future: user_service().getData(user.uid, 'gender'),
+                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(
+                                snapshot.data!,
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(color: Colors.black, fontSize: 20),
+                              );
+                            }
+                            return CircularProgressIndicator();
+                          }
                         ),
+                        // Text(
+                        //   "Male",
+                        //   textAlign: TextAlign.center,
+                        //   style: Theme.of(context)
+                        //       .textTheme
+                        //       .bodyText2!
+                        //       .copyWith(color: Colors.black, fontSize: 20),
+                        // ),
                       ),
                     )
                   ],

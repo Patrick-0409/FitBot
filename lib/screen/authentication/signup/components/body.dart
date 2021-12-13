@@ -106,7 +106,8 @@ class _BodyState extends State<Body> {
                     },
                     child: Text('Ok'))
               ],
-            ));
+            )
+    );
   }
 
   Future submit() async {

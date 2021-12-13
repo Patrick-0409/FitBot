@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
+import 'package:fiton/screen/authentication/signup/components/user_image.dart';
 import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,6 +22,7 @@ class AvatarName extends StatefulWidget {
 class _AvatarNameState extends State<AvatarName> {
   File? image;
   String? basename;
+  String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +38,16 @@ class _AvatarNameState extends State<AvatarName> {
               SizedBox(
                 height: 115,
                 width: 115,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  fit: StackFit.expand,
-                  children: [
-                      ClipOval(
-                        child: image != null ?
-                          Image.file(this.image!,
-                          fit: BoxFit.cover,
-                          width: 90.0,
-                          height: 90.0,)
-                            :
-                          Image.network("https://cdn.pixabay.com/photo/2015/01/09/11/22/fitness-594143_960_720.jpg",
-                          fit: BoxFit.cover,
-                          width: 90.0,
-                          height: 90.0,),
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          right: -25,
-                          child: RawMaterialButton(
-                            onPressed: () => {
-                              pickImage(),
-                              if(this.image!=null){
-                                provider.image = this.image!,
-                                provider.basename = this.basename!,
-                              }
-                            },
-                            elevation: 2.0,
-                            fillColor: kFacebookColor,
-                            child: Icon(Icons.camera_alt_outlined, color: Colors.white,),
-                            padding: EdgeInsets.all(5.0),
-                            shape: CircleBorder(),
-                          )
-                      ),
-                  ],
+                child: 
+                  UserImage(
+                    onFileChanged: (imageUrl) {
+                      setState(() {
+                        provider.urlImage = imageUrl;
+                        this.imageUrl = imageUrl;
+                      });
+                    },
+                  ),
                 ),
-              )
             ],
           ),
         ),

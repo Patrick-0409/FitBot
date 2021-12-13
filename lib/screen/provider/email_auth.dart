@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fiton/screen/provider/firebase_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class EmailSignInProvider extends ChangeNotifier {
   String? _gender;
   String? _urlImage;
   FirebaseAuthException? _message;
-  File? _image;
   DateTime? _dob;
 
   EmailSignInProvider() {
@@ -93,13 +91,6 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  File get image => _image!;
-
-  set image(File value) {
-    _image = value;
-    notifyListeners();
-  }
-
   String get urlImage => _urlImage!;
 
   set urlImage(String value) {
@@ -144,49 +135,21 @@ class EmailSignInProvider extends ChangeNotifier {
     }
 
     try{
-      user = result.user;
-      if(user!=null && _image!=null){
-        await uploadImage(user.uid);
-      }
-    } catch (err) {
-      print("upload image");
-      print(err);
-      isLoading = false;
-    }
-
-    try{
       User? user = result.user;
 
       await userCollection.doc(user!.uid).set({
         'uid': user.uid,
         'firstName': firstName,
         'lastName': lastName,
-        'gender': _gender,
-        'urlImage': _image!=null ? urlImage : "",
+        'email': userEmail,
+        'gender': gender,
+        'urlImage': urlImage,
         'birthday': dob,
       });
       // isLoading = false;
       return true;
     }catch (err) {
       print("upload info");
-      print(err);
-      isLoading = false;
-      return false;
-    }
-  }
-
-  Future uploadImage(String uid) async{
-    if(_image==null) return;
-    try{
-      // isLoading = true;
-      final imageName = _basename;
-      final destination = 'profiles/$imageName';
-      task = FirebaseApi.uploadFile(destination, image);
-      if(task == null) return;
-      final snapshot = await task!.whenComplete(() => {});
-      _urlImage = await snapshot.ref.getDownloadURL();
-      // isLoading = false;
-    }catch(err){
       print(err);
       isLoading = false;
       return false;
