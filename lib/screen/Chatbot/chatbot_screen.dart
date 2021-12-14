@@ -21,7 +21,9 @@ class ChatbotScreen extends StatelessWidget {
                 padding: EdgeInsets.fromLTRB(18.0, 5.0, 18.0, 0),
                 child: Row(
                   children: [
-                    SvgPicture.asset("assets\images\robot1.svg"),
+                    Image.asset(
+                      "assets/images/robot1.png",
+                    ),
                     Spacer(),
                     Text(
                       "FitBot",
@@ -32,7 +34,7 @@ class ChatbotScreen extends StatelessWidget {
                     IconButton(
                       icon: Icon(
                         Icons.home,
-                        size: 35,
+                        size: 38,
                       ),
                       onPressed: () {
                         Navigator.push(
@@ -56,10 +58,10 @@ class ChatbotScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 15, bottom: 10),
+              padding: EdgeInsets.only(top: 10, bottom: 10),
               child: Text(
                 "Today, ${DateFormat("Hm").format(DateTime.now())}",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 20, color: Colors.black),
               ),
             ),
             // Flexible(
