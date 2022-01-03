@@ -7,6 +7,7 @@ import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
+import 'package:fiton/screen/workout/kuisoner_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -118,7 +119,13 @@ class _BodyState extends State<Body> {
                         itemBuilder: (context, index) {
                           var place = snapshot.data?.places[index];
                           return InkWell(
-                            onTap: () => _launchURL('https://www.google.com/maps/search/?api=1&query='+place!.lat!.toString()+'%2C'+place.lng!.toString()+'&query_place_id='+place.place_id!),
+                            onTap: () => _launchURL(
+                                'https://www.google.com/maps/search/?api=1&query=' +
+                                    place!.lat!.toString() +
+                                    '%2C' +
+                                    place.lng!.toString() +
+                                    '&query_place_id=' +
+                                    place.place_id!),
                             child: Container(
                               width: 200,
                               margin: EdgeInsets.only(right: 4, left: 13),
@@ -175,7 +182,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return ArticleScreen();
+                            return KuisonerScreen();
                           },
                         ),
                       );
@@ -236,5 +243,7 @@ class _BodyState extends State<Body> {
 }
 
 void _launchURL(String value) async {
-  await canLaunch(value) ? await launch(value) : throw 'Could not launch $value';
+  await canLaunch(value)
+      ? await launch(value)
+      : throw 'Could not launch $value';
 }

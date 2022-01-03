@@ -53,6 +53,8 @@ dependencies:
   intl: ^0.17.0
   timeago: ^3.1.0
   get_it: ^7.2.0
+  dialog_flowtter: ^0.3.1
+  bubble: ^1.2.1
 
   # map plugins
   geolocator: ^7.7.1
@@ -78,6 +80,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/dialog_flow_auth.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

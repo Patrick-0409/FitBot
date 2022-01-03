@@ -17,37 +17,41 @@ class LoginOption extends StatefulWidget {
 }
 
 class _LoginOption extends State<LoginOption> {
-
   var loading = false;
 
   Future<bool> checkAccount(String email) async {
     bool temp = await FirebaseFirestore.instance
-              .collection('users')
-              .where('email',isEqualTo: email)
-              .get()
-              .then((QuerySnapshot querySnapshot) {
-                  if (querySnapshot.docs.length>0) {
-                      return true;
-                  } else {
-                      return false;
-                  }
-              });
-              return temp;
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      if (querySnapshot.docs.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return temp;
   }
 
   void _logInWithFacebook() async {
-    if (this.mounted) {setState(() { loading = true; });}
+    if (this.mounted) {
+      setState(() {
+        loading = true;
+      });
+    }
 
     try {
       final facebookLoginResult = await FacebookAuth.instance.login();
       final userData = await FacebookAuth.instance.getUserData();
 
-      final facebookAuthCredential = FacebookAuthProvider.credential(facebookLoginResult.accessToken!.token);
+      final facebookAuthCredential = FacebookAuthProvider.credential(
+          facebookLoginResult.accessToken!.token);
       await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 
       bool temp = await checkAccount(userData['email']);
 
-      if(!temp) {
+      if (!temp) {
         final user = FirebaseAuth.instance.currentUser;
         await FirebaseFirestore.instance.collection('users').add({
           'uid': user!.uid,
@@ -56,7 +60,6 @@ class _LoginOption extends State<LoginOption> {
           'name': userData['name'],
         });
       }
-
     } on FirebaseAuthException catch (e) {
       var content = '';
       switch (e.code) {
@@ -77,40 +80,56 @@ class _LoginOption extends State<LoginOption> {
           break;
       }
 
-      showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Log in with Facebook failed'),
-        content: Text(content),
-        actions: [TextButton(onPressed: () {
-          Navigator.of(context).pop();
-
-        }, child: Text('Ok'))],
-      ));
-
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Log in with Facebook failed'),
+                content: Text(content),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Ok'))
+                ],
+              ));
     } finally {
-      if (this.mounted) {setState(() { loading = false; });}
+      if (this.mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
   void _logInWithGoogle() async {
-    if (this.mounted) {setState(() { loading = true; });}
+    if (this.mounted) {
+      setState(() {
+        loading = true;
+      });
+    }
 
     final googleSignIn = GoogleSignIn(scopes: ['email']);
     try {
       final googleSignInAccount = await googleSignIn.signIn();
-      if(googleSignInAccount == null){
-        if (this.mounted) {setState(() { loading = true; });}
+      if (googleSignInAccount == null) {
+        if (this.mounted) {
+          setState(() {
+            loading = true;
+          });
+        }
         return;
       }
-      final googleSignInAuthentication = await googleSignInAccount.authentication;
+      final googleSignInAuthentication =
+          await googleSignInAccount.authentication;
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken
-      );
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-      
+
       bool temp = await checkAccount(googleSignInAccount.email);
-      if(!temp) {
+      if (!temp) {
         await FirebaseFirestore.instance.collection('users').add({
           'uid': googleSignInAccount.id,
           'email': googleSignInAccount.email,
@@ -138,20 +157,27 @@ class _LoginOption extends State<LoginOption> {
           break;
       }
 
-      showDialog(context: context, builder: (context) => AlertDialog(
-        title: Text('Log in with Facebook failed'),
-        content: Text(content),
-        actions: [TextButton(onPressed: () {
-          Navigator.of(context).pop();
-
-        }, child: Text('Ok'))],
-      ));
-
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Text('Log in with Facebook failed'),
+                content: Text(content),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Ok'))
+                ],
+              ));
     } finally {
-      if (this.mounted) {setState(() { loading = false; });}
+      if (this.mounted) {
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +185,7 @@ class _LoginOption extends State<LoginOption> {
       mainAxisAlignment: MainAxisAlignment.center,
       // crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if(!loading)
+        if (!loading)
           RoundedLoginOption(
             text: 'WITH GOOGLE',
             img: 'google',
@@ -170,7 +196,7 @@ class _LoginOption extends State<LoginOption> {
             tcolor: Colors.black,
             height: 30,
           ),
-        if(loading)
+        if (loading)
           Container(
             height: 50,
             width: 170,
@@ -179,7 +205,7 @@ class _LoginOption extends State<LoginOption> {
               color: Colors.white,
             ),
             child: Center(
-              child:SizedBox(
+              child: SizedBox(
                 child: CircularProgressIndicator(),
                 height: 35,
                 width: 35,
@@ -187,7 +213,7 @@ class _LoginOption extends State<LoginOption> {
             ),
           ),
         SizedBox(width: 20),
-        if(!loading)
+        if (!loading)
           RoundedLoginOption(
             text: 'WITH FACEBOOK',
             img: 'facebook',
@@ -198,7 +224,7 @@ class _LoginOption extends State<LoginOption> {
             tcolor: Colors.white,
             height: 35,
           ),
-        if(loading)
+        if (loading)
           Container(
             height: 50,
             width: 170,
@@ -207,11 +233,11 @@ class _LoginOption extends State<LoginOption> {
               color: kFacebookColor,
             ),
             child: Center(
-                  child:SizedBox(
-                    child: CircularProgressIndicator(),
-                    height: 35,
-                    width: 35,
-                  ),
+              child: SizedBox(
+                child: CircularProgressIndicator(),
+                height: 35,
+                width: 35,
+              ),
             ),
           )
       ],
