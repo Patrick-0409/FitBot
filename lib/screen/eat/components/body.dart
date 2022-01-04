@@ -321,10 +321,10 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Breakfast",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
@@ -342,10 +342,10 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Lunch",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
@@ -363,10 +363,10 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Dinner",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
