@@ -1,8 +1,4 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
-import 'package:fiton/models/news.dart';
 
 // ignore: camel_case_types
 class user_service {
@@ -23,6 +19,7 @@ class user_service {
             });
     return url;
   }
+
   Future<String> getData(String uid, String dt) async {
     var url = "0";
     url = await FirebaseFirestore.instance
@@ -38,5 +35,22 @@ class user_service {
               return '0';
             });
     return url;
+  }
+
+  Future<bool> checkContains(String? uid) async {
+    var temp = FirebaseFirestore.instance
+            .collection('users')
+            .where('uid', isEqualTo: uid)
+            .where('height', isEqualTo: "")
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+                  print(querySnapshot.docs);
+                  if (querySnapshot.docs.length>0) {
+                      return true;
+                  } else {
+                      return false;
+                  }
+              });
+    return temp;
   }
 }

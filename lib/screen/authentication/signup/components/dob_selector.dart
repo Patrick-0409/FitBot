@@ -47,10 +47,9 @@ class _DobSelectorState extends State<DobSelector> {
               () {
                 birthDate = datePick;
                 isDateSelected = true;
-                // put it here
                 birthDateInString =
-                    "${birthDate.day}-${birthDate.month}-${birthDate.year}"; // 08/14/2019
-                provider.dob = birthDate;
+                    "${birthDate.day}-${birthDate.month}-${birthDate.year}";
+                provider.dob = birthDate; 
                 TEController.text=birthDateInString;
               },
             );

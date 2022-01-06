@@ -6,7 +6,6 @@ import 'package:fiton/screen/authentication/login/components/account_checker.dar
 import 'package:fiton/screen/authentication/login/components/background.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/provider/email_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,11 +36,7 @@ class _BodyState extends State<Body> {
                   "FitBot",
                   style: Theme.of(context).textTheme.headline1,
                 ),
-                // SizedBox(height: size.height * 0.25),
                 AvatarName(),
-                GenderSelector(),
-                SizedBox(height: size.height * 0.01),
-                DobSelector(),
                 SizedBox(height: size.height * 0.01),
                 RoundedInputField(),
                 SizedBox(height: size.height * 0.01),
@@ -101,10 +96,11 @@ class _BodyState extends State<Body> {
               content: Text(messageToDisplay),
               actions: [
                 TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Ok'))
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Ok')
+                )
               ],
             )
     );
@@ -129,33 +125,8 @@ class _BodyState extends State<Body> {
       } else {
         if (mounted) {
           _handleSignUpError(provider.message);
-          // showAlertDialog(context);
         }
       }
     }
-  }
-
-  showAlertDialog(BuildContext context) {
-    Widget okButton = FlatButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-
-    AlertDialog alert = AlertDialog(
-      title: Text("Register failed"),
-      content: Text("content"),
-      actions: [
-        okButton,
-      ],
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
   }
 }

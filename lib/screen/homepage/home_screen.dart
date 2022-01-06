@@ -24,8 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
-    // final image = getUser(user.uid).then((value) => value);
-    // print('asdasd '+getUrl(user.uid));
     return Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: PreferredSize(
@@ -35,54 +33,158 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ListTile(
-                leading: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return ProfileScreen();
-                        },
-                      ),
-                    );
-                  },
-                  child: FutureBuilder<String>(
-                    future: user_service().getImgUser(user.uid),
-                    builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                      if (snapshot.hasData) {
-                        return CircleAvatar(
-                          maxRadius: 25,
-                          backgroundImage: NetworkImage(user.photoURL == null ? snapshot.data! : user.photoURL!),
+                  leading: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ProfileScreen();
+                            },
+                          ),
                         );
-                      }
-                      return CircularProgressIndicator();
-                    }
-                  )
-                  // CircleAvatar(
-                  //   maxRadius: 25,
-                  //   backgroundImage: NetworkImage(user.photoURL == null ? 'https://assets-a1.kompasiana.com/items/album/2018/10/30/fitness-5bd7f1a06ddcae12ff37c1b5.jpg' : user.photoURL!),
-                  // ),
-                ),
-                title: Text(
-                  "FitBot",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                trailing: GestureDetector(
-                  onTap: () {
-                    _signOut();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoginScreen();
-                        },
+                      },
+                      child: FutureBuilder<String>(
+                          future: user_service().getImgUser(user.uid),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<String> snapshot) {
+                            if (snapshot.hasData) {
+                              return CircleAvatar(
+                                maxRadius: 25,
+                                backgroundImage: NetworkImage(
+                                    user.photoURL == null
+                                        ? snapshot.data!
+                                        : user.photoURL!),
+                              );
+                            }
+                            return CircularProgressIndicator();
+                          })),
+                  title: Text(
+                    "FitBot",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  trailing: Theme(
+                      data: Theme.of(context).copyWith(
+                        cardColor: Color(0xFF152F42),
                       ),
-                    );
-                  },
-                  child: SvgPicture.asset("assets/images/menu.svg"),
-                ),
-              ),
+                      child: new PopupMenuButton(
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Settings",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.settings,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "About Us",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.info,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {},
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Logout",
+                                  style: TextStyle(
+                                    color: Colors.redAccent,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.logout,
+                                    color: Colors.redAccent,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              _signOut();
+                              Navigator.pop(context, "Logout");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return LoginScreen();
+                                  },
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                        child: SvgPicture.asset("assets/images/menu.svg"),
+                      )
+                      )),
             ],
           ),
         ),

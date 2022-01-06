@@ -14,6 +14,8 @@ class EmailSignInProvider extends ChangeNotifier {
   UploadTask? task;
   bool? _isLoading;
   bool? _isLogin;
+  String? _weight;
+  String? _height;
   String? _userEmail;
   String? _userPassword;
   String? _firstName;
@@ -46,6 +48,21 @@ class EmailSignInProvider extends ChangeNotifier {
 
   set isLogin(bool value) {
     _isLogin = value;
+    notifyListeners();
+  }
+
+
+  String get weight => _weight!;
+
+  set weight(String value) {
+    _weight = value;
+    notifyListeners();
+  }
+
+  String get height => _height!;
+
+  set height(String value) {
+    _height = value;
     notifyListeners();
   }
 
@@ -112,25 +129,34 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future save(String uid) async {
+    try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .update({
+              'birthday':dob,
+              'gender':gender,
+              'weight':weight,
+              'height':height,
+            });
+    } catch (e) {
+      print("error pas add "+e.toString());
+    }
+  }
+
   Future<bool> register() async {
-    User? user;
     UserCredential? result;
     try {
-      // isLoading = true;
 
       result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail,
           password: userPassword
       );
       _message = null;
-      // isLoading = false;
     } on FirebaseAuthException catch (err) {
-      print(err);
       isLoading = false;
       _message = err;
-      print(userEmail);
-      print(userPassword);
-      print(err);
       return false;
     }
 
@@ -142,17 +168,15 @@ class EmailSignInProvider extends ChangeNotifier {
         'firstName': firstName,
         'lastName': lastName,
         'email': userEmail,
-        'gender': gender,
         'urlImage': urlImage,
-        'birthday': dob,
+        'height': "",
       });
-      // isLoading = false;
       return true;
     }catch (err) {
-      print("upload info");
-      print(err);
       isLoading = false;
       return false;
     }
   }
+
+
 }
