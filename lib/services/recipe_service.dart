@@ -31,6 +31,9 @@ class RecipesService {
                     String? image,
                     String? cuisineType,
                     num? calories,
+                    num? fat,
+                    num? sugar,
+                    num? protein,
                     num? totalTime,
                     List<String>? ingredientLines,
                     String? url
@@ -42,6 +45,9 @@ class RecipesService {
       image: image,
       cuisineType: cuisineType,
       calories: calories,
+      fat: fat,
+      sugar: sugar,
+      protein: calories,
       totalTime: totalTime,
       favorited: [],
       ingredientLines: ingredientLines,
@@ -68,6 +74,28 @@ class RecipesService {
     } catch (e) {
       return e.toString();
     }
+  }
+
+  Future getRecs() async {
+    List itemsList = [];
+    try {
+    await FirebaseFirestore.instance
+            .collection('favoriteRecipes')
+            .get()
+            .then((querySnapshot) {
+                  if (querySnapshot.docs.length>0) {
+                      for (var i = 0; i < querySnapshot.docs.length; i++) {
+                        itemsList.add(querySnapshot.docs[i].data());
+                      }
+                      return itemsList;
+                  } else {
+                      return itemsList;
+                  }
+              });
+    } catch (e) {
+      print(e);
+    }
+    return itemsList;
   }
 
   Future getFavs() async {
@@ -162,6 +190,9 @@ class RecipesService {
                     String? image,
                     String? cuisineType,
                     num? calories,
+                    num? energy,
+                    num? sugar,
+                    num? protein,
                     num? totalTime,
                     List<String>? ingredientLines,
                     String? url
@@ -173,6 +204,9 @@ class RecipesService {
       image,
       cuisineType,
       calories,
+      energy,
+      sugar,
+      protein,
       totalTime,
       ingredientLines,
       url

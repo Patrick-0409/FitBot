@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fiton/screen/provider/firebase_api.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +14,8 @@ class EmailSignInProvider extends ChangeNotifier {
   UploadTask? task;
   bool? _isLoading;
   bool? _isLogin;
+  String? _weight;
+  String? _height;
   String? _userEmail;
   String? _userPassword;
   String? _firstName;
@@ -23,7 +24,6 @@ class EmailSignInProvider extends ChangeNotifier {
   String? _gender;
   String? _urlImage;
   FirebaseAuthException? _message;
-  File? _image;
   DateTime? _dob;
 
   EmailSignInProvider() {
@@ -48,6 +48,21 @@ class EmailSignInProvider extends ChangeNotifier {
 
   set isLogin(bool value) {
     _isLogin = value;
+    notifyListeners();
+  }
+
+
+  String get weight => _weight!;
+
+  set weight(String value) {
+    _weight = value;
+    notifyListeners();
+  }
+
+  String get height => _height!;
+
+  set height(String value) {
+    _height = value;
     notifyListeners();
   }
 
@@ -93,13 +108,6 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  File get image => _image!;
-
-  set image(File value) {
-    _image = value;
-    notifyListeners();
-  }
-
   String get urlImage => _urlImage!;
 
   set urlImage(String value) {
@@ -121,37 +129,35 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future save(String uid) async {
+    try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .update({
+              'birthday':dob,
+              'gender':gender,
+              'weight':weight,
+              'height':height,
+            });
+    } catch (e) {
+      print("error pas add "+e.toString());
+    }
+  }
+
   Future<bool> register() async {
-    User? user;
     UserCredential? result;
     try {
-      // isLoading = true;
 
       result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: userEmail,
           password: userPassword
       );
       _message = null;
-      // isLoading = false;
     } on FirebaseAuthException catch (err) {
-      print(err);
       isLoading = false;
       _message = err;
-      print(userEmail);
-      print(userPassword);
-      print(err);
       return false;
-    }
-
-    try{
-      user = result.user;
-      if(user!=null && _image!=null){
-        await uploadImage(user.uid);
-      }
-    } catch (err) {
-      print("upload image");
-      print(err);
-      isLoading = false;
     }
 
     try{
@@ -161,35 +167,16 @@ class EmailSignInProvider extends ChangeNotifier {
         'uid': user.uid,
         'firstName': firstName,
         'lastName': lastName,
-        'gender': _gender,
-        'urlImage': _image!=null ? urlImage : "",
-        'birthday': dob,
+        'email': userEmail,
+        'urlImage': urlImage,
+        'height': "",
       });
-      // isLoading = false;
       return true;
     }catch (err) {
-      print("upload info");
-      print(err);
       isLoading = false;
       return false;
     }
   }
 
-  Future uploadImage(String uid) async{
-    if(_image==null) return;
-    try{
-      // isLoading = true;
-      final imageName = _basename;
-      final destination = 'profiles/$imageName';
-      task = FirebaseApi.uploadFile(destination, image);
-      if(task == null) return;
-      final snapshot = await task!.whenComplete(() => {});
-      _urlImage = await snapshot.ref.getDownloadURL();
-      // isLoading = false;
-    }catch(err){
-      print(err);
-      isLoading = false;
-      return false;
-    }
-  }
+
 }

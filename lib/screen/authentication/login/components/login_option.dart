@@ -53,11 +53,12 @@ class _LoginOption extends State<LoginOption> {
 
       if (!temp) {
         final user = FirebaseAuth.instance.currentUser;
-        await FirebaseFirestore.instance.collection('users').add({
-          'uid': user!.uid,
+        await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+          'uid': user.uid,
           'email': userData['email'],
           'imageUrl': userData['picture']['data']['url'],
           'name': userData['name'],
+          'height': "",
         });
       }
     } on FirebaseAuthException catch (e) {
@@ -127,14 +128,15 @@ class _LoginOption extends State<LoginOption> {
           idToken: googleSignInAuthentication.idToken);
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-
       bool temp = await checkAccount(googleSignInAccount.email);
+      final user = FirebaseAuth.instance.currentUser!;
       if (!temp) {
-        await FirebaseFirestore.instance.collection('users').add({
-          'uid': googleSignInAccount.id,
-          'email': googleSignInAccount.email,
-          'imageUrl': googleSignInAccount.photoUrl,
-          'name': googleSignInAccount.photoUrl,
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'uid': user.uid,
+          'email': user.email,
+          'imageUrl': user.photoURL,
+          'name': user.displayName,
+          'height': "",
         });
       }
     } on FirebaseAuthException catch (e) {

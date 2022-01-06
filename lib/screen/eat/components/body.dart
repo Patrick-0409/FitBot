@@ -18,12 +18,18 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   late Future<RecipeModel> _recipeModel;
+  List userProfilesList = [];
 
   @override
   void initState() {
-    _recipeModel = RecipesService().getRecipes(sea_url);
-    // print(_recipeModel);
+    fetchRecipesList();
+    _recipeModel = RecipesService().getRecipes(deli_url);
     super.initState();
+  }
+
+  fetchRecipesList() async {
+    userProfilesList = await RecipesService().getRecs();
+    return userProfilesList;
   }
 
   @override
@@ -89,45 +95,71 @@ class _BodyState extends State<Body> {
               Container(
                   width: double.infinity,
                   height: 162,
-                  child: FutureBuilder<RecipeModel>(
-                      future: _recipeModel,
+                  child: FutureBuilder(
+                      future: fetchRecipesList(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
-                            itemCount: 5,
+                            itemCount: userProfilesList.length > 5 ? 5 : userProfilesList.length,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              var recent = snapshot.data?.recipes[index];
                               return InkWell(
                                 onTap: () async {
-                                  bool temp = await RecipesService()
-                                      .checkContains(await RecipesService()
-                                          .checkNews(
-                                              recent!.label,
-                                              recent.image,
-                                              recent.cuisineType,
-                                              recent.calories,
-                                              recent.totalTime,
-                                              recent.ingredientLines,
-                                              recent.url));
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => EatDetailScreen(
-                                        contain: temp,
-                                        label: recent.label,
-                                        image: recent.image,
-                                        cuisineType: recent.cuisineType,
-                                        calories: recent.calories,
-                                        totalTime: recent.totalTime,
-                                        ingredientLines: recent.ingredientLines,
-                                        url: recent.url,
-                                      ),
-                                    ),
-                                  );
+                                  bool temp = await RecipesService().checkContains(
+                                  await RecipesService().checkNews(
+                                userProfilesList[index]['label'].toString(),
+                                userProfilesList[index]['image'].toString(),
+                                userProfilesList[index]['cuisineType']
+                                    .toString(),
+                                userProfilesList[index]['calories'],
+                                userProfilesList[index]['fat'],
+                                userProfilesList[index]['sugar'],
+                                userProfilesList[index]['protein'],
+                                userProfilesList[index]['totalTime'],
+                                userProfilesList[index]['ingredientLines']
+                                    .cast<String>(),
+                                userProfilesList[index]['url'].toString(),
+                              ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EatDetailScreen(
+                                    contain: temp,
+                                    label: userProfilesList[index]['label']
+                                        .toString(),
+                                    image: userProfilesList[index]['image']
+                                        .toString(),
+                                    cuisineType: userProfilesList[index]
+                                            ['cuisineType']
+                                        .toString(),
+                                    calories: userProfilesList[index]
+                                        ['calories'],
+                                    fat: userProfilesList[index]['fat'],
+                                    sugar: userProfilesList[index]['sugar'],
+                                    protein: userProfilesList[index]['protein'],
+                                    totalTime: userProfilesList[index]
+                                        ['totalTime'],
+                                    ingredientLines: userProfilesList[index]
+                                            ['ingredientLines']
+                                        .cast<String>(),
+                                    url: userProfilesList[index]['url']
+                                        .toString(),
+                                  ),
+                                ),
+                              );
                                 },
-                                child: DishesCard(recipe: recent!),
+                                child: DishesCard(
+                              label:
+                                  userProfilesList[index]['label'].toString(),
+                              image:
+                                  userProfilesList[index]['image'].toString(),
+                              cuisineType: userProfilesList[index]
+                                      ['cuisineType']
+                                  .toString(),
+                              calories: userProfilesList[index]['calories'],
+                              totalTime: userProfilesList[index]['totalTime'],
+                                ),
                               );
                             },
                           );
@@ -253,11 +285,10 @@ class _BodyState extends State<Body> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
-                            itemCount: 5,
+                            itemCount: snapshot.data?.recipes.length,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              // var news = popularList[index];
                               var recent = snapshot.data?.recipes[index];
                               return InkWell(
                                 onTap: () async {
@@ -268,6 +299,9 @@ class _BodyState extends State<Body> {
                                               recent.image,
                                               recent.cuisineType,
                                               recent.calories,
+                                              recent.fat,
+                                              recent.sugar,
+                                              recent.protein,
                                               recent.totalTime,
                                               recent.ingredientLines,
                                               recent.url));
@@ -280,6 +314,9 @@ class _BodyState extends State<Body> {
                                         image: recent.image,
                                         cuisineType: recent.cuisineType,
                                         calories: recent.calories,
+                                        fat: recent.fat,
+                                        sugar: recent.sugar,
+                                        protein: recent.protein,
                                         totalTime: recent.totalTime,
                                         ingredientLines: recent.ingredientLines,
                                         url: recent.url,

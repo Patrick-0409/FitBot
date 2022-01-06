@@ -10,14 +10,12 @@ import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/workout/kuisoner_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'button_explore.dart';
-
-const _url = 'https://maps.google.com/maps/contrib/112325889484460917434';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -50,6 +48,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -177,15 +176,28 @@ class _BodyState extends State<Body> {
                   ),
                   ButtonExplore(
                     size: size,
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return KuisonerScreen();
-                          },
-                        ),
-                      );
+                    press: () async {
+                      bool temp = await user_service().checkContains(user.uid);
+                      if(temp == true){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return KuisonerScreen();
+                            },
+                          ),
+                        );
+                      }
+                      else{
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return EatScreen();
+                            },
+                          ),
+                        );
+                      }
                     },
                     color: kTrain,
                     text: Text(

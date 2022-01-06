@@ -50,20 +50,22 @@ class _BodyState extends State<Body> {
       }
 
       showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Login failed'),
-              content: Text(message),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Ok')),
-              ],
-            );
-          });
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Login failed'),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       setState(() {
         success = true;

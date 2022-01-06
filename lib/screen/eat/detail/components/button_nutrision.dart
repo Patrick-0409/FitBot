@@ -6,9 +6,13 @@ class ButtonNutrision extends StatelessWidget {
   const ButtonNutrision({
     Key? key,
     required this.size,
+    required this.name,
+    required this.quantity,
   }) : super(key: key);
 
   final Size size;
+  final String name;
+  final num quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class ButtonNutrision extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "Sugar",
+                  name,
                   textAlign: TextAlign.start,
                   style: descriptionStyle.copyWith(
                     color: Colors.white,
@@ -56,7 +60,7 @@ class ButtonNutrision extends StatelessWidget {
                 borderRadius: BorderRadius.circular(13.0),
               ),
               child: Text(
-                "5.2",
+                quantity.toStringAsFixed(1),
                 textAlign: TextAlign.center,
                 style: descriptionStyle.copyWith(
                   color: Colors.black,

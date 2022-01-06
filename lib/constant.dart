@@ -43,6 +43,10 @@ const String dinner_url = 'https://api.edamam.com/search?q=dinner&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
+const String deli_url = 'https://api.edamam.com/search?q=delicious&app_id=' +
+    edamamApiId +
+    '&app_key=' +
+    edamamApiKey;
 
 const kHeaderColor = Color(0xFF39BBC3);
 const kTextLightColor = Color(0xFFACACAC);

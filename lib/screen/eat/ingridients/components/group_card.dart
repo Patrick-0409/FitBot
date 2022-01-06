@@ -1,33 +1,25 @@
+import 'package:fiton/constant.dart';
+import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/recipe.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constant.dart';
 
-class DishesCard extends StatelessWidget {
-  final String? label;
-  final String? image;
-  final String? cuisineType;
-  final num? calories;
-  final num? totalTime;
-  const DishesCard({
-    Key? key, 
-    required this.label, 
-    required this.image, 
-    required this.cuisineType, 
-    required this.calories, 
-    required this.totalTime
-    }) : super(key: key);
+class IngridientsCardFav extends StatelessWidget {
+  final Recipe recipe;
+  const IngridientsCardFav({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.only(right: 20),
+      padding: const EdgeInsets.only(top: 10),
       child: Container(
         width: 300,
+        height: size.height * 0.24,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImageSSL(image!, headers: {}),
+            image: NetworkImageSSL(recipe.image!, headers: {}),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -59,7 +51,7 @@ class DishesCard extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                   children: [
                     TextSpan(
-                      text: label,
+                      text: recipe.label,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -81,7 +73,7 @@ class DishesCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Text(
-                      totalTime!.toInt().toString()+" min",
+                      recipe.totalTime!.toInt().toString()+" min",
                       style: kTitleCardEat,
                     ),
                   ),
@@ -93,7 +85,7 @@ class DishesCard extends StatelessWidget {
                       color: KEatCardCategory,
                     ),
                     child: Text(
-                      cuisineType!,
+                      recipe.cuisineType!,
                       style: kTitleCardEat,
                     ),
                   ),
@@ -105,7 +97,7 @@ class DishesCard extends StatelessWidget {
                       color: KEatCardCalories,
                     ),
                     child: Text(
-                      calories!.toInt().toString() + " kcal",
+                      recipe.calories!.toInt().toString() + " kcal",
                       style: kTitleCardEat,
                     ),
                   ),
