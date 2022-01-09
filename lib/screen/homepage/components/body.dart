@@ -178,7 +178,7 @@ class _BodyState extends State<Body> {
                     size: size,
                     press: () async {
                       bool temp = await user_service().checkContains(user.uid);
-                      if(temp == true){
+                      if (temp == true) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -187,8 +187,7 @@ class _BodyState extends State<Body> {
                             },
                           ),
                         );
-                      }
-                      else{
+                      } else {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -75,7 +75,8 @@ class _BodyState extends State<Body> {
                       MaterialPageRoute(
                         builder: (context) {
                           print(value);
-                          return GroupScreen(title:value, url: '', sectitle: '');
+                          return GroupScreen(
+                              title: value, url: '', sectitle: '');
                         },
                       ),
                     );
@@ -184,17 +185,19 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title:'Chicken',url:chic_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Chicken', url: chic_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Chicken",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
+                    picture: SvgPicture.asset("assets/icons/chicken.svg",
+                        height: 40, width: 40, fit: BoxFit.scaleDown),
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
@@ -204,17 +207,19 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title:'Beef', url:beef_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Beef', url: beef_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Beef",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
+                    picture: SvgPicture.asset("assets/icons/beef.svg",
+                        height: 40, width: 40, fit: BoxFit.scaleDown),
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
@@ -224,17 +229,19 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Salad', url : salad_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Salad', url: salad_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Salad",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
+                    picture: SvgPicture.asset("assets/icons/salad.svg",
+                        height: 40, width: 40, fit: BoxFit.scaleDown),
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
@@ -244,17 +251,19 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Seafood', url : sea_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Seafood', url: sea_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Seafood",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
+                    picture: SvgPicture.asset("assets/icons/fish.svg",
+                        height: 40, width: 40, fit: BoxFit.scaleDown),
                   ),
                 ],
               ),
@@ -341,15 +350,18 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Breakfast', url : breakfast_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Breakfast',
+                                url: breakfast_url,
+                                sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Breakfast",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
@@ -361,15 +373,16 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Lunch', url : lunch_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Lunch', url: lunch_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Lunch",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
@@ -381,15 +394,16 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return GroupScreen(title: 'Dinner', url : dinner_url, sectitle: '');
+                            return GroupScreen(
+                                title: 'Dinner', url: dinner_url, sectitle: '');
                           },
                         ),
                       );
                     },
-                    color: kChat,
+                    color: kBackgroundColor,
                     text: Text(
                       "Dinner",
-                      style: kChatTitle,
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),

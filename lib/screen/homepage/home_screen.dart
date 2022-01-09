@@ -91,6 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Test Notification",
@@ -127,8 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -146,14 +147,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           PopupMenuItem(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Settings",
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600
-                                  ),
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -171,14 +173,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           PopupMenuItem(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "About Us",
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600
-                                  ),
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -196,14 +199,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           PopupMenuItem(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Logout",
                                   style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600
-                                  ),
+                                      color: Colors.redAccent,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -232,8 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           )
                         ],
                         child: SvgPicture.asset("assets/images/menu.svg"),
-                      )
-                      )),
+                      ))),
             ],
           ),
         ),

@@ -4,9 +4,30 @@ import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
+import 'package:dialog_flowtter/dialog_flowtter.dart';
 
-class ChatbotScreen extends StatelessWidget {
-  const ChatbotScreen({Key? key}) : super(key: key);
+import 'body.dart';
+
+class ChatbotScreen extends StatefulWidget {
+  ChatbotScreen({Key? key, this.title}) : super(key: key);
+
+  final String? title;
+
+  @override
+  _ChatbotScreenState createState() => _ChatbotScreenState();
+}
+
+class _ChatbotScreenState extends State<ChatbotScreen> {
+  late DialogFlowtter dialogFlowtter;
+  final TextEditingController _controller = TextEditingController();
+
+  List<Map<String, dynamic>> messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    DialogFlowtter.fromFile().then((instance) => dialogFlowtter = instance);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,87 +75,80 @@ class ChatbotScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                "Today, ${DateFormat("Hm").format(DateTime.now())}",
-                style: TextStyle(fontSize: 20, color: Colors.black),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 5, bottom: 10),
+            child: Text(
+              "Today, ${DateFormat("Hm").format(DateTime.now())}",
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
               ),
             ),
-            // Flexible(
-            //   child: ListView.builder(
-            //     reverse: true,
-            //     itemCount: messsages.length,
-            //     itemBuilder: (context, index) => chat(
-            //         messsages[index]["message"].toString(),
-            //         messsages[index]["data"]),
-            //   ),
-            // ),
-            SizedBox(
-              height: 20,
+          ),
+          Expanded(child: Body(messages: messages)),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 2,
             ),
-            Divider(
-              height: 5.0,
-              color: Colors.greenAccent,
-            ),
-            Container(
-              child: ListTile(
-                title: Container(
-                  height: 35,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    color: Color.fromRGBO(220, 220, 220, 1),
-                  ),
-                  padding: EdgeInsets.only(left: 15),
-                  child: TextFormField(
-                    // controller: messageInsert,
-                    decoration: InputDecoration(
-                      hintText: "Enter a Message...",
-                      hintStyle: TextStyle(color: Colors.black26),
-                      border: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      errorBorder: InputBorder.none,
-                      disabledBorder: InputBorder.none,
-                      contentPadding: EdgeInsets.only(bottom: 12),
-                    ),
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                    onChanged: (value) {},
+            color: Color(0xFF295677),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _controller,
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-                trailing: IconButton(
-                    icon: Icon(
-                      Icons.send,
-                      size: 30.0,
-                      color: kBackgroundColor,
-                    ),
-                    onPressed: () {
-                      // if (messageInsert.text.isEmpty) {
-                      //   print("empty message");
-                      // } else {
-                      //   setState(() {
-                      //     messsages.insert(0,
-                      //         {"data": 1, "message": messageInsert.text});
-                      //   });
-                      //   response(messageInsert.text);
-                      //   messageInsert.clear();
-                      // }
-                      // FocusScopeNode currentFocus = FocusScope.of(context);
-                      // if (!currentFocus.hasPrimaryFocus) {
-                      //   currentFocus.unfocus();
-                      // }
-                    }),
-              ),
+                IconButton(
+                  color: Colors.white,
+                  icon: Icon(Icons.send),
+                  onPressed: () {
+                    sendMessage(_controller.text);
+                    _controller.clear();
+                  },
+                ),
+              ],
             ),
-            SizedBox(
-              height: 15.0,
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  void sendMessage(String text) async {
+    if (text.isEmpty) return;
+    setState(() {
+      addMessage(
+        Message(text: DialogText(text: [text])),
+        true,
+      );
+    });
+
+    dialogFlowtter.projectId = "master-host-337515";
+
+    DetectIntentResponse response = await dialogFlowtter.detectIntent(
+      queryInput: QueryInput(text: TextInput(text: text)),
+    );
+
+    if (response.message == null) return;
+    setState(() {
+      addMessage(response.message!);
+    });
+  }
+
+  void addMessage(Message message, [bool isUserMessage = false]) {
+    messages.add({
+      'message': message,
+      'isUserMessage': isUserMessage,
+    });
+  }
+
+  @override
+  void dispose() {
+    dialogFlowtter.dispose();
+    super.dispose();
   }
 }
