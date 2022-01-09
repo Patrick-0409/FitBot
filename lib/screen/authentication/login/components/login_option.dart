@@ -162,7 +162,7 @@ class _LoginOption extends State<LoginOption> {
       showDialog(
           context: context,
           builder: (context) => AlertDialog(
-                title: Text('Log in with Facebook failed'),
+                title: Text('Log in with Google failed'),
                 content: Text(content),
                 actions: [
                   TextButton(

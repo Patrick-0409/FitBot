@@ -56,6 +56,12 @@ dependencies:
   dialog_flowtter: ^0.3.1
   bubble: ^1.2.1
 
+  #notification
+  flutter_native_timezone: ^2.0.0
+  flutter_local_notifications: ^9.2.0
+  rxdart: ^0.27.3
+  
+
   # map plugins
   geolocator: ^7.7.1
   geocoding: ^2.0.1
