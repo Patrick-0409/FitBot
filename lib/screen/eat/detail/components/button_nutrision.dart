@@ -24,7 +24,7 @@ class ButtonNutrision extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 10, top: 2, bottom: 2, right: 2),
+        padding: const EdgeInsets.only(left: 8, top: 2, bottom: 2, right: 5),
         child: Row(
           children: [
             Column(
@@ -51,7 +51,7 @@ class ButtonNutrision extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(width: 12),
+            Spacer(),
             Container(
               width: size.width * 0.11,
               height: size.height * 0.06,

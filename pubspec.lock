@@ -98,7 +98,7 @@ packages:
       name: dialog_flowtter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.3"
   equatable:
     dependency: transitive
     description:
