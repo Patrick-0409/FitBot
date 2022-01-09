@@ -2,7 +2,6 @@ import 'package:fiton/screen/authentication/components/text_field_container.dart
 import 'package:flutter/material.dart';
 
 class TextFieldd extends StatelessWidget {
-
   final TextEditingController controller;
   final Size size;
   final String label;
@@ -26,8 +25,7 @@ class TextFieldd extends StatelessWidget {
       width: size.width * 0.42,
       child: TextFormField(
         decoration: InputDecoration(
-          contentPadding:
-              EdgeInsets.only(left: 10, bottom: 10),
+          contentPadding: EdgeInsets.only(left: 10, bottom: 10),
           hintText: label,
         ),
         controller: controller,
