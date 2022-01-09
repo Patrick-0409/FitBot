@@ -7,7 +7,7 @@ import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
-import 'package:fiton/screen/workout/kuisoner_screen.dart';
+import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:fiton/services/user_service.dart';
