@@ -19,9 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
 
     NotificationService.init();
@@ -29,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void listenNotification() =>
-          NotificationService.onNotifications.stream.listen(onClickedNotification);
+      NotificationService.onNotifications.stream.listen(onClickedNotification);
 
   void onClickedNotification(String? payload) =>
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => WorkoutScreen(payload:payload),
-          ));
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => WorkoutScreen(payload: payload),
+      ));
 
   Future<void> _signOut() async {
     await firebaseAuth.signOut();
@@ -99,8 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
-                                      fontWeight: FontWeight.w600
-                                  ),
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
@@ -114,15 +112,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            onTap: () => NotificationService.showScheduledNotification(
+                            onTap: () =>
+                                NotificationService.showScheduledNotification(
                               title: 'FitOn',
-                              body: 'Ayo semangat, kita harus olahraga bareng ya!',
+                              body:
+                                  'Ayo semangat, kita harus olahraga bareng ya!',
                               payload: 'Fit.On',
-                              scheduledDate: DateTime.now().add(Duration(seconds: 12)),
+                              scheduledDate:
+                                  DateTime.now().add(Duration(seconds: 12)),
                             ),
                           ),
                           PopupMenuItem(
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   "Edit Profile",

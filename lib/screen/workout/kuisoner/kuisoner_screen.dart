@@ -6,7 +6,7 @@ import 'package:fiton/screen/authentication/signup/components/dob_selector.dart'
 import 'package:fiton/screen/authentication/signup/components/gender_selector.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/provider/email_auth.dart';
-import 'package:fiton/screen/workout/Train/trainscreen.dart';
+import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +65,10 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return TrainScreen();
+                          return TrainScreen(
+                              title: 'Training Menu',
+                              url: dinner_url,
+                              sectitle: '');
                         },
                       ),
                     );
