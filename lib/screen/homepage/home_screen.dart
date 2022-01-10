@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
+import 'package:fiton/screen/workout/workout_screen.dart';
+import 'package:fiton/services/notification_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,6 +18,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+
+  @override
+  void initState(){
+    super.initState();
+
+    NotificationService.init();
+    listenNotification();
+  }
+
+  void listenNotification() =>
+          NotificationService.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) =>
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => WorkoutScreen(payload:payload),
+          ));
 
   Future<void> _signOut() async {
     await firebaseAuth.signOut();
@@ -74,6 +93,36 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Test Notification",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () => NotificationService.showScheduledNotification(
+                              title: 'FitOn',
+                              body: 'Ayo semangat, kita harus olahraga bareng ya!',
+                              payload: 'Fit.On',
+                              scheduledDate: DateTime.now().add(Duration(seconds: 12)),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            child: Row(
                               children: [
                                 Text(
                                   "Edit Profile",
