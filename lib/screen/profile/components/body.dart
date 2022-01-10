@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
+import 'package:fiton/screen/profile/components/weekly_bar_chart.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +18,7 @@ class Body extends StatelessWidget {
         child: Container(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.only(left: 20, right: 20, bottom: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -40,17 +41,20 @@ class Body extends StatelessWidget {
                             Row(
                               children: [
                                 FutureBuilder<String>(
-                                  future: user_service().getImgUser(user.uid),
-                                  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                                    if (snapshot.hasData) {
-                                      return CircleAvatar(
-                                        maxRadius: 32,
-                                        backgroundImage: NetworkImage(user.photoURL == null ? snapshot.data! : user.photoURL!),
-                                      );
-                                    }
-                                    return CircularProgressIndicator();
-                                  }
-                                ),
+                                    future: user_service().getImgUser(user.uid),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<String> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return CircleAvatar(
+                                          maxRadius: 32,
+                                          backgroundImage: NetworkImage(
+                                              user.photoURL == null
+                                                  ? snapshot.data!
+                                                  : user.photoURL!),
+                                        );
+                                      }
+                                      return CircularProgressIndicator();
+                                    }),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(top: 16),
@@ -65,23 +69,25 @@ class Body extends StatelessWidget {
                                       children: [
                                         SizedBox(height: 3),
                                         FutureBuilder<String>(
-                                          future: user_service().getData(user.uid, 'firstName'),
-                                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                                            if (snapshot.hasData) {
-                                              return Text(
-                                                    snapshot.data!,
-                                                    textAlign: TextAlign.start,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2!
-                                                        .copyWith(
-                                                            color: Colors.black,
-                                                            fontSize: 15),
-                                              );
-                                            }
-                                            return CircularProgressIndicator();
-                                          }
-                                        ),
+                                            future: user_service()
+                                                .getData(user.uid, 'firstName'),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<String>
+                                                    snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Text(
+                                                  snapshot.data!,
+                                                  textAlign: TextAlign.start,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                          color: Colors.black,
+                                                          fontSize: 15),
+                                                );
+                                              }
+                                              return CircularProgressIndicator();
+                                            }),
                                         Text(
                                           "INA",
                                           textAlign: TextAlign.start,
@@ -113,21 +119,22 @@ class Body extends StatelessWidget {
                           color: kGender,
                         ),
                         child: FutureBuilder<String>(
-                          future: user_service().getData(user.uid, 'gender'),
-                          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                            if (snapshot.hasData) {
-                              return Text(
-                                snapshot.data!,
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(color: Colors.black, fontSize: 20),
-                              );
-                            }
-                            return CircularProgressIndicator();
-                          }
-                        ),
+                            future: user_service().getData(user.uid, 'gender'),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<String> snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(
+                                  snapshot.data!,
+                                  textAlign: TextAlign.center,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(
+                                          color: Colors.black, fontSize: 20),
+                                );
+                              }
+                              return CircularProgressIndicator();
+                            }),
                         // Text(
                         //   "Male",
                         //   textAlign: TextAlign.center,
@@ -145,7 +152,7 @@ class Body extends StatelessWidget {
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
-                  height: size.height * 0.43,
+                  height: size.height * 0.49,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: kProfile,
@@ -165,7 +172,7 @@ class Body extends StatelessWidget {
                       ),
                       Container(
                         width: size.width,
-                        height: size.height * 0.40,
+                        height: size.height * 0.46,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: kPip,
@@ -253,6 +260,17 @@ class Body extends StatelessWidget {
                                   ),
                                 ],
                               ),
+                            ),
+                            SizedBox(height: 10),
+                            Container(
+                              width: size.width * 0.78,
+                              height: size.height * 0.26,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: kBackgroundColor,
+                              ),
+                              // color: Colors.white,
+                              child: WeeklyBarChart(),
                             ),
                           ],
                         ),
