@@ -62,7 +62,7 @@ class FeedbackScreen extends StatelessWidget {
                 press: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FeedbackScreen()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
               ),
@@ -71,7 +71,7 @@ class FeedbackScreen extends StatelessWidget {
                 press: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FeedbackScreen()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
               ),
@@ -80,7 +80,7 @@ class FeedbackScreen extends StatelessWidget {
                 press: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FeedbackScreen()),
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
                   );
                 },
               ),
