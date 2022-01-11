@@ -64,9 +64,9 @@ class _BodyState extends State<Body> {
                 padding: const EdgeInsets.only(left: 13, right: 13),
                 child: SchedulerHome(size: size),
               ),
-              // SizedBox(height: 10),
+              SizedBox(height: 5),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 13),
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 13),
                 width: size.width,
                 height: size.height * 0.067,
                 child: ClipRRect(
@@ -187,7 +187,7 @@ class _BodyState extends State<Body> {
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.only(left: 13),
                 child: Text(
@@ -199,7 +199,7 @@ class _BodyState extends State<Body> {
                       .copyWith(color: Colors.white),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 5),
               Row(
                 children: <Widget>[
                   ButtonExplore(
