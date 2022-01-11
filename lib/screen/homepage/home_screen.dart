@@ -56,7 +56,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ListTile(
                   leading: GestureDetector(
                       onTap: () async {
-                        bool temp = await user_service().checkContains(user.uid);
+                        bool temp =
+                            await user_service().checkContains(user.uid);
                         if (temp == true) {
                           Navigator.push(
                             context,
@@ -102,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         cardColor: Color(0xFF152F42),
                       ),
                       child: new PopupMenuButton(
-                        onSelected: (result){
+                        onSelected: (result) {
                           if (result == 0) {
                             NotificationService.showScheduledNotification(
                               title: 'FitOn',
@@ -112,24 +113,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               scheduledDate:
                                   DateTime.now().add(Duration(seconds: 12)),
                             );
-                          }
-                          else if (result == 1) {
+                          } else if (result == 1) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ChatbotScreen()),
                             );
-                          }
-                          else if (result == 2){
+                          } else if (result == 2) {
                             _signOut();
-                              Navigator.pop(context, "Logout");
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return LoginScreen();
-                                  },
-                                ),
+                            Navigator.pop(context, "Logout");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginScreen();
+                                },
+                              ),
                             );
                           }
                         },
@@ -158,34 +157,68 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                            onTap: () =>
+                                NotificationService.showScheduledNotification(
+                              title: 'FitOn',
+                              body:
+                                  'Ayo semangat, kita harus olahraga bareng ya!',
+                              payload: 'Fit.On',
+                              scheduledDate:
+                                  DateTime.now().add(Duration(seconds: 12)),
+                            ),
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Edit Profile",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.account_circle,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
                             value: 0,
                           ),
                           PopupMenuItem(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "Running",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: 10.0,
-                                    ),
-                                    child: Icon(
-                                      Icons.settings,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  "Running",
+                                  style: TextStyle(
                                       color: Colors.white,
-                                      size: 22.0,
-                                    ),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
                                   ),
-                                ],
-                              ),
-                              value: 1,
+                                  child: Icon(
+                                    Icons.settings,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
                             ),
+                            value: 1,
+                          ),
                           PopupMenuItem(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,

@@ -6,6 +6,7 @@ import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
+import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/services/geolocator_service.dart';
@@ -192,7 +193,10 @@ class _BodyState extends State<Body> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return EatScreen();
+                              return TrainScreen(
+                                  title: 'Training Menu',
+                                  url: dinner_url,
+                                  sectitle: '');
                             },
                           ),
                         );
