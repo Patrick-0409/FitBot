@@ -4,6 +4,7 @@ import 'package:fiton/screen/Chatbot/chatbot_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
+import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
 import 'package:fiton/services/notification_service.dart';
@@ -130,6 +131,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             );
+                          } else if (result == 3) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FeedbackScreen()),
+                            );
                           }
                         },
                         itemBuilder: (context) => [
@@ -225,6 +232,32 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
+                                  "Testing Feedback",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: 10.0,
+                                  ),
+                                  child: Icon(
+                                    Icons.settings,
+                                    color: Colors.white,
+                                    size: 22.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            value: 3,
+                          ),
+                          PopupMenuItem(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
                                   "Logout",
                                   style: TextStyle(
                                       color: Colors.redAccent,
@@ -243,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            value: 2,
+                            value: 3,
                           )
                         ],
                         child: SvgPicture.asset("assets/images/menu.svg"),
