@@ -1,18 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
+import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/profile/components/weekly_bar_chart.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'description.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+  Body({
+    Key? key,
+    required this.user
+  }) : super(key: key);
+
+  UserStore user;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final user = FirebaseAuth.instance.currentUser!;
+    // final user = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -40,21 +47,13 @@ class Body extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                FutureBuilder<String>(
-                                    future: user_service().getImgUser(user.uid),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot<String> snapshot) {
-                                      if (snapshot.hasData) {
-                                        return CircleAvatar(
-                                          maxRadius: 32,
-                                          backgroundImage: NetworkImage(
-                                              user.photoURL == null
-                                                  ? snapshot.data!
-                                                  : user.photoURL!),
-                                        );
-                                      }
-                                      return CircularProgressIndicator();
-                                    }),
+                                CircleAvatar(
+                                  maxRadius: 32,
+                                  backgroundImage: NetworkImage(
+                                      user.imageUrl == null
+                                          ? "https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp"
+                                          : user.imageUrl!),
+                                ),
                                 Spacer(),
                                 Padding(
                                   padding: EdgeInsets.only(top: 16),
@@ -68,26 +67,16 @@ class Body extends StatelessWidget {
                                     child: Column(
                                       children: [
                                         SizedBox(height: 3),
-                                        FutureBuilder<String>(
-                                            future: user_service()
-                                                .getData(user.uid, 'firstName'),
-                                            builder: (BuildContext context,
-                                                AsyncSnapshot<String>
-                                                    snapshot) {
-                                              if (snapshot.hasData) {
-                                                return Text(
-                                                  snapshot.data!,
-                                                  textAlign: TextAlign.start,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2!
-                                                      .copyWith(
-                                                          color: Colors.black,
-                                                          fontSize: 15),
-                                                );
-                                              }
-                                              return CircularProgressIndicator();
-                                            }),
+                                        Text(
+                                          user.name!,
+                                          textAlign: TextAlign.start,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 15),
+                                        ),
                                         Text(
                                           "INA",
                                           textAlign: TextAlign.start,
@@ -118,37 +107,26 @@ class Body extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: kGender,
                         ),
-                        child: FutureBuilder<String>(
-                            future: user_service().getData(user.uid, 'gender'),
-                            builder: (BuildContext context,
-                                AsyncSnapshot<String> snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  snapshot.data!,
+                        child: Text(
+                                  user.gender!,
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText2!
                                       .copyWith(
                                           color: Colors.black, fontSize: 20),
-                                );
-                              }
-                              return CircularProgressIndicator();
-                            }),
-                        // Text(
-                        //   "Male",
-                        //   textAlign: TextAlign.center,
-                        //   style: Theme.of(context)
-                        //       .textTheme
-                        //       .bodyText2!
-                        //       .copyWith(color: Colors.black, fontSize: 20),
-                        // ),
+                                ),
                       ),
                     )
                   ],
                 ),
                 SizedBox(height: 10),
-                // Description(size: size),
+                Description(
+                  size: size,
+                  weight: user.weight!,
+                  height: user.height!,
+                  age: (int.parse(DateFormat.y('en_US').format(DateTime.now()))-int.parse(DateFormat.y('en_US').format(user.birthday!))).toString()
+                ),
                 SizedBox(height: 10),
                 Container(
                   width: size.width,

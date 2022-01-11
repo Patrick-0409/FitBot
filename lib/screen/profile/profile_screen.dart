@@ -1,3 +1,4 @@
+import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,7 +7,12 @@ import '../../constant.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  ProfileScreen({
+    Key? key,
+    required this.user
+  }) : super(key: key);
+
+  UserStore user;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Body(),
+      body: Body(user:user),
     );
   }
 }

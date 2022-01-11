@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserStore{
   final String? uid;
   final String? name;
-  final String? image;
+  final String? imageUrl;
   final String? email;
   final String? gender;
   final String? weight;
@@ -11,7 +13,7 @@ class UserStore{
   UserStore({
     required this.uid, 
     required this.name, 
-    required this.image,
+    required this.imageUrl,
     required this.email,
     required this.gender,
     required this.weight,
@@ -19,15 +21,15 @@ class UserStore{
     required this.birthday,
   });
 
-  factory UserStore.fromJson(Map<String, dynamic> json, {String? uid}) => UserStore(
-    uid: json["uid"],
-    name: json["name"],
-    image: json["image"],
-    email: json["email"],
-    gender: json["gender"],
-    weight: json["weight"],
-    height: json["height"],
-    birthday: json["birthday"],
+  factory UserStore.fromJson(DocumentSnapshot snapshot) => UserStore(
+    uid: snapshot["uid"],
+    name: snapshot["name"],
+    imageUrl: snapshot["imageUrl"],
+    email: snapshot["email"],
+    gender: snapshot["gender"],
+    weight: snapshot["weight"],
+    height: snapshot["height"],
+    birthday: snapshot["birthday"].toDate(),
   );
 
   
@@ -35,7 +37,7 @@ class UserStore{
     return {
       "uid": uid,
       "name": name,
-      "image": image,
+      "image": imageUrl,
       "email": email,
       "gender": gender,
       "weight": weight,

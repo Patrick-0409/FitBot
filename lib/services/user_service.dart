@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fiton/models/user.dart';
 
-// ignore: camel_case_types
-class user_service {
-  
+class UserService {
+  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+  Future<UserStore> getUser(String uid) async {
+    return UserStore.fromJson(await usersCollection.doc(uid).get());
+  }
+
   Future<String> getImgUser(String uid) async {
     var url = "0";
     url = await FirebaseFirestore.instance
@@ -44,7 +49,6 @@ class user_service {
             .where('height', isEqualTo: "")
             .get()
             .then((QuerySnapshot querySnapshot) {
-                  print(querySnapshot.docs);
                   if (querySnapshot.docs.length>0) {
                       return true;
                   } else {

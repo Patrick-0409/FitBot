@@ -178,7 +178,7 @@ class _BodyState extends State<Body> {
                   ButtonExplore(
                     size: size,
                     press: () async {
-                      bool temp = await user_service().checkContains(user.uid);
+                      bool temp = await UserService().checkContains(user.uid);
                       if (temp == true) {
                         Navigator.push(
                           context,

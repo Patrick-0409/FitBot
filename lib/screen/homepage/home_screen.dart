@@ -56,8 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ListTile(
                   leading: GestureDetector(
                       onTap: () async {
-                        bool temp =
-                            await user_service().checkContains(user.uid);
+                        bool temp = await UserService().checkContains(user.uid);
+                        final userstore = await UserService().getUser(user.uid);
+                        print(userstore.name);
                         if (temp == true) {
                           Navigator.push(
                             context,
@@ -72,14 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return ProfileScreen();
+                                return ProfileScreen(user: userstore);
                               },
                             ),
                           );
                         }
                       },
                       child: FutureBuilder<String>(
-                          future: user_service().getImgUser(user.uid),
+                          future: UserService().getImgUser(user.uid),
                           builder: (BuildContext context,
                               AsyncSnapshot<String> snapshot) {
                             if (snapshot.hasData) {
