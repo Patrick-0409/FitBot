@@ -111,7 +111,7 @@ class _BodyState extends State<Body> {
               ),
               // SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(left: 13, right: 14),
+                padding: const EdgeInsets.only(left: 15, right: 14),
                 child: Row(
                   children: <Widget>[
                     Text(
