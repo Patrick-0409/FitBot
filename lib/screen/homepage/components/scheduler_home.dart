@@ -61,7 +61,7 @@ class SchedulerHome extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2!
-                    .copyWith(color: Colors.black),
+                    .copyWith(color: Colors.white),
               ),
               Spacer(),
               Icon(

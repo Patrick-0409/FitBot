@@ -10,6 +10,8 @@ import 'package:fiton/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'components/text_field.dart';
+
 class WorkoutScreen extends StatefulWidget {
   final String? payload;
 

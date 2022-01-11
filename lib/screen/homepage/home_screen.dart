@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fiton/screen/Chatbot/chatbot_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
-import 'package:fiton/screen/workout/workout_screen.dart';
+import 'package:fiton/screen/running/running_screen.dart';
+import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
+import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
 import 'package:fiton/services/notification_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -52,15 +55,28 @@ class _HomeScreenState extends State<HomeScreen> {
             children: <Widget>[
               ListTile(
                   leading: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ProfileScreen();
-                            },
-                          ),
-                        );
+                      onTap: () async {
+                        bool temp =
+                            await user_service().checkContains(user.uid);
+                        if (temp == true) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return KuisonerScreen();
+                              },
+                            ),
+                          );
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ProfileScreen();
+                              },
+                            ),
+                          );
+                        }
                       },
                       child: FutureBuilder<String>(
                           future: user_service().getImgUser(user.uid),
@@ -87,6 +103,35 @@ class _HomeScreenState extends State<HomeScreen> {
                         cardColor: Color(0xFF152F42),
                       ),
                       child: new PopupMenuButton(
+                        onSelected: (result) {
+                          if (result == 0) {
+                            NotificationService.showScheduledNotification(
+                              title: 'FitOn',
+                              body:
+                                  'Ayo semangat, kita harus olahraga bareng ya!',
+                              payload: 'Fit.On',
+                              scheduledDate:
+                                  DateTime.now().add(Duration(seconds: 12)),
+                            );
+                          } else if (result == 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatbotScreen()),
+                            );
+                          } else if (result == 2) {
+                            _signOut();
+                            Navigator.pop(context, "Logout");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginScreen();
+                                },
+                              ),
+                            );
+                          }
+                        },
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             child: Row(
@@ -146,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            onTap: () {},
+                            value: 0,
                           ),
                           PopupMenuItem(
                             child: Row(
@@ -154,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Settings",
+                                  "Running",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
@@ -172,33 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            onTap: () {},
-                          ),
-                          PopupMenuItem(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "About Us",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                  ),
-                                  child: Icon(
-                                    Icons.info,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            onTap: () {},
+                            value: 1,
                           ),
                           PopupMenuItem(
                             child: Row(
@@ -224,18 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            onTap: () {
-                              _signOut();
-                              Navigator.pop(context, "Logout");
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return LoginScreen();
-                                  },
-                                ),
-                              );
-                            },
+                            value: 2,
                           )
                         ],
                         child: SvgPicture.asset("assets/images/menu.svg"),
