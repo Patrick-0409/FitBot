@@ -7,10 +7,16 @@ import 'common_stats.dart';
 class Description extends StatelessWidget {
   const Description({
     Key? key,
+    required this.weight,
+    required this.height,
+    required this.age,
     required this.size,
   }) : super(key: key);
 
   final Size size;
+  final String weight;
+  final String height;
+  final String age;
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +37,20 @@ class Description extends StatelessWidget {
               children: <Widget>[
                 CommonStats(
                   svg: SvgPicture.asset("assets/images/weight.svg"),
-                  text: "70 kg",
+                  text: weight+" kg",
                 ),
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 5),
                   child: CommonStats(
                     svg: SvgPicture.asset("assets/images/height.svg"),
-                    text: "177 cm",
+                    text: height+" cm",
                   ),
                 ),
                 SizedBox(height: 20),
                 CommonStats(
                   svg: SvgPicture.asset("assets/images/age.svg"),
-                  text: "25 y.o",
+                  text: age+" y.o",
                 ),
               ],
             ),

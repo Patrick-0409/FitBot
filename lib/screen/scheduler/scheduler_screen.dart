@@ -1,16 +1,6 @@
-import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:fiton/constant.dart';
-import 'package:fiton/screen/authentication/components/rounded_button.dart';
-import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/authentication/signup/components/dob_selector.dart';
-import 'package:fiton/screen/authentication/signup/components/gender_selector.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-
-import 'components/add_taskbar.dart';
 import 'components/body.dart';
 
 class SchedulerScreen extends StatelessWidget {

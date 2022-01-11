@@ -141,7 +141,7 @@ class Body extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Description(size: size),
+                // Description(size: size),
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
