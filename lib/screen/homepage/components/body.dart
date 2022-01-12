@@ -55,6 +55,7 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
+          margin: EdgeInsets.only(bottom: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

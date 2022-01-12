@@ -14,37 +14,37 @@ class DailyInput extends StatefulWidget {
 }
 
 class _DailyInputState extends State<DailyInput> {
-  DateTime _selectedDate = DateTime.now();
+  // DateTime _selectedDate = DateTime.now();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM ";
-  int _selectedRemind = 5;
-  List<int> remindList = [
-    5,
-    10,
-    15,
-    20,
-  ];
-  String _selectedRepeat = "None";
-  List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
-  int _selectedColor = 0;
+  // int _selectedRemind = 5;
+  // List<int> remindList = [
+  //   5,
+  //   10,
+  //   15,
+  //   20,
+  // ];
+  // String _selectedRepeat = "None";
+  // List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
+  // int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: kBackgroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Center(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 5.0, 15.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0),
                 child: Row(
                   children: [
-                    CircleButton(
-                      icon: Icons.arrow_back_ios,
-                      onTap: () => Navigator.pop(context),
-                      color: kGrey2,
+                    Text(
+                      "FitBot",
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     Spacer(),
                     IconButton(
@@ -78,10 +78,10 @@ class _DailyInputState extends State<DailyInput> {
                 Text(
                   "Your Daily Stats",
                   textAlign: TextAlign.start,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 24),
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 24,
+                        color: Colors.white,
+                      ),
                 ),
                 Row(
                   children: [

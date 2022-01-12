@@ -25,15 +25,16 @@ class InputField extends StatelessWidget {
         children: [
           Text(
             title,
-            style: descriptionStyle.copyWith(color: Colors.black, fontSize: 14),
+            style: descriptionStyle.copyWith(color: Colors.white, fontSize: 14),
           ),
           Container(
             height: 50,
             margin: EdgeInsets.only(top: 8),
             padding: EdgeInsets.only(left: 10),
             decoration: BoxDecoration(
+              color: Colors.white,
               border: Border.all(
-                color: Colors.grey,
+                color: Colors.white,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(8),
@@ -46,7 +47,7 @@ class InputField extends StatelessWidget {
                     autofocus: false,
                     controller: controller,
                     style: descriptionStyle.copyWith(
-                        color: Colors.black, fontSize: 14, height: 1),
+                        color: Colors.white, fontSize: 14, height: 1),
                     decoration: InputDecoration(
                       // fillColor: widget == null ? Colors.white : Colors.grey,
                       // filled: widget == null ? false : true,

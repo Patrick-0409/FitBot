@@ -31,13 +31,13 @@ class _AddToDoState extends State<AddForm> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: kBackgroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Center(
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 5.0, 15.0, 0),
+                padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 0),
                 child: Row(
                   children: [
                     CircleButton(
@@ -80,7 +80,7 @@ class _AddToDoState extends State<AddForm> {
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
-                      .copyWith(fontSize: 24),
+                      .copyWith(fontSize: 24, color: Colors.white),
                 ),
                 InputField(
                   title: "Activity Name",

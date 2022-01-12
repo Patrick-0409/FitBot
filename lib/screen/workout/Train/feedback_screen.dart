@@ -10,7 +10,7 @@ class FeedbackScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: kBackgroundColor,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Center(
@@ -39,6 +39,7 @@ class FeedbackScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 22,
+                      color: Colors.white,
                     ),
               ),
               Text(
@@ -46,6 +47,7 @@ class FeedbackScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontWeight: FontWeight.w700,
                       fontSize: 26,
+                      color: Colors.white,
                     ),
               ),
               SizedBox(height: 30),
@@ -54,6 +56,7 @@ class FeedbackScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
+                      color: Colors.white,
                     ),
               ),
               SizedBox(height: 10),
@@ -90,6 +93,7 @@ class FeedbackScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
+                      color: Colors.white,
                     ),
                 textAlign: TextAlign.center,
               ),
