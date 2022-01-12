@@ -41,7 +41,7 @@ class SchedulerHome extends StatelessWidget {
           padding: EdgeInsets.only(left: 10),
           // padding: EdgeInsets.only(left: 20, right: 15),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: Color(0XFF39BBC3),
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(14),
               topRight: Radius.circular(14),
