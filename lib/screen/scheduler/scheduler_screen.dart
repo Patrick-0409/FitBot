@@ -139,7 +139,8 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
         onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AddForm()))
             .then((value) {
-          _addSchedules(value);
+              if(value!=null)
+                _addSchedules(value);
         }),
         tooltip: 'Increment',
         child: Icon(Icons.add),

@@ -66,6 +66,7 @@ class ScheduleCard extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(10),
         child: Container(
+          decoration: BoxDecoration(color: schedule.color == 0 ? Colors.orange : schedule.color == 1 ? Colors.blueAccent : Colors.red),
           padding: EdgeInsets.all(20),
           child: Column(
             children: [

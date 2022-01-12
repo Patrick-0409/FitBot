@@ -45,7 +45,7 @@ class _AddToDoState extends State<AddForm> {
                   children: [
                     CircleButton(
                       icon: Icons.arrow_back_ios,
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => Navigator.pop(context,null),
                       color: kGrey2,
                     ),
                     Spacer(),
