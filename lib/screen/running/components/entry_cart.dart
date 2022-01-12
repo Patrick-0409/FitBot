@@ -1,5 +1,6 @@
 import 'package:fiton/screen/running/model/entry.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EntryCard extends StatelessWidget {
   final Entry entry;
@@ -16,7 +17,7 @@ class EntryCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(entry.date, style: TextStyle(
+                  Text(DateFormat.yMMMMd('en_US').format(entry.date), style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18
                                           )),

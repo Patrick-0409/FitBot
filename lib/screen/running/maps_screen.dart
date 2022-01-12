@@ -181,7 +181,7 @@ class _MapScreenState extends State<MapScreen> {
                   padding: EdgeInsets.all(0),
                   onPressed: () async {
                     Entry en = Entry(
-                        date: DateFormat.yMMMMd('en_US').format(DateTime.now()),
+                        date: DateTime.now(),
                         duration: _displayTime,
                         speed:
                             _speedCounter == 0 ? 0 : _avgSpeed / _speedCounter,

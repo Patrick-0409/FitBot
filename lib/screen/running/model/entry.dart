@@ -2,7 +2,7 @@ class Entry {
   static String table = "entries";
 
   int? id;
-  String date;
+  DateTime date;
   String duration;
   double speed;
   double distance;
@@ -36,7 +36,7 @@ class Entry {
   static Entry fromMap(Map<String, dynamic> map) {
     return Entry(
         id: map['id'],
-        date: map['date'],
+        date: map['date'].toDate(),
         duration: map['duration'],
         speed: map['speed'],
         distance: map['distance'],

@@ -182,7 +182,7 @@ class Body extends StatelessWidget {
                                   ButtonStats(
                                     size: size,
                                     picture: SvgPicture.asset(
-                                      "assets/images/calories.svg",
+                                      "assets/images/weight.svg",
                                       color: kStastC,
                                     ),
                                     text: Text(
@@ -210,7 +210,7 @@ class Body extends StatelessWidget {
                                       color: kStastC,
                                     ),
                                     text: Text(
-                                      "40 hrs",
+                                      "40 km",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
@@ -223,11 +223,11 @@ class Body extends StatelessWidget {
                                   ButtonStats(
                                     size: size,
                                     picture: SvgPicture.asset(
-                                      "assets/images/weight.svg",
+                                      "assets/images/calories.svg",
                                       color: kStastC,
                                     ),
                                     text: Text(
-                                      "40 hrs",
+                                      "40 km/h",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
