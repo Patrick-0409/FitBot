@@ -93,7 +93,7 @@ class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: () async {
-                              bool temp = await RecipesService().checkContains(await RecipesService().checkNews(
+                              bool temp = await RecipesService().checkContains(await RecipesService().checkFood(
                                     userProfilesList[index]['label'].toString(),
                                     userProfilesList[index]['image'].toString(),
                                     userProfilesList[index]['cuisineType'].toString(),

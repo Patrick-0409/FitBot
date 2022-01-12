@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fiton/models/schedule.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
@@ -14,16 +16,17 @@ class AddForm extends StatefulWidget {
 }
 
 class _AddToDoState extends State<AddForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
+
   DateTime _selectedDate = DateTime.now();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM ";
-  int _selectedRemind = 5;
-  List<int> remindList = [
-    5,
-    10,
-    15,
-    20,
-  ];
+  int _selectedRemind = 0;
+  List<int> remindList = [0, 5, 10, 15, 20];
   String _selectedRepeat = "None";
   List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
   int _selectedColor = 0;
@@ -70,179 +73,204 @@ class _AddToDoState extends State<AddForm> {
         ),
         body: SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Add Schedule",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(fontSize: 24, color: Colors.white),
-                ),
-                InputField(
-                  title: "Activity Name",
-                  hint: "Input Your Activity Name",
-                ),
-                InputField(
-                  title: "Location",
-                  hint: "Input Your Location",
-                ),
-                InputField(
-                  title: "Date",
-                  hint: DateFormat.yMd().format(_selectedDate),
-                  widget: IconButton(
-                    onPressed: () async {
-                      final datePick = await showDatePicker(
-                          context: context,
-                          initialDate: new DateTime.now(),
-                          firstDate: new DateTime(1900),
-                          lastDate: new DateTime(2100));
-                      if (datePick != null) {
-                        setState(
-                          () {
-                            _selectedDate = datePick;
-                          },
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      Icons.calendar_today_outlined,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                Row(
+              margin: EdgeInsets.only(left: 15, top: 5, right: 15, bottom: 15),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: InputField(
-                        title: "Start Time",
-                        hint: _startTime,
-                        widget: IconButton(
-                          onPressed: () {
-                            _getTimeFromUser(isStartTime: true);
-                          },
-                          icon: Icon(Icons.access_time_rounded),
+                    Text(
+                      "Add Schedule",
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontSize: 24, color: Colors.white),
+                    ),
+                    InputField(
+                      title: "Activity Name",
+                      hint: "Input Your Activity Name",
+                      controller: _titleController,
+                      validator: _requiredText,
+                    ),
+                    InputField(
+                      title: "Location",
+                      hint: "Input Your Location",
+                      controller: _locationController,
+                      validator: _requiredText,
+                    ),
+                    InputField(
+                      title: "Date",
+                      hint: DateFormat.yMd().format(_selectedDate),
+                      widget: IconButton(
+                        onPressed: () async {
+                          final datePick = await showDatePicker(
+                              context: context,
+                              initialDate: new DateTime.now(),
+                              firstDate: new DateTime(1900),
+                              lastDate: new DateTime(2100));
+                          if (datePick != null) {
+                            setState(
+                              () {
+                                _selectedDate = datePick;
+                              },
+                            );
+                          }
+                        },
+                        icon: Icon(
+                          Icons.calendar_today_outlined,
+                          color: Colors.black,
                         ),
                       ),
                     ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: InputField(
-                        title: "End Time",
-                        hint: _endTime,
-                        widget: IconButton(
-                          onPressed: () {
-                            _getTimeFromUser(isStartTime: false);
-                          },
-                          icon: Icon(Icons.access_time_rounded),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                InputField(
-                  title: "Remind",
-                  hint: "$_selectedRemind minutes early",
-                  widget: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: DropdownButton(
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 22,
-                      elevation: 4,
-                      style: descriptionStyle.copyWith(
-                          color: Colors.grey, fontSize: 14, height: 2),
-                      underline: Container(height: 0),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedRemind = int.parse(newValue!);
-                        });
-                      },
-                      items:
-                          remindList.map<DropdownMenuItem<String>>((int value) {
-                        return DropdownMenuItem<String>(
-                          value: value.toString(),
-                          child: Text(value.toString()),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                InputField(
-                  title: "Repeat",
-                  hint: "$_selectedRepeat",
-                  widget: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: DropdownButton(
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 22,
-                      elevation: 4,
-                      style: descriptionStyle.copyWith(
-                          color: Colors.grey, fontSize: 14, height: 2),
-                      underline: Container(height: 0),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          _selectedRepeat = newValue!;
-                        });
-                      },
-                      items: repeatList
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 15),
-                Row(
-                  children: [
-                    _colorSelection(),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return AddForm();
-                            },
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            title: "Start Time",
+                            hint: _startTime,
+                            widget: IconButton(
+                              onPressed: () {
+                                _getTimeFromUser(isStartTime: true);
+                              },
+                              icon: Icon(Icons.access_time_rounded),
+                            ),
                           ),
-                        );
-                      },
-                      child: Container(
-                        width: 140,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Color(0XFF3B7C81),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 13, right: 5),
-                          child: Text(
-                            " Create Schedule",
-                            textAlign: TextAlign.center,
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: InputField(
+                            title: "End Time",
+                            hint: _endTime,
+                            widget: IconButton(
+                              onPressed: () {
+                                _getTimeFromUser(isStartTime: false);
+                              },
+                              icon: Icon(Icons.access_time_rounded),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    InputField(
+                      title: "Remind",
+                      hint: "$_selectedRemind minutes early",
+                      widget: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: DropdownButton(
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          iconSize: 22,
+                          elevation: 4,
+                          style: descriptionStyle.copyWith(
+                              color: Colors.grey, fontSize: 14, height: 2),
+                          underline: Container(height: 0),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedRemind = int.parse(newValue!);
+                            });
+                          },
+                          items: remindList
+                              .map<DropdownMenuItem<String>>((int value) {
+                            return DropdownMenuItem<String>(
+                              value: value.toString(),
+                              child: Text(value.toString()),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    InputField(
+                      title: "Repeat",
+                      hint: "$_selectedRepeat",
+                      widget: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: DropdownButton(
+                          icon: Icon(Icons.keyboard_arrow_down),
+                          iconSize: 22,
+                          elevation: 4,
+                          style: descriptionStyle.copyWith(
+                              color: Colors.grey, fontSize: 14, height: 2),
+                          underline: Container(height: 0),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              _selectedRepeat = newValue!;
+                            });
+                          },
+                          items: repeatList
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    Row(
+                      children: [
+                        _colorSelection(),
+                        Spacer(),
+                        GestureDetector(
+                          onTap: () {
+                            if (_formKey.currentState != null && _formKey.currentState!.validate()){
+                              Schedule sc = Schedule(
+                                title: _titleController.text,
+                                location: _locationController.text,
+                                date: DateFormat.yMd().format(_selectedDate),
+                                startTime: _startTime,
+                                endTime: _endTime,
+                                color: _selectedColor,
+                                remind: _selectedRemind,
+                                repeat: _selectedRepeat,
+                                isCompleted: 0,
+                                uid: user?.uid
+                              );
+                              Navigator.pop(context, sc);
+                            }
+                          },
+                          child: Container(
+                            width: 140,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Color(0XFF3B7C81),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 13, right: 5),
+                              child: Text(
+                                " Create Schedule",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1!
+                                    .copyWith(
                                       fontWeight: FontWeight.w600,
                                       color: Colors.white,
                                       fontSize: 15,
                                     ),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          ),
+              )),
         ),
       ),
     );
+  }
+
+  String? _requiredText(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return 'This field is required';
+    }
+    if (text.length < 5 || text.length > 300) {
+      return "Please enter 5 until 300 characters!";
+    }
+    return null;
   }
 
   _getTimeFromUser({required bool isStartTime}) async {

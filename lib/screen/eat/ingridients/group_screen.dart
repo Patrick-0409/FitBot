@@ -173,7 +173,7 @@ class _GroupScreenState extends State<GroupScreen> {
                               onTap: () async {
                                 bool temp = await RecipesService()
                                     .checkContains(await RecipesService()
-                                        .checkNews(
+                                        .checkFood(
                                             recent!.label,
                                             recent.image,
                                             recent.cuisineType,

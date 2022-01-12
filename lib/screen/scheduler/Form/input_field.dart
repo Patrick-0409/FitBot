@@ -7,14 +7,16 @@ class InputField extends StatelessWidget {
   final String hint;
   final TextEditingController? controller;
   final Widget? widget;
+  final FormFieldValidator<String>? validator;
 
-  const InputField(
-      {Key? key,
-      required this.title,
-      required this.hint,
-      this.controller,
-      this.widget})
-      : super(key: key);
+  const InputField({
+    Key? key,
+    required this.title,
+    required this.hint,
+    this.controller,
+    this.validator,
+    this.widget
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class InputField extends StatelessWidget {
                     autofocus: false,
                     controller: controller,
                     style: descriptionStyle.copyWith(
-                        color: Colors.white, fontSize: 14, height: 1),
+                        color: Colors.black, fontSize: 14, height: 1),
                     decoration: InputDecoration(
                       // fillColor: widget == null ? Colors.white : Colors.grey,
                       // filled: widget == null ? false : true,
@@ -59,6 +61,7 @@ class InputField extends StatelessWidget {
                           : descriptionStyle.copyWith(
                               color: Colors.black, fontSize: 14, height: 1),
                     ),
+                    validator: validator,
                   ),
                 ),
                 widget == null ? Container() : Container(child: widget)

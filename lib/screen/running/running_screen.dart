@@ -5,7 +5,6 @@ import 'package:fiton/screen/running/model/entry.dart';
 import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';
 
-
 class RunningScreen extends StatefulWidget {
   RunningScreen({Key? key}) : super(key: key);
 
@@ -27,12 +26,15 @@ class _RunningScreenState extends State<RunningScreen> {
     List userProfilesList = await RunsService().getRuns();
     _data = userProfilesList.map((item) => Entry.fromMap(item)).toList();
     _data.forEach((element) => _cards.add(EntryCard(entry: element)));
-    if (this.mounted) {setState(() {});}
+    if (this.mounted) {
+      setState(() {});
+    }
   }
 
   void _addEntries(Entry en) async {
     final ref = FirebaseFirestore.instance.collection('runs').doc();
     await ref.set(en.toMap());
+    _fetchEntries();
   }
 
   @override
@@ -43,9 +45,7 @@ class _RunningScreenState extends State<RunningScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
-                          context, 
-                          MaterialPageRoute(builder: (context) => MapScreen())
-                        )
+                context, MaterialPageRoute(builder: (context) => MapScreen()))
             .then((value) => _addEntries(value)),
         tooltip: 'Increment',
         child: Icon(Icons.add),

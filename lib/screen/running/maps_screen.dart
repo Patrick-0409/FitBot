@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:location/location.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
@@ -78,122 +77,122 @@ class _MapScreenState extends State<MapScreen> {
           endCap: Cap.roundCap,
           color: Colors.deepOrange));
 
-      if (this.mounted) {setState(() {});}
+      if (this.mounted) {
+        setState(() {});
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
-      Container(
-          child: GoogleMap(
-        polylines: polyline,
-        zoomControlsEnabled: false,
-        onMapCreated: _onMapCreated,
-        myLocationEnabled: true,
-        initialCameraPosition: CameraPosition(target: _center, zoom: 11),
-      )),
-      Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: double.infinity,
-            margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
-            height: 145,
-            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(10)),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text("SPEED (KM/H)",
-                            style: TextStyle(
-                                color: Colors.black, 
-                                fontSize: 10, 
-                                fontWeight: FontWeight.w300
-                                )),
-                        Text(_speed.toStringAsFixed(2),
-                            style: TextStyle(
-                                color: Colors.black, 
-                                fontSize: 30, 
-                                fontWeight: FontWeight.w300
-                                ))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("TIME",
-                            style: TextStyle(
-                                color: Colors.black, 
-                                fontSize: 10, 
-                                fontWeight: FontWeight.w300
-                                )),
-                        StreamBuilder<int>(
-                          stream: _stopWatchTimer.rawTime,
-                          initialData: 0,
-                          builder: (context, snap) {
-                            _time = snap.data!;
-                            _displayTime =
-                                StopWatchTimer.getDisplayTimeHours(_time) +
-                                    ":" +
-                                    StopWatchTimer.getDisplayTimeMinute(_time) +
-                                    ":" +
-                                    StopWatchTimer.getDisplayTimeSecond(_time);
-                            return Text(_displayTime,
-                                style: TextStyle(
-                                    color: Colors.black, 
-                                    fontSize: 30, 
-                                    fontWeight: FontWeight.w300
-                                  ));
-                          },
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("DISTANCE (KM)",
-                            style: TextStyle(
-                                color: Colors.black, 
-                                fontSize: 10, 
-                                fontWeight: FontWeight.w300
-                                )),
-                        Text((_dist / 1000).toStringAsFixed(2),
-                            style: TextStyle(
-                                color: Colors.black, 
-                                fontSize: 30, 
-                                fontWeight: FontWeight.w300
-                                ))
-                      ],
-                    )
-                  ],
-                ),
-                Divider(),
-                IconButton(
-                  icon: Icon(
-                    Icons.stop_circle_outlined,
-                    size: 50,
-                    color: Colors.redAccent,
+      body: Stack(
+        children: [
+          Container(
+              child: GoogleMap(
+            polylines: polyline,
+            zoomControlsEnabled: false,
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(target: _center, zoom: 11),
+          )),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
+              height: 145,
+              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          Text("SPEED (KM/H)",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w300)),
+                          Text(_speed.toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w300))
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("TIME",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w300)),
+                          StreamBuilder<int>(
+                            stream: _stopWatchTimer.rawTime,
+                            initialData: 0,
+                            builder: (context, snap) {
+                              _time = snap.data!;
+                              _displayTime = StopWatchTimer.getDisplayTimeHours(
+                                      _time) +
+                                  ":" +
+                                  StopWatchTimer.getDisplayTimeMinute(_time) +
+                                  ":" +
+                                  StopWatchTimer.getDisplayTimeSecond(_time);
+                              return Text(_displayTime,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w300));
+                            },
+                          )
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Text("DISTANCE (KM)",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w300)),
+                          Text((_dist / 1000).toStringAsFixed(2),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w300))
+                        ],
+                      )
+                    ],
                   ),
-                  padding: EdgeInsets.all(0),
-                  onPressed: () async {
-                    Entry en = Entry(
-                        date: DateTime.now(),
-                        duration: _displayTime,
-                        speed:
-                            _speedCounter == 0 ? 0 : _avgSpeed / _speedCounter,
-                        distance: _dist,
-                        user:user.uid);
-                    Navigator.pop(context, en);
-                  },
-                )
-              ],
+                  Divider(),
+                  IconButton(
+                    icon: Icon(
+                      Icons.stop_circle_outlined,
+                      size: 50,
+                      color: Colors.redAccent,
+                    ),
+                    padding: EdgeInsets.all(0),
+                    onPressed: () async {
+                      Entry en = Entry(
+                          date: DateTime.now(),
+                          duration: _displayTime,
+                          speed: _speedCounter == 0
+                              ? 0
+                              : _avgSpeed / _speedCounter,
+                          distance: _dist,
+                          user: user.uid);
+                      Navigator.pop(context, en);
+                    },
+                  ),
+                ],
+              ),
             ),
-          )
-          )
-    ]));
+          ),
+        ],
+      ),
+    );
   }
 }

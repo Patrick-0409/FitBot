@@ -1,5 +1,4 @@
 class Entry {
-  static String table = "entries";
 
   int? id;
   DateTime date;

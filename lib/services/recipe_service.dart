@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class RecipesService {
 
-  final CollectionReference newsCol = FirebaseFirestore.instance.collection("favoriteRecipes");
+  final CollectionReference foodCol = FirebaseFirestore.instance.collection("favoriteRecipes");
   final user = FirebaseAuth.instance.currentUser;
   
   Future<RecipeModel> getRecipes(String url) async {
@@ -59,7 +59,7 @@ class RecipesService {
 
   Future<String> getFavID(String? label) async {
     try {
-      return await newsCol
+      return await foodCol
         .where("label",isEqualTo: label)
         .limit(1)
         .get()
@@ -124,7 +124,7 @@ class RecipesService {
   Future<int> getFav(String? id) async {
     List itemsList = [];
     try {
-      await newsCol
+      await foodCol
         .where("label",isEqualTo: id)
         .limit(1)
         .get()
@@ -186,7 +186,7 @@ class RecipesService {
     return temp;
   }
 
-  Future checkNews(String? label,
+  Future checkFood(String? label,
                     String? image,
                     String? cuisineType,
                     num? calories,

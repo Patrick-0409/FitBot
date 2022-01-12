@@ -107,7 +107,7 @@ class _BodyState extends State<Body> {
                               return InkWell(
                                 onTap: () async {
                                   bool temp = await RecipesService().checkContains(
-                                  await RecipesService().checkNews(
+                                  await RecipesService().checkFood(
                                 userProfilesList[index]['label'].toString(),
                                 userProfilesList[index]['image'].toString(),
                                 userProfilesList[index]['cuisineType']
@@ -294,7 +294,7 @@ class _BodyState extends State<Body> {
                                 onTap: () async {
                                   bool temp = await RecipesService()
                                       .checkContains(await RecipesService()
-                                          .checkNews(
+                                          .checkFood(
                                               recent!.label,
                                               recent.image,
                                               recent.cuisineType,

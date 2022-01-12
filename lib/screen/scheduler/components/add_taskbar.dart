@@ -35,40 +35,6 @@ class AddTaskbar extends StatelessWidget {
             ],
           ),
         ),
-        Spacer(),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return AddForm();
-                },
-              ),
-            );
-          },
-          child: Container(
-            margin: EdgeInsets.only(right: 15),
-            width: 140,
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Color(0XFF3B7C81),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 17, right: 6),
-              child: Text(
-                " + Add Schedule",
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                      fontSize: 15,
-                    ),
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
