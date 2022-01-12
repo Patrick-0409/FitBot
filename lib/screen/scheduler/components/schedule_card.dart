@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiton/models/schedule.dart';
+import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -64,7 +65,7 @@ class ScheduleCard extends StatelessWidget {
         ],
       ),
       child: Card(
-        margin: EdgeInsets.all(10),
+        margin: EdgeInsets.all(0),
         child: Container(
           decoration: BoxDecoration(color: schedule.color == 0 ? Colors.orange : schedule.color == 1 ? Colors.blueAccent : Colors.red),
           padding: EdgeInsets.all(20),

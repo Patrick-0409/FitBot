@@ -9,8 +9,6 @@ class NotificationService {
   static final _notifications = FlutterLocalNotificationsPlugin();
   static final onNotifications = BehaviorSubject<String?>();
 
-
-
   static Future _notificationDetails() async {
     return NotificationDetails(
       android: AndroidNotificationDetails(
@@ -78,4 +76,6 @@ class NotificationService {
           uiLocalNotificationDateInterpretation: 
               UILocalNotificationDateInterpretation.absoluteTime,
         );
+
+  static void cancelAll() => _notifications.cancelAll();
 }

@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/Chatbot/chatbot_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
-import 'package:fiton/screen/running/running_screen.dart';
+import 'package:fiton/screen/scheduler/scheduler_screen.dart';
 import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
@@ -11,6 +10,7 @@ import 'package:fiton/services/notification_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import '../../constant.dart';
 import 'components/body.dart';
 
@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onClickedNotification(String? payload) =>
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WorkoutScreen(payload: payload),
+        builder: (context) => SchedulerScreen(),
       ));
 
   Future<void> _signOut() async {
@@ -165,15 +165,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            onTap: () =>
-                                NotificationService.showScheduledNotification(
-                              title: 'FitOn',
-                              body:
-                                  'Ayo semangat, kita harus olahraga bareng ya!',
-                              payload: 'Fit.On',
-                              scheduledDate:
-                                  DateTime.now().add(Duration(seconds: 12)),
-                            ),
+                            onTap: () {
+                              DateTime temp = DateFormat.yMd().add_jm().parse("1/13/2022 12:50 AM");
+                              // var tempTime = DateFormat("HH:mm").format(temp);
+                              // print(tempTime);
+                              
+                              NotificationService.showScheduledNotification(
+                                title: 'FitOn',
+                                body: 'Ayo semangat, kita harus olahraga bareng ya!',
+                                payload: 'Fit.On',
+                                scheduledDate: temp,
+                              );
+                            }
                           ),
                           PopupMenuItem(
                             child: Row(
@@ -181,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Edit Profile",
+                                  "Ask Fita",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
@@ -192,33 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     left: 10.0,
                                   ),
                                   child: Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            value: 0,
-                          ),
-                          PopupMenuItem(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Running",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
-                                  ),
-                                  child: Icon(
-                                    Icons.settings,
+                                    Icons.chat,
                                     color: Colors.white,
                                     size: 22.0,
                                   ),

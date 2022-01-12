@@ -13,7 +13,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class SchedulerScreen extends StatefulWidget {
-  SchedulerScreen({Key? key}) : super(key: key);
+  SchedulerScreen({
+    Key? key,
+    }) : super(key: key);
 
   @override
   _SchedulerScreenState createState() => _SchedulerScreenState();
