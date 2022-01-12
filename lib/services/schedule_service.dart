@@ -6,12 +6,13 @@ class SchedulesService {
   final user = FirebaseAuth.instance.currentUser;
   static Future<void> init() async {}
 
-  Future getSchedules() async {
+  Future getSchedules(String date) async {
     List itemsList = [];
     try {
     await FirebaseFirestore.instance
             .collection('schedules')
-            // .where('user', isEqualTo: user?.uid)
+            .where('uid', isEqualTo: user?.uid)
+            .where('date', isEqualTo: date)
             .get()
             .then((querySnapshot) {
                   if (querySnapshot.docs.length>0) {

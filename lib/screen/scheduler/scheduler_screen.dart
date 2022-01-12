@@ -10,6 +10,7 @@ import 'package:fiton/screen/scheduler/components/schedule_card.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class SchedulerScreen extends StatefulWidget {
   SchedulerScreen({Key? key}) : super(key: key);
@@ -26,12 +27,12 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
 
   void initState() {
     super.initState();
-    SchedulesService.init().then((value) => _fetchSchedules());
+    SchedulesService.init().then((value) => _fetchSchedules(DateFormat.yMd().format(_selectedDate)));
   }
 
-  void _fetchSchedules() async {
+  void _fetchSchedules(String date) async {
     _cards = [];
-    List userProfilesList = await SchedulesService().getSchedules();
+    List userProfilesList = await SchedulesService().getSchedules(date);
     _data = userProfilesList.map((item) => Schedule.fromMap(item)).toList();
     _data.forEach((element) => _cards.add(ScheduleCard(schedule: element)));
     if (this.mounted) {
@@ -42,7 +43,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
   void _addSchedules(Schedule sc) async {
     final ref = FirebaseFirestore.instance.collection('schedules').doc();
     await ref.set(sc.toMap(ref.id));
-    _fetchSchedules();
+    _fetchSchedules(DateFormat.yMd().format(_selectedDate));
   }
 
   @override
@@ -119,6 +120,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
                 ),
                 onDateChange: (date) {
                   _selectedDate = date;
+                  _fetchSchedules(DateFormat.yMd().format(date));
                 },
               ),
             ),
