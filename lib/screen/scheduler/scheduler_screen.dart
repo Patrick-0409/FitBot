@@ -7,6 +7,7 @@ import 'package:fiton/screen/running/maps_screen.dart';
 import 'package:fiton/screen/scheduler/Form/add_form.dart';
 import 'package:fiton/screen/scheduler/components/add_taskbar.dart';
 import 'package:fiton/screen/scheduler/components/schedule_card.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,7 @@ import 'package:intl/intl.dart';
 class SchedulerScreen extends StatefulWidget {
   SchedulerScreen({
     Key? key,
-    }) : super(key: key);
+  }) : super(key: key);
 
   @override
   _SchedulerScreenState createState() => _SchedulerScreenState();
@@ -29,7 +30,8 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
 
   void initState() {
     super.initState();
-    SchedulesService.init().then((value) => _fetchSchedules(DateFormat.yMd().format(_selectedDate)));
+    SchedulesService.init().then(
+        (value) => _fetchSchedules(DateFormat.yMd().format(_selectedDate)));
   }
 
   void _fetchSchedules(String date) async {
@@ -71,23 +73,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
                     .copyWith(color: kHeaderColor, fontSize: 30),
               ),
               Spacer(),
-              IconButton(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
+              HomeButton(),
             ],
           ),
         ),
@@ -130,9 +116,8 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
               width: size.width,
               height: size.height,
               child: ListView(
-                      children: _cards,
-                    ),
-              
+                children: _cards,
+              ),
             ),
           ],
         ),
@@ -141,8 +126,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
         onPressed: () => Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AddForm()))
             .then((value) {
-              if(value!=null)
-                _addSchedules(value);
+          if (value != null) _addSchedules(value);
         }),
         tooltip: 'Increment',
         child: Icon(Icons.add),

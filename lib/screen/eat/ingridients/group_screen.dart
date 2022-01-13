@@ -5,6 +5,7 @@ import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/ingridients/components/group_card.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 
@@ -78,22 +79,7 @@ class _GroupScreenState extends State<GroupScreen> {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Spacer(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.home,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    HomeButton(),
                   ],
                 ),
               ),

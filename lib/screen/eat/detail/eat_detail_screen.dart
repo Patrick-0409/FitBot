@@ -1,5 +1,6 @@
 import 'package:fiton/constant.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -18,19 +19,18 @@ class EatDetailScreen extends StatelessWidget {
   final List<String>? ingredientLines;
   final String? url;
 
-  const EatDetailScreen({
-    required this.contain,
-    required this.label, 
-    required this.image, 
-    required this.calories, 
-    required this.fat, 
-    required this.sugar, 
-    required this.protein, 
-    required this.totalTime, 
-    required this.cuisineType, 
-    required this.ingredientLines, 
-    required this.url
-  });
+  const EatDetailScreen(
+      {required this.contain,
+      required this.label,
+      required this.image,
+      required this.calories,
+      required this.fat,
+      required this.sugar,
+      required this.protein,
+      required this.totalTime,
+      required this.cuisineType,
+      required this.ingredientLines,
+      required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -57,22 +57,7 @@ class EatDetailScreen extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Spacer(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.home,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    HomeButton(),
                   ],
                 ),
               ),

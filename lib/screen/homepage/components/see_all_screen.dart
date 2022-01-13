@@ -1,3 +1,4 @@
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 import '../../../constant.dart';
 import '../home_screen.dart';
@@ -22,23 +23,7 @@ class SeeAllScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
-              trailing: IconButton(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
+              trailing: HomeButton(),
             ),
           ],
         ),

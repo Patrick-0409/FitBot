@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 import 'components/body.dart';
 import 'components/circle_button.dart';
@@ -52,22 +53,7 @@ class ReadNews extends StatelessWidget {
                   //   onTap: () {},
                   // ),
                   Spacer(),
-                  IconButton(
-                    icon: Icon(
-                      Icons.home,
-                      size: 35,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen();
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  HomeButton(),
                 ],
               ),
             ),

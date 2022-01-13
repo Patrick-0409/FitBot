@@ -5,6 +5,7 @@ import 'package:fiton/screen/authentication/signup/components/dob_selector.dart'
 import 'package:fiton/screen/authentication/signup/components/gender_selector.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
 import 'package:fiton/services/notification_service.dart';
 import 'package:flutter/material.dart';
@@ -57,23 +58,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       .copyWith(color: Colors.black, fontSize: 22),
                 ),
                 Spacer(),
-                IconButton(
-                  icon: Icon(
-                    Icons.home,
-                    color: Colors.black,
-                    size: 35,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomeScreen();
-                        },
-                      ),
-                    );
-                  },
-                ),
+                HomeButton(),
               ],
             ),
           ),
