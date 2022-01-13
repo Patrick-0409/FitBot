@@ -11,7 +11,7 @@ class TimerButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.press,
-    this.color = kLoginColor,
+    required this.color,
     this.textColor = Colors.white,
   }) : super(key: key);
 
