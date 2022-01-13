@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiton/screen/running/components/entry_cart.dart';
 import 'package:fiton/screen/running/maps_screen.dart';
 import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,28 @@ class _RunningScreenState extends State<RunningScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0),
+        child: Padding(
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, top: 20, bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "FitBot",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              Spacer(),
+              HomeButton(),
+            ],
+          ),
+        ),
+      ),
       body: ListView(
+        padding: EdgeInsets.only(top: 0),
         children: _cards,
       ),
       floatingActionButton: FloatingActionButton(

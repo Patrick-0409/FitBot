@@ -3,6 +3,7 @@ import 'package:fiton/models/schedule.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -45,26 +46,11 @@ class _AddToDoState extends State<AddForm> {
                   children: [
                     CircleButton(
                       icon: Icons.arrow_back_ios,
-                      onTap: () => Navigator.pop(context,null),
+                      onTap: () => Navigator.pop(context, null),
                       color: kGrey2,
                     ),
                     Spacer(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.home,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    HomeButton(),
                   ],
                 ),
               ),
@@ -213,19 +199,19 @@ class _AddToDoState extends State<AddForm> {
                         Spacer(),
                         GestureDetector(
                           onTap: () {
-                            if (_formKey.currentState != null && _formKey.currentState!.validate()){
+                            if (_formKey.currentState != null &&
+                                _formKey.currentState!.validate()) {
                               Schedule sc = Schedule(
-                                title: _titleController.text,
-                                location: _locationController.text,
-                                date: DateFormat.yMd().format(_selectedDate),
-                                startTime: _startTime,
-                                endTime: _endTime,
-                                color: _selectedColor,
-                                remind: _selectedRemind,
-                                repeat: _selectedRepeat,
-                                isCompleted: 0,
-                                uid: user?.uid
-                              );
+                                  title: _titleController.text,
+                                  location: _locationController.text,
+                                  date: DateFormat.yMd().format(_selectedDate),
+                                  startTime: _startTime,
+                                  endTime: _endTime,
+                                  color: _selectedColor,
+                                  remind: _selectedRemind,
+                                  repeat: _selectedRepeat,
+                                  isCompleted: 0,
+                                  uid: user?.uid);
                               Navigator.pop(context, sc);
                             }
                           },

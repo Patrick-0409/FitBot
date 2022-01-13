@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/workout_data.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/Train/components/round_info_container.dart';
 import 'package:fiton/screen/workout/Train/train_timer.dart';
 import 'package:flutter/material.dart';
@@ -50,14 +51,7 @@ class TrainDetailScreen extends StatelessWidget {
                         color: Colors.white,
                         onPressed: () => Navigator.pop(context),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.home),
-                        iconSize: 30,
-                        color: Colors.white,
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomeScreen()),
-                        ),
-                      ),
+                      HomeButton(),
                     ],
                   ),
                 ),

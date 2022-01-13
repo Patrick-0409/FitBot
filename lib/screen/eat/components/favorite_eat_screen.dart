@@ -1,8 +1,8 @@
-
 import 'package:fiton/screen/eat/components/dishes_card_fav.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 import '../../../constant.dart';
@@ -17,14 +17,14 @@ class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
   List userProfilesList = [];
 
   @override
-  void initState(){
+  void initState() {
     fetchRecipesList();
     super.initState();
   }
 
   fetchRecipesList() async {
-      userProfilesList = await RecipesService().getFavs();
-      return userProfilesList;
+    userProfilesList = await RecipesService().getFavs();
+    return userProfilesList;
   }
 
   @override
@@ -53,22 +53,7 @@ class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     Spacer(),
-                    IconButton(
-                      icon: Icon(
-                        Icons.home,
-                        size: 35,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomeScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),
+                    HomeButton(),
                   ],
                 ),
               ),
@@ -79,66 +64,83 @@ class _FavoriteEatScreenState extends State<FavoriteEatScreen> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.only(bottom: 85),
-                width: double.infinity,
-                height: size.height,
-                child: FutureBuilder(
-                  future: fetchRecipesList(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                        return ListView.builder(
-                        itemCount: userProfilesList.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () async {
-                              bool temp = await RecipesService().checkContains(await RecipesService().checkFood(
+                  padding: EdgeInsets.only(bottom: 85),
+                  width: double.infinity,
+                  height: size.height,
+                  child: FutureBuilder(
+                      future: fetchRecipesList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                            itemCount: userProfilesList.length,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () async {
+                                  bool temp = await RecipesService()
+                                      .checkContains(
+                                          await RecipesService().checkFood(
                                     userProfilesList[index]['label'].toString(),
                                     userProfilesList[index]['image'].toString(),
-                                    userProfilesList[index]['cuisineType'].toString(),
+                                    userProfilesList[index]['cuisineType']
+                                        .toString(),
                                     userProfilesList[index]['calories'],
                                     userProfilesList[index]['fat'],
                                     userProfilesList[index]['sugar'],
                                     userProfilesList[index]['protein'],
                                     userProfilesList[index]['totalTime'],
-                                    userProfilesList[index]['ingredientLines'].cast<String>(),
+                                    userProfilesList[index]['ingredientLines']
+                                        .cast<String>(),
                                     userProfilesList[index]['url'].toString(),
-                              ));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EatDetailScreen(
-                                    contain: temp,
-                                    label: userProfilesList[index]['label'].toString(),
-                                    image: userProfilesList[index]['image'].toString(),
-                                    cuisineType: userProfilesList[index]['cuisineType'].toString(),
-                                    calories: userProfilesList[index]['calories'],
-                                    fat: userProfilesList[index]['fat'],
-                                    sugar: userProfilesList[index]['sugar'],
-                                    protein: userProfilesList[index]['protein'],
-                                    totalTime: userProfilesList[index]['totalTime'],
-                                    ingredientLines: userProfilesList[index]['ingredientLines'].cast<String>(),
-                                    url: userProfilesList[index]['url'].toString(),
-                                  ),
+                                  ));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EatDetailScreen(
+                                        contain: temp,
+                                        label: userProfilesList[index]['label']
+                                            .toString(),
+                                        image: userProfilesList[index]['image']
+                                            .toString(),
+                                        cuisineType: userProfilesList[index]
+                                                ['cuisineType']
+                                            .toString(),
+                                        calories: userProfilesList[index]
+                                            ['calories'],
+                                        fat: userProfilesList[index]['fat'],
+                                        sugar: userProfilesList[index]['sugar'],
+                                        protein: userProfilesList[index]
+                                            ['protein'],
+                                        totalTime: userProfilesList[index]
+                                            ['totalTime'],
+                                        ingredientLines: userProfilesList[index]
+                                                ['ingredientLines']
+                                            .cast<String>(),
+                                        url: userProfilesList[index]['url']
+                                            .toString(),
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: DishesCardFav(
+                                  label: userProfilesList[index]['label']
+                                      .toString(),
+                                  image: userProfilesList[index]['image']
+                                      .toString(),
+                                  cuisineType: userProfilesList[index]
+                                          ['cuisineType']
+                                      .toString(),
+                                  calories: userProfilesList[index]['calories'],
+                                  totalTime: userProfilesList[index]
+                                      ['totalTime'],
                                 ),
                               );
                             },
-                            child: DishesCardFav(
-                              label: userProfilesList[index]['label'].toString(),
-                              image: userProfilesList[index]['image'].toString(),
-                              cuisineType: userProfilesList[index]['cuisineType'].toString(),
-                              calories: userProfilesList[index]['calories'],
-                              totalTime: userProfilesList[index]['totalTime'],
-                            ),
                           );
-                        },
-                      );
-                    }
-                  return Center(child: CircularProgressIndicator());
-                  }
-                )
-              ),
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      })),
             ],
           ),
         ),

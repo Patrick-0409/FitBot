@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(56.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
@@ -152,14 +152,113 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }
                       },
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
+                      child: FutureBuilder<String>(
+                          future: UserService().getImgUser(user.uid),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<String> snapshot) {
+                            if (snapshot.hasData) {
+                              return CircleAvatar(
+                                maxRadius: 25,
+                                backgroundImage: NetworkImage(
+                                    user.photoURL == null
+                                        ? snapshot.data!
+                                        : user.photoURL!),
+                              );
+                            }
+                            return CircularProgressIndicator();
+                          })),
+                  title: Text(
+                    "FitBot",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  trailing: Theme(
+                      data: Theme.of(context).copyWith(
+                        cardColor: Color(0xFF152F42),
+                      ),
+                      child: new PopupMenuButton(
+                        onSelected: (result) {
+                          if (result == 0) {
+                            NotificationService.showScheduledNotification(
+                              title: 'FitOn',
+                              body:
+                                  'Ayo semangat, kita harus olahraga bareng ya!',
+                              payload: 'Fit.On',
+                              scheduledDate:
+                                  DateTime.now().add(Duration(seconds: 12)),
+                            );
+                          } else if (result == 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatbotScreen()),
+                            );
+                          } else if (result == 2) {
+                            _signOut();
+                            Navigator.pop(context, "Logout");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return LoginScreen();
+                                },
+                              ),
+                            );
+                          } else if (result == 3) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FeedbackScreen()),
+                            );
+                          }
+                        },
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Test Notification",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                    ),
+                                    child: Icon(
+                                      Icons.account_circle,
+                                      color: Colors.white,
+                                      size: 22.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              onTap: () {
+                                DateTime temp = DateFormat.yMd()
+                                    .add_jm()
+                                    .parse("1/13/2022 12:50 AM");
+                                // var tempTime = DateFormat("HH:mm").format(temp);
+                                // print(tempTime);
+
+                                NotificationService.showScheduledNotification(
+                                  title: 'FitOn',
+                                  body:
+                                      'Ayo semangat, kita harus olahraga bareng ya!',
+                                  payload: 'Fit.On',
+                                  scheduledDate: temp,
+                                );
+                              }),
+                          PopupMenuItem(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
-                                  "Test Notification",
+                                  "Ask Fita",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18.0,
@@ -170,36 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     left: 10.0,
                                   ),
                                   child: Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            onTap: () {
-                              DateTime temp = DateFormat.yMd()
-                                  .add_jm()
-                                  .parse("1/13/2022 12:50 AM");
-                              // var tempTime = DateFormat("HH:mm").format(temp);
-                              // print(tempTime);
-
-                              NotificationService.showScheduledNotification(
-                                title: 'FitOn',
-                                body:
-                                    'Ayo semangat, kita harus olahraga bareng ya!',
-                                payload: 'Fit.On',
-                                scheduledDate: temp,
-                              );
-                            }),
-                        PopupMenuItem(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Ask Fita",
-                                style: TextStyle(
+                                    Icons.chat,
                                     color: Colors.white,
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.w600),
@@ -260,20 +330,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.only(
                                   left: 10.0,
                                 ),
-                                child: Icon(
-                                  Icons.logout,
-                                  color: Colors.redAccent,
-                                  size: 22.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          value: 3,
-                        )
-                      ],
-                      child: SvgPicture.asset("assets/images/menu.svg"),
-                    ))),
-          ],
+                              ],
+                            ),
+                            value: 2,
+                          )
+                        ],
+                        child: SvgPicture.asset("assets/images/menu.svg"),
+                      ))),
+            ],
+          ),
         ),
       ),
       body: Body(),

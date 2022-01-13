@@ -1,5 +1,6 @@
 import 'package:fiton/constant.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,23 +28,7 @@ class ArticleScreen extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.headline5,
                   ),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.home,
-                      color: Colors.black,
-                      size: 35,
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomeScreen();
-                          },
-                        ),
-                      );
-                    },
-                  ),
+                  trailing: HomeButton(),
                 ),
                 TabBar(
                   labelColor: Colors.white,

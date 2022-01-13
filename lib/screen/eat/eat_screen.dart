@@ -1,4 +1,5 @@
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -39,23 +40,7 @@ class EatScreen extends StatelessWidget {
                 },
                 color: Colors.red,
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                  size: 35,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                  );
-                },
-              ),
+              HomeButton(),
             ],
           ),
         ),
