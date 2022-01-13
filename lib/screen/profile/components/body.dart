@@ -16,7 +16,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // final user = FirebaseAuth.instance.currentUser!;
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(

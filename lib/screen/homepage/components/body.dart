@@ -234,7 +234,20 @@ class _BodyState extends State<Body> {
                               return KuisonerScreen();
                             },
                           ),
-                        );
+                        ).then((value) {
+                          if(value == true)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TrainScreen(
+                                  title: 'Training Menu',
+                                  url: dinner_url,
+                                  sectitle: '');
+                              },
+                            ),
+                          );
+                        });
                       } else {
                         Navigator.push(
                           context,

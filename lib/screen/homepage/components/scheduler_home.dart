@@ -1,4 +1,5 @@
 import 'package:fiton/screen/scheduler/scheduler_screen.dart';
+import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 
 class SchedulerHome extends StatelessWidget {
