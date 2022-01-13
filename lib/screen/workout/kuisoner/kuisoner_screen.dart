@@ -186,7 +186,7 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                                             child: Text('Ok'))
                                       ],
                                     ));
-                            Navigator.of(context).pop();
+                            Navigator.pop(context, true);
                           }
                         },
                       ),
