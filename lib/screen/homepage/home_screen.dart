@@ -49,9 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(56.0),
+          preferredSize: Size.fromHeight(50.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ListTile(
@@ -142,42 +142,44 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         itemBuilder: (context) => [
                           PopupMenuItem(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  "Test Notification",
-                                  style: TextStyle(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    "Test Notification",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                      left: 10.0,
+                                    ),
+                                    child: Icon(
+                                      Icons.account_circle,
                                       color: Colors.white,
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                    left: 10.0,
+                                      size: 22.0,
+                                    ),
                                   ),
-                                  child: Icon(
-                                    Icons.account_circle,
-                                    color: Colors.white,
-                                    size: 22.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            onTap: () {
-                              DateTime temp = DateFormat.yMd().add_jm().parse("1/13/2022 12:50 AM");
-                              // var tempTime = DateFormat("HH:mm").format(temp);
-                              // print(tempTime);
-                              
-                              NotificationService.showScheduledNotification(
-                                title: 'FitOn',
-                                body: 'Ayo semangat, kita harus olahraga bareng ya!',
-                                payload: 'Fit.On',
-                                scheduledDate: temp,
-                              );
-                            }
-                          ),
+                                ],
+                              ),
+                              onTap: () {
+                                DateTime temp = DateFormat.yMd()
+                                    .add_jm()
+                                    .parse("1/13/2022 12:50 AM");
+                                // var tempTime = DateFormat("HH:mm").format(temp);
+                                // print(tempTime);
+
+                                NotificationService.showScheduledNotification(
+                                  title: 'FitOn',
+                                  body:
+                                      'Ayo semangat, kita harus olahraga bareng ya!',
+                                  payload: 'Fit.On',
+                                  scheduledDate: temp,
+                                );
+                              }),
                           PopupMenuItem(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -254,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            value: 3,
+                            value: 2,
                           )
                         ],
                         child: SvgPicture.asset("assets/images/menu.svg"),

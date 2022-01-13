@@ -9,10 +9,7 @@ import 'package:intl/intl.dart';
 import 'description.dart';
 
 class Body extends StatelessWidget {
-  Body({
-    Key? key,
-    required this.user
-  }) : super(key: key);
+  Body({Key? key, required this.user}) : super(key: key);
 
   UserStore user;
 
@@ -40,7 +37,7 @@ class Body extends StatelessWidget {
                         color: kBackgroundColor,
                       ),
                       child: Padding(
-                        padding: EdgeInsets.only(left: 10, top: 3, right: 1),
+                        padding: EdgeInsets.only(left: 0, top: 3, right: 1),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,10 +46,10 @@ class Body extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   maxRadius: 32,
-                                  backgroundImage: NetworkImage(
-                                      user.imageUrl == null
-                                          ? "https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp"
-                                          : user.imageUrl!),
+                                  backgroundImage: NetworkImage(user.imageUrl ==
+                                          null
+                                      ? "https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp"
+                                      : user.imageUrl!),
                                 ),
                                 Spacer(),
                                 Padding(
@@ -108,25 +105,27 @@ class Body extends StatelessWidget {
                           color: kGender,
                         ),
                         child: Text(
-                                  user.gender!,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(
-                                          color: Colors.black, fontSize: 20),
-                                ),
+                          user.gender!,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 20),
+                        ),
                       ),
                     )
                   ],
                 ),
                 SizedBox(height: 10),
                 Description(
-                  size: size,
-                  weight: user.weight!,
-                  height: user.height!,
-                  age: (int.parse(DateFormat.y('en_US').format(DateTime.now()))-int.parse(DateFormat.y('en_US').format(user.birthday!))).toString()
-                ),
+                    size: size,
+                    weight: user.weight!,
+                    height: user.height!,
+                    age: (int.parse(
+                                DateFormat.y('en_US').format(DateTime.now())) -
+                            int.parse(
+                                DateFormat.y('en_US').format(user.birthday!)))
+                        .toString()),
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
