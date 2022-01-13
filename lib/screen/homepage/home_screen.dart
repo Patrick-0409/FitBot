@@ -54,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: Size.fromHeight(56.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
