@@ -109,10 +109,13 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
                 },
               ),
             ),
+            SizedBox(height: 10),
             Container(
               width: size.width,
-              height: size.height,
+              height: size.height * 0.65,
+              padding: EdgeInsets.only(bottom: 5),
               child: ListView(
+                scrollDirection: Axis.vertical,
                 children: _cards,
               ),
             ),
