@@ -16,6 +16,7 @@ class ScheduleCard extends StatelessWidget {
         .collection("schedules")
         .doc(schedule.id)
         .delete();
+    SchedulesService().setNotifSchedules();
     refreshScreen(context);
   }
 

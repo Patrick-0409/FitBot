@@ -4,6 +4,7 @@ import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
+import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -202,16 +203,18 @@ class _AddToDoState extends State<AddForm> {
                             if (_formKey.currentState != null &&
                                 _formKey.currentState!.validate()) {
                               Schedule sc = Schedule(
-                                  title: _titleController.text,
-                                  location: _locationController.text,
-                                  date: DateFormat.yMd().format(_selectedDate),
-                                  startTime: _startTime,
-                                  endTime: _endTime,
-                                  color: _selectedColor,
-                                  remind: _selectedRemind,
-                                  repeat: _selectedRepeat,
-                                  isCompleted: 0,
-                                  uid: user?.uid);
+                                title: _titleController.text,
+                                location: _locationController.text,
+                                date: DateFormat.yMd().format(_selectedDate),
+                                startTime: DateFormat.Hm().format(DateFormat.jm().parse(_startTime)),
+                                endTime: DateFormat.Hm().format(DateFormat.jm().parse(_endTime)),
+                                color: _selectedColor,
+                                remind: _selectedRemind,
+                                repeat: _selectedRepeat,
+                                isCompleted: 0,
+                                uid: user?.uid,
+                              );
+                              SchedulesService().setNotifSchedules();
                               Navigator.pop(context, sc);
                             }
                           },

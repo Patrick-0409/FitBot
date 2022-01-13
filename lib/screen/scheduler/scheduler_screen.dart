@@ -38,9 +38,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
     List userProfilesList = await SchedulesService().getSchedules(date);
     _data = userProfilesList.map((item) => Schedule.fromMap(item)).toList();
     _data.forEach((element) => _cards.add(ScheduleCard(schedule: element)));
-    if (this.mounted) {
-      setState(() {});
-    }
+    setState(() {});
   }
 
   void _addSchedules(Schedule sc) async {

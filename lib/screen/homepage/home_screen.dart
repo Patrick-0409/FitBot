@@ -121,12 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       onSelected: (result) {
                         if (result == 0) {
                           NotificationService.showScheduledNotification(
+                            id: 99999,
                             title: 'FitOn',
                             body:
                                 'Ayo semangat, kita harus olahraga bareng ya!',
                             payload: 'Fit.On',
                             scheduledDate:
-                                DateTime.now().add(Duration(seconds: 12)),
+                                DateTime.now().add(Duration(seconds: 3)),
                           );
                         } else if (result == 1) {
                           Navigator.push(
