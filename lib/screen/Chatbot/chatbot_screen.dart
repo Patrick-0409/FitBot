@@ -45,6 +45,8 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
                   children: [
                     Image.asset(
                       "assets/images/robot1.png",
+                      width: 50,
+                      height: 30,
                     ),
                     Spacer(),
                     Text(
