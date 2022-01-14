@@ -29,19 +29,6 @@ class ProfileScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
-              trailing: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return HomeScreen();
-                      },
-                    ),
-                  );
-                },
-                child: SvgPicture.asset("assets/images/menu.svg"),
-              ),
             ),
           ],
         ),

@@ -3,11 +3,14 @@ import 'package:fiton/constant.dart';
 import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/profile/components/button_stats.dart';
 import 'package:fiton/screen/profile/components/weekly_bar_chart.dart';
+import 'package:fiton/services/daily_service.dart';
+import 'package:fiton/services/runs_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'description.dart';
+
 class Body extends StatefulWidget {
   Body({Key? key, required this.user}) : super(key: key);
 
@@ -17,18 +20,17 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  
-  int choose=0;
-  
+  int choose = 0;
+
   void initState() {
     super.initState();
-    choose=1;
+    choose = 1;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
- 
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -58,7 +60,8 @@ class _BodyState extends State<Body> {
                               children: [
                                 CircleAvatar(
                                   maxRadius: 32,
-                                  backgroundImage: NetworkImage(widget.user.imageUrl ==
+                                  backgroundImage: NetworkImage(widget
+                                              .user.imageUrl ==
                                           null
                                       ? "https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp"
                                       : widget.user.imageUrl!),
@@ -135,8 +138,8 @@ class _BodyState extends State<Body> {
                     height: widget.user.height!,
                     age: (int.parse(
                                 DateFormat.y('en_US').format(DateTime.now())) -
-                            int.parse(
-                                DateFormat.y('en_US').format(widget.user.birthday!)))
+                            int.parse(DateFormat.y('en_US')
+                                .format(widget.user.birthday!)))
                         .toString()),
                 SizedBox(height: 10),
                 Container(
@@ -173,46 +176,68 @@ class _BodyState extends State<Body> {
                                   EdgeInsets.only(left: 25, right: 25, top: 10),
                               child: Row(
                                 children: [
-                                  ButtonStats(
-                                    size: size,
-                                    picture: SvgPicture.asset(
-                                      "assets/images/sleep.svg",
-                                      color: kStastC,
-                                    ),
-                                    text: Text(
-                                      "40 hrs",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                    ),
-                                    press: () {
-                                      setState(() {choose = 0;});
-                                      choose=1;
-                                      print(choose);
+                                  FutureBuilder<double>(
+                                    future: DailyService().getSleepAvg(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<double> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ButtonStats(
+                                          size: size,
+                                          picture: SvgPicture.asset(
+                                            "assets/images/sleep.svg",
+                                            color: kStastC,
+                                          ),
+                                          text: Text(
+                                            snapshot.data!.toStringAsFixed(1) + " hrs",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                  color: Colors.black,
+                                                  fontSize: 20,
+                                                ),
+                                          ),
+                                          press: () {
+                                            setState(() {
+                                              choose = 0;
+                                            });
+                                            choose = 1;
+                                          },
+                                        );
+                                      }
+                                      return CircularProgressIndicator();
                                     },
                                   ),
                                   Spacer(),
-                                  ButtonStats(
-                                    size: size,
-                                    picture: SvgPicture.asset(
-                                      "assets/images/weight.svg",
-                                      color: kStastC,
-                                    ),
-                                    text: Text(
-                                      "40 kg",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                    ),
-                                    press: () {
-                                      setState(() {choose = 0;});
-                                      choose=2;
+                                  FutureBuilder<double>(
+                                    future: DailyService().getWeightAvg(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<double> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ButtonStats(
+                                          size: size,
+                                          picture: SvgPicture.asset(
+                                            "assets/images/weight.svg",
+                                            color: kStastC,
+                                          ),
+                                          text: Text(
+                                            snapshot.data!.toStringAsFixed(1) + " kg",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                          ),
+                                          press: () {
+                                            setState(() {
+                                              choose = 0;
+                                            });
+                                            choose = 2;
+                                          },
+                                        );
+                                      }
+                                      return CircularProgressIndicator();
                                     },
                                   ),
                                 ],
@@ -223,45 +248,67 @@ class _BodyState extends State<Body> {
                               padding: EdgeInsets.only(left: 25, right: 25),
                               child: Row(
                                 children: [
-                                  ButtonStats(
-                                    size: size,
-                                    picture: SvgPicture.asset(
-                                      "assets/images/step.svg",
-                                      color: kStastC,
-                                    ),
-                                    text: Text(
-                                      "40 km",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                    ),
-                                    press: () {
-                                      setState(() {choose = 0;});
-                                      choose=3;
+                                  FutureBuilder<double>(
+                                    future: RunsService().getRunAvg(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<double> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ButtonStats(
+                                          size: size,
+                                          picture: SvgPicture.asset(
+                                            "assets/images/step.svg",
+                                            color: kStastC,
+                                          ),
+                                          text: Text(
+                                            snapshot.data!.toStringAsFixed(1) + " km",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                          ),
+                                          press: () {
+                                            setState(() {
+                                              choose = 0;
+                                            });
+                                            choose = 3;
+                                          },
+                                        );
+                                      }
+                                      return CircularProgressIndicator();
                                     },
                                   ),
                                   Spacer(),
-                                  ButtonStats(
-                                    size: size,
-                                    picture: SvgPicture.asset(
-                                      "assets/images/calories.svg",
-                                      color: kStastC,
-                                    ),
-                                    text: Text(
-                                      "40 km/h",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              color: Colors.black,
-                                              fontSize: 20),
-                                    ),
-                                    press: () {
-                                      setState(() {choose = 0;});
-                                      choose=4;
+                                  FutureBuilder<double>(
+                                    future: RunsService().getCalorieAvg(),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<double> snapshot) {
+                                      if (snapshot.hasData) {
+                                        return ButtonStats(
+                                          size: size,
+                                          picture: SvgPicture.asset(
+                                            "assets/images/calories.svg",
+                                            color: kStastC,
+                                          ),
+                                          text: Text(
+                                            snapshot.data!.toStringAsFixed(1) + " cal",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .copyWith(
+                                                    color: Colors.black,
+                                                    fontSize: 20),
+                                          ),
+                                          press: () {
+                                            setState(() {
+                                              choose = 0;
+                                            });
+                                            choose = 4;
+                                          },
+                                        );
+                                      }
+                                      return CircularProgressIndicator();
                                     },
                                   ),
                                 ],
@@ -275,7 +322,7 @@ class _BodyState extends State<Body> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: kBackgroundColor,
                               ),
-                              child: WeeklyBarChart(choose:choose),
+                              child: WeeklyBarChart(choose: choose),
                             ),
                           ],
                         ),

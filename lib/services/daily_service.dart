@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/src/iterable_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
@@ -54,6 +55,78 @@ class DailyService {
     } catch (e) {
       print(e);
       temp = false;
+    }
+    return temp;
+  }
+
+  int _countSleep(String _sleep, String _wake){
+    var format = DateFormat("HH:mm");
+    var wake = format.parse(_wake);
+    var sleep = format.parse(_sleep);
+    int diff = sleep.difference(wake).inHours;
+    if(diff.isNegative)
+      return diff+24;
+    return diff; 
+  }
+
+  Future<double> getSleepAvg() async {
+    double temp = 0.0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(
+                          DateTime.now().subtract(const Duration(days: 6))))
+                      .millisecondsSinceEpoch))
+          .where('user', isEqualTo: user?.uid)
+          .orderBy('date')
+          .get()
+          .then((querySnapshot) {
+            if (querySnapshot.docs.length > 0) {
+              for (var i = 0; i < querySnapshot.docs.length; i++) {
+                temp += _countSleep(querySnapshot.docs[i]['sleep'],querySnapshot.docs[i]['wake']);
+              }
+              temp/=querySnapshot.docs.length;
+              return temp;
+            } else {
+              return temp;
+            }
+          });
+    } catch (e) {
+      print(e);
+    }
+    return temp;
+  }
+
+  Future<double> getWeightAvg() async {
+    double temp = 0.0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(
+                          DateTime.now().subtract(const Duration(days: 6))))
+                      .millisecondsSinceEpoch))
+          .where('user', isEqualTo: user?.uid)
+          .orderBy('date')
+          .get()
+          .then((querySnapshot) {
+            if (querySnapshot.docs.length > 0) {
+              for (var i = 0; i < querySnapshot.docs.length; i++) {
+                temp += querySnapshot.docs[i]['weight'];
+              }
+              temp/=querySnapshot.docs.length;
+              return temp;
+            } else {
+              return temp;
+            }
+          });
+    } catch (e) {
+      print(e);
     }
     return temp;
   }
