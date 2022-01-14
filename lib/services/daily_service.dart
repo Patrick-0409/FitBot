@@ -64,20 +64,24 @@ class DailyService {
       await FirebaseFirestore.instance
           .collection('daily')
           .where('date',
-              isGreaterThanOrEqualTo: DateFormat.yMMMMd('en_US')
-                  .format(DateTime.now().subtract(const Duration(days: 7))))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(
+                          DateTime.now().subtract(const Duration(days: 6))))
+                      .millisecondsSinceEpoch))
           .where('user', isEqualTo: user?.uid)
+          .orderBy('date')
           .get()
           .then((querySnapshot) {
-        if (querySnapshot.docs.length > 0) {
-          for (var i = 0; i < querySnapshot.docs.length; i++) {
-            itemsList.add(querySnapshot.docs[i].data());
-          }
-          return itemsList;
-        } else {
-          return itemsList;
-        }
-      });
+            if (querySnapshot.docs.length > 0) {
+              for (var i = 0; i < querySnapshot.docs.length; i++) {
+                itemsList.add(querySnapshot.docs[i].data());
+              }
+              return itemsList;
+            } else {
+              return itemsList;
+            }
+          });
     } catch (e) {
       print(e);
     }

@@ -1,163 +1,112 @@
-import 'package:fl_chart/fl_chart.dart';
+import 'package:fiton/models/daily.dart';
+import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/services/daily_service.dart';
+import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-class WeeklyBarChart extends StatelessWidget {
+import 'package:intl/intl.dart';
+
+class WeeklyBarChart extends StatefulWidget {
   const WeeklyBarChart({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return BarChart(
-      BarChartData(
-        barTouchData: barTouchData,
-        titlesData: titlesData,
-        borderData: borderData,
-        barGroups: barGroups,
-        alignment: BarChartAlignment.spaceAround,
-        maxY: 20,
-      ),
-    );
+  State<WeeklyBarChart> createState() => _WeeklyBarChartState();
+}
+
+class _WeeklyBarChartState extends State<WeeklyBarChart> {
+  List<Entry> _entry = [];
+  List<Daily> _daily = [];
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    getDataEntry();
+    getDataDaily();
   }
 
-  BarTouchData get barTouchData => BarTouchData(
-        enabled: false,
-        touchTooltipData: BarTouchTooltipData(
-          tooltipBgColor: Colors.transparent,
-          tooltipPadding: const EdgeInsets.all(0),
-          tooltipMargin: 0,
-          getTooltipItem: (
-            BarChartGroupData group,
-            int groupIndex,
-            BarChartRodData rod,
-            int rodIndex,
-          ) {
-            return BarTooltipItem(
-              rod.y.round().toString(),
-              const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            );
-          },
-        ),
-      );
+  void getDataEntry() async {
+    List userProfilesList = await RunsService().getRunWeeks();
+    List<Entry> tempdata =
+        userProfilesList.map((item) => Entry.fromMap(item)).toList();
+    setState(() {
+      _entry = tempdata;
+      loading = false;
+    });
+  }
 
-  FlTitlesData get titlesData => FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (context, value) => const TextStyle(
-            color: Color(0xffFFFFFF),
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-          margin: 5,
-          getTitles: (double value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'Mn';
-              case 1:
-                return 'Te';
-              case 2:
-                return 'Wd';
-              case 3:
-                return 'Tu';
-              case 4:
-                return 'Fr';
-              case 5:
-                return 'St';
-              case 6:
-                return 'Sn';
-              default:
-                return '';
-            }
-          },
-        ),
-        leftTitles: SideTitles(showTitles: false),
-        topTitles: SideTitles(showTitles: false),
-        rightTitles: SideTitles(showTitles: false),
-      );
+  void getDataDaily() async {
+    List userProfilesList = await DailyService().getDailyWeeks();
+    List<Daily> tempdata =
+        userProfilesList.map((item) => Daily.fromMap(item)).toList();
+    setState(() {
+      _daily = tempdata;
+      loading = false;
+    });
+  }
 
-  FlBorderData get borderData => FlBorderData(
-        show: false,
-      );
+  List<charts.Series<Entry, String>> _createRunData() {
+    return [
+      charts.Series<Entry, String>(
+        data: _entry,
+        id: 'Run',
+        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
+        measureFn: (Entry entry, _) => entry.distance,
+        labelAccessorFn: (Entry entry, _) => '${entry.distance.toInt()}',
+      )
+    ];
+  }
 
-  List<BarChartGroupData> get barGroups => [
-        BarChartGroupData(
-          x: 0,
-          barRods: [
-            BarChartRodData(
-                y: 8, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 1,
-          barRods: [
-            BarChartRodData(
-                y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 2,
-          barRods: [
-            BarChartRodData(
-                y: 14, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-                y: 15, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-                y: 13, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-                y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-        BarChartGroupData(
-          x: 3,
-          barRods: [
-            BarChartRodData(
-                y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-          ],
-          showingTooltipIndicators: [0],
-        ),
-      ];
-}
+  
+  List<charts.Series<Daily, String>> _createSleepData() {
+    return [
+      charts.Series<Daily, String>(
+        data: _daily,
+        id: 'Run',
+        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        domainFn: (Daily daily, _) => DateFormat('EE').format(daily.date),
+        measureFn: (Daily daily, _) {
+          var format = DateFormat("HH:mm");
+          var wake = format.parse(daily.wake);
+          var sleep = format.parse(daily.sleep);
+          int diff = sleep.difference(wake).inHours;
+          if(diff.isNegative)
+            return diff+24;
+          return diff; 
+        },
+        labelAccessorFn: (Daily daily, _){
+          var format = DateFormat("HH:mm");
+          var wake = format.parse(daily.wake);
+          var sleep = format.parse(daily.sleep);
+          int diff = wake.difference(sleep).inHours;
+          if(diff.isNegative)
+            return (diff+24).toString();
+          return diff.toString(); 
+        },
+      )
+    ];
+  }
 
-class BarChartSample3 extends StatefulWidget {
-  const BarChartSample3({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => BarChartSample3State();
-}
-
-class BarChartSample3State extends State<BarChartSample3> {
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.7,
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-        color: const Color(0xff2c4260),
-        child: const WeeklyBarChart(),
+    return Scaffold(
+      body: Center(
+        child: loading
+            ? CircularProgressIndicator()
+            : Container(
+                height: 250,
+                child: charts.BarChart(
+                  _createSleepData(),
+                  animate: true,
+                  barRendererDecorator: new charts.BarLabelDecorator(),
+                  domainAxis: new charts.OrdinalAxisSpec(),
+                  primaryMeasureAxis: new charts.NumericAxisSpec(
+                    renderSpec: charts.NoneRenderSpec(),
+                  ),
+                ),
+              ),
       ),
     );
   }

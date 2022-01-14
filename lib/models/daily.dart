@@ -1,6 +1,6 @@
 class Daily {
 
-  int? id;
+  String? id;
   DateTime date;
   String sleep;
   String wake;
