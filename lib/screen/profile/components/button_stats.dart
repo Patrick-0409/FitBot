@@ -5,47 +5,45 @@ class ButtonStats extends StatelessWidget {
   const ButtonStats({
     Key? key,
     required this.size,
-    required this.press,
-    required this.color,
-    required this.text,
     required this.picture,
+    required this.text,
+    required this.press,
   }) : super(key: key);
 
   final Size size;
-  final Function() press;
-  final Color color;
-  final Text text;
   final SvgPicture picture;
+  final Text text;
+  final Function() press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 13),
-        child: SizedBox(
-          width: size.width * 0.30,
-          child: Column(
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  padding: EdgeInsets.only(top: 25),
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: <Widget>[
+      child: SizedBox(
+        // height: size.height * 0.5,
+        width: size.width * 0.35,
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white54,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  child: Row(
+                    children: [
                       picture,
-                      SizedBox(height: 10),
+                      Spacer(),
                       text,
                     ],
                   ),
                 ),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

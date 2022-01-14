@@ -68,7 +68,9 @@ class _BodyState extends State<Body> {
               SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 13, right: 13),
-                child: SchedulerHome(size: size),
+                child: SchedulerHome(
+                  size: size,
+                ),
               ),
               SizedBox(height: 5),
               FutureBuilder(
