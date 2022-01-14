@@ -40,6 +40,7 @@ class ScheduleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Slidable(
       startActionPane: ActionPane(
         motion: const StretchMotion(),
@@ -68,44 +69,145 @@ class ScheduleCard extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.all(0),
         child: Container(
-          decoration: BoxDecoration(color: schedule.color == 0 ? Colors.orange : schedule.color == 1 ? Colors.blueAccent : Colors.red),
-          padding: EdgeInsets.all(20),
+          margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
+          width: size.width,
+          height: size.height * 0.16,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: schedule.color == 0
+                  ? Colors.orange
+                  : schedule.color == 1
+                      ? Colors.blueAccent
+                      : Colors.red),
+          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(schedule.date!,
-                      style: TextStyle(color: Colors.black, fontSize: 20)),
-                  Text(schedule.isCompleted == 0 ? "Not Yet" : "Done",
-                      style: TextStyle(color: Colors.black, fontSize: 20)),
+                  Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                  // Spacer(),
+                  Icon(
+                    Icons.touch_app_rounded,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
+                  // Spacer(),
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                    size: 15.0,
+                  ),
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(schedule.title!,
-                      style: TextStyle(color: Colors.black, fontSize: 18)),
-                  Text(schedule.location!,
-                      style: TextStyle(color: Colors.black, fontSize: 18)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Start Time",
-                      style: TextStyle(color: Colors.black, fontSize: 14)),
-                  Text("End Time",
-                      style: TextStyle(color: Colors.black, fontSize: 14)),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(schedule.startTime!,
-                      style: TextStyle(color: Colors.black, fontSize: 14)),
-                  Text(schedule.endTime!,
-                      style: TextStyle(color: Colors.black, fontSize: 14)),
+                  Container(
+                    width: size.width * 0.65,
+                    margin: EdgeInsets.all(0),
+                    // padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          schedule.title!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                        ),
+                        // SizedBox(height: 5),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              color: Colors.white,
+                              size: 15.0,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              schedule.location!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.watch_later_outlined,
+                              color: Colors.white,
+                              size: 15.0,
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              schedule.startTime!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              "-",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(width: 5),
+                            Text(
+                              schedule.endTime!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  // SizedBox(width: size.width * 0.31),
+                  SizedBox(
+                    height: size.height * 0.11,
+                    width: size.width * 0.003,
+                    child: const DecoratedBox(
+                      decoration: const BoxDecoration(color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(width: 15),
+                  Text(
+                    schedule.isCompleted == 0 ? "Not Yet" : "Done",
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700),
+                  ),
                 ],
               ),
             ],
