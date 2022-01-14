@@ -8,6 +8,7 @@ class InputField extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? widget;
   final FormFieldValidator<String>? validator;
+  final TextInputType? keyboardType;
 
   const InputField({
     Key? key,
@@ -15,6 +16,7 @@ class InputField extends StatelessWidget {
     required this.hint,
     this.controller,
     this.validator,
+    this.keyboardType,
     this.widget
   }) : super(key: key);
 
@@ -62,6 +64,7 @@ class InputField extends StatelessWidget {
                               color: Colors.black, fontSize: 14, height: 1),
                     ),
                     validator: validator,
+                    keyboardType: keyboardType,
                   ),
                 ),
                 widget == null ? Container() : Container(child: widget)

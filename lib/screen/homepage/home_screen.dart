@@ -57,211 +57,209 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-                leading: GestureDetector(
-                    onTap: () async {
-                      bool temp = await UserService().checkContains(user.uid);
-                      if (temp == true) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return KuisonerScreen();
-                            },
-                          ),
-                        ).then((value) async {
-                          final userstore =
-                              await UserService().getUser(user.uid);
-                          if (value == true)
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return ProfileScreen(user: userstore);
-                                },
-                              ),
-                            );
-                        });
-                      } else {
+              leading: GestureDetector(
+                  onTap: () async {
+                    bool temp = await UserService().checkContains(user.uid);
+                    if (temp == true) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return KuisonerScreen();
+                          },
+                        ),
+                      ).then((value) async {
                         final userstore = await UserService().getUser(user.uid);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ProfileScreen(user: userstore);
-                            },
-                          ),
-                        );
-                      }
-                    },
-                    child: FutureBuilder<String>(
-                        future: UserService().getImgUser(user.uid),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                          if (snapshot.hasData) {
-                            return CircleAvatar(
-                              maxRadius: 25,
-                              backgroundImage: NetworkImage(
-                                  user.photoURL == null
-                                      ? snapshot.data!
-                                      : user.photoURL!),
-                            );
-                          }
-                          return CircularProgressIndicator();
-                        })),
-                title: Text(
-                  "FitBot",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                trailing: Theme(
-                    data: Theme.of(context).copyWith(
-                      cardColor: Color(0xFF152F42),
-                    ),
-                    child: new PopupMenuButton(
-                      onSelected: (result) {
-                        if (result == 0) {
-                          NotificationService.showScheduledNotification(
-                            id: 99999,
-                            title: 'FitOn',
-                            body:
-                                'Ayo semangat, kita harus olahraga bareng ya!',
-                            payload: 'Fit.On',
-                            scheduledDate:
-                                DateTime.now().add(Duration(seconds: 3)),
-                          );
-                        } else if (result == 1) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChatbotScreen()),
-                          );
-                        } else if (result == 2) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => FeedbackScreen()),
-                          );
-                        } else if (result == 3) {
-                          _signOut();
-                          Navigator.pop(context, "Logout");
+                        if (value == true)
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return LoginScreen();
+                                return ProfileScreen(user: userstore);
                               },
                             ),
                           );
+                      });
+                    } else {
+                      final userstore = await UserService().getUser(user.uid);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ProfileScreen(user: userstore);
+                          },
+                        ),
+                      );
+                    }
+                  },
+                  child: FutureBuilder<String>(
+                      future: UserService().getImgUser(user.uid),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.hasData) {
+                          return CircleAvatar(
+                            maxRadius: 25,
+                            backgroundImage: NetworkImage(user.photoURL == null
+                                ? snapshot.data!
+                                : user.photoURL!),
+                          );
                         }
-                      },
-                      itemBuilder: (context) => [
-                        PopupMenuItem(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Test Notification",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 10.0,
-                                ),
-                                child: Icon(
-                                  Icons.account_circle,
-                                  color: Colors.white,
-                                  size: 22.0,
-                                ),
-                              ),
-                            ],
-                          ),
-                          value: 0,
+                        return CircularProgressIndicator();
+                      })),
+              title: Text(
+                "FitBot",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              trailing: Theme(
+                data: Theme.of(context).copyWith(
+                  cardColor: Color(0xFF152F42),
+                ),
+                child: new PopupMenuButton(
+                  onSelected: (result) {
+                    if (result == 0) {
+                      NotificationService.showScheduledNotification(
+                        id: 99999,
+                        title: 'FitOn',
+                        body: 'Ayo semangat, kita harus olahraga bareng ya!',
+                        payload: 'Fit.On',
+                        scheduledDate: DateTime.now().add(Duration(seconds: 3)),
+                      );
+                    } else if (result == 1) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatbotScreen()),
+                      );
+                    } else if (result == 2) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FeedbackScreen()),
+                      );
+                    } else if (result == 3) {
+                      _signOut();
+                      Navigator.pop(context, "Logout");
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return LoginScreen();
+                          },
                         ),
-                        PopupMenuItem(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Ask Fita",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 10.0,
-                                ),
-                                child: Icon(
-                                  Icons.chat,
-                                  color: Colors.white,
-                                  size: 22.0,
-                                ),
-                              ),
-                            ],
+                      );
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Test Notification",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600),
                           ),
-                          value: 1,
-                        ),
-                        PopupMenuItem(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Testing Feedback",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 10.0,
-                                ),
-                                child: Icon(
-                                  Icons.settings,
-                                  color: Colors.white,
-                                  size: 22.0,
-                                ),
-                              ),
-                            ],
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 10.0,
+                            ),
+                            child: Icon(
+                              Icons.account_circle,
+                              color: Colors.white,
+                              size: 22.0,
+                            ),
                           ),
-                          value: 2,
-                        ),
-                        PopupMenuItem(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Logout",
-                                style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(
-                                  left: 10.0,
-                                ),
-                                child: Icon(
-                                  Icons.logout,
-                                  color: Colors.redAccent,
-                                  size: 22.0,
-                                ),
-                              ),
-                            ],
+                        ],
+                      ),
+                      value: 0,
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Ask Fita",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600),
                           ),
-                          value: 3,
-                        )
-                      ],
-                      child: SvgPicture.asset("assets/images/menu.svg"),
-                    ))),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 10.0,
+                            ),
+                            child: Icon(
+                              Icons.chat,
+                              color: Colors.white,
+                              size: 22.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      value: 1,
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Testing Feedback",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 10.0,
+                            ),
+                            child: Icon(
+                              Icons.settings,
+                              color: Colors.white,
+                              size: 22.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      value: 2,
+                    ),
+                    PopupMenuItem(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Logout",
+                            style: TextStyle(
+                                color: Colors.redAccent,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 10.0,
+                            ),
+                            child: Icon(
+                              Icons.logout,
+                              color: Colors.redAccent,
+                              size: 22.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                      value: 3,
+                    )
+                  ],
+                  child: SvgPicture.asset("assets/images/menu.svg"),
+                ),
+              ),
+            ),
           ],
         ),
       ),

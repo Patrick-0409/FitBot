@@ -10,6 +10,7 @@ import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
 import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
+import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:fiton/services/user_service.dart';
@@ -47,6 +48,10 @@ class _BodyState extends State<Body> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
+  Future<bool> get checkDatabase async {
+    return DailyService().checkDaily();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -66,51 +71,61 @@ class _BodyState extends State<Body> {
                 child: SchedulerHome(size: size),
               ),
               SizedBox(height: 5),
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 13),
-                width: size.width,
-                height: size.height * 0.067,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: ElevatedButton(
-                    child: Row(
-                      children: [
-                        Text(
-                          "Daily Stats",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.white),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.add,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return DailyInput();
-                          },
+              FutureBuilder(
+                future: checkDatabase,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data == false) {
+                      return Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: 5, horizontal: 13),
+                        width: size.width,
+                        height: size.height * 0.067,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: ElevatedButton(
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Daily Stats",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(color: Colors.white),
+                                ),
+                                Spacer(),
+                                Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return DailyInput();
+                                  },
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                                primary: Color(0XFF39BBC3),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 5),
+                                textStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700)),
+                          ),
                         ),
                       );
-                    },
-                    style: ElevatedButton.styleFrom(
-                        primary: Color(0XFF39BBC3),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700)),
-                  ),
-                ),
+                    }
+                  }
+                  return SizedBox(height: 10);
+                },
               ),
-              // SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 14),
                 child: Row(
@@ -235,18 +250,18 @@ class _BodyState extends State<Body> {
                             },
                           ),
                         ).then((value) {
-                          if(value == true)
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return TrainScreen(
-                                  title: 'Training Menu',
-                                  url: dinner_url,
-                                  sectitle: '');
-                              },
-                            ),
-                          );
+                          if (value == true)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return TrainScreen(
+                                      title: 'Training Menu',
+                                      url: dinner_url,
+                                      sectitle: '');
+                                },
+                              ),
+                            );
                         });
                       } else {
                         Navigator.push(

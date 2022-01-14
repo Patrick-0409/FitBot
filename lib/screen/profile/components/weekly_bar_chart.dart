@@ -130,6 +130,14 @@ class WeeklyBarChart extends StatelessWidget {
           ],
           showingTooltipIndicators: [0],
         ),
+        BarChartGroupData(
+          x: 3,
+          barRods: [
+            BarChartRodData(
+                y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+          ],
+          showingTooltipIndicators: [0],
+        ),
       ];
 }
 
