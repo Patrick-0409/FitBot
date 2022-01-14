@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/user.dart';
+import 'package:fiton/screen/profile/components/button_stats.dart';
 import 'package:fiton/screen/profile/components/weekly_bar_chart.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -175,6 +176,7 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
+                                    press: () {},
                                   ),
                                   Spacer(),
                                   ButtonStats(
@@ -192,6 +194,7 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
+                                    press: () {},
                                   ),
                                 ],
                               ),
@@ -216,6 +219,7 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
+                                    press: () {},
                                   ),
                                   Spacer(),
                                   ButtonStats(
@@ -233,6 +237,7 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
+                                    press: () {},
                                   ),
                                 ],
                               ),
@@ -258,50 +263,6 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ButtonStats extends StatelessWidget {
-  const ButtonStats({
-    Key? key,
-    required this.size,
-    required this.picture,
-    required this.text,
-  }) : super(key: key);
-
-  final Size size;
-  final SvgPicture picture;
-  final Text text;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      // height: size.height * 0.5,
-      width: size.width * 0.35,
-      child: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 3,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white54,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                child: Row(
-                  children: [
-                    picture,
-                    Spacer(),
-                    text,
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
       ),
     );
   }

@@ -110,7 +110,7 @@ class ScheduleCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    width: size.width * 0.65,
+                    width: size.width * 0.63,
                     margin: EdgeInsets.all(0),
                     // padding: EdgeInsets.all(10),
                     child: Column(
@@ -193,14 +193,14 @@ class ScheduleCard extends StatelessWidget {
                     ),
                   ),
                   // SizedBox(width: size.width * 0.31),
-                  SizedBox(
-                    height: size.height * 0.11,
-                    width: size.width * 0.003,
-                    child: const DecoratedBox(
-                      decoration: const BoxDecoration(color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(width: 15),
+                  // SizedBox(
+                  //   height: size.height * 0.11,
+                  //   width: size.width * 0.003,
+                  //   child: const DecoratedBox(
+                  //     decoration: const BoxDecoration(color: Colors.white),
+                  //   ),
+                  // ),
+                  Spacer(),
                   Text(
                     schedule.isCompleted == 0 ? "Not Yet" : "Done",
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
