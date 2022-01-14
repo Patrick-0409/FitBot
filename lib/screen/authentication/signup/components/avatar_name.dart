@@ -42,7 +42,7 @@ class _AvatarNameState extends State<AvatarName> {
                   UserImage(
                     onFileChanged: (imageUrl) {
                       setState(() {
-                        provider.urlImage = imageUrl;
+                        provider.imageUrl = imageUrl;
                         this.imageUrl = imageUrl;
                       });
                     },

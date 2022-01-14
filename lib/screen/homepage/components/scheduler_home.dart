@@ -20,7 +20,12 @@ class SchedulerHome extends StatefulWidget {
 class _SchedulerHomeState extends State<SchedulerHome> {
   List<Schedule> _data = [];
   List<ScheduleCard> _cards = [];
-  DateTime _selectedDate = DateTime.now();
+
+  void initState() {
+    super.initState();
+    SchedulesService.init().then(
+        (value) => _fetchSchedules(DateFormat.yMd().format(DateTime.now())));
+  }
 
   void _fetchSchedules(String date) async {
     _cards = [];
@@ -30,11 +35,6 @@ class _SchedulerHomeState extends State<SchedulerHome> {
     setState(() {});
   }
 
-  void initState() {
-    super.initState();
-    SchedulesService.init().then(
-        (value) => _fetchSchedules(DateFormat.yMd().format(DateTime.now())));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,44 +100,6 @@ class _SchedulerHomeState extends State<SchedulerHome> {
                   ),
                   SizedBox(width: 10),
                 ],
-              ),
-            ),
-            Container(
-              height: size.height * 0.11,
-              margin: EdgeInsets.only(left: 10),
-              // padding: EdgeInsets.only(bottom: 0),
-              child: DatePicker(
-                DateTime.now(),
-                height: size.height * 0.139,
-                width: 75,
-                initialSelectedDate: DateTime.now(),
-                selectedTextColor: Colors.white,
-                selectionColor: kBackgroundColor,
-                dayTextStyle: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: 10.0,
-                    color: kBlack,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                monthTextStyle: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: 10.0,
-                    color: kBlack,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                dateTextStyle: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    fontSize: 15.0,
-                    color: kBlack,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                onDateChange: (date) {
-                  _selectedDate = date;
-                  _fetchSchedules(DateFormat.yMd().format(date));
-                },
               ),
             ),
             Container(

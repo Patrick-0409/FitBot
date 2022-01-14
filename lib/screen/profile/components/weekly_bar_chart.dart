@@ -8,13 +8,14 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:intl/intl.dart';
 
 class WeeklyBarChart extends StatefulWidget {
-  const WeeklyBarChart({Key? key}) : super(key: key);
-
+  WeeklyBarChart({Key? key, required this.choose}) : super(key: key);
+  int choose;
   @override
   State<WeeklyBarChart> createState() => _WeeklyBarChartState();
 }
 
 class _WeeklyBarChartState extends State<WeeklyBarChart> {
+  
   List<Entry> _entry = [];
   List<Daily> _daily = [];
   bool loading = true;
@@ -53,8 +54,36 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         id: 'Run',
         colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
         domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
-        measureFn: (Entry entry, _) => entry.distance,
-        labelAccessorFn: (Entry entry, _) => '${entry.distance.toInt()}',
+        measureFn: (Entry entry, _) => entry.distance/1000,
+        labelAccessorFn: (Entry entry, _) => '${entry.distance.toInt()/1000}',
+      )
+    ];
+  }
+
+  
+  List<charts.Series<Entry, String>> _createCaloryData() {
+    return [
+      charts.Series<Entry, String>(
+        data: _entry,
+        id: 'Calory',
+        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
+        measureFn: (Entry entry, _) => (entry.distance/1000)*60,
+        labelAccessorFn: (Entry entry, _) => '${(entry.distance/1000*60)}',
+      )
+    ];
+  }
+
+  
+  List<charts.Series<Daily, String>> _createWeightData() {
+    return [
+      charts.Series<Daily, String>(
+        data: _daily,
+        id: 'Sleep',
+        colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
+        domainFn: (Daily daily, _) => DateFormat('EE').format(daily.date),
+        measureFn: (Daily daily, _) => daily.weight,
+        labelAccessorFn: (Daily daily, _) => '${daily.weight.toInt()}',
       )
     ];
   }
@@ -64,7 +93,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
     return [
       charts.Series<Daily, String>(
         data: _daily,
-        id: 'Run',
+        id: 'Weight',
         colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
         domainFn: (Daily daily, _) => DateFormat('EE').format(daily.date),
         measureFn: (Daily daily, _) {
@@ -98,7 +127,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
             : Container(
                 height: 250,
                 child: charts.BarChart(
-                  _createSleepData(),
+                  widget.choose == 1 ? _createSleepData() : widget.choose == 2 ? _createWeightData() : widget.choose == 3 ? _createRunData() : _createCaloryData(),
                   animate: true,
                   barRendererDecorator: new charts.BarLabelDecorator(),
                   domainAxis: new charts.OrdinalAxisSpec(),

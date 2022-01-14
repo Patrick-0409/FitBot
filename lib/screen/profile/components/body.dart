@@ -8,15 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'description.dart';
-
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   Body({Key? key, required this.user}) : super(key: key);
 
   UserStore user;
+  @override
+  _BodyState createState() => _BodyState();
+}
 
+class _BodyState extends State<Body> {
+  
+  int choose=0;
+  
+  void initState() {
+    super.initState();
+    choose=1;
+  }
+  
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+ 
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -46,10 +58,10 @@ class Body extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   maxRadius: 32,
-                                  backgroundImage: NetworkImage(user.imageUrl ==
+                                  backgroundImage: NetworkImage(widget.user.imageUrl ==
                                           null
                                       ? "https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp"
-                                      : user.imageUrl!),
+                                      : widget.user.imageUrl!),
                                 ),
                                 Spacer(),
                                 Padding(
@@ -65,7 +77,7 @@ class Body extends StatelessWidget {
                                       children: [
                                         SizedBox(height: 3),
                                         Text(
-                                          user.name!,
+                                          widget.user.name!,
                                           textAlign: TextAlign.start,
                                           style: Theme.of(context)
                                               .textTheme
@@ -105,7 +117,7 @@ class Body extends StatelessWidget {
                           color: kGender,
                         ),
                         child: Text(
-                          user.gender!,
+                          widget.user.gender!,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -119,12 +131,12 @@ class Body extends StatelessWidget {
                 SizedBox(height: 10),
                 Description(
                     size: size,
-                    weight: user.weight!,
-                    height: user.height!,
+                    weight: widget.user.weight!,
+                    height: widget.user.height!,
                     age: (int.parse(
                                 DateFormat.y('en_US').format(DateTime.now())) -
                             int.parse(
-                                DateFormat.y('en_US').format(user.birthday!)))
+                                DateFormat.y('en_US').format(widget.user.birthday!)))
                         .toString()),
                 SizedBox(height: 10),
                 Container(
@@ -139,7 +151,7 @@ class Body extends StatelessWidget {
                       SizedBox(
                         height: 20,
                         child: Text(
-                          "Stats This Week",
+                          "Average 7 Days Before",
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -176,7 +188,11 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
-                                    press: () {},
+                                    press: () {
+                                      setState(() {choose = 0;});
+                                      choose=1;
+                                      print(choose);
+                                    },
                                   ),
                                   Spacer(),
                                   ButtonStats(
@@ -186,7 +202,7 @@ class Body extends StatelessWidget {
                                       color: kStastC,
                                     ),
                                     text: Text(
-                                      "40 hrs",
+                                      "40 kg",
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyText2!
@@ -194,7 +210,10 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
-                                    press: () {},
+                                    press: () {
+                                      setState(() {choose = 0;});
+                                      choose=2;
+                                    },
                                   ),
                                 ],
                               ),
@@ -219,7 +238,10 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
-                                    press: () {},
+                                    press: () {
+                                      setState(() {choose = 0;});
+                                      choose=3;
+                                    },
                                   ),
                                   Spacer(),
                                   ButtonStats(
@@ -237,7 +259,10 @@ class Body extends StatelessWidget {
                                               color: Colors.black,
                                               fontSize: 20),
                                     ),
-                                    press: () {},
+                                    press: () {
+                                      setState(() {choose = 0;});
+                                      choose=4;
+                                    },
                                   ),
                                 ],
                               ),
@@ -250,8 +275,7 @@ class Body extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 color: kBackgroundColor,
                               ),
-                              // color: Colors.white,
-                              child: WeeklyBarChart(),
+                              child: WeeklyBarChart(choose:choose),
                             ),
                           ],
                         ),

@@ -22,7 +22,7 @@ class EmailSignInProvider extends ChangeNotifier {
   String? _lastName;
   String? _basename;
   String? _gender;
-  String? _urlImage;
+  String? _imageUrl;
   FirebaseAuthException? _message;
   DateTime? _dob;
 
@@ -108,10 +108,10 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get urlImage => _urlImage!;
+  String get imageUrl => _imageUrl!;
 
-  set urlImage(String value) {
-    _urlImage = value;
+  set imageUrl(String value) {
+    _imageUrl = value;
     notifyListeners();
   }
 
@@ -165,10 +165,9 @@ class EmailSignInProvider extends ChangeNotifier {
 
       await userCollection.doc(user!.uid).set({
         'uid': user.uid,
-        'firstName': firstName,
-        'lastName': lastName,
+        'name': firstName+lastName,
         'email': userEmail,
-        'urlImage': urlImage,
+        'imageUrl': imageUrl,
         'height': "",
       });
       return true;
