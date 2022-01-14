@@ -14,6 +14,7 @@ class SchedulesService {
             .collection('schedules')
             .where('uid', isEqualTo: user?.uid)
             .where('date', isEqualTo: date)
+            .orderBy('startTime')
             .get()
             .then((querySnapshot) {
                   if (querySnapshot.docs.length>0) {

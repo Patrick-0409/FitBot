@@ -256,8 +256,8 @@ class _AddToDoState extends State<AddForm> {
     if (text == null || text.trim().isEmpty) {
       return 'This field is required';
     }
-    if (text.length < 5 || text.length > 300) {
-      return "Please enter 5 until 300 characters!";
+    if (text.length < 3 || text.length > 24) {
+      return "Please enter 3 until 24 characters!";
     }
     return null;
   }
