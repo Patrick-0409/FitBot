@@ -50,38 +50,38 @@ class _SchedulerHomeState extends State<SchedulerHome> {
         ),
         color: Colors.white,
       ),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return SchedulerScreen();
-              },
-            ),
-          );
-        },
-        child: Column(
-          children: [
-            Container(
-              width: size.width,
-              height: size.height * 0.046,
-              // margin: EdgeInsets.only(bottom: 236),
-              padding: EdgeInsets.only(left: 10),
-              // padding: EdgeInsets.only(left: 20, right: 15),
-              decoration: BoxDecoration(
-                color: Color(0XFF39BBC3),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(14),
-                  topRight: Radius.circular(14),
-                  bottomLeft: Radius.circular(14),
-                  bottomRight: Radius.circular(14),
-                ),
-                border: Border.all(
-                  color: Color(0XFF39BBC3),
-                  width: 1,
-                ),
+      child: Column(
+        children: [
+          Container(
+            width: size.width,
+            height: size.height * 0.046,
+            // margin: EdgeInsets.only(bottom: 236),
+            padding: EdgeInsets.only(left: 10),
+            // padding: EdgeInsets.only(left: 20, right: 15),
+            decoration: BoxDecoration(
+              color: Color(0XFF39BBC3),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(14),
+                topRight: Radius.circular(14),
+                bottomLeft: Radius.circular(14),
+                bottomRight: Radius.circular(14),
               ),
+              border: Border.all(
+                color: Color(0XFF39BBC3),
+                width: 1,
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return SchedulerScreen();
+                    },
+                  ),
+                );
+              },
               child: Row(
                 children: [
                   Text(
@@ -101,18 +101,56 @@ class _SchedulerHomeState extends State<SchedulerHome> {
                 ],
               ),
             ),
-            SingleChildScrollView(
-              child: Container(
-                width: size.width,
-                height: size.height * 0.35,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: _cards,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
+                  size: 15.0,
                 ),
+                // Spacer(),
+                Text(
+                  "Delete",
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.black, fontSize: 12),
+                ),
+                Spacer(),
+                Text(
+                  "Done",
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.black, fontSize: 12),
+                ),
+                Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                  size: 15.0,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 5),
+          SingleChildScrollView(
+            child: Container(
+              width: size.width,
+              height: size.height * 0.29,
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: _cards,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
