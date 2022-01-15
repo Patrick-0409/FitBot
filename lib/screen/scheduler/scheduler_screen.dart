@@ -110,6 +110,44 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
               ),
             ),
             SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                    size: 15.0,
+                  ),
+                  // Spacer(),
+                  Text(
+                    "Delete",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.black, fontSize: 14),
+                  ),
+                  Spacer(),
+                  Text(
+                    "Done",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.black, fontSize: 14),
+                  ),
+                  Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                    size: 15.0,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 5),
             Container(
               width: size.width,
               height: size.height * 0.65,

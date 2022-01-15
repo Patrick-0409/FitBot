@@ -71,7 +71,7 @@ class ScheduleCard extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.fromLTRB(15, 5, 15, 5),
           width: size.width,
-          height: size.height * 0.16,
+          height: size.height * 0.13,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: schedule.color == 0
@@ -84,29 +84,29 @@ class ScheduleCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                  // Spacer(),
-                  Icon(
-                    Icons.touch_app_rounded,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                  // Spacer(),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 15.0,
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   // crossAxisAlignment: CrossAxisAlignment.center,
+              //   children: [
+              //     Icon(
+              //       Icons.arrow_back,
+              //       color: Colors.white,
+              //       size: 15.0,
+              //     ),
+              //     // Spacer(),
+              //     Icon(
+              //       Icons.touch_app_rounded,
+              //       color: Colors.white,
+              //       size: 15.0,
+              //     ),
+              //     // Spacer(),
+              //     Icon(
+              //       Icons.arrow_forward,
+              //       color: Colors.white,
+              //       size: 15.0,
+              //     ),
+              //   ],
+              // ),
               Row(
                 children: [
                   Container(
