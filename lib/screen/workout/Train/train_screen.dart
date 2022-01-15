@@ -112,7 +112,6 @@ class _TrainScreenState extends State<TrainScreen> {
                               onTap: () async {
                                 List tempList = await MovementService().getMovement(fitnessList[index].movement);
                                 List<Movement> movementList = tempList.map((item) => Movement.fromMap(item)).toList();
-                                print(movementList);
                                 Navigator.push(
                                   context,  
                                   MaterialPageRoute(
@@ -121,6 +120,7 @@ class _TrainScreenState extends State<TrainScreen> {
                                         title: fitnessList[index].name,
                                         level: widget.user.difficulty! == "" ? "medium" : widget.user.difficulty!,
                                         minute: fitnessList[index].minute,
+                                        imageUrl: fitnessList[index].imageUrl,
                                         round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
                                         times: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
                                         second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[2] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[2] : fitnessList[index].hard[2],

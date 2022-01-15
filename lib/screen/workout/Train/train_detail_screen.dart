@@ -12,6 +12,7 @@ class TrainDetailScreen extends StatelessWidget {
   TrainDetailScreen({
     Key? key, 
     required this.title,
+    required this.imageUrl,
     required this.minute,
     required this.round,
     required this.times,
@@ -21,6 +22,7 @@ class TrainDetailScreen extends StatelessWidget {
   }) : super(key: key);
   
   String title;
+  String imageUrl;
   int minute;
   int round;
   int times;
@@ -41,7 +43,7 @@ class TrainDetailScreen extends StatelessWidget {
                   height: size.height * 0.36,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/LoginBG.png'),
+                      image: NetworkImage(imageUrl),
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
@@ -138,9 +140,10 @@ class TrainDetailScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.only(top: 0),
-              itemCount: movement.length-1,
-              itemBuilder: (BuildContext context, int index) {
+              itemCount: movement.length,
+              itemBuilder: (context, index) {
+                print(movement[index].gifUrl);
+                print(index);
                 return ListTile(
                   isThreeLine: true,
                   leading: Container(
