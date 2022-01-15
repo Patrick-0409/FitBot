@@ -8,6 +8,7 @@ class UserStore{
   final String? gender;
   final String? weight;
   final String? height;
+  final String? difficulty;
   final DateTime? birthday;
 
   UserStore({
@@ -18,6 +19,7 @@ class UserStore{
     required this.gender,
     required this.weight,
     required this.height,
+    required this.difficulty,
     required this.birthday,
   });
 
@@ -29,6 +31,7 @@ class UserStore{
     gender: snapshot["gender"],
     weight: snapshot["weight"],
     height: snapshot["height"],
+    difficulty: snapshot["difficulty"],
     birthday: snapshot["birthday"].toDate(),
   );
 

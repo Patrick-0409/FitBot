@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fiton/constant.dart';
+import 'package:fiton/models/movement.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/timer_button.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +9,29 @@ import 'package:flutter/material.dart';
 import 'components/home_button.dart';
 
 class TrainTimer extends StatefulWidget {
-  TrainTimer({Key? key}) : super(key: key);
-
+  TrainTimer({Key? key, required this.second, required this.movement}) : super(key: key);
+  int second;
+  List<Movement> movement;
   @override
   _TrainTimerState createState() => _TrainTimerState();
 }
 
 class _TrainTimerState extends State<TrainTimer> {
-  static const maxSeconds = 60;
-  int seconds = maxSeconds;
+  int seconds=1;
+  int order = 0;
+  int orderTemp = 0;
   Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    seconds=widget.second;
+  }
+
 
   void resetTimer() {
     return setState(() {
-      seconds = maxSeconds;
+      seconds = widget.second;
     });
   }
 
@@ -32,10 +42,20 @@ class _TrainTimerState extends State<TrainTimer> {
 
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (seconds > 0) {
-        setState(() {
-          seconds--;
-        });
+        
+        if (this.mounted) {
+          setState(() {
+            seconds--;
+          });
+        }
       } else {
+        orderTemp++;
+        if(orderTemp==widget.movement.length){
+          _tq(context);
+        }
+        else{
+          order = orderTemp;
+        }
         stopTimer(reset: false);
       }
     });
@@ -46,8 +66,26 @@ class _TrainTimerState extends State<TrainTimer> {
       resetTimer();
     }
 
-    setState(() {
-      timer?.cancel();
+
+    if (this.mounted) {
+      setState(() {
+        timer?.cancel();
+      });
+    }
+  }
+
+
+  void alert(BuildContext context){
+    showDialog(
+      context: context,
+      builder: (context) {
+        Future.delayed(Duration(seconds: 10), () {
+          Navigator.of(context).pop(true);
+          startTimer();
+        });
+        return AlertDialog(
+          title: Text('Let\'s get ready, we\'ll start in 10 seconds!'),
+        );
     });
   }
 
@@ -73,7 +111,7 @@ class _TrainTimerState extends State<TrainTimer> {
             ),
           ),
           Spacer(),
-          Image.network('https://c.tenor.com/h9W4zejLjTMAAAAC/fit-workout.gif'),
+          Image.network(widget.movement[order].gifUrl),
           Spacer(),
           buildIndicator(),
           SizedBox(height: 30),
@@ -100,7 +138,7 @@ class _TrainTimerState extends State<TrainTimer> {
                 // SizedBox(height: 10),
                 buildTime(),
                 // SizedBox(height: 5),
-                buildButton(),
+                buildButton(context),
               ],
             ),
           ),
@@ -119,7 +157,7 @@ class _TrainTimerState extends State<TrainTimer> {
         width: size.width,
         height: size.height * 0.02,
         child: LinearProgressIndicator(
-          value: seconds / maxSeconds,
+          value: seconds / widget.second,
           valueColor: AlwaysStoppedAnimation<Color>(Color(0XFF39BBC3)),
           backgroundColor: Colors.grey,
         ),
@@ -151,22 +189,37 @@ class _TrainTimerState extends State<TrainTimer> {
     );
   }
 
-  Widget buildButton() {
+  void _tq(BuildContext context) async{
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Congratulations!'),
+        content: Text('You have finished your workout today!'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  ModalRoute.withName('/'),
+                );
+              },
+              child: Text('Ok'))
+        ],
+      ),
+    );
+  }
+
+  Widget buildButton(BuildContext context) {
     final isRunning = timer == null ? false : timer!.isActive;
-    final isCompleted = seconds == 0 || seconds == maxSeconds;
+    final isCompleted = seconds == 0 || seconds == widget.second;
+
 
     return isRunning || !isCompleted
         ? Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.fast_rewind,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () {},
-              ),
               SizedBox(width: 10),
               TimerButton(
                 text: isRunning ? "Pause" : "Resume",
@@ -188,44 +241,21 @@ class _TrainTimerState extends State<TrainTimer> {
                 color: Colors.green,
               ),
               SizedBox(width: 10),
-              IconButton(
-                icon: Icon(
-                  Icons.fast_forward,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () {},
-              ),
             ],
           )
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(
-                icon: Icon(
-                  Icons.fast_rewind,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () {},
-              ),
               SizedBox(width: 10),
               TimerButton(
                 text: "Start",
                 press: () {
-                  startTimer();
+                  
+                  alert(context);
                 },
                 color: kLoginColor,
               ),
               SizedBox(width: 10),
-              IconButton(
-                icon: Icon(
-                  Icons.fast_forward,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                onPressed: () {},
-              ),
             ],
           );
   }

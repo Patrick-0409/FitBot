@@ -14,36 +14,36 @@ const String apiKey = "AIzaSyC0_N9rxMEYDCPiQva-dqDhHVHnDg9I7Bc";
 
 const String edamamApiKey = "3c614dc88a61b8f65d06c33c98e1bf87";
 const String edamamApiId = "767fe783";
-const String chic_url = 'https://api.edamam.com/search?q=chicken&app_id=' +
+const String chic_url = 'https://api.edamam.com/search?q=chicken&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
-const String beef_url = 'https://api.edamam.com/search?q=beef&app_id=' +
+const String beef_url = 'https://api.edamam.com/search?q=beef&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
-const String salad_url = 'https://api.edamam.com/search?q=salad&app_id=' +
+const String salad_url = 'https://api.edamam.com/search?q=salad&diet=low-fat&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
-const String sea_url = 'https://api.edamam.com/search?q=sea&app_id=' +
+const String sea_url = 'https://api.edamam.com/search?q=seafood&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
 const String breakfast_url =
-    'https://api.edamam.com/search?q=breakfast&app_id=' +
+    'https://api.edamam.com/search?q=&mealType=breakfast&diet=low-fat&dishType=main course&app_id=' +
         edamamApiId +
         '&app_key=' +
         edamamApiKey;
-const String lunch_url = 'https://api.edamam.com/search?q=lunch&app_id=' +
+const String lunch_url = 'https://api.edamam.com/search?q=lunch&mealType=lunch&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
-const String dinner_url = 'https://api.edamam.com/search?q=dinner&app_id=' +
+const String dinner_url = 'https://api.edamam.com/search?q=&mealType=dinner&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;
-const String deli_url = 'https://api.edamam.com/search?q=delicious&app_id=' +
+const String deli_url = 'https://api.edamam.com/search?q=delicious&diet=low-fat&dishType=main course&app_id=' +
     edamamApiId +
     '&app_key=' +
     edamamApiKey;

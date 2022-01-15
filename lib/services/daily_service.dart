@@ -109,17 +109,14 @@ class DailyService {
               isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
                   DateFormat.yMd()
                       .parse(DateFormat.yMd().format(
-                          DateTime.now().subtract(const Duration(days: 6))))
+                          DateTime.now().subtract(const Duration(days: 1))))
                       .millisecondsSinceEpoch))
           .where('user', isEqualTo: user?.uid)
           .orderBy('date')
           .get()
           .then((querySnapshot) {
             if (querySnapshot.docs.length > 0) {
-              for (var i = 0; i < querySnapshot.docs.length; i++) {
-                temp += querySnapshot.docs[i]['weight'];
-              }
-              temp/=querySnapshot.docs.length;
+              temp = querySnapshot.docs[1]['weight'].toDouble()-querySnapshot.docs[0]['weight'].toDouble();
               return temp;
             } else {
               return temp;

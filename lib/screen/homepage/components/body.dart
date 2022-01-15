@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/place.dart';
+import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/article/article_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
@@ -28,7 +29,9 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Future<PlaceModel>? _placeModel;
+  final user = FirebaseAuth.instance.currentUser!;
   Position? position;
+  UserStore? userstore;
 
   Future<Position?> getPosition() async {
     position = await GeoLocatorService().getLocation();
@@ -36,14 +39,19 @@ class _BodyState extends State<Body> {
   }
 
   @override
-  void initState() {
+  void initState(){
     getPosition().then((value) => {
-          setState(() {
-            _placeModel =
-                PlacesService().getPlaces(value!.latitude, value.longitude);
-          }),
-        });
+      setState(() {
+        _placeModel =
+            PlacesService().getPlaces(value!.latitude, value.longitude);
+      }),
+    });
+    _fetchUser();
     super.initState();
+  }
+
+  _fetchUser() async{
+    userstore = await UserService().getUser(user.uid);
   }
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -55,7 +63,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final user = FirebaseAuth.instance.currentUser!;
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -257,10 +265,7 @@ class _BodyState extends State<Body> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return TrainScreen(
-                                      title: 'Training Menu',
-                                      url: dinner_url,
-                                      sectitle: '');
+                                  return TrainScreen(user: userstore!,);
                                 },
                               ),
                             );
@@ -270,10 +275,7 @@ class _BodyState extends State<Body> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return TrainScreen(
-                                  title: 'Training Menu',
-                                  url: dinner_url,
-                                  sectitle: '');
+                              return TrainScreen(user: userstore!,);
                             },
                           ),
                         );
