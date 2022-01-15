@@ -113,7 +113,7 @@ class _BodyState extends State<Body> {
                               );
                             },
                             style: ElevatedButton.styleFrom(
-                                primary: Color(0XFF39BBC3),
+                                primary: Colors.red.shade400,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 5),
                                 textStyle: TextStyle(
