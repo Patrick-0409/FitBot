@@ -35,7 +35,6 @@ class _SchedulerHomeState extends State<SchedulerHome> {
     setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -102,12 +101,14 @@ class _SchedulerHomeState extends State<SchedulerHome> {
                 ],
               ),
             ),
-            Container(
-              width: size.width,
-              height: size.height * 0.23,
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: _cards,
+            SingleChildScrollView(
+              child: Container(
+                width: size.width,
+                height: size.height * 0.35,
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: _cards,
+                ),
               ),
             ),
           ],
