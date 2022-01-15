@@ -1,57 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/dummy.dart';
+import 'package:fiton/models/fitness.dart';
+import 'package:fiton/models/movement.dart';
 import 'package:fiton/models/recipe.dart';
+import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/ingridients/components/group_card.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
+import 'package:fiton/screen/workout/Train/components/fitness_card.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/Train/train_detail_screen.dart';
+import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
+import 'package:fiton/services/movement_service.dart';
 import 'package:fiton/services/recipe_service.dart';
+import 'package:fiton/services/fitness_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
 class TrainScreen extends StatefulWidget {
-  final String? title;
-  final String? sectitle;
-  final String? url;
 
   TrainScreen(
-      {Key? key,
-      required this.title,
-      required this.url,
-      required this.sectitle})
+      {Key? key, required this.user})
       : super(key: key);
-
+  UserStore user;
   @override
   _TrainScreenState createState() => _TrainScreenState();
 }
 
 class _TrainScreenState extends State<TrainScreen> {
-  late Future<RecipeModel> _recipeModel;
+  List<Fitness> fitnessList = [];
 
   @override
   void initState() {
-    if (widget.url != '')
-      _recipeModel = RecipesService().getRecipes(widget.url!);
-    else {
-      String tempTitle;
-      if (widget.sectitle != '')
-        tempTitle = widget.title! + ' ' + widget.sectitle!;
-      else
-        tempTitle = widget.title!;
-
-      _recipeModel = RecipesService().getRecipes(
-          'https://api.edamam.com/search?q=' +
-              tempTitle +
-              '&app_id=' +
-              edamamApiId +
-              '&app_key=' +
-              edamamApiKey);
-    }
-    // print(_recipeModel);
+    fetchFitnessList();
     super.initState();
+  }
+  
+  fetchFitnessList() async {
+    List temp = await FitnessService().getFitness();
+    fitnessList = temp.map((item) => Fitness.fromMap(item)).toList();
+    return fitnessList;
   }
 
   @override
@@ -95,9 +86,7 @@ class _TrainScreenState extends State<TrainScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.url == ''
-                      ? 'Result of ' + widget.title!
-                      : widget.title!,
+                  'Training',
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -106,100 +95,42 @@ class _TrainScreenState extends State<TrainScreen> {
                 ),
                 SizedBox(height: 5),
                 Container(
-                  width: size.width * 0.9,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: kSearchBarColor.withOpacity(0.1),
-                    // borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: TextField(
-                    textInputAction: TextInputAction.go,
-                    onSubmitted: (value) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            // print(value);
-                            return TrainScreen(
-                                title: widget.title, url: '', sectitle: value);
-                          },
-                        ),
-                      );
-                    },
-                    controller: TextEditingController()
-                      ..text = widget.url! == ""
-                          ? widget.sectitle! == ""
-                              ? widget.title!
-                              : widget.sectitle!
-                          : '',
-                    style: TextStyle(fontSize: 13),
-                    decoration: InputDecoration(
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: "So, what kind of training you want to?",
-                      prefixIcon: Icon(Icons.search, color: Colors.black),
-                      contentPadding: EdgeInsets.symmetric(vertical: 12),
-                    ),
-                  ),
-                ),
-                Container(
                   padding: EdgeInsets.only(bottom: 85),
                   width: double.infinity,
                   height: size.height,
-                  child: FutureBuilder<RecipeModel>(
-                    future: _recipeModel,
+                  child: FutureBuilder(
+                    future: fetchFitnessList(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
-                          itemCount: snapshot.data?.recipes.length,
+                          itemCount: fitnessList.length,
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            var recent = snapshot.data?.recipes[index];
+                            var recent = fitnessList[index];
                             return InkWell(
                               onTap: () async {
+                                List tempList = await MovementService().getMovement(fitnessList[index].movement);
+                                List<Movement> movementList = tempList.map((item) => Movement.fromMap(item)).toList();
+                                print(movementList);
                                 Navigator.push(
-                                  context,
+                                  context,  
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return TrainDetailScreen();
+                                      return TrainDetailScreen(
+                                        title: fitnessList[index].name,
+                                        level: widget.user.difficulty! == "" ? "medium" : widget.user.difficulty!,
+                                        minute: fitnessList[index].minute,
+                                        round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
+                                        times: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
+                                        second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[2] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[2] : fitnessList[index].hard[2],
+                                        movement: movementList,
+                                      );
                                     },
                                   ),
                                 );
-                                // bool temp = await RecipesService()
-                                //     .checkContains(await RecipesService()
-                                //         .checkNews(
-                                //             recent!.label,
-                                //             recent.image,
-                                //             recent.cuisineType,
-                                //             recent.calories,
-                                //             recent.fat,
-                                //             recent.sugar,
-                                //             recent.protein,
-                                //             recent.totalTime,
-                                //             recent.ingredientLines,
-                                //             recent.url));
-
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => EatDetailScreen(
-                                //       contain: temp,
-                                //       label: recent.label,
-                                //       image: recent.image,
-                                //       cuisineType: recent.cuisineType,
-                                //       calories: recent.calories,
-                                //       fat: recent.fat,
-                                //       sugar: recent.sugar,
-                                //       protein: recent.protein,
-                                //       totalTime: recent.totalTime,
-                                //       ingredientLines: recent.ingredientLines,
-                                //       url: recent.url,
-                                //     ),
-                                //   ),
-                                // );
                               },
-                              child: IngridientsCardFav(recipe: recent!),
+                              child: FitnessCard(fitness: recent),
                             );
                           },
                         );

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fiton/constant.dart';
+import 'package:fiton/models/movement.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/timer_button.dart';
 import 'package:flutter/material.dart';
@@ -8,20 +9,26 @@ import 'package:flutter/material.dart';
 import 'components/home_button.dart';
 
 class TrainTimer extends StatefulWidget {
-  TrainTimer({Key? key}) : super(key: key);
-
+  TrainTimer({Key? key, required this.second, required this.movement}) : super(key: key);
+  int second;
+  List<Movement> movement;
   @override
   _TrainTimerState createState() => _TrainTimerState();
 }
 
 class _TrainTimerState extends State<TrainTimer> {
   static const maxSeconds = 60;
-  int seconds = maxSeconds;
+  int seconds=0;
   Timer? timer;
+
+  void initState() {
+    super.initState();
+    startTimer();
+  }
 
   void resetTimer() {
     return setState(() {
-      seconds = maxSeconds;
+      seconds = widget.second;
     });
   }
 
@@ -207,7 +214,9 @@ class _TrainTimerState extends State<TrainTimer> {
                   color: Colors.white,
                   size: 40,
                 ),
-                onPressed: () {},
+                onPressed: () {
+
+                },
               ),
               SizedBox(width: 10),
               TimerButton(
@@ -224,7 +233,9 @@ class _TrainTimerState extends State<TrainTimer> {
                   color: Colors.white,
                   size: 40,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
               ),
             ],
           );
