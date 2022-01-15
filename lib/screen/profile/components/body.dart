@@ -154,7 +154,7 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 20,
                         child: Text(
-                          "Average 7 Days Before",
+                          "Stats This Week",
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
@@ -188,7 +188,8 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) + " hrs",
+                                            snapshot.data!.toStringAsFixed(1) +
+                                                " hrs",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -221,7 +222,8 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) + " kg",
+                                            snapshot.data!.toStringAsFixed(1) +
+                                                " kg",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -260,7 +262,8 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) + " km",
+                                            snapshot.data!.toStringAsFixed(1) +
+                                                " km",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -292,7 +295,8 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) + " cal",
+                                            snapshot.data!.toStringAsFixed(1) +
+                                                " cal",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!

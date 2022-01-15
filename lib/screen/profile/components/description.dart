@@ -24,7 +24,7 @@ class Description extends StatelessWidget {
       children: <Widget>[
         Container(
           width: size.width * 0.28,
-          height: size.height * 0.25,
+          height: size.height * 0.24,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: kWeight,
@@ -37,20 +37,20 @@ class Description extends StatelessWidget {
               children: <Widget>[
                 CommonStats(
                   svg: SvgPicture.asset("assets/images/weight.svg"),
-                  text: weight+" kg",
+                  text: weight + " kg",
                 ),
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(left: 5),
                   child: CommonStats(
                     svg: SvgPicture.asset("assets/images/height.svg"),
-                    text: height+" cm",
+                    text: height + " cm",
                   ),
                 ),
                 SizedBox(height: 20),
                 CommonStats(
                   svg: SvgPicture.asset("assets/images/age.svg"),
-                  text: age+" y.o",
+                  text: age + " y.o",
                 ),
               ],
             ),

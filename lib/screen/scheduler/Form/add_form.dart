@@ -206,8 +206,10 @@ class _AddToDoState extends State<AddForm> {
                                 title: _titleController.text,
                                 location: _locationController.text,
                                 date: DateFormat.yMd().format(_selectedDate),
-                                startTime: DateFormat.Hm().format(DateFormat.jm().parse(_startTime)),
-                                endTime: DateFormat.Hm().format(DateFormat.jm().parse(_endTime)),
+                                startTime: DateFormat.Hm()
+                                    .format(DateFormat.jm().parse(_startTime)),
+                                endTime: DateFormat.Hm()
+                                    .format(DateFormat.jm().parse(_endTime)),
                                 color: _selectedColor,
                                 remind: _selectedRemind,
                                 repeat: _selectedRepeat,
@@ -280,13 +282,9 @@ class _AddToDoState extends State<AddForm> {
 
   _showTimePicker(BuildContext context) {
     return showTimePicker(
-      context: context,
-      initialEntryMode: TimePickerEntryMode.dial,
-      initialTime: TimeOfDay(
-        hour: int.parse(_startTime.split(":")[0]),
-        minute: int.parse(_startTime.split(":")[1].split(" ")[0]),
-      ),
-    );
+        context: context,
+        initialEntryMode: TimePickerEntryMode.dial,
+        initialTime: TimeOfDay.now());
   }
 
   _colorSelection() {
