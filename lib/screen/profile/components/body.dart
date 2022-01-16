@@ -343,7 +343,6 @@ class _BodyState extends State<Body> {
                               height: size.height * 0.26,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: kBackgroundColor,
                               ),
                               child: WeeklyBarChart(choose: choose),
                             ),
