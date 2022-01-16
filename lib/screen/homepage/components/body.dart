@@ -86,22 +86,36 @@ class _BodyState extends State<Body> {
               SizedBox(height: 10),
               Container(
                 width: size.width,
-                height: size.height * 0.12,
+                height: size.height * 0.14,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                padding: EdgeInsets.only(left: 10, right: 10, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      "Hi,\nMichael",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText2!
-                          .copyWith(color: Colors.black, fontSize: 18),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "1,928",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 22),
+                        ),
+                        Text(
+                          "Remaining\nCalorie",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 14),
+                        ),
+                      ],
                     ),
                     Spacer(),
                     SizedBox(
@@ -112,12 +126,26 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(),
-                    SizedBox(
-                      height: size.height * 0.09,
-                      width: size.width * 0.005,
-                      child: DecoratedBox(
-                        decoration: const BoxDecoration(color: Colors.black54),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "1,928",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 22),
+                        ),
+                        Text(
+                          "Remaining\nCalorie",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 14),
+                        ),
+                      ],
                     ),
                     Spacer(),
                     SizedBox(
@@ -128,6 +156,28 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "1,928",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 22),
+                        ),
+                        Text(
+                          "Remaining\nCalorie",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
                     SizedBox(
                       height: size.height * 0.09,
                       width: size.width * 0.005,
@@ -135,6 +185,29 @@ class _BodyState extends State<Body> {
                         decoration: const BoxDecoration(color: Colors.black54),
                       ),
                     ),
+                    Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "1,928",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 22),
+                        ),
+                        Text(
+                          "Remaining\nCalorie",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
                   ],
                 ),
               ),
