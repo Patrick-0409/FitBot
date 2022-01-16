@@ -8,44 +8,39 @@ class ButtonExplore extends StatelessWidget {
     required this.press,
     required this.color,
     required this.text,
-    required this.picture,
   }) : super(key: key);
 
   final Size size;
   final Function() press;
   final Color color;
   final Text text;
-  final SvgPicture picture;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: press,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 13),
-        child: SizedBox(
-          width: size.width * 0.21,
-          child: Column(
-            children: <Widget>[
-              AspectRatio(
-                aspectRatio: 1,
-                child: Container(
-                  padding: EdgeInsets.only(top: 25),
-                  decoration: BoxDecoration(
-                    color: color,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      picture,
-                      SizedBox(height: 10),
-                      text,
-                    ],
-                  ),
+      child: SizedBox(
+        width: size.width * 0.21,
+        child: Column(
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                padding: EdgeInsets.only(top: 25),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    text,
+                    SizedBox(height: 10),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

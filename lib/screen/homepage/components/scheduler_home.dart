@@ -43,7 +43,7 @@ class _SchedulerHomeState extends State<SchedulerHome> {
       width: size.width * 0.95,
       // color: Colors.white,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: Colors.white,
           width: 1,
@@ -61,10 +61,10 @@ class _SchedulerHomeState extends State<SchedulerHome> {
             decoration: BoxDecoration(
               color: Color(0XFF39BBC3),
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(14),
-                topRight: Radius.circular(14),
-                bottomLeft: Radius.circular(14),
-                bottomRight: Radius.circular(14),
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+                bottomRight: Radius.circular(12),
               ),
               border: Border.all(
                 color: Color(0XFF39BBC3),
