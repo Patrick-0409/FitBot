@@ -167,7 +167,6 @@ class TrainDetailScreen extends StatelessWidget {
                     style: descriptionStyle.copyWith(
                         color: Colors.grey, fontSize: 12),
                   ),
-                  trailing: round1[index]['trailing'],
                 );
               },
             ),
