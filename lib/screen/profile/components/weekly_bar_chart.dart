@@ -15,7 +15,6 @@ class WeeklyBarChart extends StatefulWidget {
 }
 
 class _WeeklyBarChartState extends State<WeeklyBarChart> {
-  
   List<Entry> _entry = [];
   List<Daily> _daily = [];
   bool loading = true;
@@ -54,13 +53,12 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         id: 'Run',
         colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
         domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
-        measureFn: (Entry entry, _) => entry.distance/1000,
-        labelAccessorFn: (Entry entry, _) => '${entry.distance.toInt()/1000}',
+        measureFn: (Entry entry, _) => entry.distance / 1000,
+        labelAccessorFn: (Entry entry, _) => '${entry.distance.toInt() / 1000}',
       )
     ];
   }
 
-  
   List<charts.Series<Entry, String>> _createCaloryData() {
     return [
       charts.Series<Entry, String>(
@@ -68,13 +66,12 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         id: 'Calory',
         colorFn: (_, __) => charts.MaterialPalette.teal.shadeDefault,
         domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
-        measureFn: (Entry entry, _) => (entry.distance/1000)*60,
-        labelAccessorFn: (Entry entry, _) => '${(entry.distance/1000*60)}',
+        measureFn: (Entry entry, _) => (entry.distance / 1000) * 60,
+        labelAccessorFn: (Entry entry, _) => '${(entry.distance / 1000 * 60)}',
       )
     ];
   }
 
-  
   List<charts.Series<Daily, String>> _createWeightData() {
     return [
       charts.Series<Daily, String>(
@@ -88,7 +85,6 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
     ];
   }
 
-  
   List<charts.Series<Daily, String>> _createSleepData() {
     return [
       charts.Series<Daily, String>(
@@ -101,18 +97,16 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
           var wake = format.parse(daily.wake);
           var sleep = format.parse(daily.sleep);
           int diff = sleep.difference(wake).inHours;
-          if(diff.isNegative)
-            return diff+24;
-          return diff; 
+          if (diff.isNegative) return diff + 24;
+          return diff;
         },
-        labelAccessorFn: (Daily daily, _){
+        labelAccessorFn: (Daily daily, _) {
           var format = DateFormat("HH:mm");
           var wake = format.parse(daily.wake);
           var sleep = format.parse(daily.sleep);
           int diff = wake.difference(sleep).inHours;
-          if(diff.isNegative)
-            return (diff+24).toString();
-          return diff.toString(); 
+          if (diff.isNegative) return (diff + 24).toString();
+          return diff.toString();
         },
       )
     ];
@@ -120,14 +114,21 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: loading
             ? CircularProgressIndicator()
             : Container(
-                height: 250,
+                height: size.height,
                 child: charts.BarChart(
-                  widget.choose == 1 ? _createSleepData() : widget.choose == 2 ? _createWeightData() : widget.choose == 3 ? _createRunData() : _createCaloryData(),
+                  widget.choose == 1
+                      ? _createSleepData()
+                      : widget.choose == 2
+                          ? _createWeightData()
+                          : widget.choose == 3
+                              ? _createRunData()
+                              : _createCaloryData(),
                   animate: true,
                   barRendererDecorator: new charts.BarLabelDecorator(),
                   domainAxis: new charts.OrdinalAxisSpec(),

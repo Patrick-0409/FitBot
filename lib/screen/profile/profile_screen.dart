@@ -23,12 +23,12 @@ class ProfileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ListTile(
-              leading: HomeButton(),
-              title: Text(
+              leading: Text(
                 "Profile",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5,
               ),
+              trailing: HomeButton(),
             ),
           ],
         ),
