@@ -3,11 +3,13 @@ import 'package:fiton/constant.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/article/article_screen.dart';
+import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
+import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
 import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
@@ -169,7 +171,16 @@ class _BodyState extends State<Body> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return EatingKusioner();
+                              },
+                            ),
+                          );
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,

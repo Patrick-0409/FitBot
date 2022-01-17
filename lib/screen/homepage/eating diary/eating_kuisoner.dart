@@ -11,31 +11,21 @@ import 'package:intl/intl.dart';
 
 import '../../../constant.dart';
 
-class DailyInput extends StatefulWidget {
-  DailyInput({Key? key}) : super(key: key);
+class EatingKusioner extends StatefulWidget {
+  EatingKusioner({Key? key}) : super(key: key);
 
   @override
-  _DailyInputState createState() => _DailyInputState();
+  _EatingKusionerState createState() => _EatingKusionerState();
 }
 
-class _DailyInputState extends State<DailyInput> {
-  // DateTime _selectedDate = DateTime.now();
-  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
-  String _endTime = "9:30 PM ";
+class _EatingKusionerState extends State<EatingKusioner> {
+  String _breakfastTime =
+      DateFormat("hh:mm a").format(DateTime.now()).toString();
+  String _lunchTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  String _dinnerTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
 
   final _formKey = GlobalKey<FormState>();
 
-  final _weightController = TextEditingController();
-  // int _selectedRemind = 5;
-  // List<int> remindList = [
-  //   5,
-  //   10,
-  //   15,
-  //   20,
-  // ];
-  // String _selectedRepeat = "None";
-  // List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
-  // int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -73,66 +63,61 @@ class _DailyInputState extends State<DailyInput> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Daily Stats",
+                    "Your Eating Schedule",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 24,
                           color: Colors.white,
                         ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Sleep Time",
-                          hint: _startTime,
-                          widget: IconButton(
-                            onPressed: () {
-                              _getTimeFromUser(isStartTime: true);
-                            },
-                            icon: Icon(Icons.access_time_rounded),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 12),
-                      Expanded(
-                        child: InputField(
-                          title: "Wake Up Time",
-                          hint: _endTime,
-                          widget: IconButton(
-                            onPressed: () {
-                              _getTimeFromUser(isStartTime: false);
-                            },
-                            icon: Icon(Icons.access_time_rounded),
-                          ),
-                        ),
-                      ),
-                    ],
+                  InputField(
+                    title: "Breakfast",
+                    hint: _breakfastTime,
+                    widget: IconButton(
+                      onPressed: () {
+                        _getTimeFromUser(isStartTime: true);
+                      },
+                      icon: Icon(Icons.access_time_rounded),
+                    ),
+                  ),
+                  // SizedBox(width: 12),
+                  InputField(
+                    title: "Lunch",
+                    hint: _lunchTime,
+                    widget: IconButton(
+                      onPressed: () {
+                        _getTimeFromUser(isStartTime: false);
+                      },
+                      icon: Icon(Icons.access_time_rounded),
+                    ),
                   ),
                   InputField(
-                    title: "How much do you weight? (kg)",
-                    hint: "Input Your weight",
-                    controller: _weightController,
-                    keyboardType: TextInputType.number,
-                    validator: _requiredWeight,
+                    title: "Dinner",
+                    hint: _dinnerTime,
+                    widget: IconButton(
+                      onPressed: () {
+                        _getTimeFromUser(isStartTime: false);
+                      },
+                      icon: Icon(Icons.access_time_rounded),
+                    ),
                   ),
                   SizedBox(height: 15),
                   GestureDetector(
-                    onTap: () async {
-                      if (_formKey.currentState != null &&
-                          _formKey.currentState!.validate()) {
-                        Daily dl = Daily(
-                          date: DateTime.now(),
-                          sleep: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_startTime)),
-                          wake: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_endTime)),
-                          weight: int.parse(_weightController.text),
-                          user: user!.uid,
-                        );
-                        await _save(dl);
-                      }
-                    },
+                    // onTap: () async {
+                    //   if (_formKey.currentState != null &&
+                    //       _formKey.currentState!.validate()) {
+                    //     Daily dl = Daily(
+                    //       date: DateTime.now(),
+                    //       sleep: DateFormat.Hm()
+                    //           .format(DateFormat.jm().parse(_startTime)),
+                    //       wake: DateFormat.Hm()
+                    //           .format(DateFormat.jm().parse(_endTime)),
+                    //       weight: int.parse(_weightController.text),
+                    //       user: user!.uid,
+                    //     );
+                    //     await _save(dl);
+                    //   }
+                    // },
                     child: Container(
                       width: size.width,
                       height: size.height * 0.07,
@@ -217,11 +202,12 @@ class _DailyInputState extends State<DailyInput> {
       print("Time Canceled");
     } else if (isStartTime == true) {
       setState(() {
-        _startTime = _formatedTime;
+        _breakfastTime = _formatedTime;
+        _lunchTime = _formatedTime;
       });
     } else if (isStartTime == false) {
       setState(() {
-        _endTime = _formatedTime;
+        _dinnerTime = _formatedTime;
       });
     }
   }
