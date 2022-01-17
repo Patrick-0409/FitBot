@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../../../constant.dart';
 import 'common_stats.dart';
 
@@ -17,6 +16,15 @@ class Description extends StatelessWidget {
   final String weight;
   final String height;
   final String age;
+
+  int _recomWeight(String height, int bmi){
+    return (((int.parse(height) / 100)*(int.parse(height) / 100))*bmi).toInt();
+  }
+
+  double _getBMI(String weight, String height) {
+    return ((int.parse(weight)).toDouble()) /
+        ((((int.parse(height)).toDouble()) / 100) * (((int.parse(height)).toDouble()) / 100));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +75,8 @@ class Description extends StatelessWidget {
                     width: 15,
                     height: 25,
                   ),
-                  text: height,
+                  text: _getBMI(weight, height)
+                      .toStringAsFixed(1),
                   color: Color(0XFF96162D),
                 ),
               ],
@@ -89,7 +98,7 @@ class Description extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "Target BMI",
+                  "Recomendation BMI",
                   textAlign: TextAlign.start,
                   style: Theme.of(context)
                       .textTheme
@@ -106,7 +115,7 @@ class Description extends StatelessWidget {
                         width: 15,
                         height: 25,
                       ),
-                      text: weight + " kg",
+                      text: _recomWeight(height, 22).toString() + " kg",
                       color: Color(0XFF1A2A53),
                     ),
                     Spacer(),
@@ -133,7 +142,7 @@ class Description extends StatelessWidget {
                     width: 15,
                     height: 25,
                   ),
-                  text: height,
+                  text: "22",
                   color: Color(0XFF1A2A53),
                 ),
               ],

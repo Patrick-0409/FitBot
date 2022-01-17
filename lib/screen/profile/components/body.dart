@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/profile/components/button_stats.dart';
 import 'package:fiton/screen/profile/components/weekly_bar_chart.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/runs_service.dart';
-import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
