@@ -198,7 +198,7 @@ class _BodyState extends State<Body> {
                               color: Colors.black,
                             ),
                             Text(
-                              "Eating Diary",
+                              "Daily Intake",
                               textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
