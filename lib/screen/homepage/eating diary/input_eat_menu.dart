@@ -11,31 +11,25 @@ import 'package:intl/intl.dart';
 
 import '../../../constant.dart';
 
-class DailyInput extends StatefulWidget {
-  DailyInput({Key? key}) : super(key: key);
+class InputEatMenu extends StatefulWidget {
+  InputEatMenu({Key? key}) : super(key: key);
 
   @override
-  _DailyInputState createState() => _DailyInputState();
+  _InputEatMenuState createState() => _InputEatMenuState();
 }
 
-class _DailyInputState extends State<DailyInput> {
-  // DateTime _selectedDate = DateTime.now();
+class _InputEatMenuState extends State<InputEatMenu> {
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM ";
 
   final _formKey = GlobalKey<FormState>();
 
-  final _weightController = TextEditingController();
-  // int _selectedRemind = 5;
-  // List<int> remindList = [
-  //   5,
-  //   10,
-  //   15,
-  //   20,
-  // ];
-  // String _selectedRepeat = "None";
-  // List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
-  // int _selectedColor = 0;
+  final _breakfastController = TextEditingController();
+  final _lunchController = TextEditingController();
+  final _dinnerController = TextEditingController();
+  final _caloriesController1 = TextEditingController();
+  final _caloriesController2 = TextEditingController();
+  final _caloriesController3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -73,7 +67,7 @@ class _DailyInputState extends State<DailyInput> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Daily Stats",
+                    "Your Daily Calories",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 24,
@@ -84,54 +78,87 @@ class _DailyInputState extends State<DailyInput> {
                     children: [
                       Expanded(
                         child: InputField(
-                          title: "Sleep Time",
-                          hint: _startTime,
-                          widget: IconButton(
-                            onPressed: () {
-                              _getTimeFromUser(isStartTime: true);
-                            },
-                            icon: Icon(Icons.access_time_rounded),
-                          ),
+                          title: "Breakfast",
+                          hint: "Input Your Breakfast",
+                          controller: _breakfastController,
+                          keyboardType: TextInputType.text,
+                          validator: _requiredWeight,
                         ),
                       ),
-                      SizedBox(width: 12),
+                      SizedBox(width: 10),
                       Expanded(
                         child: InputField(
-                          title: "Wake Up Time",
-                          hint: _endTime,
-                          widget: IconButton(
-                            onPressed: () {
-                              _getTimeFromUser(isStartTime: false);
-                            },
-                            icon: Icon(Icons.access_time_rounded),
-                          ),
+                          title: "Calories",
+                          hint: "Input Your  Calories",
+                          controller: _caloriesController1,
+                          keyboardType: TextInputType.number,
+                          validator: _requiredWeight,
                         ),
                       ),
                     ],
                   ),
-                  InputField(
-                    title: "How much do you weight? (kg)",
-                    hint: "Input Your weight",
-                    controller: _weightController,
-                    keyboardType: TextInputType.number,
-                    validator: _requiredWeight,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InputField(
+                          title: "Lunch",
+                          hint: "Input Your Lunch",
+                          controller: _lunchController,
+                          keyboardType: TextInputType.text,
+                          validator: _requiredWeight,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: InputField(
+                          title: "Calories",
+                          hint: "Input Your  Calories",
+                          controller: _caloriesController2,
+                          keyboardType: TextInputType.number,
+                          validator: _requiredWeight,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: InputField(
+                          title: "Dinner",
+                          hint: "Input Your Dinner",
+                          controller: _dinnerController,
+                          keyboardType: TextInputType.text,
+                          validator: _requiredWeight,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: InputField(
+                          title: "Calories",
+                          hint: "Input Your  Calories",
+                          controller: _caloriesController3,
+                          keyboardType: TextInputType.number,
+                          validator: _requiredWeight,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () async {
-                      if (_formKey.currentState != null &&
-                          _formKey.currentState!.validate()) {
-                        Daily dl = Daily(
-                          date: DateTime.now(),
-                          sleep: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_startTime)),
-                          wake: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_endTime)),
-                          weight: int.parse(_weightController.text),
-                          user: user!.uid,
-                        );
-                        await _save(dl);
-                      }
+                      // if (_formKey.currentState != null &&
+                      //     _formKey.currentState!.validate()) {
+                      //   Daily dl = Daily(
+                      //     date: DateTime.now(),
+                      //     sleep: DateFormat.Hm()
+                      //         .format(DateFormat.jm().parse(_startTime)),
+                      //     wake: DateFormat.Hm()
+                      //         .format(DateFormat.jm().parse(_endTime)),
+                      //     weight: int.parse(_weightController.text),
+                      //     user: user!.uid,
+                      //   );
+                      //   await _save(dl);
+                      // }
                     },
                     child: Container(
                       width: size.width,
