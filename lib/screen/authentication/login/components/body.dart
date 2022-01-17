@@ -118,6 +118,7 @@ class _BodyState extends State<Body> {
                           press: () {
                             _logIn();
                           },
+                          wid: size.width * 0.87,
                         ),
                         AccountChecker(
                           press: () {

@@ -177,7 +177,7 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return InputEatMenu();
+                                return KuisonerScreen();
                               },
                             ),
                           );

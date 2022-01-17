@@ -13,7 +13,6 @@ class DobSelector extends StatefulWidget {
 }
 
 class _DobSelectorState extends State<DobSelector> {
-
   ErrorIcon _errorWidget = new ErrorIcon(false);
 
   set errorWidget(ErrorIcon value) {
@@ -40,8 +39,7 @@ class _DobSelectorState extends State<DobSelector> {
               context: context,
               initialDate: new DateTime.now(),
               firstDate: new DateTime(1900),
-              lastDate: new DateTime(2100)
-          );
+              lastDate: new DateTime(2100));
           if (datePick != null) {
             setState(
               () {
@@ -49,8 +47,8 @@ class _DobSelectorState extends State<DobSelector> {
                 isDateSelected = true;
                 birthDateInString =
                     "${birthDate.day}-${birthDate.month}-${birthDate.year}";
-                provider.dob = birthDate; 
-                TEController.text=birthDateInString;
+                provider.dob = birthDate;
+                TEController.text = birthDateInString;
               },
             );
           }
@@ -63,7 +61,7 @@ class _DobSelectorState extends State<DobSelector> {
           ),
           border: InputBorder.none,
           hintText: 'Your Birthday',
-          contentPadding: EdgeInsets.only(top: 10, bottom: 10),
+          contentPadding: EdgeInsets.only(top: 8, bottom: 10),
           errorStyle: TextStyle(fontSize: 10, height: 0),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 3, color: Colors.red),
@@ -104,9 +102,9 @@ class ErrorIcon extends StatelessWidget {
     debugPrint("Rebuilding ErrorWidget");
     isError
         ? out = new Icon(
-      Icons.error,
-      color: Color(Colors.red.value),
-    )
+            Icons.error,
+            color: Color(Colors.red.value),
+          )
         : out = new Icon(null);
 
     return out;

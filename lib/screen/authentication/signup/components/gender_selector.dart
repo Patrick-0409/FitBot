@@ -18,56 +18,58 @@ class _GenderSelectorState extends State<GenderSelector> {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       provider.gender = _selectedGender;
     });
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              groupValue: _selectedGender,
-              value: 'male',
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-                provider.gender = _selectedGender;
-              },
-            ),
-            Text(
-              'Male',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+    return Padding(
+      padding: const EdgeInsets.only(right: 90),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Radio(
+                fillColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                groupValue: _selectedGender,
+                value: 'male',
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value.toString();
+                  });
+                  provider.gender = _selectedGender;
+                },
               ),
-            ),
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              value: 'female',
-              groupValue: _selectedGender,
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-                provider.gender = _selectedGender;
-              },
-
-            ),
-            Text(
-              'Female',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+              Text(
+                'Male',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+              Radio(
+                fillColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                value: 'female',
+                groupValue: _selectedGender,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value.toString();
+                  });
+                  provider.gender = _selectedGender;
+                },
+              ),
+              Text(
+                'Female',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

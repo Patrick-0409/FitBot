@@ -47,6 +47,7 @@ class _BodyState extends State<Body> {
                   press: () {
                     submit();
                   },
+                  wid: size.width * 0.87,
                 ),
                 AccountChecker(
                   login: false,
@@ -96,14 +97,12 @@ class _BodyState extends State<Body> {
               content: Text(messageToDisplay),
               actions: [
                 TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Ok')
-                )
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Ok'))
               ],
-            )
-    );
+            ));
   }
 
   Future submit() async {

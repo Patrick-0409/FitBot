@@ -161,27 +161,30 @@ class _BodyState extends State<Body> {
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
-                  height: size.height * 0.49,
+                  height: size.height * 0.557,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: kProfile,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       SizedBox(
-                        height: 20,
-                        child: Text(
-                          "Stats This Week",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.white, fontSize: 15),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 2),
+                          child: Text(
+                            "Stats This Week",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(color: Colors.white, fontSize: 17),
+                          ),
                         ),
                       ),
+                      SizedBox(height: 4),
                       Container(
                         width: size.width,
-                        height: size.height * 0.46,
+                        height: size.height * 0.51,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: kPip,
@@ -338,7 +341,7 @@ class _BodyState extends State<Body> {
                             SizedBox(height: 10),
                             Container(
                               width: size.width * 0.78,
-                              height: size.height * 0.26,
+                              height: size.height * 0.3,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                               ),

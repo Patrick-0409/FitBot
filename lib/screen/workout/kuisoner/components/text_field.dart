@@ -22,10 +22,10 @@ class TextFieldd extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       height: size.height * 0.064,
-      width: size.width * 0.42,
+      width: size.width * 0.43,
       child: TextFormField(
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 10, bottom: 10),
+          contentPadding: EdgeInsets.only(left: 10, bottom: 10, top: 5),
           hintText: label,
         ),
         controller: controller,

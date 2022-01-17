@@ -67,7 +67,7 @@ class _InputEatMenuState extends State<InputEatMenu> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Daily Calories",
+                    "Your Daily Intake",
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           fontSize: 24,

@@ -78,7 +78,8 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
       charts.Series<Daily, String>(
         data: _daily,
         id: 'Sleep',
-        colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault.darker,
+        colorFn: (_, __) =>
+            charts.MaterialPalette.deepOrange.shadeDefault.darker,
         domainFn: (Daily daily, _) => DateFormat('EE').format(daily.date),
         measureFn: (Daily daily, _) => daily.weight,
         labelAccessorFn: (Daily daily, _) => '${daily.weight.toInt()}',
@@ -117,45 +118,45 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Center(
-        child: loading
-            ? CircularProgressIndicator()
-            : Container(
-                decoration: BoxDecoration(
-                  color: Colors.white54,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                height: size.height,
-                child: charts.BarChart(
-                  widget.choose == 1
-                      ? _createSleepData()
-                      : widget.choose == 2
-                          ? _createWeightData()
-                          : widget.choose == 3
-                              ? _createRunData()
-                              : _createCaloryData(),
-                  animate: true,
-                  barRendererDecorator: new charts.BarLabelDecorator(),
-                  domainAxis: new charts.OrdinalAxisSpec(),
-                  primaryMeasureAxis: new charts.NumericAxisSpec(
-                    renderSpec: charts.NoneRenderSpec(),
-                  ),
-                  behaviors: [
-                    charts.ChartTitle(
-                      widget.choose == 1
-                          ? "Hours of Sleep"
-                          : widget.choose == 2
-                              ? "Weight Body"
-                              : widget.choose == 3
-                                  ? "Kilometers of Run"
-                                  : "Burned Calories",
-                      behaviorPosition: charts.BehaviorPosition.top,
-                      titleOutsideJustification:
-                          charts.OutsideJustification.middle,
-                      innerPadding: 18,
-                    ),
-                  ],
-                ),
+      child: loading
+          ? CircularProgressIndicator()
+          : Container(
+              decoration: BoxDecoration(
+                color: Colors.white54,
+                borderRadius: BorderRadius.circular(12),
               ),
-      );
+              height: size.height,
+              child: charts.BarChart(
+                widget.choose == 1
+                    ? _createSleepData()
+                    : widget.choose == 2
+                        ? _createWeightData()
+                        : widget.choose == 3
+                            ? _createRunData()
+                            : _createCaloryData(),
+                animate: true,
+                barRendererDecorator: new charts.BarLabelDecorator(),
+                domainAxis: new charts.OrdinalAxisSpec(),
+                primaryMeasureAxis: new charts.NumericAxisSpec(
+                  renderSpec: charts.NoneRenderSpec(),
+                ),
+                behaviors: [
+                  charts.ChartTitle(
+                    widget.choose == 1
+                        ? "Hours of Sleep"
+                        : widget.choose == 2
+                            ? "Weight Body"
+                            : widget.choose == 3
+                                ? "Kilometers of Run"
+                                : "Burned Calories",
+                    behaviorPosition: charts.BehaviorPosition.top,
+                    titleOutsideJustification:
+                        charts.OutsideJustification.middle,
+                    innerPadding: 18,
+                  ),
+                ],
+              ),
+            ),
+    );
   }
 }
