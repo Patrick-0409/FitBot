@@ -93,7 +93,7 @@ class _BodyState extends State<Body> {
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
-                  "${_getTime()}, ${user.displayName}!",
+                  "${_getTime()},\n${user.displayName}!",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -151,7 +151,9 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return DailyInput(user: userstore!,);
+                                return DailyInput(
+                                  user: userstore!,
+                                );
                               },
                             ),
                           );
@@ -172,8 +174,7 @@ class _BodyState extends State<Body> {
                                         "assets/icons/warning.png",
                                         color: Colors.red,
                                       );
-                                    }
-                                    else{
+                                    } else {
                                       return CircleAvatar(
                                         child: Icon(
                                           Icons.done,
