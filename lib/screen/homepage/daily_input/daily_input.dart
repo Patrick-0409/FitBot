@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/daily.dart';
+import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
@@ -12,7 +13,8 @@ import 'package:intl/intl.dart';
 import '../../../constant.dart';
 
 class DailyInput extends StatefulWidget {
-  DailyInput({Key? key}) : super(key: key);
+  DailyInput({Key? key, required this.user}) : super(key: key);
+  UserStore user;
 
   @override
   _DailyInputState createState() => _DailyInputState();
@@ -22,6 +24,7 @@ class _DailyInputState extends State<DailyInput> {
   // DateTime _selectedDate = DateTime.now();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM ";
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -168,6 +171,12 @@ class _DailyInputState extends State<DailyInput> {
     try {
       final ref = FirebaseFirestore.instance.collection('daily').doc();
       await ref.set(dl.toMap(ref.id));
+      
+      await FirebaseFirestore.instance.collection('users').doc(widget.user.uid).update(
+        {
+          'weight': dl.weight.toString(),
+        },
+      );
     } catch (e) {
       print(e.toString());
     }
@@ -175,7 +184,7 @@ class _DailyInputState extends State<DailyInput> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Submit succeeded'),
-        content: Text('Thank you for completing your data!'),
+        content: Text('Thank you for input your daily stats!'),
         actions: [
           TextButton(
               onPressed: () {
