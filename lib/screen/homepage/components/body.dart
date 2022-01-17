@@ -650,7 +650,6 @@ class _BodyState extends State<Body> {
                       style: kTrainTitle,
                     ),
                   ),
-                  Spacer(),
                 ],
               ),
             ],
