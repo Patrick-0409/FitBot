@@ -10,6 +10,7 @@ import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
 import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
+import 'package:fiton/screen/homepage/eating%20diary/input_eat_menu.dart';
 import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
@@ -176,7 +177,7 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return EatingKusioner();
+                                return InputEatMenu();
                               },
                             ),
                           );
