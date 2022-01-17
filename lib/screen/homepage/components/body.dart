@@ -141,7 +141,10 @@ class _BodyState extends State<Body> {
                                 color: Colors.red,
                               ),
                             ),
-                            Icon(Icons.warning_amber_sharp),
+                            Image.asset(
+                              "assets/icons/checklist.png",
+                              color: Colors.black,
+                            ),
                             Text(
                               "Daily Stats",
                               textAlign: TextAlign.center,
@@ -178,7 +181,10 @@ class _BodyState extends State<Body> {
                                 color: Colors.red,
                               ),
                             ),
-                            Icon(Icons.warning_amber_sharp),
+                            Image.asset(
+                              "assets/icons/schedule.png",
+                              color: Colors.black,
+                            ),
                             Text(
                               "Eating Diary",
                               textAlign: TextAlign.center,
