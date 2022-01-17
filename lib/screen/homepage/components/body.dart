@@ -39,18 +39,18 @@ class _BodyState extends State<Body> {
   }
 
   @override
-  void initState(){
+  void initState() {
     getPosition().then((value) => {
-      setState(() {
-        _placeModel =
-            PlacesService().getPlaces(value!.latitude, value.longitude);
-      }),
-    });
+          setState(() {
+            _placeModel =
+                PlacesService().getPlaces(value!.latitude, value.longitude);
+          }),
+        });
     _fetchUser();
     super.initState();
   }
 
-  _fetchUser() async{
+  _fetchUser() async {
     userstore = await UserService().getUser(user.uid);
   }
 
@@ -68,109 +68,433 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(bottom: 10),
+          margin: EdgeInsets.only(bottom: 10, left: 13, right: 13),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(left: 13, right: 13),
-                child: SchedulerHome(
-                  size: size,
+                padding: const EdgeInsets.only(left: 5),
+                child: Text(
+                  "Good morning,\nMichael",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.white, fontSize: 18),
                 ),
               ),
               SizedBox(height: 5),
-              FutureBuilder(
-                future: checkDatabase,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data == false) {
-                      return Container(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 5, horizontal: 13),
-                        width: size.width,
-                        height: size.height * 0.067,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: ElevatedButton(
-                            child: Row(
-                              children: [
-                                Text(
-                                  "Daily Stats",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText2!
-                                      .copyWith(color: Colors.white),
-                                ),
-                                Spacer(),
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                              ],
+              Container(
+                width: size.width,
+                height: size.height * 0.14,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                padding: EdgeInsets.only(left: 10, right: 5, top: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "1,928",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Color(0XFF1A9F1F), fontSize: 22),
+                        ),
+                        Text(
+                          "Remaining\nCalorie",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(color: Colors.black87, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    SizedBox(
+                      height: size.height * 0.11,
+                      width: size.width * 0.005,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(color: Colors.black54),
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: Image.asset(
+                                "assets/icons/warning.png",
+                                color: Colors.red,
+                              ),
                             ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DailyInput();
+                            Image.asset(
+                              "assets/icons/checklist.png",
+                              color: Colors.black,
+                            ),
+                            Text(
+                              "Daily Stats",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.black, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    SizedBox(
+                      height: size.height * 0.09,
+                      width: size.width * 0.005,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(color: Colors.black54),
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 15),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: Image.asset(
+                                "assets/icons/warning.png",
+                                color: Colors.red,
+                              ),
+                            ),
+                            Image.asset(
+                              "assets/icons/schedule.png",
+                              color: Colors.black,
+                            ),
+                            Text(
+                              "Eating Diary",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.black, fontSize: 14),
+                            ),
+                            // Spacer(),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+                    SizedBox(
+                      height: size.height * 0.09,
+                      width: size.width * 0.005,
+                      child: DecoratedBox(
+                        decoration: const BoxDecoration(color: Colors.black54),
+                      ),
+                    ),
+                    Spacer(),
+                    GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('BMI Indicator'),
+                            content: Container(
+                              width: size.width,
+                              height: size.height * 0.19,
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "Below 18.5",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFF00A1E5),
+                                                fontSize: 14),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        "Underweight",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFF00A1E5),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      // Spacer(),
+                                      Text(
+                                        "18.5 - 24.9",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFF19B229),
+                                                fontSize: 14),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        "Normal Weight",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFF19B229),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "25.0 - 29.0",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFEBC603),
+                                                fontSize: 14),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        "Overweight",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFEBC603),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      // Spacer(),
+                                      Text(
+                                        "30.0 - 34.9",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFFF9900),
+                                                fontSize: 14),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        "Obese",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFFF9900),
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      // Spacer(),
+                                      Text(
+                                        "Above 35",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFCA1E1E),
+                                                fontSize: 14),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        "Extreme Obese",
+                                        textAlign: TextAlign.start,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2!
+                                            .copyWith(
+                                                color: Color(0XFFCA1E1E),
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            actions: [
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
                                   },
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.red.shade400,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 5),
-                                textStyle: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w700)),
+                                  child: Text('Ok'))
+                            ],
                           ),
+                        );
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/icons/information.png",
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Information",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(color: Colors.black, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              SchedulerHome(
+                size: size,
+              ),
+              SizedBox(height: 5),
+              // FutureBuilder(
+              //   future: checkDatabase,
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       if (snapshot.data == false) {
+              //         return Container(
+              //           margin:
+              //               EdgeInsets.symmetric(vertical: 5, horizontal: 13),
+              //           width: size.width,
+              //           height: size.height * 0.067,
+              //           child: ClipRRect(
+              //             borderRadius: BorderRadius.circular(14),
+              //             child: ElevatedButton(
+              //               child: Row(
+              //                 children: [
+              //                   Text(
+              //                     "Daily Stats",
+              //                     style: Theme.of(context)
+              //                         .textTheme
+              //                         .bodyText2!
+              //                         .copyWith(color: Colors.white),
+              //                   ),
+              //                   Spacer(),
+              //                   Icon(
+              //                     Icons.add,
+              //                     color: Colors.white,
+              //                   ),
+              //                 ],
+              //               ),
+              //               onPressed: () {
+              //                 Navigator.push(
+              //                   context,
+              //                   MaterialPageRoute(
+              //                     builder: (context) {
+              //                       return DailyInput();
+              //                     },
+              //                   ),
+              //                 );
+              //               },
+              //               style: ElevatedButton.styleFrom(
+              //                   primary: Colors.red.shade400,
+              //                   padding: EdgeInsets.symmetric(
+              //                       horizontal: 15, vertical: 5),
+              //                   textStyle: TextStyle(
+              //                       color: Colors.white,
+              //                       fontSize: 20,
+              //                       fontWeight: FontWeight.w700)),
+              //             ),
+              //           ),
+              //         );
+              //       }
+              //     }
+              //     return SizedBox(height: 10);
+              //   },
+              // ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Nearby",
+                    textAlign: TextAlign.start,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText2!
+                        .copyWith(color: Colors.white),
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SeeAllScreen();
+                          },
                         ),
                       );
-                    }
-                  }
-                  return SizedBox(height: 10);
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 14),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Nearby",
+                    },
+                    child: Text(
+                      "See All",
                       textAlign: TextAlign.start,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
-                          .copyWith(color: Colors.white),
+                          .copyWith(fontSize: 15),
                     ),
-                    Spacer(),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return SeeAllScreen();
-                            },
-                          ),
-                        );
-                      },
-                      child: Text(
-                        "See All",
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(fontSize: 15),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               SizedBox(height: 5),
               Container(
@@ -200,7 +524,7 @@ class _BodyState extends State<Body> {
                                     place.place_id!),
                             child: Container(
                               width: 200,
-                              margin: EdgeInsets.only(right: 4, left: 13),
+                              margin: EdgeInsets.only(right: 13),
                               child: NearbyCard(
                                 place: place!,
                               ),
@@ -214,16 +538,13 @@ class _BodyState extends State<Body> {
                 ),
               ),
               SizedBox(height: 5),
-              Padding(
-                padding: const EdgeInsets.only(left: 13),
-                child: Text(
-                  "Explore",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.white),
-                ),
+              Text(
+                "Explore",
+                textAlign: TextAlign.start,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(color: Colors.white),
               ),
               SizedBox(height: 5),
               Row(
@@ -245,8 +566,8 @@ class _BodyState extends State<Body> {
                       "Article",
                       style: kArticleTitle,
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
+                  Spacer(),
                   ButtonExplore(
                     size: size,
                     press: () async {
@@ -265,7 +586,9 @@ class _BodyState extends State<Body> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return TrainScreen(user: userstore!,);
+                                  return TrainScreen(
+                                    user: userstore!,
+                                  );
                                 },
                               ),
                             );
@@ -275,7 +598,9 @@ class _BodyState extends State<Body> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return TrainScreen(user: userstore!,);
+                              return TrainScreen(
+                                user: userstore!,
+                              );
                             },
                           ),
                         );
@@ -286,8 +611,8 @@ class _BodyState extends State<Body> {
                       "Train",
                       style: kTrainTitle,
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
+                  Spacer(),
                   ButtonExplore(
                     size: size,
                     press: () {
@@ -305,8 +630,8 @@ class _BodyState extends State<Body> {
                       "Run",
                       style: kChatTitle,
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
+                  Spacer(),
                   ButtonExplore(
                     size: size,
                     press: () {
@@ -324,7 +649,6 @@ class _BodyState extends State<Body> {
                       "Eat",
                       style: kTrainTitle,
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
                 ],
               ),

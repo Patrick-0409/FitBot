@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'components/home_button.dart';
 
 class TrainTimer extends StatefulWidget {
-  TrainTimer({Key? key, required this.second, required this.movement}) : super(key: key);
+  TrainTimer({Key? key, required this.second, required this.movement})
+      : super(key: key);
   int second;
   List<Movement> movement;
   @override
@@ -17,17 +18,17 @@ class TrainTimer extends StatefulWidget {
 }
 
 class _TrainTimerState extends State<TrainTimer> {
-  int seconds=1;
+  int seconds = 1;
   int order = 0;
   int orderTemp = 0;
   Timer? timer;
+  late List<Movement> movement;
 
   @override
   void initState() {
     super.initState();
-    seconds=widget.second;
+    seconds = widget.second;
   }
-
 
   void resetTimer() {
     return setState(() {
@@ -42,7 +43,6 @@ class _TrainTimerState extends State<TrainTimer> {
 
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       if (seconds > 0) {
-        
         if (this.mounted) {
           setState(() {
             seconds--;
@@ -50,10 +50,9 @@ class _TrainTimerState extends State<TrainTimer> {
         }
       } else {
         orderTemp++;
-        if(orderTemp==widget.movement.length){
+        if (orderTemp == widget.movement.length) {
           _tq(context);
-        }
-        else{
+        } else {
           order = orderTemp;
         }
         stopTimer(reset: false);
@@ -66,7 +65,6 @@ class _TrainTimerState extends State<TrainTimer> {
       resetTimer();
     }
 
-
     if (this.mounted) {
       setState(() {
         timer?.cancel();
@@ -74,19 +72,18 @@ class _TrainTimerState extends State<TrainTimer> {
     }
   }
 
-
-  void alert(BuildContext context){
+  void alert(BuildContext context) {
     showDialog(
-      context: context,
-      builder: (context) {
-        Future.delayed(Duration(seconds: 10), () {
-          Navigator.of(context).pop(true);
-          startTimer();
+        context: context,
+        builder: (context) {
+          Future.delayed(Duration(seconds: 10), () {
+            Navigator.of(context).pop(true);
+            startTimer();
+          });
+          return AlertDialog(
+            title: Text('Let\'s get ready, we\'ll start in 10 seconds!'),
+          );
         });
-        return AlertDialog(
-          title: Text('Let\'s get ready, we\'ll start in 10 seconds!'),
-        );
-    });
   }
 
   @override
@@ -96,7 +93,7 @@ class _TrainTimerState extends State<TrainTimer> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 12, left: 5, right: 10),
+            padding: const EdgeInsets.only(top: 20, left: 5, right: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -105,6 +102,24 @@ class _TrainTimerState extends State<TrainTimer> {
                   iconSize: 30,
                   color: Colors.black,
                   onPressed: () => Navigator.pop(context),
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "Nama Workout",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    Text(
+                      "12 X",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ],
                 ),
                 HomeButton(),
               ],
@@ -135,9 +150,7 @@ class _TrainTimerState extends State<TrainTimer> {
                     fontSize: 18.0,
                   ),
                 ),
-                // SizedBox(height: 10),
                 buildTime(),
-                // SizedBox(height: 5),
                 buildButton(context),
               ],
             ),
@@ -189,7 +202,7 @@ class _TrainTimerState extends State<TrainTimer> {
     );
   }
 
-  void _tq(BuildContext context) async{
+  void _tq(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -214,7 +227,6 @@ class _TrainTimerState extends State<TrainTimer> {
   Widget buildButton(BuildContext context) {
     final isRunning = timer == null ? false : timer!.isActive;
     final isCompleted = seconds == 0 || seconds == widget.second;
-
 
     return isRunning || !isCompleted
         ? Row(
@@ -250,7 +262,6 @@ class _TrainTimerState extends State<TrainTimer> {
               TimerButton(
                 text: "Start",
                 press: () {
-                  
                   alert(context);
                 },
                 color: kLoginColor,
