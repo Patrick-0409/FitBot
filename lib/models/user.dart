@@ -29,8 +29,8 @@ class UserStore{
     imageUrl: snapshot["imageUrl"],
     email: snapshot["email"],
     gender: snapshot["gender"],
-    weight: snapshot["weight"],
-    height: snapshot["height"],
+    weight: snapshot["weight"].toString(),
+    height: snapshot["height"].toString(),
     difficulty: snapshot["difficulty"],
     birthday: snapshot["birthday"].toDate(),
   );

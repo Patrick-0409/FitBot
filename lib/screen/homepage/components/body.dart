@@ -21,6 +21,7 @@ import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'button_explore.dart';
 
@@ -59,8 +60,21 @@ class _BodyState extends State<Body> {
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future<bool> get checkDatabase async {
+  Future<bool> _checkDaily() async {
     return DailyService().checkDaily();
+  }
+
+  String _getTime() {
+    String tempTime = DateFormat.Hm().format(DateTime.now());
+    int temp =
+        int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
+    if (temp >= 0)
+      return "Good morning";
+    else if (temp >= 12)
+      return "Good afternoon";
+    else if (temp >= 18) return "Good night";
+
+    return "Hello";
   }
 
   @override
@@ -71,7 +85,7 @@ class _BodyState extends State<Body> {
       child: SingleChildScrollView(
         child: Container(
           alignment: Alignment.center,
-          margin: EdgeInsets.only(bottom: 10, left: 13, right: 13),
+          margin: EdgeInsets.only(bottom: 15, left: 13, right: 13),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +93,7 @@ class _BodyState extends State<Body> {
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
-                  "Good morning,\nMichael",
+                  "${_getTime()}, ${user.displayName}!",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -132,16 +146,50 @@ class _BodyState extends State<Body> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DailyInput(user: userstore!,);
+                              },
+                            ),
+                          );
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 40),
-                              child: Image.asset(
-                                "assets/icons/warning.png",
-                                color: Colors.red,
+                              child: FutureBuilder<bool>(
+                                future: _checkDaily(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data == false) {
+                                      print(snapshot.data);
+                                      return Image.asset(
+                                        "assets/icons/warning.png",
+                                        color: Colors.red,
+                                      );
+                                    }
+                                    else{
+                                      return CircleAvatar(
+                                        child: Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        ),
+                                        radius: 6,
+                                        backgroundColor: Colors.transparent,
+                                      );
+                                    }
+                                  }
+                                  return SizedBox(
+                                    child: CircularProgressIndicator(),
+                                    height: 13.0,
+                                    width: 13.0,
+                                  );
+                                },
                               ),
                             ),
                             Image.asset(
@@ -420,61 +468,6 @@ class _BodyState extends State<Body> {
                 size: size,
               ),
               SizedBox(height: 5),
-              // FutureBuilder(
-              //   future: checkDatabase,
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       if (snapshot.data == false) {
-              //         return Container(
-              //           margin:
-              //               EdgeInsets.symmetric(vertical: 5, horizontal: 13),
-              //           width: size.width,
-              //           height: size.height * 0.067,
-              //           child: ClipRRect(
-              //             borderRadius: BorderRadius.circular(14),
-              //             child: ElevatedButton(
-              //               child: Row(
-              //                 children: [
-              //                   Text(
-              //                     "Daily Stats",
-              //                     style: Theme.of(context)
-              //                         .textTheme
-              //                         .bodyText2!
-              //                         .copyWith(color: Colors.white),
-              //                   ),
-              //                   Spacer(),
-              //                   Icon(
-              //                     Icons.add,
-              //                     color: Colors.white,
-              //                   ),
-              //                 ],
-              //               ),
-              //               onPressed: () {
-              //                 Navigator.push(
-              //                   context,
-              //                   MaterialPageRoute(
-              //                     builder: (context) {
-              //                       return DailyInput();
-              //                     },
-              //                   ),
-              //                 );
-              //               },
-              //               style: ElevatedButton.styleFrom(
-              //                   primary: Colors.red.shade400,
-              //                   padding: EdgeInsets.symmetric(
-              //                       horizontal: 15, vertical: 5),
-              //                   textStyle: TextStyle(
-              //                       color: Colors.white,
-              //                       fontSize: 20,
-              //                       fontWeight: FontWeight.w700)),
-              //             ),
-              //           ),
-              //         );
-              //       }
-              //     }
-              //     return SizedBox(height: 10);
-              //   },
-              // ),
               Row(
                 children: <Widget>[
                   Text(
