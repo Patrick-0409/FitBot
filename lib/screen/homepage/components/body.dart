@@ -70,13 +70,13 @@ class _BodyState extends State<Body> {
           alignment: Alignment.center,
           margin: EdgeInsets.only(bottom: 10, left: 13, right: 13),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 5),
                 child: Text(
-                  "Hi,\nMichael",
+                  "Good morning,\nMichael",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -91,7 +91,7 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                padding: EdgeInsets.only(left: 10, right: 10, top: 5),
+                padding: EdgeInsets.only(left: 10, right: 5, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -119,33 +119,40 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(),
                     SizedBox(
-                      height: size.height * 0.09,
+                      height: size.height * 0.12,
                       width: size.width * 0.005,
                       child: DecoratedBox(
                         decoration: const BoxDecoration(color: Colors.black54),
                       ),
                     ),
                     Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "1,928",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 22),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: Image.asset(
+                                "assets/icons/warning.png",
+                                color: Colors.red,
+                              ),
+                            ),
+                            Icon(Icons.warning_amber_sharp),
+                            Text(
+                              "Daily Stats",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.black, fontSize: 14),
+                            ),
+                          ],
                         ),
-                        Text(
-                          "Remaining\nCalorie",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 14),
-                        ),
-                      ],
+                      ),
                     ),
                     Spacer(),
                     SizedBox(
@@ -156,26 +163,34 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "1,928",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 22),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: Image.asset(
+                                "assets/icons/warning.png",
+                                color: Colors.red,
+                              ),
+                            ),
+                            Icon(Icons.warning_amber_sharp),
+                            Text(
+                              "Eating Diary",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .copyWith(color: Colors.black, fontSize: 14),
+                            ),
+                            // Spacer(),
+                          ],
                         ),
-                        Text(
-                          "Remaining\nCalorie",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 14),
-                        ),
-                      ],
+                      ),
                     ),
                     Spacer(),
                     SizedBox(
@@ -186,26 +201,41 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "1,928",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 22),
-                        ),
-                        Text(
-                          "Remaining\nCalorie",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Colors.black, fontSize: 14),
-                        ),
-                      ],
+                    GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text('BMI Indicator'),
+                                  content: Text(
+                                      'Thank you for completing your data!'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Ok'))
+                                  ],
+                                ));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/icons/information.png",
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Information",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(color: Colors.black, fontSize: 14),
+                          ),
+                        ],
+                      ),
                     ),
                     Spacer(),
                   ],
