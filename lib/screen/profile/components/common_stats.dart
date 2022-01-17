@@ -15,12 +15,11 @@ class CommonStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      // mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        // SvgPicture.asset("assets/images/weight.svg"),
         svg,
-        SizedBox(width: 20),
+        SizedBox(width: 10),
         Text(
           text,
           style: Theme.of(context)
