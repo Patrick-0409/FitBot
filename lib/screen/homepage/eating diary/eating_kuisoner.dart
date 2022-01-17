@@ -75,7 +75,7 @@ class _EatingKusionerState extends State<EatingKusioner> {
                     hint: _breakfastTime,
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isStartTime: true);
+                        _getTimeFromUser(isTime: 1);
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
@@ -86,7 +86,7 @@ class _EatingKusionerState extends State<EatingKusioner> {
                     hint: _lunchTime,
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isStartTime: false);
+                        _getTimeFromUser(isTime: 2);
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
@@ -96,7 +96,7 @@ class _EatingKusionerState extends State<EatingKusioner> {
                     hint: _dinnerTime,
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isStartTime: false);
+                        _getTimeFromUser(isTime: 3);
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
@@ -195,17 +195,20 @@ class _EatingKusionerState extends State<EatingKusioner> {
     return null;
   }
 
-  _getTimeFromUser({required bool isStartTime}) async {
+  _getTimeFromUser({required int isTime}) async {
     var pickedTime = await _showTimePicker(this.context);
     String _formatedTime = pickedTime.format(context);
     if (pickedTime == null) {
       print("Time Canceled");
-    } else if (isStartTime == true) {
+    } else if (isTime == 1) {
       setState(() {
         _breakfastTime = _formatedTime;
+      });
+    } else if (isTime == 2) {
+      setState(() {
         _lunchTime = _formatedTime;
       });
-    } else if (isStartTime == false) {
+    } else if (isTime == 3) {
       setState(() {
         _dinnerTime = _formatedTime;
       });

@@ -25,16 +25,6 @@ class _InputEatMenuState extends State<InputEatMenu> {
   final _formKey = GlobalKey<FormState>();
 
   final _weightController = TextEditingController();
-  // int _selectedRemind = 5;
-  // List<int> remindList = [
-  //   5,
-  //   10,
-  //   15,
-  //   20,
-  // ];
-  // String _selectedRepeat = "None";
-  // List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
-  // int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
