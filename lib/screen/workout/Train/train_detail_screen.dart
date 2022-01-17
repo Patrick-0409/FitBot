@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class TrainDetailScreen extends StatelessWidget {
   TrainDetailScreen({
-    Key? key, 
+    Key? key,
     required this.title,
     required this.imageUrl,
     required this.minute,
@@ -20,7 +20,7 @@ class TrainDetailScreen extends StatelessWidget {
     required this.level,
     required this.movement,
   }) : super(key: key);
-  
+
   String title;
   String imageUrl;
   int minute;
@@ -47,15 +47,11 @@ class TrainDetailScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                       alignment: Alignment.center,
                     ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(25.0),
-                      bottomRight: Radius.circular(25.0),
-                    ),
                   ),
                   child: BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 1, sigmaY: 2),
                     child: Container(
-                      color: Colors.white.withOpacity(.123),
+                      color: Colors.black.withOpacity(.5),
                     ),
                   ),
                 ),
@@ -178,7 +174,11 @@ class TrainDetailScreen extends StatelessWidget {
             right: 20,
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => TrainTimer(second: second, movement: movement,)),
+                MaterialPageRoute(
+                    builder: (context) => TrainTimer(
+                          second: second,
+                          movement: movement,
+                        )),
               ),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
