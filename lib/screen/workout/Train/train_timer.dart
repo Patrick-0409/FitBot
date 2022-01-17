@@ -4,15 +4,22 @@ import 'package:fiton/constant.dart';
 import 'package:fiton/models/movement.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/timer_button.dart';
+import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'components/home_button.dart';
 
 class TrainTimer extends StatefulWidget {
-  TrainTimer({Key? key, required this.second, required this.movement})
-      : super(key: key);
+  TrainTimer({
+    Key? key,
+    required this.second,
+    required this.movement,
+    required this.name,
+  }) : super(key: key);
   int second;
   List<Movement> movement;
+  String name;
   @override
   _TrainTimerState createState() => _TrainTimerState();
 }
@@ -22,12 +29,14 @@ class _TrainTimerState extends State<TrainTimer> {
   int order = 0;
   int orderTemp = 0;
   Timer? timer;
-  late List<Movement> movement;
 
   @override
   void initState() {
     super.initState();
-    seconds = widget.second;
+    resetTimer();
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
+      alert("start");
+    });
   }
 
   void resetTimer() {
@@ -51,9 +60,10 @@ class _TrainTimerState extends State<TrainTimer> {
       } else {
         orderTemp++;
         if (orderTemp == widget.movement.length) {
-          _tq(context);
+          _tq();
         } else {
           order = orderTemp;
+          alert("break");
         }
         stopTimer(reset: false);
       }
@@ -72,18 +82,23 @@ class _TrainTimerState extends State<TrainTimer> {
     }
   }
 
-  void alert(BuildContext context) {
+  void alert(String moment) {
     showDialog(
-        context: context,
-        builder: (context) {
-          Future.delayed(Duration(seconds: 10), () {
-            Navigator.of(context).pop(true);
-            startTimer();
-          });
-          return AlertDialog(
-            title: Text('Let\'s get ready, we\'ll start in 10 seconds!'),
-          );
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: moment == "start" ? 5 : 30), () {
+          Navigator.of(context).pop(true);
+          startTimer();
         });
+        if (moment == "start")
+          return AlertDialog(
+            title: Text('Let\'s get ready, we\'ll start in 5 seconds!'),
+          );
+        return AlertDialog(
+          title: Text('Take a break, we\'ll start in 30 seconds!'),
+        );
+      },
+    );
   }
 
   @override
@@ -104,22 +119,7 @@ class _TrainTimerState extends State<TrainTimer> {
                   onPressed: () => Navigator.pop(context),
                 ),
                 Column(
-                  children: [
-                    Text(
-                      "Nama Workout",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                    Text(
-                      "12 X",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ],
+                  children: [],
                 ),
                 HomeButton(),
               ],
@@ -202,7 +202,7 @@ class _TrainTimerState extends State<TrainTimer> {
     );
   }
 
-  void _tq(BuildContext context) async {
+  void _tq() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -216,6 +216,13 @@ class _TrainTimerState extends State<TrainTimer> {
                   context,
                   MaterialPageRoute(builder: (context) => HomeScreen()),
                   ModalRoute.withName('/'),
+                );
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FeedbackScreen(
+                      name: widget.name,
+                    ),
+                  ),
                 );
               },
               child: Text('Ok'))
@@ -262,7 +269,7 @@ class _TrainTimerState extends State<TrainTimer> {
               TimerButton(
                 text: "Start",
                 press: () {
-                  alert(context);
+                  alert("start");
                 },
                 color: kLoginColor,
               ),

@@ -1,20 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/fitness.dart';
 import 'package:fiton/models/movement.dart';
-import 'package:fiton/models/recipe.dart';
 import 'package:fiton/models/user.dart';
-import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
-import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
-import 'package:fiton/screen/eat/ingridients/components/group_card.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/fitness_card.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/Train/train_detail_screen.dart';
-import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
 import 'package:fiton/services/movement_service.dart';
-import 'package:fiton/services/recipe_service.dart';
 import 'package:fiton/services/fitness_service.dart';
 import 'package:flutter/material.dart';
 
@@ -117,13 +108,12 @@ class _TrainScreenState extends State<TrainScreen> {
                                   MaterialPageRoute(
                                     builder: (context) {
                                       return TrainDetailScreen(
-                                        title: fitnessList[index].name,
+                                        name: fitnessList[index].name,
                                         level: widget.user.difficulty! == "" ? "medium" : widget.user.difficulty!,
                                         minute: fitnessList[index].minute,
                                         imageUrl: fitnessList[index].imageUrl,
-                                        round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
-                                        times: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
-                                        second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[2] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[2] : fitnessList[index].hard[2],
+                                        round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
+                                        second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
                                         movement: movementList,
                                       );
                                     },

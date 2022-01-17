@@ -5,13 +5,11 @@ import 'package:fiton/screen/profile/profile_screen.dart';
 import 'package:fiton/screen/scheduler/scheduler_screen.dart';
 import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
-import 'package:fiton/screen/workout/kuisoner/workout_screen.dart';
 import 'package:fiton/services/notification_service.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl/intl.dart';
 import '../../constant.dart';
 import 'components/body.dart';
 
@@ -135,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FeedbackScreen()),
+                            builder: (context) => FeedbackScreen(name:"tester")),
                       );
                     } else if (result == 3) {
                       _signOut();

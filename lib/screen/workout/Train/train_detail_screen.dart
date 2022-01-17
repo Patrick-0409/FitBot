@@ -11,21 +11,19 @@ import 'package:flutter/material.dart';
 class TrainDetailScreen extends StatelessWidget {
   TrainDetailScreen({
     Key? key,
-    required this.title,
+    required this.name,
     required this.imageUrl,
     required this.minute,
     required this.round,
-    required this.times,
     required this.second,
     required this.level,
     required this.movement,
   }) : super(key: key);
 
-  String title;
+  String name;
   String imageUrl;
   int minute;
   int round;
-  int times;
   int second;
   String level;
   List<Movement> movement;
@@ -83,7 +81,7 @@ class TrainDetailScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                             vertical: 30.0, horizontal: 20.0),
                         child: Text(
-                          title,
+                          name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24.0,
@@ -138,8 +136,8 @@ class TrainDetailScreen extends StatelessWidget {
             child: ListView.builder(
               itemCount: movement.length,
               itemBuilder: (context, index) {
-                print(movement[index].gifUrl);
-                print(index);
+                // print(movement[index].times);
+                // print(index);
                 return ListTile(
                   isThreeLine: true,
                   leading: Container(
@@ -159,9 +157,11 @@ class TrainDetailScreen extends StatelessWidget {
                         color: Colors.black, fontSize: 14),
                   ),
                   subtitle: Text(
-                    '00:$second\n${times}x',
+                    '00:$second\n${level == 'easy' ? movement[index].times - 4 : level == 'medium' ? movement[index].times : movement[index].times + 4}x',
                     style: descriptionStyle.copyWith(
-                        color: Colors.grey, fontSize: 12),
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
                   ),
                 );
               },
@@ -175,10 +175,12 @@ class TrainDetailScreen extends StatelessWidget {
             child: GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => TrainTimer(
-                          second: second,
-                          movement: movement,
-                        )),
+                  builder: (context) => TrainTimer(
+                    name: name,
+                    second: second,
+                    movement: movement,
+                  ),
+                ),
               ),
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),

@@ -1,11 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/user.dart';
 
 class UserService {
   final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+  final user = FirebaseAuth.instance.currentUser;
 
   Future<UserStore> getUser(String uid) async {
     return UserStore.fromJson(await usersCollection.doc(uid).get());
+  }
+
+  Future setDifficulty(String difficulty) async{
+    await FirebaseFirestore.instance.collection('users').doc(user?.uid).update(
+      {
+        'difficulty': difficulty,
+      },
+    );
   }
 
   Future<String> getImgUser(String uid) async {

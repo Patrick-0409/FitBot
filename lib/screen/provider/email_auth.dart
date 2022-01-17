@@ -141,7 +141,7 @@ class EmailSignInProvider extends ChangeNotifier {
               'height':height,
             });
     } catch (e) {
-      print("error pas add "+e.toString());
+      print("error pas save "+e.toString());
     }
   }
 
