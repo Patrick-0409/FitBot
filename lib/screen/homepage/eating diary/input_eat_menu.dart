@@ -24,7 +24,12 @@ class _InputEatMenuState extends State<InputEatMenu> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _weightController = TextEditingController();
+  final _breakfastController = TextEditingController();
+  final _lunchController = TextEditingController();
+  final _dinnerController = TextEditingController();
+  final _caloriesController1 = TextEditingController();
+  final _caloriesController2 = TextEditingController();
+  final _caloriesController3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -75,8 +80,8 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Breakfast",
                           hint: "Input Your Breakfast",
-                          controller: _weightController,
-                          keyboardType: TextInputType.number,
+                          controller: _breakfastController,
+                          keyboardType: TextInputType.text,
                           validator: _requiredWeight,
                         ),
                       ),
@@ -85,7 +90,7 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Calories",
                           hint: "Input Your  Calories",
-                          controller: _weightController,
+                          controller: _caloriesController1,
                           keyboardType: TextInputType.number,
                           validator: _requiredWeight,
                         ),
@@ -98,8 +103,8 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Lunch",
                           hint: "Input Your Lunch",
-                          controller: _weightController,
-                          keyboardType: TextInputType.number,
+                          controller: _lunchController,
+                          keyboardType: TextInputType.text,
                           validator: _requiredWeight,
                         ),
                       ),
@@ -108,7 +113,7 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Calories",
                           hint: "Input Your  Calories",
-                          controller: _weightController,
+                          controller: _caloriesController2,
                           keyboardType: TextInputType.number,
                           validator: _requiredWeight,
                         ),
@@ -121,8 +126,8 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Dinner",
                           hint: "Input Your Dinner",
-                          controller: _weightController,
-                          keyboardType: TextInputType.number,
+                          controller: _dinnerController,
+                          keyboardType: TextInputType.text,
                           validator: _requiredWeight,
                         ),
                       ),
@@ -131,36 +136,29 @@ class _InputEatMenuState extends State<InputEatMenu> {
                         child: InputField(
                           title: "Calories",
                           hint: "Input Your  Calories",
-                          controller: _weightController,
+                          controller: _caloriesController3,
                           keyboardType: TextInputType.number,
                           validator: _requiredWeight,
                         ),
                       ),
                     ],
                   ),
-                  // InputField(
-                  //   title: "How much do you weight? (kg)",
-                  //   hint: "Input Your weight",
-                  //   controller: _weightController,
-                  //   keyboardType: TextInputType.number,
-                  //   validator: _requiredWeight,
-                  // ),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () async {
-                      if (_formKey.currentState != null &&
-                          _formKey.currentState!.validate()) {
-                        Daily dl = Daily(
-                          date: DateTime.now(),
-                          sleep: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_startTime)),
-                          wake: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_endTime)),
-                          weight: int.parse(_weightController.text),
-                          user: user!.uid,
-                        );
-                        await _save(dl);
-                      }
+                      // if (_formKey.currentState != null &&
+                      //     _formKey.currentState!.validate()) {
+                      //   Daily dl = Daily(
+                      //     date: DateTime.now(),
+                      //     sleep: DateFormat.Hm()
+                      //         .format(DateFormat.jm().parse(_startTime)),
+                      //     wake: DateFormat.Hm()
+                      //         .format(DateFormat.jm().parse(_endTime)),
+                      //     weight: int.parse(_weightController.text),
+                      //     user: user!.uid,
+                      //   );
+                      //   await _save(dl);
+                      // }
                     },
                     child: Container(
                       width: size.width,
