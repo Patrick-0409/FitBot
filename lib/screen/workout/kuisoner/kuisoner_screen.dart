@@ -222,13 +222,13 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                                 setState(() {
                                   _selectTarget = newValue!;
                                   if(newValue=="Maintain")
-                                    selectedInt=1;
+                                    selectedTar=1;
                                   else if(newValue=="Mild Weight Loss")
-                                    selectedInt=2;
+                                    selectedTar=2;
                                   else if(newValue=="Normal Weight Loss")
-                                    selectedInt=3;
+                                    selectedTar=3;
                                   else 
-                                    selectedInt=4;
+                                    selectedTar=4;
                                 });
                               },
                               items: targetList.map<DropdownMenuItem<String>>(

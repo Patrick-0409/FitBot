@@ -25,10 +25,15 @@ class _BodyState extends State<Body> {
     choose = 1;
   }
 
+  int getAge(DateTime birthday) {
+    return int.parse(DateFormat.y('en_US').format(DateTime.now())) -
+        int.parse(DateFormat.y('en_US').format(birthday));
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -91,14 +96,15 @@ class _BodyState extends State<Body> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                widget.user.gender!,
+                                                capitalize(widget.user.gender!),
                                                 textAlign: TextAlign.center,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .bodyText2!
                                                     .copyWith(
-                                                        color: Colors.black,
-                                                        fontSize: 18),
+                                                      color: Colors.black,
+                                                      fontSize: 18,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -115,14 +121,7 @@ class _BodyState extends State<Body> {
                                           child: Column(
                                             children: [
                                               Text(
-                                                (int.parse(DateFormat.y('en_US')
-                                                                .format(DateTime
-                                                                    .now())) -
-                                                            int.parse(DateFormat
-                                                                    .y('en_US')
-                                                                .format(widget
-                                                                    .user
-                                                                    .birthday!)))
+                                                getAge(widget.user.birthday!)
                                                         .toString() +
                                                     " y.o",
                                                 textAlign: TextAlign.center,
