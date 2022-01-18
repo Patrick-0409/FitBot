@@ -166,33 +166,6 @@ class _AddToDoState extends State<AddForm> {
                         ),
                       ),
                     ),
-                    InputField(
-                      title: "Repeat",
-                      hint: "$_selectedRepeat",
-                      widget: Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: DropdownButton(
-                          icon: Icon(Icons.keyboard_arrow_down),
-                          iconSize: 22,
-                          elevation: 4,
-                          style: descriptionStyle.copyWith(
-                              color: Colors.grey, fontSize: 14, height: 2),
-                          underline: Container(height: 0),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedRepeat = newValue!;
-                            });
-                          },
-                          items: repeatList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
                     SizedBox(height: 15),
                     Row(
                       children: [
@@ -293,7 +266,7 @@ class _AddToDoState extends State<AddForm> {
       children: [
         Text(
           "Colors",
-          style: descriptionStyle.copyWith(color: Colors.black, fontSize: 14),
+          style: descriptionStyle.copyWith(color: Colors.white, fontSize: 14),
         ),
         SizedBox(height: 5),
         Wrap(

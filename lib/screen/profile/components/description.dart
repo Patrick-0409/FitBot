@@ -92,14 +92,6 @@ class Description extends StatelessWidget {
                   height: size.height * 0.19,
                   child: Column(
                     children: <Widget>[
-                      Text(
-                        "Below 18.5",
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .copyWith(color: Colors.black, fontSize: 14),
-                      ),
                       Row(
                         children: [
                           Text(

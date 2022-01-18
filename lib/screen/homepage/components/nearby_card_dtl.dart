@@ -52,13 +52,6 @@ class NearbyCardDtl extends StatelessWidget {
                     style: kTitleCard,
                   ),
                   SizedBox(height: 4.0),
-                  Text(
-                    'temp description',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: kDetailContent,
-                  ),
-                  SizedBox(height: 4.0),
                   RatingBar(place: place),
                 ],
               ),

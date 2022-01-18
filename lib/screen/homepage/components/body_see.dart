@@ -3,6 +3,7 @@ import 'package:fiton/screen/homepage/components/nearby_card_dtl.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,41 +35,49 @@ class _BodySeeState extends State<BodySee> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: ListView(
         children: <Widget>[
           FutureBuilder<PlaceModel>(
-            future: _placeModel,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data?.places.length,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    var place = snapshot.data?.places[index];
-                    return InkWell(
-                      onTap: () {
-                        _launchURL('https://www.google.com/maps/search/?api=1&query='+place!.lat!.toString()+'%2C'+place.lng!.toString()+'&query_place_id='+place.place_id!);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: Container(
-                          width: double.infinity,
-                          height: 160.0,
-                          margin:
-                              EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
-                          child: NearbyCardDtl(place: place!,),
+              future: _placeModel,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    itemCount: snapshot.data?.places.length,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: ScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      var place = snapshot.data?.places[index];
+                      return InkWell(
+                        onTap: () {
+                          _launchURL(
+                              'https://www.google.com/maps/search/?api=1&query=' +
+                                  place!.lat!.toString() +
+                                  '%2C' +
+                                  place.lng!.toString() +
+                                  '&query_place_id=' +
+                                  place.place_id!);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Container(
+                            width: double.infinity,
+                            height: size.height * 0.2,
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 18.0, vertical: 8.0),
+                            child: NearbyCardDtl(
+                              place: place!,
+                            ),
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                );
-              }
-              return Center(child: CircularProgressIndicator());
-            }
-          )
+                      );
+                    },
+                  );
+                }
+                return Center(child: CircularProgressIndicator());
+              })
         ],
       ),
     );
@@ -76,5 +85,7 @@ class _BodySeeState extends State<BodySee> {
 }
 
 void _launchURL(String value) async {
-  await canLaunch(value) ? await launch(value) : throw 'Could not launch $value';
+  await canLaunch(value)
+      ? await launch(value)
+      : throw 'Could not launch $value';
 }
