@@ -152,11 +152,8 @@ class _BodyState extends State<Body> {
                     size: size,
                     weight: widget.user.weight!,
                     height: widget.user.height!,
-                    age: (int.parse(
-                                DateFormat.y('en_US').format(DateTime.now())) -
-                            int.parse(DateFormat.y('en_US')
-                                .format(widget.user.birthday!)))
-                        .toString()),
+                    age: getAge(widget.user.birthday!)
+                        .toString(),),
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
