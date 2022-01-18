@@ -16,6 +16,8 @@ class EmailSignInProvider extends ChangeNotifier {
   bool? _isLogin;
   String? _weight;
   String? _height;
+  int? _active;
+  int? _want;
   String? _userEmail;
   String? _userPassword;
   String? _firstName;
@@ -33,8 +35,6 @@ class EmailSignInProvider extends ChangeNotifier {
     _userPassword = '';
     _firstName = '';
     _lastName = '';
-    _gender = '';
-    _dob = DateTime.now();
   }
 
   bool get isLoading => _isLoading!;
@@ -63,6 +63,22 @@ class EmailSignInProvider extends ChangeNotifier {
 
   set height(String value) {
     _height = value;
+    notifyListeners();
+  }
+
+
+
+  int get active => _active!;
+
+  set active(int value) {
+    _active = value;
+    notifyListeners();
+  }
+
+  int get want => _want!;
+
+  set want(int value) {
+    _want = value;
     notifyListeners();
   }
 
@@ -139,6 +155,8 @@ class EmailSignInProvider extends ChangeNotifier {
               'gender':gender,
               'weight':weight,
               'height':height,
+              'active':active,
+              'want':want,
             });
     } catch (e) {
       print("error pas save "+e.toString());

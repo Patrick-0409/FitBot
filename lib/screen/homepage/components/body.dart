@@ -36,10 +36,22 @@ class _BodyState extends State<Body> {
   final user = FirebaseAuth.instance.currentUser!;
   Position? position;
   UserStore? userstore;
+  bool? checkData;
 
   Future<Position?> getPosition() async {
     position = await GeoLocatorService().getLocation();
     return position;
+  }
+
+  int _countCalorie(String weight, String height, int age, int active, int want, String gender) {
+    double tempActive = active == 1 ? 1 : active == 2 ? 0.9 : active == 3 ? 0.8 : 0.6;
+    double tempWant = want == 1 ? 1.2 : want == 2 ? 1.4 : want == 3 ? 1.5 : 1.55;
+    int tempGender = gender == "male" ? 5 : -161;
+
+    int calorie =
+        ((10 * int.parse(weight)) + (6.25 * int.parse(height)) - (5 * age) + tempGender)
+            .toInt();
+    return (calorie*tempActive*tempWant).toInt();
   }
 
   @override
@@ -50,12 +62,20 @@ class _BodyState extends State<Body> {
                 PlacesService().getPlaces(value!.latitude, value.longitude);
           }),
         });
-    _fetchUser();
+    setState(() {
+      _fetchUser();
+    });
     super.initState();
   }
 
-  _fetchUser() async {
+  Future<UserStore> _fetchUser() async {
     userstore = await UserService().getUser(user.uid);
+    return UserService().getUser(user.uid);
+  }
+
+  Future<bool> _checkData() async {
+    bool temp = await UserService().checkContains(user.uid);
+    return temp;
   }
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -117,13 +137,67 @@ class _BodyState extends State<Body> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text(
-                          "1,928",
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2!
-                              .copyWith(color: Color(0XFF1A9F1F), fontSize: 22),
-                        ),
+                        FutureBuilder<bool>(
+                            future: _checkData(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                if (snapshot.data == false) {
+                                  return FutureBuilder<UserStore>(
+                                    future: _fetchUser(),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        return Text(
+                                          _countCalorie(
+                                            snapshot.data!.weight!,
+                                            snapshot.data!.height!,
+                                            22,
+                                            snapshot.data!.active!,
+                                            snapshot.data!.want!,
+                                            snapshot.data!.gender!,
+                                          ).toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  color: Color(0XFF1A9F1F),
+                                                  fontSize: 22),
+                                        );
+                                      }
+                                      return SizedBox(
+                                        child: CircularProgressIndicator(),
+                                        height: 13.0,
+                                        width: 13.0,
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  return CircleAvatar(
+                                    child: Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    radius: 15,
+                                    backgroundColor: Colors.transparent,
+                                  );
+                                }
+                              }
+                              return SizedBox(
+                                child: CircularProgressIndicator(),
+                                height: 13.0,
+                                width: 13.0,
+                              );
+                            }),
+                        // Text(
+                        //   _countCalorie(
+                        //     userstore!.weight!,
+                        //     userstore!.height!,
+                        //     22,
+                        //   ).toString(),
+                        //   style: Theme.of(context)
+                        //       .textTheme
+                        //       .bodyText2!
+                        //       .copyWith(color: Color(0XFF1A9F1F), fontSize: 22),
+                        // ),
                         Text(
                           "Remaining\nCalorie",
                           textAlign: TextAlign.center,
@@ -169,7 +243,6 @@ class _BodyState extends State<Body> {
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     if (snapshot.data == false) {
-                                      print(snapshot.data);
                                       return Image.asset(
                                         "assets/icons/warning.png",
                                         color: Colors.red,

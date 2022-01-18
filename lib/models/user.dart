@@ -8,6 +8,8 @@ class UserStore{
   final String? gender;
   final String? weight;
   final String? height;
+  final int? active;
+  final int? want;
   final String? difficulty;
   final DateTime? birthday;
 
@@ -19,6 +21,8 @@ class UserStore{
     required this.gender,
     required this.weight,
     required this.height,
+    required this.active,
+    required this.want,
     required this.difficulty,
     required this.birthday,
   });
@@ -31,6 +35,8 @@ class UserStore{
     gender: snapshot["gender"],
     weight: snapshot["weight"].toString(),
     height: snapshot["height"].toString(),
+    active: snapshot["active"],
+    want: snapshot["want"],
     difficulty: snapshot["difficulty"],
     birthday: snapshot["birthday"].toDate(),
   );
@@ -45,6 +51,9 @@ class UserStore{
       "gender": gender,
       "weight": weight,
       "height": height,
+      "active": active,
+      "want": want,
+      "difficulty": difficulty,
       "birthday": birthday,
     };
   }

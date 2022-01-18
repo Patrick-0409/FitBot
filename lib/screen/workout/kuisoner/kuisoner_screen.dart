@@ -25,6 +25,7 @@ class KuisonerScreen extends StatefulWidget {
 class _KuisonerScreenState extends State<KuisonerScreen> {
   final _formKey = GlobalKey<FormState>();
   String _selectIntensity = "Sedentary";
+  int selectedInt = 1;
   List<String> intensityList = [
     "Sedentary",
     "1-3 Times a week",
@@ -32,9 +33,10 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
     "Daily",
   ];
   String _selectTarget = "Maintain";
+  int selectedTar = 1;
   List<String> targetList = [
     "Maintain",
-    "Mild Weight loss",
+    "Mild Weight Loss",
     "Normal Weight Loss",
     "Extreme Weight Loss",
   ];
@@ -183,6 +185,14 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   _selectIntensity = newValue!;
+                                  if(newValue=="Sedentary")
+                                    selectedInt=1;
+                                  else if(newValue=="1-3 Times a week")
+                                    selectedInt=2;
+                                  else if(newValue=="4-5 Times a week")
+                                    selectedInt=3;
+                                  else 
+                                    selectedInt=4;
                                 });
                               },
                               items: intensityList
@@ -211,6 +221,14 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   _selectTarget = newValue!;
+                                  if(newValue=="Maintain")
+                                    selectedInt=1;
+                                  else if(newValue=="Mild Weight Loss")
+                                    selectedInt=2;
+                                  else if(newValue=="Normal Weight Loss")
+                                    selectedInt=3;
+                                  else 
+                                    selectedInt=4;
                                 });
                               },
                               items: targetList.map<DropdownMenuItem<String>>(
@@ -247,8 +265,9 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                           _formKey.currentState!.validate()) {
                         provider.weight = _weightController.text;
                         provider.height = _heightController.text;
-                        String temp = await provider.save(user.uid);
-                        // print(user.uid);
+                        provider.active = selectedInt;
+                        provider.want = selectedTar;
+                        await provider.save(user.uid);
                         await showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
