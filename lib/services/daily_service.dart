@@ -44,7 +44,7 @@ class DailyService {
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
             temp = querySnapshot.docs[0]['burn'];
-            print(temp);
+            // print(temp);
           }else{
             temp = 0;
           }

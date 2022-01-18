@@ -29,7 +29,7 @@ class RunsService {
     return itemsList;
   }
 
-Future<double> getCalorieAvg() async {
+  Future<int> getCalorie() async {
     double temp = 0.0;
     try {
       await FirebaseFirestore.instance
@@ -46,9 +46,39 @@ Future<double> getCalorieAvg() async {
           .then((querySnapshot) {
         if (querySnapshot.docs.length > 0) {
           for (var i = 0; i < querySnapshot.docs.length; i++) {
-            temp += (querySnapshot.docs[i]['distance']/1000)*60;
+            temp += (querySnapshot.docs[i]['distance'] / 1000) * 60;
           }
-          temp/=querySnapshot.docs.length;
+          return temp.toInt();
+        } else {
+          return temp.toInt();
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+    return temp.toInt();
+  }
+
+  Future<double> getCalorieAvg() async {
+    double temp = 0.0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('runs')
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(
+                          DateTime.now().subtract(const Duration(days: 6))))
+                      .millisecondsSinceEpoch))
+          .where('user', isEqualTo: user?.uid)
+          .orderBy('date')
+          .get()
+          .then((querySnapshot) {
+        if (querySnapshot.docs.length > 0) {
+          for (var i = 0; i < querySnapshot.docs.length; i++) {
+            temp += (querySnapshot.docs[i]['distance'] / 1000) * 60;
+          }
+          temp /= querySnapshot.docs.length;
           return temp;
         } else {
           return temp;
@@ -60,7 +90,7 @@ Future<double> getCalorieAvg() async {
     return temp;
   }
 
-Future<double> getRunAvg() async {
+  Future<double> getRunAvg() async {
     double temp = 0.0;
     try {
       await FirebaseFirestore.instance
@@ -79,8 +109,8 @@ Future<double> getRunAvg() async {
           for (var i = 0; i < querySnapshot.docs.length; i++) {
             temp += querySnapshot.docs[i]['distance'];
           }
-          temp/=querySnapshot.docs.length;
-          temp/=1000;
+          temp /= querySnapshot.docs.length;
+          temp /= 1000;
           return temp;
         } else {
           return temp;

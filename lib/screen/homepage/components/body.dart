@@ -17,6 +17,7 @@ import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
+import 'package:fiton/services/runs_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,6 +50,7 @@ class _BodyState extends State<Body> {
     int lunch = await DailyService().countFood("lunch");
     int dinner = await DailyService().countFood("dinner");
     int burn = await DailyService().getBurnData();
+    int run = await RunsService().getCalorie();
     double tempActive = active == 1
         ? 1
         : active == 2
@@ -73,7 +75,8 @@ class _BodyState extends State<Body> {
         breakfast -
         lunch -
         dinner +
-        burn;
+        burn +
+        run;
   }
 
   @override
@@ -273,21 +276,21 @@ class _BodyState extends State<Body> {
                               ),
                             );
                           else
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text('Warning'),
-                              content:
-                                  Text('You have submitted daily stats today!'),
-                              actions: [
-                                TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('Ok'))
-                              ],
-                            ),
-                          );
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text('Warning'),
+                                content: Text(
+                                    'You have submitted daily stats today!'),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Ok'))
+                                ],
+                              ),
+                            );
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
