@@ -43,15 +43,30 @@ class _BodyState extends State<Body> {
     return position;
   }
 
-  int _countCalorie(String weight, String height, int age, int active, int want, String gender) {
-    double tempActive = active == 1 ? 1 : active == 2 ? 0.9 : active == 3 ? 0.8 : 0.6;
-    double tempWant = want == 1 ? 1.2 : want == 2 ? 1.4 : want == 3 ? 1.5 : 1.55;
+  int _countCalorie(String weight, String height, int age, int active, int want,
+      String gender) {
+    double tempActive = active == 1
+        ? 1
+        : active == 2
+            ? 0.9
+            : active == 3
+                ? 0.8
+                : 0.6;
+    double tempWant = want == 1
+        ? 1.2
+        : want == 2
+            ? 1.4
+            : want == 3
+                ? 1.5
+                : 1.55;
     int tempGender = gender == "male" ? 5 : -161;
 
-    int calorie =
-        ((10 * int.parse(weight)) + (6.25 * int.parse(height)) - (5 * age) + tempGender)
-            .toInt();
-    return (calorie*tempActive*tempWant).toInt();
+    int calorie = ((10 * int.parse(weight)) +
+            (6.25 * int.parse(height)) -
+            (5 * age) +
+            tempGender)
+        .toInt();
+    return (calorie * tempActive * tempWant).toInt();
   }
 
   @override
@@ -299,7 +314,7 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return KuisonerScreen();
+                                return InputEatMenu();
                               },
                             ),
                           );
@@ -346,162 +361,12 @@ class _BodyState extends State<Body> {
                         await showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text('BMI Indicator'),
+                            title: Text('Calorie Calculator'),
                             content: Container(
                               width: size.width,
                               height: size.height * 0.19,
                               child: Column(
-                                children: <Widget>[
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Below 18.5",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFF00A1E5),
-                                                fontSize: 14),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        "Underweight",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFF00A1E5),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      // Spacer(),
-                                      Text(
-                                        "18.5 - 24.9",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFF19B229),
-                                                fontSize: 14),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        "Normal Weight",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFF19B229),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "25.0 - 29.0",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFEBC603),
-                                                fontSize: 14),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        "Overweight",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFEBC603),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      // Spacer(),
-                                      Text(
-                                        "30.0 - 34.9",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFFF9900),
-                                                fontSize: 14),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        "Obese",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFFF9900),
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      // Spacer(),
-                                      Text(
-                                        "Above 35",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFCA1E1E),
-                                                fontSize: 14),
-                                      ),
-                                      Spacer(),
-                                      Text(
-                                        "Extreme Obese",
-                                        textAlign: TextAlign.start,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2!
-                                            .copyWith(
-                                                color: Color(0XFFCA1E1E),
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                children: <Widget>[],
                               ),
                             ),
                             actions: [
