@@ -60,6 +60,7 @@ class _LoginOption extends State<LoginOption> {
           'name': userData['name'],
           'height': "",
           'difficulty': "medium",
+          'breakfast': "",
         });
       }
     } on FirebaseAuthException catch (e) {
@@ -139,6 +140,7 @@ class _LoginOption extends State<LoginOption> {
           'name': user.displayName,
           'height': "",
           'difficulty': "medium",
+          'breakfast': "",
         });
       }
     } on FirebaseAuthException catch (e) {

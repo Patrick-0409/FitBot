@@ -64,15 +64,15 @@ class _TrainTimerState extends State<TrainTimer> {
       } else {
         orderTemp++;
         if (orderTemp == widget.movement.length) {
-          _tq();
           String temp = await DailyService().getSingleDaily();
           int tempBurn = await DailyService().getBurnData();
           int newBurn = tempBurn + widget.burn;
-          await FirebaseFirestore.instance.collection('daily').doc(temp).update(
+          FirebaseFirestore.instance.collection('daily').doc(temp).update(
             {
               'burn': newBurn,
             },
           );
+          _tq();
         } else {
           order = orderTemp;
           alert("break");

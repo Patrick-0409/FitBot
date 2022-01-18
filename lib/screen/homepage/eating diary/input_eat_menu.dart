@@ -251,10 +251,7 @@ class _InputEatMenuState extends State<InputEatMenu> {
       return 'This field is required';
     }
     if (int.parse(text) < 5) {
-      return "Enter weight correctly!";
-    }
-    if (int.parse(text) > 300) {
-      return "Enter weight correctly!";
+      return "Enter calorie correctly!";
     }
     return null;
   }
