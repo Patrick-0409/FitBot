@@ -30,6 +30,35 @@ class DailyService {
     return itemsList;
   }
 
+Future<String> getSingleDaily() async {
+    String temp = "";
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('user', isEqualTo: user?.uid)
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+          .where('date',
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+          .get()
+          .then(
+        (querySnapshot) {
+          if (querySnapshot.docs.length > 0) {
+            print(querySnapshot.docs[0]['id']);
+            print("ada datanya");
+            temp = querySnapshot.docs[0]['id'];
+          }else{
+            temp = "0";
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      temp = "0";
+    }
+    return temp;
+  }
+
   Future<bool> checkDaily() async {
     bool temp = false;
     try {

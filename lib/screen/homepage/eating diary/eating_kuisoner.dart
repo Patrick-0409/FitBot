@@ -25,10 +25,10 @@ class _EatingKusionerState extends State<EatingKusioner> {
   String _dinnerTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
 
   final _formKey = GlobalKey<FormState>();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -103,21 +103,12 @@ class _EatingKusionerState extends State<EatingKusioner> {
                   ),
                   SizedBox(height: 15),
                   GestureDetector(
-                    // onTap: () async {
-                    //   if (_formKey.currentState != null &&
-                    //       _formKey.currentState!.validate()) {
-                    //     Daily dl = Daily(
-                    //       date: DateTime.now(),
-                    //       sleep: DateFormat.Hm()
-                    //           .format(DateFormat.jm().parse(_startTime)),
-                    //       wake: DateFormat.Hm()
-                    //           .format(DateFormat.jm().parse(_endTime)),
-                    //       weight: int.parse(_weightController.text),
-                    //       user: user!.uid,
-                    //     );
-                    //     await _save(dl);
-                    //   }
-                    // },
+                    onTap: (){
+                      String breakfast = DateFormat.Hm().format(DateFormat.jm().parse(_breakfastTime));
+                      String lunch = DateFormat.Hm().format(DateFormat.jm().parse(_lunchTime));
+                      String dinner = DateFormat.Hm().format(DateFormat.jm().parse(_dinnerTime));
+                      _save(breakfast,lunch,dinner);
+                    },
                     child: Container(
                       width: size.width,
                       height: size.height * 0.07,
@@ -149,10 +140,15 @@ class _EatingKusionerState extends State<EatingKusioner> {
     );
   }
 
-  _save(Daily dl) async {
+  _save(String breakfast, String lunch, String dinner) async {
     try {
-      final ref = FirebaseFirestore.instance.collection('daily').doc();
-      await ref.set(dl.toMap(ref.id));
+      await FirebaseFirestore.instance.collection('users').doc(user?.uid).update(
+        {
+          'breakfast': breakfast,
+          'lunch': lunch,
+          'dinner': dinner,
+        },
+      );
     } catch (e) {
       print(e.toString());
     }
@@ -180,19 +176,6 @@ class _EatingKusionerState extends State<EatingKusioner> {
       ),
       ModalRoute.withName("/"),
     );
-  }
-
-  String? _requiredWeight(String? text) {
-    if (text == null || text.trim().isEmpty) {
-      return 'This field is required';
-    }
-    if (int.parse(text) < 5) {
-      return "Enter weight correctly!";
-    }
-    if (int.parse(text) > 300) {
-      return "Enter weight correctly!";
-    }
-    return null;
   }
 
   _getTimeFromUser({required int isTime}) async {

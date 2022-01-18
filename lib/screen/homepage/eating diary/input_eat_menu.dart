@@ -6,6 +6,7 @@ import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
+import 'package:fiton/services/daily_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,6 +35,11 @@ class _InputEatMenuState extends State<InputEatMenu> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
+
+    String tempTime = DateFormat.Hm().format(DateTime.now());
+    int temp =
+        int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: kBackgroundColor,
@@ -74,91 +80,97 @@ class _InputEatMenuState extends State<InputEatMenu> {
                           color: Colors.white,
                         ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Breakfast",
-                          hint: "Input Your Breakfast",
-                          controller: _breakfastController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredWeight,
+                  if (temp >= 0 && temp < 12)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            title: "Breakfast",
+                            hint: "Input Your Breakfast",
+                            controller: _breakfastController,
+                            keyboardType: TextInputType.text,
+                            validator: _requiredFood,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController1,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredWeight,
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: InputField(
+                            title: "Calories",
+                            hint: "Input Your  Calories",
+                            controller: _caloriesController1,
+                            keyboardType: TextInputType.number,
+                            validator: _requiredCalorie,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Lunch",
-                          hint: "Input Your Lunch",
-                          controller: _lunchController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredWeight,
+                      ],
+                    )
+                  else if (temp >= 12 && temp < 18)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            title: "Lunch",
+                            hint: "Input Your Lunch",
+                            controller: _lunchController,
+                            keyboardType: TextInputType.text,
+                            validator: _requiredFood,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController2,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredWeight,
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: InputField(
+                            title: "Calories",
+                            hint: "Input Your  Calories",
+                            controller: _caloriesController2,
+                            keyboardType: TextInputType.number,
+                            validator: _requiredCalorie,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Dinner",
-                          hint: "Input Your Dinner",
-                          controller: _dinnerController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredWeight,
+                      ],
+                    )
+                  else if (temp >= 18)
+                    Row(
+                      children: [
+                        Expanded(
+                          child: InputField(
+                            title: "Dinner",
+                            hint: "Input Your Dinner",
+                            controller: _dinnerController,
+                            keyboardType: TextInputType.text,
+                            validator: _requiredFood,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController3,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredWeight,
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: InputField(
+                            title: "Calories",
+                            hint: "Input Your  Calories",
+                            controller: _caloriesController3,
+                            keyboardType: TextInputType.number,
+                            validator: _requiredCalorie,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () async {
-                      // if (_formKey.currentState != null &&
-                      //     _formKey.currentState!.validate()) {
-                      //   Daily dl = Daily(
-                      //     date: DateTime.now(),
-                      //     sleep: DateFormat.Hm()
-                      //         .format(DateFormat.jm().parse(_startTime)),
-                      //     wake: DateFormat.Hm()
-                      //         .format(DateFormat.jm().parse(_endTime)),
-                      //     weight: int.parse(_weightController.text),
-                      //     user: user!.uid,
-                      //   );
-                      //   await _save(dl);
-                      // }
+                      if (_formKey.currentState != null &&
+                          _formKey.currentState!.validate()) {
+                        List<String> tempBreak = [
+                          _breakfastController.text,
+                          _caloriesController1.text
+                        ];
+                        List<String> tempLunch = [
+                          _lunchController.text,
+                          _caloriesController2.text
+                        ];
+                        List<String> tempDinner = [
+                          _dinnerController.text,
+                          _caloriesController3.text
+                        ];
+                        await _save(tempBreak, tempLunch, tempDinner);
+                      }
                     },
                     child: Container(
                       width: size.width,
@@ -191,10 +203,17 @@ class _InputEatMenuState extends State<InputEatMenu> {
     );
   }
 
-  _save(Daily dl) async {
+  _save(List<String> breakfast, List<String> lunch, List<String> dinner) async {
     try {
-      final ref = FirebaseFirestore.instance.collection('daily').doc();
-      await ref.set(dl.toMap(ref.id));
+      String temp = await DailyService().getSingleDaily();
+      print(temp);
+      await FirebaseFirestore.instance.collection('daily').doc(temp).update(
+        {
+          'breakfast': breakfast,
+          'lunch': lunch,
+          'dinner': dinner,
+        },
+      );
     } catch (e) {
       print(e.toString());
     }
@@ -224,7 +243,8 @@ class _InputEatMenuState extends State<InputEatMenu> {
     );
   }
 
-  String? _requiredWeight(String? text) {
+
+  String? _requiredCalorie(String? text) {
     if (text == null || text.trim().isEmpty) {
       return 'This field is required';
     }
@@ -233,6 +253,19 @@ class _InputEatMenuState extends State<InputEatMenu> {
     }
     if (int.parse(text) > 300) {
       return "Enter weight correctly!";
+    }
+    return null;
+  }
+
+  String? _requiredFood(String? text) {
+    if (text == null || text.trim().isEmpty) {
+      return 'This field is required';
+    }
+    if (text.length < 5) {
+      return "Enter food correctly!";
+    }
+    if (text.length > 300) {
+      return "Enter food correctly!";
     }
     return null;
   }

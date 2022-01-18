@@ -103,9 +103,9 @@ class _BodyState extends State<Body> {
     String tempTime = DateFormat.Hm().format(DateTime.now());
     int temp =
         int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
-    if (temp >= 0)
+    if (temp >= 0 && temp <12)
       return "Good morning";
-    else if (temp >= 12)
+    else if (temp >= 12 && temp <18)
       return "Good afternoon";
     else if (temp >= 18) return "Good night";
 
@@ -202,17 +202,6 @@ class _BodyState extends State<Body> {
                                 width: 13.0,
                               );
                             }),
-                        // Text(
-                        //   _countCalorie(
-                        //     userstore!.weight!,
-                        //     userstore!.height!,
-                        //     22,
-                        //   ).toString(),
-                        //   style: Theme.of(context)
-                        //       .textTheme
-                        //       .bodyText2!
-                        //       .copyWith(color: Color(0XFF1A9F1F), fontSize: 22),
-                        // ),
                         Text(
                           "Remaining\nCalorie",
                           textAlign: TextAlign.center,
@@ -314,6 +303,7 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
+                                // return EatingKusioner();
                                 return InputEatMenu();
                               },
                             ),
