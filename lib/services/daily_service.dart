@@ -59,6 +59,39 @@ Future<String> getSingleDaily() async {
     return temp;
   }
 
+  Future<int> countFood(String time) async {
+    int temp = 0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('user', isEqualTo: user?.uid)
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+          .where('date',
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+          .get()
+          .then(
+        (querySnapshot) {
+          if (querySnapshot.docs.length > 0) {
+            if(querySnapshot.docs[0][time].length>0){
+              // print(querySnapshot.docs[0][time][1]);
+              temp = int.parse(querySnapshot.docs[0][time][1]);
+            }
+            else{
+              temp = 0;
+            }
+          }else{
+            temp = 0;
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      temp = 0;
+    }
+    return temp;
+  }
+
   Future<bool> checkFood(String time) async {
     bool temp = false;
     try {

@@ -43,8 +43,11 @@ class _BodyState extends State<Body> {
     return position;
   }
 
-  int _countCalorie(String weight, String height, int age, int active, int want,
-      String gender) {
+  Future<int> _countCalorie(String weight, String height, int age, int active,
+      int want, String gender) async {
+    int breakfast = await DailyService().countFood("breakfast");
+    int lunch = await DailyService().countFood("lunch");
+    int dinner = await DailyService().countFood("dinner");
     double tempActive = active == 1
         ? 1
         : active == 2
@@ -60,13 +63,12 @@ class _BodyState extends State<Body> {
                 ? 1.5
                 : 1.55;
     int tempGender = gender == "male" ? 5 : -161;
-
     int calorie = ((10 * int.parse(weight)) +
             (6.25 * int.parse(height)) -
             (5 * age) +
             tempGender)
         .toInt();
-    return (calorie * tempActive * tempWant).toInt();
+    return (calorie * tempActive * tempWant).toInt()-breakfast-lunch-dinner;
   }
 
   @override
@@ -123,7 +125,7 @@ class _BodyState extends State<Body> {
         : tempTimeEat < 18
             ? "lunch"
             : "dinner";
-            
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -169,22 +171,41 @@ class _BodyState extends State<Body> {
                                     future: _fetchUser(),
                                     builder: (context, snapshot) {
                                       if (snapshot.hasData) {
-                                        return Text(
-                                          _countCalorie(
-                                            snapshot.data!.weight!,
-                                            snapshot.data!.height!,
-                                            22,
-                                            snapshot.data!.active!,
-                                            snapshot.data!.want!,
-                                            snapshot.data!.gender!,
-                                          ).toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2!
-                                              .copyWith(
-                                                  color: Color(0XFF1A9F1F),
-                                                  fontSize: 22),
-                                        );
+                                        int age = int.parse(
+                                                DateFormat.y('en_US')
+                                                    .format(DateTime.now())) -
+                                            int.parse(DateFormat.y('en_US')
+                                                .format(
+                                                    snapshot.data!.birthday!));
+                                        return FutureBuilder<int>(
+                                            future: _countCalorie(
+                                              snapshot.data!.weight!,
+                                              snapshot.data!.height!,
+                                              age,
+                                              snapshot.data!.active!,
+                                              snapshot.data!.want!,
+                                              snapshot.data!.gender!,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                return Text(
+                                                  snapshot.data.toString(),
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2!
+                                                      .copyWith(
+                                                          color:
+                                                              Color(0XFF1A9F1F),
+                                                          fontSize: 22),
+                                                );
+                                              }
+                                              return SizedBox(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                                height: 13.0,
+                                                width: 13.0,
+                                              );
+                                            });
                                       }
                                       return SizedBox(
                                         child: CircularProgressIndicator(),
