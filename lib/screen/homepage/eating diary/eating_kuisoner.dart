@@ -113,22 +113,22 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                           .format(DateFormat.jm().parse(_dinnerTime));
                       NotificationService.showDailyScheduledNotification(
                         id: 21,
-                        title: 'Reminder FitOn',
-                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        title: 'FitOn',
+                        body: 'Don\'t forget to eat breakfast, and have a good day!',
                         payload: 'schedule',
                         scheduledTime: breakfast,
                       );
                       NotificationService.showDailyScheduledNotification(
                         id: 22,
-                        title: 'Reminder FitOn',
-                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        title: 'FitOn',
+                        body: 'It\'s time for your lunch, don\'t miss it!',
                         payload: 'schedule',
                         scheduledTime: lunch,
                       );
                       NotificationService.showDailyScheduledNotification(
                         id: 23,
-                        title: 'Reminder FitOn',
-                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        title: 'FitOn',
+                        body: 'It\'s dinner time, and after that have a good rest!',
                         payload: 'schedule',
                         scheduledTime: dinner,
                       );

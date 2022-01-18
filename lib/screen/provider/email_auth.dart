@@ -188,6 +188,7 @@ class EmailSignInProvider extends ChangeNotifier {
         'imageUrl': imageUrl,
         'height': "",
         'difficulty': "medium",
+        'breakfast': "",
       });
       return true;
     }catch (err) {

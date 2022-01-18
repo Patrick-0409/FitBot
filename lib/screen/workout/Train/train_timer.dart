@@ -64,15 +64,15 @@ class _TrainTimerState extends State<TrainTimer> {
       } else {
         orderTemp++;
         if (orderTemp == widget.movement.length) {
-          _tq();
           String temp = await DailyService().getSingleDaily();
           int tempBurn = await DailyService().getBurnData();
           int newBurn = tempBurn + widget.burn;
-          await FirebaseFirestore.instance.collection('daily').doc(temp).update(
+          FirebaseFirestore.instance.collection('daily').doc(temp).update(
             {
               'burn': newBurn,
             },
           );
+          _tq();
         } else {
           order = orderTemp;
           alert("break");
@@ -174,8 +174,6 @@ class _TrainTimerState extends State<TrainTimer> {
 
   Widget buildIndicator() {
     Size size = MediaQuery.of(context).size;
-    // final isCompleted = seconds == 0 || seconds == maxSeconds;
-    // final isRunning = timer == null ? false : timer!.isActive;
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: SizedBox(
@@ -191,19 +189,6 @@ class _TrainTimerState extends State<TrainTimer> {
   }
 
   Widget buildTime() {
-    // if (seconds == 0) {
-    //   resetTimer();
-    // } else {
-    //   return Text(
-    //     '$seconds',
-    //     style: TextStyle(
-    //       color: Colors.white,
-    //       fontSize: 32.0,
-    //       // fontWeight: FontWeight.bold,
-    //     ),
-    //   );
-    // }
-
     return Text(
       '$seconds',
       style: TextStyle(

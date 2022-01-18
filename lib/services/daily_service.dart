@@ -44,6 +44,7 @@ class DailyService {
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
             temp = querySnapshot.docs[0]['burn'];
+            // print(temp);
           }else{
             temp = 0;
           }
@@ -70,8 +71,8 @@ class DailyService {
           .then(
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
-            // print(querySnapshot.docs[0]['id']);
-            // print("ada datanya");
+            print(querySnapshot.docs[0]['id']);
+            print("ada datanya");
             temp = querySnapshot.docs[0]['id'];
           }else{
             temp = "0";
