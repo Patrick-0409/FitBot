@@ -364,9 +364,36 @@ class _BodyState extends State<Body> {
                             title: Text('Calorie Calculator'),
                             content: Container(
                               width: size.width,
-                              height: size.height * 0.19,
+                              height: size.height * 0.4,
                               child: Column(
-                                children: <Widget>[],
+                                children: <Widget>[
+                                  Image.asset("assets/images/BMR.png"),
+                                  Spacer(),
+                                  Text(
+                                    "Total Calorie = BMR * Your Activeness Input * Your Goal Input",
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    "Remaining Calorie = Total Calorie - Daily Intake + Exercise",
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .copyWith(
+                                            color: Colors.black,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal),
+                                  ),
+                                  // Image.asset("assets/images/BMR.png"),
+                                ],
                               ),
                             ),
                             actions: [
