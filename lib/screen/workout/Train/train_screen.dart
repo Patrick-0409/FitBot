@@ -12,10 +12,7 @@ import 'package:flutter/material.dart';
 import '../../../constant.dart';
 
 class TrainScreen extends StatefulWidget {
-
-  TrainScreen(
-      {Key? key, required this.user})
-      : super(key: key);
+  TrainScreen({Key? key, required this.user}) : super(key: key);
   UserStore user;
   @override
   _TrainScreenState createState() => _TrainScreenState();
@@ -29,7 +26,7 @@ class _TrainScreenState extends State<TrainScreen> {
     fetchFitnessList();
     super.initState();
   }
-  
+
   fetchFitnessList() async {
     List temp = await FitnessService().getFitness();
     fitnessList = temp.map((item) => Fitness.fromMap(item)).toList();
@@ -86,7 +83,7 @@ class _TrainScreenState extends State<TrainScreen> {
                 ),
                 SizedBox(height: 5),
                 Container(
-                  padding: EdgeInsets.only(bottom: 85),
+                  padding: EdgeInsets.only(bottom: 145),
                   width: double.infinity,
                   height: size.height,
                   child: FutureBuilder(
@@ -101,19 +98,35 @@ class _TrainScreenState extends State<TrainScreen> {
                             var recent = fitnessList[index];
                             return InkWell(
                               onTap: () async {
-                                List tempList = await MovementService().getMovement(fitnessList[index].movement);
-                                List<Movement> movementList = tempList.map((item) => Movement.fromMap(item)).toList();
+                                List tempList = await MovementService()
+                                    .getMovement(fitnessList[index].movement);
+                                List<Movement> movementList = tempList
+                                    .map((item) => Movement.fromMap(item))
+                                    .toList();
                                 Navigator.push(
-                                  context,  
+                                  context,
                                   MaterialPageRoute(
                                     builder: (context) {
                                       return TrainDetailScreen(
                                         name: fitnessList[index].name,
-                                        level: widget.user.difficulty! == "" ? "medium" : widget.user.difficulty!,
+                                        level: widget.user.difficulty! == ""
+                                            ? "medium"
+                                            : widget.user.difficulty!,
                                         minute: fitnessList[index].minute,
                                         imageUrl: fitnessList[index].imageUrl,
-                                        round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
-                                        second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
+                                        round: widget.user.difficulty! == "easy"
+                                            ? fitnessList[index].easy[0]
+                                            : widget.user.difficulty! ==
+                                                    "medium"
+                                                ? fitnessList[index].medium[0]
+                                                : fitnessList[index].hard[0],
+                                        second: widget.user.difficulty! ==
+                                                "easy"
+                                            ? fitnessList[index].easy[1]
+                                            : widget.user.difficulty! ==
+                                                    "medium"
+                                                ? fitnessList[index].medium[1]
+                                                : fitnessList[index].hard[1],
                                         movement: movementList,
                                       );
                                     },
