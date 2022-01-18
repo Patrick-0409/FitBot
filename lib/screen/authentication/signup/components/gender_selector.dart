@@ -1,4 +1,6 @@
+import 'package:fiton/screen/provider/email_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GenderSelector extends StatefulWidget {
   GenderSelector({Key? key}) : super(key: key);
@@ -12,72 +14,62 @@ class _GenderSelectorState extends State<GenderSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              groupValue: _selectedGender,
-              value: 'male',
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Male',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+    final provider = Provider.of<EmailSignInProvider>(context);
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      provider.gender = _selectedGender;
+    });
+    return Padding(
+      padding: const EdgeInsets.only(right: 90),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Radio(
+                fillColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                groupValue: _selectedGender,
+                value: 'male',
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value.toString();
+                  });
+                  provider.gender = _selectedGender;
+                },
               ),
-            ),
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              value: 'female',
-              groupValue: _selectedGender,
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Female',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+              Text(
+                'Male',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
               ),
-            ),
-            Radio(
-              fillColor:
-                  MaterialStateColor.resolveWith((states) => Colors.white),
-              value: 'other',
-              groupValue: _selectedGender,
-              onChanged: (value) {
-                setState(() {
-                  _selectedGender = value.toString();
-                });
-              },
-            ),
-            Text(
-              'Other',
-              style: TextStyle(
-                color: Colors.white70,
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+              Radio(
+                fillColor:
+                    MaterialStateColor.resolveWith((states) => Colors.white),
+                value: 'female',
+                groupValue: _selectedGender,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedGender = value.toString();
+                  });
+                  provider.gender = _selectedGender;
+                },
               ),
-            ),
-          ],
-        ),
-      ],
+              Text(
+                'Female',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

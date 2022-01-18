@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
@@ -6,12 +8,15 @@ class RoundedButton extends StatelessWidget {
   final String text;
   final Function() press;
   final Color color, textColor;
+  final double wid;
+
   const RoundedButton({
     Key? key,
     required this.text,
     required this.press,
     this.color = kLoginColor,
     this.textColor = Colors.white,
+    required this.wid,
   }) : super(key: key);
 
   @override
@@ -19,7 +24,7 @@ class RoundedButton extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.87,
+      width: wid,
       height: size.height * 0.08,
       child: ClipRRect(
           borderRadius: BorderRadius.circular(8), child: newElevatedButton()),

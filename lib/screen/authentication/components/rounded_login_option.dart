@@ -22,14 +22,13 @@ class RoundedLoginOption extends StatelessWidget {
       child: SizedBox(
         width: 170,
         height: 50,
-        // button width and height
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(
-            color: color, // button color
+            color: color,
             child: InkWell(
-              splashColor: Colors.black26, // splash color
-              onTap: press, // button pressed
+              splashColor: Colors.black26,
+              onTap: press,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -42,7 +41,7 @@ class RoundedLoginOption extends StatelessWidget {
                         height: height,
                         width: 20,
                       ),
-                      SizedBox(width: 10),
+                      SizedBox(width: 7),
                       Text(text,
                           style: Theme.of(context)
                               .textTheme
