@@ -18,6 +18,7 @@ class TrainDetailScreen extends StatelessWidget {
     required this.second,
     required this.level,
     required this.movement,
+    required this.burn,
   }) : super(key: key);
 
   String name;
@@ -26,6 +27,7 @@ class TrainDetailScreen extends StatelessWidget {
   int round;
   int second;
   String level;
+  int burn;
   List<Movement> movement;
 
   @override
@@ -157,7 +159,7 @@ class TrainDetailScreen extends StatelessWidget {
                         color: Colors.black, fontSize: 14),
                   ),
                   subtitle: Text(
-                    '00:$second\n${level == 'easy' ? movement[index].times - 4 : level == 'medium' ? movement[index].times : movement[index].times + 4}x',
+                    '00:$second',
                     style: descriptionStyle.copyWith(
                       color: Colors.grey,
                       fontSize: 12,
@@ -177,8 +179,9 @@ class TrainDetailScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => TrainTimer(
                     name: name,
-                    second: second,
+                    second: 1,
                     movement: movement,
+                    burn: burn,
                   ),
                 ),
               ),

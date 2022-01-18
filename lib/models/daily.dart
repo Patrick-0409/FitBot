@@ -6,6 +6,7 @@ class Daily {
   String wake;
   int weight;
   String user;
+  int? burn;
   List<String>? breakfast = [];
   List<String>? lunch = [];
   List<String>? dinner = [];
@@ -19,7 +20,8 @@ class Daily {
     required this.user,
     this.breakfast, 
     this.lunch,
-    this.dinner
+    this.dinner,
+    this.burn
   });
 
   Map<String, dynamic> toMap(String id) {
@@ -32,7 +34,8 @@ class Daily {
       'user': this.user,
       'breakfast': [],
       'lunch': [],
-      'dinner': []
+      'dinner': [],
+      'burn': 0
     };
     return map;
   }

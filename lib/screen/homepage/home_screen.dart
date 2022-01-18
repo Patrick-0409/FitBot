@@ -34,10 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void listenNotification() =>
       NotificationService.onNotifications.stream.listen(onClickedNotification);
 
-  void onClickedNotification(String? payload) =>
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SchedulerScreen(),
-      ));
+  void onClickedNotification(String? payload) {}
 
   Future<void> _signOut() async {
     await firebaseAuth.signOut();
@@ -133,7 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FeedbackScreen(name:"tester")),
+                            builder: (context) =>
+                                FeedbackScreen(name: "tester")),
                       );
                     } else if (result == 3) {
                       _signOut();

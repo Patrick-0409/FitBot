@@ -77,5 +77,38 @@ class NotificationService {
             UILocalNotificationDateInterpretation.absoluteTime,
       );
 
+  static Future showDailyScheduledNotification({
+    required int? id,
+    String? title,
+    String? body,
+    String? payload,
+    required String scheduledTime,
+  }) async {
+    var temp = scheduledTime.split(":");
+    int hour = int.parse(temp[0]);
+    int minute = int.parse(temp[1]);
+    print(temp);
+    _notifications.zonedSchedule(
+      id!,
+      title,
+      body,
+      _scheduleDaily(Time(hour,minute)),
+      await _notificationDetails(),
+      payload: payload,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
+  static tz.TZDateTime _scheduleDaily(Time time) {
+    final now = tz.TZDateTime.now(tz.local);
+    print(now);
+    final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day, time.hour, time.minute);
+    return scheduledDate.isBefore(now)
+        ? scheduledDate.add(Duration(days: 1))
+        : scheduledDate;
+  }
+
   static void cancelAll() => _notifications.cancelAll();
 }

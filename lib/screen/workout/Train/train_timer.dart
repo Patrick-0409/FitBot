@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/movement.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/timer_button.dart';
 import 'package:fiton/screen/workout/Train/feedback_screen.dart';
+import 'package:fiton/services/daily_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -16,10 +18,12 @@ class TrainTimer extends StatefulWidget {
     required this.second,
     required this.movement,
     required this.name,
+    required this.burn,
   }) : super(key: key);
   int second;
   List<Movement> movement;
   String name;
+  int burn;
   @override
   _TrainTimerState createState() => _TrainTimerState();
 }
@@ -50,7 +54,7 @@ class _TrainTimerState extends State<TrainTimer> {
       resetTimer();
     }
 
-    timer = Timer.periodic(Duration(seconds: 1), (_) {
+    timer = Timer.periodic(Duration(seconds: 1), (_) async {
       if (seconds > 0) {
         if (this.mounted) {
           setState(() {
@@ -61,6 +65,14 @@ class _TrainTimerState extends State<TrainTimer> {
         orderTemp++;
         if (orderTemp == widget.movement.length) {
           _tq();
+          String temp = await DailyService().getSingleDaily();
+          int tempBurn = await DailyService().getBurnData();
+          int newBurn = tempBurn + widget.burn;
+          await FirebaseFirestore.instance.collection('daily').doc(temp).update(
+            {
+              'burn': newBurn,
+            },
+          );
         } else {
           order = orderTemp;
           alert("break");

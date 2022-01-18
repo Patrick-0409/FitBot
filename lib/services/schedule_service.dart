@@ -53,7 +53,7 @@ class SchedulesService {
                             id:i+1*100,
                             title: 'Reminder FitOn',
                             body: 'Sebentar lagi jadwal '+querySnapshot.docs[i]['title']+' akan mulai!',
-                            payload: 'Ayo Semangat!',
+                            payload: 'schedule',
                             scheduledDate: date,
                           );
                         }
@@ -61,7 +61,7 @@ class SchedulesService {
                           id:i+1*1000,
                           title: 'FitOn',
                           body: 'Jadwal kamu '+querySnapshot.docs[i]['title']+' sudah mulai!',
-                          payload: 'Ayo Semangat!',
+                          payload: 'schedule',
                           scheduledDate: DateFormat.yMd().add_Hm().parse(querySnapshot.docs[i]['date'] + " " + querySnapshot.docs[i]['startTime']),
                         );
                       }

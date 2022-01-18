@@ -48,6 +48,7 @@ class _BodyState extends State<Body> {
     int breakfast = await DailyService().countFood("breakfast");
     int lunch = await DailyService().countFood("lunch");
     int dinner = await DailyService().countFood("dinner");
+    int burn = await DailyService().getBurnData();
     double tempActive = active == 1
         ? 1
         : active == 2
@@ -68,7 +69,11 @@ class _BodyState extends State<Body> {
             (5 * age) +
             tempGender)
         .toInt();
-    return (calorie * tempActive * tempWant).toInt()-breakfast-lunch-dinner;
+    return (calorie * tempActive * tempWant).toInt() -
+        breakfast -
+        lunch -
+        dinner +
+        burn;
   }
 
   @override
@@ -178,34 +183,35 @@ class _BodyState extends State<Body> {
                                                 .format(
                                                     snapshot.data!.birthday!));
                                         return FutureBuilder<int>(
-                                            future: _countCalorie(
-                                              snapshot.data!.weight!,
-                                              snapshot.data!.height!,
-                                              age,
-                                              snapshot.data!.active!,
-                                              snapshot.data!.want!,
-                                              snapshot.data!.gender!,
-                                            ),
-                                            builder: (context, snapshot) {
-                                              if (snapshot.hasData) {
-                                                return Text(
-                                                  snapshot.data.toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2!
-                                                      .copyWith(
-                                                          color:
-                                                              Color(0XFF1A9F1F),
-                                                          fontSize: 22),
-                                                );
-                                              }
-                                              return SizedBox(
-                                                child:
-                                                    CircularProgressIndicator(),
-                                                height: 13.0,
-                                                width: 13.0,
+                                          future: _countCalorie(
+                                            snapshot.data!.weight!,
+                                            snapshot.data!.height!,
+                                            age,
+                                            snapshot.data!.active!,
+                                            snapshot.data!.want!,
+                                            snapshot.data!.gender!,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasData) {
+                                              return Text(
+                                                snapshot.data.toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2!
+                                                    .copyWith(
+                                                        color:
+                                                            Color(0XFF1A9F1F),
+                                                        fontSize: 22),
                                               );
-                                            });
+                                            }
+                                            return SizedBox(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                              height: 13.0,
+                                              width: 13.0,
+                                            );
+                                          },
+                                        );
                                       }
                                       return SizedBox(
                                         child: CircularProgressIndicator(),
@@ -443,10 +449,6 @@ class _BodyState extends State<Body> {
                                   );
                                 },
                               ),
-                              // Image.asset(
-                              //   "assets/icons/warning.png",
-                              //   color: Colors.red,
-                              // ),
                             ),
                             Image.asset(
                               "assets/icons/schedule.png",

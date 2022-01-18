@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/src/iterable_extensions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
@@ -30,7 +29,34 @@ class DailyService {
     return itemsList;
   }
 
-Future<String> getSingleDaily() async {
+  Future<int> getBurnData() async {
+    int temp = 0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('user', isEqualTo: user?.uid)
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+          .where('date',
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+          .get()
+          .then(
+        (querySnapshot) {
+          if (querySnapshot.docs.length > 0) {
+            temp = querySnapshot.docs[0]['burn'];
+          }else{
+            temp = 0;
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      temp = 0;
+    }
+    return temp;
+  }
+
+  Future<String> getSingleDaily() async {
     String temp = "";
     try {
       await FirebaseFirestore.instance

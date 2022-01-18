@@ -212,7 +212,6 @@ class _InputEatMenuState extends State<InputEatMenu> {
   _save(List<String> eat, String eatTime) async {
     try {
       String temp = await DailyService().getSingleDaily();
-      print(temp);
       await FirebaseFirestore.instance.collection('daily').doc(temp).update(
         {
           eatTime: eat,

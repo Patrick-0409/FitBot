@@ -114,6 +114,7 @@ class _TrainScreenState extends State<TrainScreen> {
                                         imageUrl: fitnessList[index].imageUrl,
                                         round: widget.user.difficulty! == "easy" ? fitnessList[index].easy[0] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[0] : fitnessList[index].hard[0],
                                         second: widget.user.difficulty! == "easy" ? fitnessList[index].easy[1] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[1] : fitnessList[index].hard[1],
+                                        burn: widget.user.difficulty! == "easy" ? fitnessList[index].easy[2] : widget.user.difficulty! == "medium" ? fitnessList[index].medium[2] : fitnessList[index].hard[2],
                                         movement: movementList,
                                       );
                                     },

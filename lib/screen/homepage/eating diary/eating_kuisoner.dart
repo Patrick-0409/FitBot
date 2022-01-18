@@ -6,6 +6,7 @@ import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
+import 'package:fiton/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -103,11 +104,35 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                   ),
                   SizedBox(height: 15),
                   GestureDetector(
-                    onTap: (){
-                      String breakfast = DateFormat.Hm().format(DateFormat.jm().parse(_breakfastTime));
-                      String lunch = DateFormat.Hm().format(DateFormat.jm().parse(_lunchTime));
-                      String dinner = DateFormat.Hm().format(DateFormat.jm().parse(_dinnerTime));
-                      _save(breakfast,lunch,dinner);
+                    onTap: () {
+                      String breakfast = DateFormat.Hm()
+                          .format(DateFormat.jm().parse(_breakfastTime));
+                      String lunch = DateFormat.Hm()
+                          .format(DateFormat.jm().parse(_lunchTime));
+                      String dinner = DateFormat.Hm()
+                          .format(DateFormat.jm().parse(_dinnerTime));
+                      NotificationService.showDailyScheduledNotification(
+                        id: 21,
+                        title: 'Reminder FitOn',
+                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        payload: 'schedule',
+                        scheduledTime: breakfast,
+                      );
+                      NotificationService.showDailyScheduledNotification(
+                        id: 22,
+                        title: 'Reminder FitOn',
+                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        payload: 'schedule',
+                        scheduledTime: lunch,
+                      );
+                      NotificationService.showDailyScheduledNotification(
+                        id: 23,
+                        title: 'Reminder FitOn',
+                        body: 'Sebentar lagi jadwal makan kamu akan mulai!',
+                        payload: 'schedule',
+                        scheduledTime: dinner,
+                      );
+                      _save(breakfast, lunch, dinner);
                     },
                     child: Container(
                       width: size.width,
@@ -142,7 +167,10 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
 
   _save(String breakfast, String lunch, String dinner) async {
     try {
-      await FirebaseFirestore.instance.collection('users').doc(user?.uid).update(
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user?.uid)
+          .update(
         {
           'breakfast': breakfast,
           'lunch': lunch,

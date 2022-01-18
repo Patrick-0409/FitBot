@@ -79,34 +79,11 @@ class ScheduleCard extends StatelessWidget {
                   : schedule.color == 1
                       ? Colors.blueAccent
                       : Colors.red),
-          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+          padding: EdgeInsets.fromLTRB(15, 5, 10, 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   // crossAxisAlignment: CrossAxisAlignment.center,
-              //   children: [
-              //     Icon(
-              //       Icons.arrow_back,
-              //       color: Colors.white,
-              //       size: 15.0,
-              //     ),
-              //     // Spacer(),
-              //     Icon(
-              //       Icons.touch_app_rounded,
-              //       color: Colors.white,
-              //       size: 15.0,
-              //     ),
-              //     // Spacer(),
-              //     Icon(
-              //       Icons.arrow_forward,
-              //       color: Colors.white,
-              //       size: 15.0,
-              //     ),
-              //   ],
-              // ),
               Row(
                 children: [
                   Container(
@@ -192,14 +169,6 @@ class ScheduleCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // SizedBox(width: size.width * 0.31),
-                  // SizedBox(
-                  //   height: size.height * 0.11,
-                  //   width: size.width * 0.003,
-                  //   child: const DecoratedBox(
-                  //     decoration: const BoxDecoration(color: Colors.white),
-                  //   ),
-                  // ),
                   Spacer(),
                   Text(
                     schedule.isCompleted == 0 ? "Not Yet" : "Done",
