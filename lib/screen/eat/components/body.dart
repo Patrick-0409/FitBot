@@ -100,65 +100,70 @@ class _BodyState extends State<Body> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
-                            itemCount: userProfilesList.length > 5 ? 5 : userProfilesList.length,
+                            itemCount: userProfilesList.length > 5
+                                ? 5
+                                : userProfilesList.length,
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () async {
-                                  bool temp = await RecipesService().checkContains(
-                                  await RecipesService().checkFood(
-                                userProfilesList[index]['label'].toString(),
-                                userProfilesList[index]['image'].toString(),
-                                userProfilesList[index]['cuisineType']
-                                    .toString(),
-                                userProfilesList[index]['calories'],
-                                userProfilesList[index]['fat'],
-                                userProfilesList[index]['sugar'],
-                                userProfilesList[index]['protein'],
-                                userProfilesList[index]['totalTime'],
-                                userProfilesList[index]['ingredientLines']
-                                    .cast<String>(),
-                                userProfilesList[index]['url'].toString(),
-                              ));
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EatDetailScreen(
-                                    contain: temp,
-                                    label: userProfilesList[index]['label']
+                                  bool temp = await RecipesService()
+                                      .checkContains(
+                                          await RecipesService().checkFood(
+                                    userProfilesList[index]['label'].toString(),
+                                    userProfilesList[index]['image'].toString(),
+                                    userProfilesList[index]['cuisineType']
                                         .toString(),
-                                    image: userProfilesList[index]['image']
-                                        .toString(),
-                                    cuisineType: userProfilesList[index]
-                                            ['cuisineType']
-                                        .toString(),
-                                    calories: userProfilesList[index]
-                                        ['calories'],
-                                    fat: userProfilesList[index]['fat'],
-                                    sugar: userProfilesList[index]['sugar'],
-                                    protein: userProfilesList[index]['protein'],
-                                    totalTime: userProfilesList[index]
-                                        ['totalTime'],
-                                    ingredientLines: userProfilesList[index]
-                                            ['ingredientLines']
+                                    userProfilesList[index]['calories'],
+                                    userProfilesList[index]['fat'],
+                                    userProfilesList[index]['sugar'],
+                                    userProfilesList[index]['protein'],
+                                    userProfilesList[index]['totalTime'],
+                                    userProfilesList[index]['ingredientLines']
                                         .cast<String>(),
-                                    url: userProfilesList[index]['url']
-                                        .toString(),
-                                  ),
-                                ),
-                              );
+                                    userProfilesList[index]['url'].toString(),
+                                  ));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EatDetailScreen(
+                                        contain: temp,
+                                        label: userProfilesList[index]['label']
+                                            .toString(),
+                                        image: userProfilesList[index]['image']
+                                            .toString(),
+                                        cuisineType: userProfilesList[index]
+                                                ['cuisineType']
+                                            .toString(),
+                                        calories: userProfilesList[index]
+                                            ['calories'],
+                                        fat: userProfilesList[index]['fat'],
+                                        sugar: userProfilesList[index]['sugar'],
+                                        protein: userProfilesList[index]
+                                            ['protein'],
+                                        totalTime: userProfilesList[index]
+                                            ['totalTime'],
+                                        ingredientLines: userProfilesList[index]
+                                                ['ingredientLines']
+                                            .cast<String>(),
+                                        url: userProfilesList[index]['url']
+                                            .toString(),
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: DishesCard(
-                              label:
-                                  userProfilesList[index]['label'].toString(),
-                              image:
-                                  userProfilesList[index]['image'].toString(),
-                              cuisineType: userProfilesList[index]
-                                      ['cuisineType']
-                                  .toString(),
-                              calories: userProfilesList[index]['calories'],
-                              totalTime: userProfilesList[index]['totalTime'],
+                                  label: userProfilesList[index]['label']
+                                      .toString(),
+                                  image: userProfilesList[index]['image']
+                                      .toString(),
+                                  cuisineType: userProfilesList[index]
+                                          ['cuisineType']
+                                      .toString(),
+                                  calories: userProfilesList[index]['calories'],
+                                  totalTime: userProfilesList[index]
+                                      ['totalTime'],
                                 ),
                               );
                             },
@@ -363,7 +368,6 @@ class _BodyState extends State<Body> {
                       "Breakfast",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -384,7 +388,6 @@ class _BodyState extends State<Body> {
                       "Lunch",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -405,7 +408,6 @@ class _BodyState extends State<Body> {
                       "Dinner",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    picture: SvgPicture.asset("assets/icons/search.svg"),
                   ),
                 ],
               ),

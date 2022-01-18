@@ -21,7 +21,9 @@ class _RatingBarState extends State<RatingBar> {
           borderColor: Colors.amber,
           isReadOnly: true,
           starCount: 5,
-          rating: widget.place.rating?.toDouble(),
+          rating: widget.place.rating?.toDouble() == null
+              ? 0
+              : widget.place.rating?.toDouble(),
           halfFilledIconData: Icons.star_half,
         )
       ],

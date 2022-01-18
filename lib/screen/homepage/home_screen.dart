@@ -133,7 +133,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => FeedbackScreen(name:"tester")),
+                            builder: (context) =>
+                                FeedbackScreen(name: "tester")),
                       );
                     } else if (result == 3) {
                       _signOut();
@@ -149,84 +150,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     }
                   },
                   itemBuilder: (context) => [
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Test Notification",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 10.0,
-                            ),
-                            child: Icon(
-                              Icons.account_circle,
-                              color: Colors.white,
-                              size: 22.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      value: 0,
-                    ),
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Ask Fita",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 10.0,
-                            ),
-                            child: Icon(
-                              Icons.chat,
-                              color: Colors.white,
-                              size: 22.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      value: 1,
-                    ),
-                    PopupMenuItem(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Testing Feedback",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 10.0,
-                            ),
-                            child: Icon(
-                              Icons.settings,
-                              color: Colors.white,
-                              size: 22.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                      value: 2,
-                    ),
                     PopupMenuItem(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
