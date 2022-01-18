@@ -179,7 +179,7 @@ class TrainDetailScreen extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) => TrainTimer(
                     name: name,
-                    second: 1,
+                    second: second,
                     movement: movement,
                     burn: burn,
                   ),
