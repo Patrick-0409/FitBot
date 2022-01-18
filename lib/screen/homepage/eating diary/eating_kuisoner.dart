@@ -11,14 +11,14 @@ import 'package:intl/intl.dart';
 
 import '../../../constant.dart';
 
-class EatingKusioner extends StatefulWidget {
-  EatingKusioner({Key? key}) : super(key: key);
+class EatingKuisioner extends StatefulWidget {
+  EatingKuisioner({Key? key}) : super(key: key);
 
   @override
-  _EatingKusionerState createState() => _EatingKusionerState();
+  _EatingKuisionerState createState() => _EatingKuisionerState();
 }
 
-class _EatingKusionerState extends State<EatingKusioner> {
+class _EatingKuisionerState extends State<EatingKuisioner> {
   String _breakfastTime =
       DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _lunchTime = DateFormat("hh:mm a").format(DateTime.now()).toString();

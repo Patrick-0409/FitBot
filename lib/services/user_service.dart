@@ -67,4 +67,20 @@ class UserService {
               });
     return temp;
   }
+
+  Future<bool> checkEatSchedule(String? uid) async {
+    var temp = FirebaseFirestore.instance
+            .collection('users')
+            .where('uid', isEqualTo: uid)
+            .where('breakfast', isEqualTo: "")
+            .get()
+            .then((QuerySnapshot querySnapshot) {
+                  if (querySnapshot.docs.length>0) {
+                      return true;
+                  } else {
+                      return false;
+                  }
+              });
+    return temp;
+  }
 }

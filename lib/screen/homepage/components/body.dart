@@ -103,9 +103,9 @@ class _BodyState extends State<Body> {
     String tempTime = DateFormat.Hm().format(DateTime.now());
     int temp =
         int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
-    if (temp >= 0 && temp <12)
+    if (temp >= 0 && temp < 12)
       return "Good morning";
-    else if (temp >= 12 && temp <18)
+    else if (temp >= 12 && temp < 18)
       return "Good afternoon";
     else if (temp >= 18) return "Good night";
 
@@ -115,7 +115,15 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    String tempTime = DateFormat.Hm().format(DateTime.now());
+    int tempTimeEat =
+        int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
+    String time = tempTimeEat < 12
+        ? "breakfast"
+        : tempTimeEat < 18
+            ? "lunch"
+            : "dinner";
+            
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -224,15 +232,32 @@ class _BodyState extends State<Body> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return DailyInput(
-                                  user: userstore!,
-                                );
-                              },
+                        onTap: () async {
+                          bool tempData = await _checkDaily();
+                          if (tempData == false)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DailyInput(
+                                    user: userstore!,
+                                  );
+                                },
+                              ),
+                            );
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('Warning'),
+                              content:
+                                  Text('You have submitted daily stats today!'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Ok'))
+                              ],
                             ),
                           );
                         },
@@ -298,16 +323,71 @@ class _BodyState extends State<Body> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                // return EatingKusioner();
-                                return InputEatMenu();
-                              },
-                            ),
-                          );
+                        onTap: () async {
+                          bool temp =
+                              await UserService().checkContains(user.uid);
+                          if (temp == true) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return KuisonerScreen();
+                                },
+                              ),
+                            ).then((value) {
+                              if (value == true)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return EatingKuisioner();
+                                    },
+                                  ),
+                                );
+                            });
+                          } else {
+                            bool tempp =
+                                await UserService().checkEatSchedule(user.uid);
+                            if (tempp == true) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return EatingKuisioner();
+                                  },
+                                ),
+                              );
+                            } else {
+                              bool tempData =
+                                  await DailyService().checkFood(time);
+                              if (tempData == false)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return InputEatMenu();
+                                    },
+                                  ),
+                                );
+                              else
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: Text('Warning'),
+                                    content: Text(
+                                        'You have submitted ${time} food!'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text('Ok'),
+                                      )
+                                    ],
+                                  ),
+                                );
+                            }
+                          }
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -315,10 +395,37 @@ class _BodyState extends State<Body> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 40),
-                              child: Image.asset(
-                                "assets/icons/warning.png",
-                                color: Colors.red,
+                              child: FutureBuilder<bool>(
+                                future: DailyService().checkFood(time),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    if (snapshot.data == false) {
+                                      return Image.asset(
+                                        "assets/icons/warning.png",
+                                        color: Colors.red,
+                                      );
+                                    } else {
+                                      return CircleAvatar(
+                                        child: Icon(
+                                          Icons.done,
+                                          color: Colors.green,
+                                        ),
+                                        radius: 6,
+                                        backgroundColor: Colors.transparent,
+                                      );
+                                    }
+                                  }
+                                  return SizedBox(
+                                    child: CircularProgressIndicator(),
+                                    height: 13.0,
+                                    width: 13.0,
+                                  );
+                                },
                               ),
+                              // Image.asset(
+                              //   "assets/icons/warning.png",
+                              //   color: Colors.red,
+                              // ),
                             ),
                             Image.asset(
                               "assets/icons/schedule.png",

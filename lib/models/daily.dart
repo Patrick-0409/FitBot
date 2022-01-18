@@ -30,9 +30,9 @@ class Daily {
       'wake': this.wake,
       'weight': this.weight,
       'user': this.user,
-      'breakfast': this.breakfast,
-      'lunch': this.lunch,
-      'dinner': this.dinner
+      'breakfast': [],
+      'lunch': [],
+      'dinner': []
     };
     return map;
   }

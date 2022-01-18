@@ -44,8 +44,8 @@ Future<String> getSingleDaily() async {
           .then(
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
-            print(querySnapshot.docs[0]['id']);
-            print("ada datanya");
+            // print(querySnapshot.docs[0]['id']);
+            // print("ada datanya");
             temp = querySnapshot.docs[0]['id'];
           }else{
             temp = "0";
@@ -55,6 +55,39 @@ Future<String> getSingleDaily() async {
     } catch (e) {
       print(e);
       temp = "0";
+    }
+    return temp;
+  }
+
+  Future<bool> checkFood(String time) async {
+    bool temp = false;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('user', isEqualTo: user?.uid)
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+          .where('date',
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+          .get()
+          .then(
+        (querySnapshot) {
+          if (querySnapshot.docs.length > 0) {
+            if(querySnapshot.docs[0][time].length>0){
+              // print(querySnapshot.docs[0][time]);
+              temp = true;
+            }
+            else{
+              temp = false;
+            }
+          }else{
+            temp = false;
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      temp = false;
     }
     return temp;
   }

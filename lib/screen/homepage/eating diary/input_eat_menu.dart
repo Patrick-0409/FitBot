@@ -157,19 +157,25 @@ class _InputEatMenuState extends State<InputEatMenu> {
                     onTap: () async {
                       if (_formKey.currentState != null &&
                           _formKey.currentState!.validate()) {
-                        List<String> tempBreak = [
-                          _breakfastController.text,
-                          _caloriesController1.text
-                        ];
-                        List<String> tempLunch = [
-                          _lunchController.text,
-                          _caloriesController2.text
-                        ];
-                        List<String> tempDinner = [
-                          _dinnerController.text,
-                          _caloriesController3.text
-                        ];
-                        await _save(tempBreak, tempLunch, tempDinner);
+                        if (temp >= 0 && temp < 12) {
+                          List<String> tempBreak = [
+                            _breakfastController.text,
+                            _caloriesController1.text
+                          ];
+                          await _save(tempBreak, 'breakfast');
+                        } else if (temp >= 12 && temp < 18) {
+                          List<String> tempLunch = [
+                            _lunchController.text,
+                            _caloriesController2.text
+                          ];
+                          await _save(tempLunch, 'lunch');
+                        } else if (temp >= 18) {
+                          List<String> tempDinner = [
+                            _dinnerController.text,
+                            _caloriesController3.text
+                          ];
+                          await _save(tempDinner, 'dinner');
+                        }
                       }
                     },
                     child: Container(
@@ -203,15 +209,13 @@ class _InputEatMenuState extends State<InputEatMenu> {
     );
   }
 
-  _save(List<String> breakfast, List<String> lunch, List<String> dinner) async {
+  _save(List<String> eat, String eatTime) async {
     try {
       String temp = await DailyService().getSingleDaily();
       print(temp);
       await FirebaseFirestore.instance.collection('daily').doc(temp).update(
         {
-          'breakfast': breakfast,
-          'lunch': lunch,
-          'dinner': dinner,
+          eatTime: eat,
         },
       );
     } catch (e) {
@@ -242,7 +246,6 @@ class _InputEatMenuState extends State<InputEatMenu> {
       ModalRoute.withName("/"),
     );
   }
-
 
   String? _requiredCalorie(String? text) {
     if (text == null || text.trim().isEmpty) {
