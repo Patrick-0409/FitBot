@@ -681,30 +681,81 @@ class _BodyState extends State<Body> {
                               return KuisonerScreen();
                             },
                           ),
-                        ).then((value) {
-                          if (value == true)
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return TrainScreen(
-                                    user: userstore!,
+                        ).then((value) async {
+                          if (value == true) {
+                            bool tempData = await _checkDaily();
+                            if (tempData == false)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return DailyInput(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
+                              ).then((valuee) {
+                                if (valuee == true)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return TrainScreen(
+                                          user: userstore!,
+                                        );
+                                      },
+                                    ),
                                   );
-                                },
-                              ),
-                            );
+                              });
+                            else
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return TrainScreen(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
+                              );
+                          }
                         });
                       } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return TrainScreen(
-                                user: userstore!,
+                        bool tempData = await _checkDaily();
+                        if (tempData == false)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DailyInput(
+                                  user: userstore!,
+                                );
+                              },
+                            ),
+                          ).then((valuee) {
+                            if (valuee == true)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return TrainScreen(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
                               );
-                            },
-                          ),
-                        );
+                          });
+                        else
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TrainScreen(
+                                  user: userstore!,
+                                );
+                              },
+                            ),
+                          );
                       }
                     },
                     color: kTrain,
