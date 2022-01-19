@@ -114,10 +114,10 @@ class _BodyState extends State<Body> {
     int temp =
         int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
     if (temp >= 0 && temp < 12)
-      return "Good morning";
+      return "Good Morning";
     else if (temp >= 12 && temp < 18)
-      return "Good afternoon";
-    else if (temp >= 18) return "Good night";
+      return "Good Afternoon";
+    else if (temp >= 18) return "Good Night";
 
     return "Hello";
   }
