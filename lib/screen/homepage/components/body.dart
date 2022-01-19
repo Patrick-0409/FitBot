@@ -3,7 +3,6 @@ import 'package:fiton/constant.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/article/article_screen.dart';
-import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
@@ -215,8 +214,10 @@ class _BodyState extends State<Body> {
                                                     .textTheme
                                                     .bodyText2!
                                                     .copyWith(
-                                                        color:
-                                                            Color(0XFF1A9F1F),
+                                                        color: snapshot.data! <
+                                                                0
+                                                            ? Colors.red
+                                                            : Color(0XFF1A9F1F),
                                                         fontSize: 22),
                                               );
                                             }
@@ -302,7 +303,9 @@ class _BodyState extends State<Body> {
                                         Navigator.pushReplacement(
                                           context,
                                           PageRouteBuilder(
-                                            pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                            pageBuilder: (context, animation1,
+                                                    animation2) =>
+                                                HomeScreen(),
                                             transitionDuration: Duration.zero,
                                           ),
                                         );
@@ -434,7 +437,9 @@ class _BodyState extends State<Body> {
                                           Navigator.pushReplacement(
                                             context,
                                             PageRouteBuilder(
-                                              pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                              pageBuilder: (context, animation1,
+                                                      animation2) =>
+                                                  HomeScreen(),
                                               transitionDuration: Duration.zero,
                                             ),
                                           );
