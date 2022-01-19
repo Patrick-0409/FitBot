@@ -12,6 +12,7 @@ class RunsService {
       await FirebaseFirestore.instance
           .collection('runs')
           .where('user', isEqualTo: user?.uid)
+          .orderBy('date',descending: true)
           .get()
           .then((querySnapshot) {
         if (querySnapshot.docs.length > 0) {
