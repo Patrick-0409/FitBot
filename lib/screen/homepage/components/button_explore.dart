@@ -8,12 +8,14 @@ class ButtonExplore extends StatelessWidget {
     required this.press,
     required this.color,
     required this.text,
+    required this.picture,
   }) : super(key: key);
 
   final Size size;
   final Function() press;
   final Color color;
   final Text text;
+  final SvgPicture picture;
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +28,17 @@ class ButtonExplore extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                padding: EdgeInsets.only(top: 25),
+                padding: EdgeInsets.only(top: 15),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    text,
+                    picture,
                     SizedBox(height: 10),
+                    text,
                   ],
                 ),
               ),

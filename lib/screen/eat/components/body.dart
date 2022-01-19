@@ -368,6 +368,11 @@ class _BodyState extends State<Body> {
                       "Breakfast",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/breakfast.svg",
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -388,6 +393,11 @@ class _BodyState extends State<Body> {
                       "Lunch",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/lunch.svg",
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -407,6 +417,11 @@ class _BodyState extends State<Body> {
                     text: Text(
                       "Dinner",
                       style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/dinner.svg",
+                      width: 35,
+                      height: 35,
                     ),
                   ),
                 ],

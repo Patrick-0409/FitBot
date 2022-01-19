@@ -8,12 +8,14 @@ class ButtonTimeBased extends StatelessWidget {
     required this.press,
     required this.color,
     required this.text,
+    required this.picture,
   }) : super(key: key);
 
   final Size size;
   final Function() press;
   final Color color;
   final Text text;
+  final SvgPicture picture;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ButtonTimeBased extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.only(top: 15, bottom: 5),
+                padding: EdgeInsets.only(top: 10, bottom: 5),
                 width: size.width * 0.28,
                 height: size.height * 0.11,
                 decoration: BoxDecoration(
@@ -34,6 +36,7 @@ class ButtonTimeBased extends StatelessWidget {
                 ),
                 child: Column(
                   children: <Widget>[
+                    picture,
                     Spacer(),
                     text,
                   ],
