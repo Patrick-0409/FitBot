@@ -91,7 +91,7 @@ class _BodyState extends State<Body> {
           : SingleChildScrollView(
               child: Background(
                 child: Padding(
-                  padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.fromLTRB(16, 16, 16, 16),
                   child: Form(
                     key: _formKey,
                     child: Column(

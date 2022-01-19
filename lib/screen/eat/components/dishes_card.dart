@@ -10,14 +10,14 @@ class DishesCard extends StatelessWidget {
   final String? cuisineType;
   final num? calories;
   final num? totalTime;
-  const DishesCard({
-    Key? key, 
-    required this.label, 
-    required this.image, 
-    required this.cuisineType, 
-    required this.calories, 
-    required this.totalTime
-    }) : super(key: key);
+  const DishesCard(
+      {Key? key,
+      required this.label,
+      required this.image,
+      required this.cuisineType,
+      required this.calories,
+      required this.totalTime})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,7 @@ class DishesCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     child: Text(
-                      totalTime!.toInt().toString()+" min",
+                      totalTime!.toInt().toString() + " min",
                       style: kTitleCardEat,
                     ),
                   ),

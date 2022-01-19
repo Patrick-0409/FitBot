@@ -105,11 +105,11 @@ class _GroupScreenState extends State<GroupScreen> {
                 ),
                 SizedBox(height: 5),
                 Container(
-                  width: size.width * 0.9,
-                  height: 35,
+                  width: size.width,
+                  height: size.height * 0.056,
                   decoration: BoxDecoration(
                     color: kSearchBarColor.withOpacity(0.1),
-                    // borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: TextField(
                     textInputAction: TextInputAction.go,
@@ -142,9 +142,9 @@ class _GroupScreenState extends State<GroupScreen> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(bottom: 85),
                   width: double.infinity,
-                  height: size.height,
+                  height: size.height * 0.74,
+                  padding: EdgeInsets.only(bottom: 10),
                   child: FutureBuilder<RecipeModel>(
                     future: _recipeModel,
                     builder: (context, snapshot) {
