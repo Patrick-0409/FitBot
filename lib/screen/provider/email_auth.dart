@@ -183,12 +183,17 @@ class EmailSignInProvider extends ChangeNotifier {
 
       await userCollection.doc(user!.uid).set({
         'uid': user.uid,
-        'name': firstName+lastName,
+        'name': firstName+" "+lastName,
         'email': userEmail,
         'imageUrl': imageUrl,
         'height': "",
+        'weight': "",
+        'active': null,
+        'birthday': null,
+        'want': null,
         'difficulty': "medium",
         'breakfast': "",
+        'gender': "",
       });
       return true;
     }catch (err) {

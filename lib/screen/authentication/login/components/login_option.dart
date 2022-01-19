@@ -59,8 +59,13 @@ class _LoginOption extends State<LoginOption> {
           'imageUrl': userData['picture']['data']['url'],
           'name': userData['name'],
           'height': "",
+          'weight': "",
+          'active': null,
+          'birthday': null,
+          'want': null,
           'difficulty': "medium",
           'breakfast': "",
+          'gender': "",
         });
       }
     } on FirebaseAuthException catch (e) {
@@ -139,8 +144,13 @@ class _LoginOption extends State<LoginOption> {
           'imageUrl': user.photoURL,
           'name': user.displayName,
           'height': "",
+          'weight': "",
+          'active': null,
+          'birthday': null,
+          'want': null,
           'difficulty': "medium",
           'breakfast': "",
+          'gender': "",
         });
       }
     } on FirebaseAuthException catch (e) {

@@ -145,12 +145,24 @@ class _BodyState extends State<Body> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 5),
-                child: Text(
-                  "${_getTime()},\n${user.displayName}!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.white, fontSize: 18),
+                child: FutureBuilder<UserStore>(
+                  future: _fetchUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        "${_getTime()},\n${snapshot.data?.name}!",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: Colors.white, fontSize: 18),
+                      );
+                    }
+                    return SizedBox(
+                      child: CircularProgressIndicator(),
+                      height: 15.0,
+                      width: 15.0,
+                    );
+                  },
                 ),
               ),
               SizedBox(height: 5),

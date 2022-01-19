@@ -112,28 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 child: new PopupMenuButton(
                   onSelected: (result) {
-                    if (result == 0) {
-                      NotificationService.showScheduledNotification(
-                        id: 99999,
-                        title: 'FitOn',
-                        body: 'Ayo semangat, kita harus olahraga bareng ya!',
-                        payload: 'Fit.On',
-                        scheduledDate: DateTime.now().add(Duration(seconds: 3)),
-                      );
-                    } else if (result == 1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ChatbotScreen()),
-                      );
-                    } else if (result == 2) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                FeedbackScreen(name: "tester")),
-                      );
-                    } else if (result == 3) {
+                    if (result == 1) {
                       _signOut();
                       Navigator.pop(context, "Logout");
                       Navigator.push(
@@ -171,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ],
                       ),
-                      value: 3,
+                      value: 1,
                     )
                   ],
                   child: SvgPicture.asset("assets/images/menu.svg"),

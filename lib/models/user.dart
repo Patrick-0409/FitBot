@@ -32,13 +32,13 @@ class UserStore{
     name: snapshot["name"],
     imageUrl: snapshot["imageUrl"],
     email: snapshot["email"],
-    gender: snapshot["gender"],
+    gender: snapshot["gender"] == null ? "" : snapshot["gender"],
     weight: snapshot["weight"].toString(),
     height: snapshot["height"].toString(),
     active: snapshot["active"],
     want: snapshot["want"],
     difficulty: snapshot["difficulty"],
-    birthday: snapshot["birthday"].toDate(),
+    birthday: snapshot["birthday"] == null ? null : snapshot["birthday"].toDate(),
   );
 
   
