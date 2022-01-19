@@ -350,8 +350,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/checklist.png",
+                            SvgPicture.asset(
+                              "assets/icons/schedule.svg",
                               color: Colors.black,
                             ),
                             Text(
@@ -487,8 +487,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/schedule.png",
+                            SvgPicture.asset(
+                              "assets/icons/checklist.svg",
                               color: Colors.black,
                             ),
                             Text(
