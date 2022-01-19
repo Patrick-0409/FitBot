@@ -18,10 +18,11 @@ class RoundedLoginOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: SizedBox(
-        width: 170,
-        height: 50,
+        width: size.width * 0.42,
+        height: size.height * 0.075,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Material(

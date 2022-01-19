@@ -58,7 +58,7 @@ class _BodyState extends State<Body> {
             : active == 3
                 ? 1.5
                 : 1.55;
-    
+
     double tempWant = want == 1
         ? 1
         : want == 2
@@ -174,7 +174,7 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                padding: EdgeInsets.only(left: 10, right: 5, top: 5),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -350,8 +350,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/checklist.png",
+                            SvgPicture.asset(
+                              "assets/icons/schedule.svg",
                               color: Colors.black,
                             ),
                             Text(
@@ -489,8 +489,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/schedule.png",
+                            SvgPicture.asset(
+                              "assets/icons/checklist.svg",
                               color: Colors.black,
                             ),
                             Text(

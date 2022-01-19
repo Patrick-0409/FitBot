@@ -69,7 +69,7 @@ class ButtonNutrision extends StatelessWidget {
                   // fontWeight: FontWeight.bold,
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -170,34 +170,29 @@ class TrainDetailScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => TrainTimer(
-                    name: name,
-                    second: second,
-                    movement: movement,
-                    burn: burn,
-                  ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TrainTimer(
+                  name: name,
+                  second: second,
+                  movement: movement,
+                  burn: burn,
                 ),
               ),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                margin: EdgeInsets.only(bottom: 10),
-                width: size.width * 0.92,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Text(
-                  'Start workout',
-                  style: TextStyle(fontSize: 18.0, color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              margin: EdgeInsets.only(bottom: 10),
+              width: size.width * 0.92,
+              decoration: BoxDecoration(
+                color: kBackgroundColor.withOpacity(0.7),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Text(
+                'Start workout',
+                style: TextStyle(fontSize: 18.0, color: Colors.black),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
