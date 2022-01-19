@@ -11,6 +11,7 @@ import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
 import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
 import 'package:fiton/screen/homepage/eating%20diary/input_eat_menu.dart';
+import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
@@ -298,6 +299,13 @@ class _BodyState extends State<Body> {
                                   TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
+                                        Navigator.pushReplacement(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                            transitionDuration: Duration.zero,
+                                          ),
+                                        );
                                       },
                                       child: Text('Ok'))
                                 ],
@@ -423,6 +431,13 @@ class _BodyState extends State<Body> {
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop();
+                                          Navigator.pushReplacement(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                              transitionDuration: Duration.zero,
+                                            ),
+                                          );
                                         },
                                         child: Text('Ok'),
                                       )
