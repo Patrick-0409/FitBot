@@ -11,6 +11,7 @@ import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
 import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
 import 'package:fiton/screen/homepage/eating%20diary/input_eat_menu.dart';
+import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/train_screen.dart';
 import 'package:fiton/screen/running/running_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
@@ -114,10 +115,10 @@ class _BodyState extends State<Body> {
     int temp =
         int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
     if (temp >= 0 && temp < 12)
-      return "Good morning";
+      return "Good Morning";
     else if (temp >= 12 && temp < 18)
-      return "Good afternoon";
-    else if (temp >= 18) return "Good night";
+      return "Good Afternoon";
+    else if (temp >= 18) return "Good Night";
 
     return "Hello";
   }
@@ -145,12 +146,24 @@ class _BodyState extends State<Body> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 5),
-                child: Text(
-                  "${_getTime()},\n${user.displayName}!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText2!
-                      .copyWith(color: Colors.white, fontSize: 18),
+                child: FutureBuilder<UserStore>(
+                  future: _fetchUser(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        "${_getTime()},\n${snapshot.data?.name}!",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: Colors.white, fontSize: 18),
+                      );
+                    }
+                    return SizedBox(
+                      child: CircularProgressIndicator(),
+                      height: 15.0,
+                      width: 15.0,
+                    );
+                  },
                 ),
               ),
               SizedBox(height: 5),
@@ -286,6 +299,13 @@ class _BodyState extends State<Body> {
                                   TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
+                                        Navigator.pushReplacement(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                            transitionDuration: Duration.zero,
+                                          ),
+                                        );
                                       },
                                       child: Text('Ok'))
                                 ],
@@ -411,6 +431,13 @@ class _BodyState extends State<Body> {
                                       TextButton(
                                         onPressed: () {
                                           Navigator.of(context).pop();
+                                          Navigator.pushReplacement(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1, animation2) => HomeScreen(),
+                                              transitionDuration: Duration.zero,
+                                            ),
+                                          );
                                         },
                                         child: Text('Ok'),
                                       )
@@ -661,6 +688,12 @@ class _BodyState extends State<Body> {
                       "Article",
                       style: kArticleTitle,
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/article.svg",
+                      width: 35,
+                      height: 35,
+                      color: kArticleText,
+                    ),
                   ),
                   Spacer(),
                   ButtonExplore(
@@ -675,36 +708,93 @@ class _BodyState extends State<Body> {
                               return KuisonerScreen();
                             },
                           ),
-                        ).then((value) {
-                          if (value == true)
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return TrainScreen(
-                                    user: userstore!,
+                        ).then((value) async {
+                          if (value == true) {
+                            bool tempData = await _checkDaily();
+                            if (tempData == false)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return DailyInput(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
+                              ).then((valuee) {
+                                if (valuee == true)
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return TrainScreen(
+                                          user: userstore!,
+                                        );
+                                      },
+                                    ),
                                   );
-                                },
-                              ),
-                            );
+                              });
+                            else
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return TrainScreen(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
+                              );
+                          }
                         });
                       } else {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return TrainScreen(
-                                user: userstore!,
+                        bool tempData = await _checkDaily();
+                        if (tempData == false)
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return DailyInput(
+                                  user: userstore!,
+                                );
+                              },
+                            ),
+                          ).then((valuee) {
+                            if (valuee == true)
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return TrainScreen(
+                                      user: userstore!,
+                                    );
+                                  },
+                                ),
                               );
-                            },
-                          ),
-                        );
+                          });
+                        else
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return TrainScreen(
+                                  user: userstore!,
+                                );
+                              },
+                            ),
+                          );
                       }
                     },
                     color: kTrain,
                     text: Text(
                       "Train",
                       style: kTrainTitle,
+                    ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/train.svg",
+                      width: 35,
+                      height: 35,
+                      color: kTrainText,
                     ),
                   ),
                   Spacer(),
@@ -725,6 +815,12 @@ class _BodyState extends State<Body> {
                       "Run",
                       style: kChatTitle,
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/run.svg",
+                      width: 35,
+                      height: 35,
+                      color: kChatText,
+                    ),
                   ),
                   Spacer(),
                   ButtonExplore(
@@ -743,6 +839,12 @@ class _BodyState extends State<Body> {
                     text: Text(
                       "Eat",
                       style: kTrainTitle,
+                    ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/eat.svg",
+                      width: 35,
+                      height: 35,
+                      color: kTrainText,
                     ),
                   ),
                 ],

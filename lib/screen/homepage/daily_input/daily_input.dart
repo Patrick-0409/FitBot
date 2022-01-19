@@ -21,7 +21,6 @@ class DailyInput extends StatefulWidget {
 }
 
 class _DailyInputState extends State<DailyInput> {
-  // DateTime _selectedDate = DateTime.now();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM ";
 
@@ -29,16 +28,6 @@ class _DailyInputState extends State<DailyInput> {
   final _formKey = GlobalKey<FormState>();
 
   final _weightController = TextEditingController();
-  // int _selectedRemind = 5;
-  // List<int> remindList = [
-  //   5,
-  //   10,
-  //   15,
-  //   20,
-  // ];
-  // String _selectedRepeat = "None";
-  // List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
-  // int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -194,16 +183,7 @@ class _DailyInputState extends State<DailyInput> {
         ],
       ),
     );
-
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return HomeScreen();
-        },
-      ),
-      ModalRoute.withName("/"),
-    );
+    Navigator.pop(context, true);
   }
 
   String? _requiredWeight(String? text) {

@@ -9,6 +9,7 @@ import 'package:fiton/screen/eat/ingridients/group_screen.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
@@ -32,6 +33,19 @@ class _BodyState extends State<Body> {
     return userProfilesList;
   }
 
+  String _getTime() {
+    String tempTime = DateFormat.Hm().format(DateTime.now());
+    int temp =
+        int.parse(DateFormat('HH').format(DateFormat.Hm().parse(tempTime)));
+    if (temp >= 0 && temp < 12)
+      return "Breakfast";
+    else if (temp >= 12 && temp < 18)
+      return "Lunch";
+    else if (temp >= 18) return "Dinner";
+
+    return "Eat";
+  }
+  
   @override
   Widget build(BuildContext context) {
     final Size = MediaQuery.of(context).size;
@@ -52,7 +66,7 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: 1),
               Text(
-                "Lunch Time!",
+                _getTime()+" Time!",
                 textAlign: TextAlign.start,
                 style: Theme.of(context)
                     .textTheme
@@ -368,6 +382,11 @@ class _BodyState extends State<Body> {
                       "Breakfast",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/breakfast.svg",
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -388,6 +407,11 @@ class _BodyState extends State<Body> {
                       "Lunch",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/lunch.svg",
+                      width: 35,
+                      height: 35,
+                    ),
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
@@ -407,6 +431,11 @@ class _BodyState extends State<Body> {
                     text: Text(
                       "Dinner",
                       style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/dinner.svg",
+                      width: 35,
+                      height: 35,
                     ),
                   ),
                 ],

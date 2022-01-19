@@ -24,7 +24,7 @@ class SchedulerScreen extends StatefulWidget {
 class _SchedulerScreenState extends State<SchedulerScreen> {
   List<Schedule> _data = [];
   List<ScheduleCard> _cards = [];
-
+  int count = 0;
   DateTime _selectedDate = DateTime.now();
 
   void initState() {
@@ -38,6 +38,7 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
     List userProfilesList = await SchedulesService().getSchedules(date);
     _data = userProfilesList.map((item) => Schedule.fromMap(item)).toList();
     _data.forEach((element) => _cards.add(ScheduleCard(schedule: element)));
+    count = 0;
     setState(() {});
   }
 
@@ -104,8 +105,11 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
                   ),
                 ),
                 onDateChange: (date) {
-                  _selectedDate = date;
-                  _fetchSchedules(DateFormat.yMd().format(date));
+                  if(count==0){
+                    _selectedDate = date;
+                    _fetchSchedules(DateFormat.yMd().format(date));
+                  }
+                    count++;
                 },
               ),
             ),
