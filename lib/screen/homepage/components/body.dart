@@ -52,19 +52,20 @@ class _BodyState extends State<Body> {
     int burn = await DailyService().getBurnData();
     int run = await RunsService().getCalorie();
     double tempActive = active == 1
-        ? 1
-        : active == 2
-            ? 0.9
-            : active == 3
-                ? 0.8
-                : 0.6;
-    double tempWant = want == 1
         ? 1.2
-        : want == 2
+        : active == 2
             ? 1.4
-            : want == 3
+            : active == 3
                 ? 1.5
                 : 1.55;
+    
+    double tempWant = want == 1
+        ? 1
+        : want == 2
+            ? 0.9
+            : want == 3
+                ? 0.8
+                : 0.6;
     int tempGender = gender == "male" ? 5 : -161;
     int calorie = ((10 * int.parse(weight)) +
             (6.25 * int.parse(height)) -

@@ -15,6 +15,67 @@
       },
       "oauth_client": [
         {
+          "client_id": "495362468900-a2da6r4r4r0qctoavc5qqifmcson9u7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fiton",
+            "certificate_hash": "ae334bfc5c4bc5d229f4bbbed7a71d63555f4fff"
+          }
+        },
+        {
+          "client_id": "495362468900-a614arhj96c8hfsirg3rcqnth5rk7prv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fiton",
+            "certificate_hash": "85ddb719a0aba41c31f54241dda5d07dbb713acf"
+          }
+        },
+        {
+          "client_id": "495362468900-lprp9l92g1e395164mmqsudkr6bqanq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fiton",
+            "certificate_hash": "f9cf73acc5a7fcfa78b01ce3de048b59b27cae26"
+          }
+        },
+        {
+          "client_id": "495362468900-5fqfk23iverbd6g01nu8mkibmqaov9g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvx3QTxrRwm9SR_-USftffM9CYpH8SXRI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495362468900-5fqfk23iverbd6g01nu8mkibmqaov9g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495362468900:android:e7f6df30fcd8e814073cb1",
+        "android_client_info": {
+          "package_name": "com.fitandhealthy.FitBot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495362468900-ebibtn1f96falppmrgers7u3hhvnlmel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fitandhealthy.FitBot",
+            "certificate_hash": "f9cf73acc5a7fcfa78b01ce3de048b59b27cae26"
+          }
+        },
+        {
           "client_id": "495362468900-5fqfk23iverbd6g01nu8mkibmqaov9g1.apps.googleusercontent.com",
           "client_type": 3
         }
