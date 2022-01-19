@@ -8,7 +8,6 @@ class Schedule{
   String? endTime;
   int? color;
   int? remind;
-  String? repeat;
   String? uid;
 
   Schedule({
@@ -21,7 +20,6 @@ class Schedule{
     this.endTime,
     this.color,
     this.remind,
-    this.repeat,
     this.uid,
   });
 
@@ -36,7 +34,6 @@ class Schedule{
       "endTime": this.endTime,
       "color": this.color,
       "remind": this.remind,
-      "repeat": this.repeat,
       "uid": this.uid,
     };
   }
@@ -51,7 +48,6 @@ class Schedule{
     endTime: map["endTime"],
     color: map["color"],
     remind: map["remind"],
-    repeat: map["repeat"],
     uid: map["uid"],
   );
 }

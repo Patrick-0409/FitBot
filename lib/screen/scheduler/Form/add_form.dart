@@ -29,8 +29,6 @@ class _AddToDoState extends State<AddForm> {
   String _endTime = "9:30 PM ";
   int _selectedRemind = 0;
   List<int> remindList = [0, 5, 10, 15, 20];
-  String _selectedRepeat = "None";
-  List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
   int _selectedColor = 0;
   @override
   Widget build(BuildContext context) {
@@ -185,7 +183,6 @@ class _AddToDoState extends State<AddForm> {
                                     .format(DateFormat.jm().parse(_endTime)),
                                 color: _selectedColor,
                                 remind: _selectedRemind,
-                                repeat: _selectedRepeat,
                                 isCompleted: 0,
                                 uid: user?.uid,
                               );
