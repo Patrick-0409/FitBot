@@ -661,6 +661,12 @@ class _BodyState extends State<Body> {
                       "Article",
                       style: kArticleTitle,
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/article.svg",
+                      width: 35,
+                      height: 35,
+                      color: kArticleText,
+                    ),
                   ),
                   Spacer(),
                   ButtonExplore(
@@ -706,6 +712,12 @@ class _BodyState extends State<Body> {
                       "Train",
                       style: kTrainTitle,
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/train.svg",
+                      width: 35,
+                      height: 35,
+                      color: kTrainText,
+                    ),
                   ),
                   Spacer(),
                   ButtonExplore(
@@ -725,6 +737,12 @@ class _BodyState extends State<Body> {
                       "Run",
                       style: kChatTitle,
                     ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/run.svg",
+                      width: 35,
+                      height: 35,
+                      color: kChatText,
+                    ),
                   ),
                   Spacer(),
                   ButtonExplore(
@@ -743,6 +761,12 @@ class _BodyState extends State<Body> {
                     text: Text(
                       "Eat",
                       style: kTrainTitle,
+                    ),
+                    picture: SvgPicture.asset(
+                      "assets/icons/eat.svg",
+                      width: 35,
+                      height: 35,
+                      color: kTrainText,
                     ),
                   ),
                 ],
