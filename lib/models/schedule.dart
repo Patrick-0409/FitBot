@@ -3,7 +3,8 @@ class Schedule{
   String? title;
   String? location;
   int? isCompleted;
-  String? date;
+  String? startDate;
+  String? endDate;
   String? startTime;
   String? endTime;
   int? color;
@@ -15,7 +16,8 @@ class Schedule{
     this.title, 
     this.location, 
     this.isCompleted, 
-    this.date,
+    this.startDate,
+    this.endDate,
     this.startTime,
     this.endTime,
     this.color,
@@ -29,7 +31,8 @@ class Schedule{
       "title": this.title,
       "location": this.location,
       "isCompleted": this.isCompleted,
-      "date": this.date,
+      "startDate": this.startDate,
+      "endDate": this.endDate,
       "startTime": this.startTime,
       "endTime": this.endTime,
       "color": this.color,
@@ -43,7 +46,8 @@ class Schedule{
     title: map["title"],
     location: map["location"],
     isCompleted: map["isCompleted"],
-    date: map["date"],
+    startDate: map["startDate"],
+    endDate: map["endDate"],
     startTime: map["startTime"],
     endTime: map["endTime"],
     color: map["color"],

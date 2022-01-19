@@ -379,14 +379,16 @@ class _BodyState extends State<Body> {
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
                         onTap: () async {
-                          bool temp =
-                              await UserService().checkContains(user.uid);
-                          if (temp == true) {
+                          bool temp = await _checkDaily();
+                              print(temp);
+                          if (temp == false) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return KuisonerScreen();
+                                  return DailyInput(
+                                    user: userstore!,
+                                  );
                                 },
                               ),
                             ).then((value) {

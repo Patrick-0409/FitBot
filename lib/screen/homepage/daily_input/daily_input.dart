@@ -21,7 +21,7 @@ class DailyInput extends StatefulWidget {
 }
 
 class _DailyInputState extends State<DailyInput> {
-  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  String _startTime = DateFormat("hh:mm a").format(DateFormat.jm().parse("11:00 PM")).toString();
   String _endTime = "9:30 PM ";
 
 
@@ -201,17 +201,19 @@ class _DailyInputState extends State<DailyInput> {
 
   _getTimeFromUser({required bool isStartTime}) async {
     var pickedTime = await _showTimePicker(this.context);
-    String _formatedTime = pickedTime.format(context);
     if (pickedTime == null) {
       print("Time Canceled");
-    } else if (isStartTime == true) {
-      setState(() {
-        _startTime = _formatedTime;
-      });
-    } else if (isStartTime == false) {
-      setState(() {
-        _endTime = _formatedTime;
-      });
+    } else {
+      String _formatedTime = pickedTime.format(context);
+      if (isStartTime == true) {
+        setState(() {
+          _startTime = _formatedTime;
+        });
+      } else if (isStartTime == false) {
+        setState(() {
+          _endTime = _formatedTime;
+        });
+      }
     }
   }
 
