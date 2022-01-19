@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fiton/screen/running/components/entry_cart.dart';
 import 'package:fiton/screen/running/maps_screen.dart';
-import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/models/entry.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';

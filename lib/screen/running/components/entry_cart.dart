@@ -1,4 +1,4 @@
-import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/models/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

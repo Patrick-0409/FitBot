@@ -1,6 +1,6 @@
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/daily.dart';
-import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/models/entry.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';
