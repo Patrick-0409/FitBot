@@ -98,7 +98,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
           var format = DateFormat("HH:mm");
           var wake = format.parse(daily.wake);
           var sleep = format.parse(daily.sleep);
-          int diff = sleep.difference(wake).inHours;
+          int diff = wake.difference(sleep).inHours;
           if (diff.isNegative) return diff + 24;
           return diff;
         },

@@ -215,7 +215,7 @@ class DailyService {
     var format = DateFormat("HH:mm");
     var wake = format.parse(_wake);
     var sleep = format.parse(_sleep);
-    int diff = sleep.difference(wake).inHours;
+    int diff = wake.difference(sleep).inHours;
     if(diff.isNegative)
       return diff+24;
     return diff; 
