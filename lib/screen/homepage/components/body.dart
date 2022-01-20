@@ -292,26 +292,29 @@ class _BodyState extends State<Body> {
                           else
                             showDialog(
                               context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text('Warning'),
-                                content: Text(
-                                    'You have submitted daily stats today!'),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        Navigator.pushReplacement(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1,
-                                                    animation2) =>
-                                                HomeScreen(),
-                                            transitionDuration: Duration.zero,
-                                          ),
-                                        );
-                                      },
-                                      child: Text('Ok'))
-                                ],
+                              builder: (context) => WillPopScope(
+                                onWillPop: () async => false,
+                                child: AlertDialog(
+                                  title: Text('Warning'),
+                                  content: Text(
+                                      'You have submitted daily stats today!'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.pushReplacement(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1,
+                                                      animation2) =>
+                                                  HomeScreen(),
+                                              transitionDuration: Duration.zero,
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Ok'))
+                                  ],
+                                ),
                               ),
                             );
                         },

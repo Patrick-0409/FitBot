@@ -17,7 +17,6 @@ class InputEatMenu extends StatefulWidget {
 }
 
 class _InputEatMenuState extends State<InputEatMenu> {
-
   final _formKey = GlobalKey<FormState>();
 
   final _breakfastController = TextEditingController();
@@ -216,16 +215,19 @@ class _InputEatMenuState extends State<InputEatMenu> {
     }
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Submit succeeded'),
-        content: Text('Thank you for completing your data!'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Ok'))
-        ],
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Text('Submit succeeded'),
+          content: Text('Thank you for completing your data!'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'))
+          ],
+        ),
       ),
     );
 

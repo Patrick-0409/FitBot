@@ -177,16 +177,19 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
     }
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Submit succeeded'),
-        content: Text('Thank you for completing your data!'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Ok'))
-        ],
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Text('Submit succeeded'),
+          content: Text('Thank you for completing your data!'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'))
+          ],
+        ),
       ),
     );
 

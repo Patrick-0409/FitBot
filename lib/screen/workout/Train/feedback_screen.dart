@@ -16,21 +16,24 @@ class FeedbackScreen extends StatelessWidget {
     void _tq() async {
       await showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          title: Text('Thank you!'),
-          content: Text('We will adjust the workout to your ability.'),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                    ModalRoute.withName('/'),
-                  );
-                },
-                child: Text('Ok'))
-          ],
+        builder: (context) => WillPopScope(
+          onWillPop: () async => false,
+          child: AlertDialog(
+            title: Text('Thank you!'),
+            content: Text('We will adjust the workout to your ability.'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      ModalRoute.withName('/'),
+                    );
+                  },
+                  child: Text('Ok'))
+            ],
+          ),
         ),
       );
     }

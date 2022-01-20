@@ -171,16 +171,19 @@ class _DailyInputState extends State<DailyInput> {
     }
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Submit succeeded'),
-        content: Text('Thank you for input your daily stats!'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Ok'))
-        ],
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Text('Submit succeeded'),
+          content: Text('Thank you for input your daily stats!'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'))
+          ],
+        ),
       ),
     );
     Navigator.pop(context, true);
@@ -200,7 +203,7 @@ class _DailyInputState extends State<DailyInput> {
   }
 
   _getTimeFromUser(String activity) async {
-    TimeOfDay pickedTime = await _showTimePicker(this.context,activity);
+    TimeOfDay pickedTime = await _showTimePicker(this.context, activity);
     if (pickedTime == null) {
       print("Time Canceled");
     } else {

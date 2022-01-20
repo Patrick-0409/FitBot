@@ -185,14 +185,14 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   _selectIntensity = newValue!;
-                                  if(newValue=="Sedentary")
-                                    selectedInt=1;
-                                  else if(newValue=="1-3 Times a week")
-                                    selectedInt=2;
-                                  else if(newValue=="4-5 Times a week")
-                                    selectedInt=3;
-                                  else 
-                                    selectedInt=4;
+                                  if (newValue == "Sedentary")
+                                    selectedInt = 1;
+                                  else if (newValue == "1-3 Times a week")
+                                    selectedInt = 2;
+                                  else if (newValue == "4-5 Times a week")
+                                    selectedInt = 3;
+                                  else
+                                    selectedInt = 4;
                                 });
                               },
                               items: intensityList
@@ -221,14 +221,14 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                               onChanged: (String? newValue) {
                                 setState(() {
                                   _selectTarget = newValue!;
-                                  if(newValue=="Maintain")
-                                    selectedTar=1;
-                                  else if(newValue=="Mild Weight Loss")
-                                    selectedTar=2;
-                                  else if(newValue=="Normal Weight Loss")
-                                    selectedTar=3;
-                                  else 
-                                    selectedTar=4;
+                                  if (newValue == "Maintain")
+                                    selectedTar = 1;
+                                  else if (newValue == "Mild Weight Loss")
+                                    selectedTar = 2;
+                                  else if (newValue == "Normal Weight Loss")
+                                    selectedTar = 3;
+                                  else
+                                    selectedTar = 4;
                                 });
                               },
                               items: targetList.map<DropdownMenuItem<String>>(
@@ -269,19 +269,23 @@ class _KuisonerScreenState extends State<KuisonerScreen> {
                         provider.want = selectedTar;
                         await provider.save(user.uid);
                         await showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  title: Text('Submit succeeded'),
-                                  content: Text(
-                                      'Thank you for completing your data!'),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('Ok'))
-                                  ],
-                                ));
+                          context: context,
+                          builder: (context) => WillPopScope(
+                            onWillPop: () async => false,
+                            child: AlertDialog(
+                              title: Text('Submit succeeded'),
+                              content:
+                                  Text('Thank you for completing your data!'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Ok'))
+                              ],
+                            ),
+                          ),
+                        );
                         Navigator.pop(context, true);
                       }
                     },
