@@ -51,7 +51,6 @@ class _BodyState extends State<Body> {
     int lunch = await DailyService().countFood("lunch");
     int dinner = await DailyService().countFood("dinner");
     int burn = await DailyService().getBurnData();
-    int run = await RunsService().getCalorie();
     double tempActive = active == 1
         ? 1.2
         : active == 2
@@ -77,8 +76,7 @@ class _BodyState extends State<Body> {
         breakfast -
         lunch -
         dinner +
-        burn +
-        run;
+        burn;
   }
 
   @override

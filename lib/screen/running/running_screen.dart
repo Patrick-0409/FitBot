@@ -4,6 +4,7 @@ import 'package:fiton/screen/running/components/entry_cart.dart';
 import 'package:fiton/screen/running/maps_screen.dart';
 import 'package:fiton/models/entry.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
+import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/runs_service.dart';
 import 'package:flutter/material.dart';
 
@@ -34,6 +35,14 @@ class _RunningScreenState extends State<RunningScreen> {
   }
 
   void _addEntries(Entry en) async {
+    String temp = await DailyService().getSingleDaily();
+    int tempBurn = await DailyService().getBurnData();
+    int newBurn = tempBurn + ((en.distance/1000)*60).toInt();
+    FirebaseFirestore.instance.collection('daily').doc(temp).update(
+      {
+        'burn': newBurn,
+      },
+    );
     final ref = FirebaseFirestore.instance.collection('runs').doc();
     await ref.set(en.toMap());
     _fetchEntries();

@@ -47,7 +47,8 @@ class Daily {
       sleep: map['sleep'],
       wake: map['wake'],
       weight: map['weight'],
-      user: map['user']
+      user: map['user'],
+      burn: map['burn']
     );
   }
 }

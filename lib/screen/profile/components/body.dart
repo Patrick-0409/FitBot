@@ -300,7 +300,7 @@ class _BodyState extends State<Body> {
                                   ),
                                   Spacer(),
                                   FutureBuilder<double>(
-                                    future: RunsService().getCalorieAvg(),
+                                    future: DailyService().getBurnAvg(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<double> snapshot) {
                                       if (snapshot.hasData) {

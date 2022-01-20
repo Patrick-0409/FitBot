@@ -60,15 +60,16 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
     ];
   }
 
-  List<charts.Series<Entry, String>> _createCaloryData() {
+  List<charts.Series<Daily, String>> _createBurnData() {
     return [
-      charts.Series<Entry, String>(
-        data: _entry,
-        id: 'Calory',
-        colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault.darker,
-        domainFn: (Entry entry, _) => DateFormat('EE').format(entry.date),
-        measureFn: (Entry entry, _) => (entry.distance / 1000) * 60,
-        labelAccessorFn: (Entry entry, _) => '${(entry.distance / 1000 * 60)}',
+      charts.Series<Daily, String>(
+        data: _daily,
+        id: 'Burn',
+        colorFn: (_, __) =>
+            charts.MaterialPalette.deepOrange.shadeDefault.darker,
+        domainFn: (Daily daily, _) => DateFormat('EE').format(daily.date),
+        measureFn: (Daily daily, _) => daily.burn,
+        labelAccessorFn: (Daily daily, _) => '${daily.burn?.toInt()}',
       )
     ];
   }
@@ -133,7 +134,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                         ? _createWeightData()
                         : widget.choose == 3
                             ? _createRunData()
-                            : _createCaloryData(),
+                            : _createBurnData(),
                 animate: true,
                 barRendererDecorator: new charts.BarLabelDecorator(),
                 domainAxis: new charts.OrdinalAxisSpec(),
