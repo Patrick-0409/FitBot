@@ -428,29 +428,12 @@ class _BodyState extends State<Body> {
                                   ),
                                 );
                               else
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text('Warning'),
-                                    content: Text(
-                                        'You have submitted ${time} food!'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          Navigator.pushReplacement(
-                                            context,
-                                            PageRouteBuilder(
-                                              pageBuilder: (context, animation1,
-                                                      animation2) =>
-                                                  HomeScreen(),
-                                              transitionDuration: Duration.zero,
-                                            ),
-                                          );
-                                        },
-                                        child: Text('Ok'),
-                                      )
-                                    ],
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return EatHistory();
+                                    },
                                   ),
                                 );
                             }
@@ -611,7 +594,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return EatHistory();
+                            return SeeAllScreen();
                           },
                         ),
                       );

@@ -21,9 +21,8 @@ class DailyInput extends StatefulWidget {
 }
 
 class _DailyInputState extends State<DailyInput> {
-  String _startTime = DateFormat("hh:mm a").format(DateFormat.jm().parse("11:00 PM")).toString();
-  String _endTime = "9:30 PM ";
-
+  DateTime _startTime = DateFormat.Hm().parse("22:00");
+  DateTime _endTime = DateFormat.Hm().parse("07:00");
 
   final _formKey = GlobalKey<FormState>();
 
@@ -77,10 +76,10 @@ class _DailyInputState extends State<DailyInput> {
                       Expanded(
                         child: InputField(
                           title: "Sleep Time",
-                          hint: _startTime,
+                          hint: DateFormat.Hm().format(_startTime).toString(),
                           widget: IconButton(
                             onPressed: () {
-                              _getTimeFromUser(isStartTime: true);
+                              _getTimeFromUser("sleep");
                             },
                             icon: Icon(Icons.access_time_rounded),
                           ),
@@ -90,10 +89,10 @@ class _DailyInputState extends State<DailyInput> {
                       Expanded(
                         child: InputField(
                           title: "Wake Up Time",
-                          hint: _endTime,
+                          hint: DateFormat.Hm().format(_endTime).toString(),
                           widget: IconButton(
                             onPressed: () {
-                              _getTimeFromUser(isStartTime: false);
+                              _getTimeFromUser("wake");
                             },
                             icon: Icon(Icons.access_time_rounded),
                           ),
@@ -115,10 +114,8 @@ class _DailyInputState extends State<DailyInput> {
                           _formKey.currentState!.validate()) {
                         Daily dl = Daily(
                           date: DateTime.now(),
-                          sleep: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_startTime)),
-                          wake: DateFormat.Hm()
-                              .format(DateFormat.jm().parse(_endTime)),
+                          sleep: DateFormat.Hm().format(_startTime),
+                          wake: DateFormat.Hm().format(_endTime),
                           weight: int.parse(_weightController.text),
                           user: user!.uid,
                         );
@@ -160,8 +157,11 @@ class _DailyInputState extends State<DailyInput> {
     try {
       final ref = FirebaseFirestore.instance.collection('daily').doc();
       await ref.set(dl.toMap(ref.id));
-      
-      await FirebaseFirestore.instance.collection('users').doc(widget.user.uid).update(
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.user.uid)
+          .update(
         {
           'weight': dl.weight.toString(),
         },
@@ -199,29 +199,38 @@ class _DailyInputState extends State<DailyInput> {
     return null;
   }
 
-  _getTimeFromUser({required bool isStartTime}) async {
-    var pickedTime = await _showTimePicker(this.context);
+  _getTimeFromUser(String activity) async {
+    TimeOfDay pickedTime = await _showTimePicker(this.context,activity);
     if (pickedTime == null) {
       print("Time Canceled");
     } else {
-      String _formatedTime = pickedTime.format(context);
-      if (isStartTime == true) {
+      String _formatedTime =
+          pickedTime.hour.toString() + ":" + pickedTime.minute.toString();
+      print(_formatedTime);
+      if (activity == "sleep") {
         setState(() {
-          _startTime = _formatedTime;
+          _startTime = DateFormat.Hm().parse(_formatedTime);
         });
-      } else if (isStartTime == false) {
+      } else if (activity == "wake") {
         setState(() {
-          _endTime = _formatedTime;
+          _endTime = DateFormat.Hm().parse(_formatedTime);
         });
       }
     }
   }
 
-  _showTimePicker(BuildContext context) {
+  _showTimePicker(BuildContext context, String activity) {
+    if (activity == "sleep")
+      return showTimePicker(
+        context: context,
+        initialEntryMode: TimePickerEntryMode.dial,
+        initialTime: TimeOfDay.fromDateTime(_startTime),
+      );
+
     return showTimePicker(
       context: context,
       initialEntryMode: TimePickerEntryMode.dial,
-      initialTime: TimeOfDay.now(),
+      initialTime: TimeOfDay.fromDateTime(_endTime),
     );
   }
 }

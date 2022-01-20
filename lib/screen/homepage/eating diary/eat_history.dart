@@ -80,99 +80,158 @@ class _EatHistoryState extends State<EatHistory> {
                           color: Colors.white,
                         ),
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Breakfast",
-                          hint: "Input Your Breakfast",
-                          controller: _breakfastController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredFood,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController1,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredCalorie,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Lunch",
-                          hint: "Input Your Lunch",
-                          controller: _lunchController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredFood,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController2,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredCalorie,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InputField(
-                          title: "Dinner",
-                          hint: "Input Your Dinner",
-                          controller: _dinnerController,
-                          keyboardType: TextInputType.text,
-                          validator: _requiredFood,
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: InputField(
-                          title: "Calories",
-                          hint: "Input Your  Calories",
-                          controller: _caloriesController3,
-                          keyboardType: TextInputType.number,
-                          validator: _requiredCalorie,
-                        ),
-                      ),
-                    ],
-                  ),
+                  if (temp >= 0)
+                    FutureBuilder<List>(
+                      future: DailyService().getFoodDaily('breakfast'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.length > 0) {
+                            if (_breakfastController.text == "" &&
+                                _caloriesController1.text == "") {
+                              _breakfastController.text = snapshot.data![0];
+                              _caloriesController1.text = snapshot.data![1];
+                            }
+                          }
+                          return Row(
+                            children: [
+                              Expanded(
+                                child: InputField(
+                                  title: "Breakfast",
+                                  hint: "Input Your Breakfast",
+                                  controller: _breakfastController,
+                                  keyboardType: TextInputType.text,
+                                  validator: _requiredFood,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: InputField(
+                                  title: "Calories",
+                                  hint: "Input Your  Calories",
+                                  controller: _caloriesController1,
+                                  keyboardType: TextInputType.number,
+                                  validator: _requiredCalorie,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return CircularProgressIndicator();
+                      },
+                    ),
+                  if (temp >= 12)
+                    FutureBuilder<List>(
+                      future: DailyService().getFoodDaily('lunch'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.length > 0) {
+                            if (_lunchController.text == "" &&
+                                _caloriesController2.text == "") {
+                              _lunchController.text = snapshot.data![0];
+                              _caloriesController2.text = snapshot.data![1];
+                            }
+                          }
+                          return Row(
+                            children: [
+                              Expanded(
+                                child: InputField(
+                                  title: "Lunch",
+                                  hint: "Input Your Lunch",
+                                  controller: _lunchController,
+                                  keyboardType: TextInputType.text,
+                                  validator: _requiredFood,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: InputField(
+                                  title: "Calories",
+                                  hint: "Input Your  Calories",
+                                  controller: _caloriesController2,
+                                  keyboardType: TextInputType.number,
+                                  validator: _requiredCalorie,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return SizedBox(
+                          child: CircularProgressIndicator(),
+                          height: 20.0,
+                          width: 20.0,
+                        );
+                      },
+                    ),
+                  if (temp >= 18)
+                    FutureBuilder<List>(
+                      future: DailyService().getFoodDaily('dinner'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          if (snapshot.data!.length > 0) {
+                            if (_dinnerController.text == "" &&
+                                _caloriesController3.text == "") {
+                              _dinnerController.text = snapshot.data![0];
+                              _caloriesController3.text = snapshot.data![1];
+                            }
+                          }
+                          return Row(
+                            children: [
+                              Expanded(
+                                child: InputField(
+                                  title: "Dinner",
+                                  hint: "Input Your Dinner",
+                                  controller: _dinnerController,
+                                  keyboardType: TextInputType.text,
+                                  validator: _requiredFood,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: InputField(
+                                  title: "Calories",
+                                  hint: "Input Your  Calories",
+                                  controller: _caloriesController3,
+                                  keyboardType: TextInputType.number,
+                                  validator: _requiredCalorie,
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                        return SizedBox(
+                          child: CircularProgressIndicator(),
+                          height: 20.0,
+                          width: 20.0,
+                        );
+                      },
+                    ),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () async {
                       if (_formKey.currentState != null &&
                           _formKey.currentState!.validate()) {
-                        if (temp >= 0 && temp < 12) {
+                        if (temp >= 0) {
                           List<String> tempBreak = [
                             _breakfastController.text,
                             _caloriesController1.text
                           ];
                           await _save(tempBreak, 'breakfast');
-                        } else if (temp >= 12 && temp < 18) {
+                        }
+                        if (temp >= 12) {
                           List<String> tempLunch = [
                             _lunchController.text,
                             _caloriesController2.text
                           ];
                           await _save(tempLunch, 'lunch');
-                        } else if (temp >= 18) {
+                        }
+                        if (temp >= 18) {
                           List<String> tempDinner = [
                             _dinnerController.text,
                             _caloriesController3.text
                           ];
                           await _save(tempDinner, 'dinner');
                         }
+                        _exit();
                       }
                     },
                     child: Container(
@@ -185,7 +244,7 @@ class _EatHistoryState extends State<EatHistory> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
-                          " Submit",
+                          " Save",
                           textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.bodyText1!.copyWith(
@@ -217,6 +276,9 @@ class _EatHistoryState extends State<EatHistory> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  _exit() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
