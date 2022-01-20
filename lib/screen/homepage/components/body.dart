@@ -8,6 +8,7 @@ import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
+import 'package:fiton/screen/homepage/eating%20diary/eat_history.dart';
 import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
 import 'package:fiton/screen/homepage/eating%20diary/input_eat_menu.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
@@ -380,7 +381,7 @@ class _BodyState extends State<Body> {
                       child: GestureDetector(
                         onTap: () async {
                           bool temp = await _checkDaily();
-                              print(temp);
+                          print(temp);
                           if (temp == false) {
                             Navigator.push(
                               context,
@@ -610,7 +611,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return SeeAllScreen();
+                            return EatHistory();
                           },
                         ),
                       );

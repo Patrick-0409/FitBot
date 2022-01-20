@@ -186,12 +186,12 @@ class TrainDetailScreen extends StatelessWidget {
               margin: EdgeInsets.only(bottom: 10),
               width: size.width * 0.92,
               decoration: BoxDecoration(
-                color: kBackgroundColor.withOpacity(0.7),
+                color: Color(0XFF3B7C81),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Text(
                 'Start workout',
-                style: TextStyle(fontSize: 18.0, color: Colors.black),
+                style: TextStyle(fontSize: 18.0, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
             ),
