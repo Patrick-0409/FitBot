@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'avatar_name.dart';
-import 'dob_selector.dart';
-import 'gender_selector.dart';
 
 class Body extends StatefulWidget {
   @override

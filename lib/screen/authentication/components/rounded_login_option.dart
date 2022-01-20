@@ -43,11 +43,13 @@ class RoundedLoginOption extends StatelessWidget {
                         width: 20,
                       ),
                       SizedBox(width: 7),
-                      Text(text,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(color: tcolor)),
+                      Text(
+                        text,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              color: tcolor,
+                              fontSize: 13,
+                            ),
+                      ),
                     ],
                   )
                   // text

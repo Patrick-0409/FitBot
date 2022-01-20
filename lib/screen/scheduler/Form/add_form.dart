@@ -26,10 +26,8 @@ class _AddToDoState extends State<AddForm> {
 
   DateTime _startDate = DateTime.now();
   DateTime _endDate = DateTime.now();
-  String _startTime = DateFormat.jm().format((DateTime.now()).add(Duration(minutes: 5))).toString();
-  String _endTime = DateFormat.jm()
-      .format((DateTime.now()).add(Duration(hours: 1,minutes: 5)))
-      .toString();
+  DateTime _startTime = (DateTime.now()).add(Duration(minutes: 5));
+  DateTime _endTime = (DateTime.now()).add(Duration(hours: 1,minutes: 5));
   int _selectedRemind = 0;
   List<int> remindList = [0, 5, 10, 15, 20];
   int _selectedColor = 0;
@@ -142,10 +140,10 @@ class _AddToDoState extends State<AddForm> {
                         Expanded(
                           child: InputField(
                             title: "Start Time",
-                            hint: _startTime,
+                            hint: DateFormat.Hm().format(_startTime).toString(),
                             widget: IconButton(
                               onPressed: () {
-                                _getTimeFromUser(isStartTime: true);
+                                _getTimeFromUser('start');
                               },
                               icon: Icon(Icons.access_time_rounded),
                             ),
@@ -155,10 +153,10 @@ class _AddToDoState extends State<AddForm> {
                         Expanded(
                           child: InputField(
                             title: "End Time",
-                            hint: _endTime,
+                            hint: DateFormat.Hm().format(_endTime).toString(),
                             widget: IconButton(
                               onPressed: () {
-                                _getTimeFromUser(isStartTime: false);
+                                _getTimeFromUser('end');
                               },
                               icon: Icon(Icons.access_time_rounded),
                             ),
@@ -208,9 +206,9 @@ class _AddToDoState extends State<AddForm> {
                                 startDate: DateFormat.yMd().format(_startDate),
                                 endDate: DateFormat.yMd().format(_endDate),
                                 startTime: DateFormat.Hm()
-                                    .format(DateFormat.jm().parse(_startTime)),
+                                    .format(_startTime),
                                 endTime: DateFormat.Hm()
-                                    .format(DateFormat.jm().parse(_endTime)),
+                                    .format(_endTime),
                                 color: _selectedColor,
                                 remind: _selectedRemind,
                                 isCompleted: 0,
@@ -264,29 +262,39 @@ class _AddToDoState extends State<AddForm> {
     return null;
   }
 
-  _getTimeFromUser({required bool isStartTime}) async {
-    var pickedTime = await _showTimePicker(this.context);
+  _getTimeFromUser(String activity) async {
+    TimeOfDay pickedTime = await _showTimePicker(this.context,activity);
     if (pickedTime == null) {
       print("Time Canceled");
     } else {
-      String _formatedTime = pickedTime.format(context);
-      if (isStartTime == true) {
+      String _formatedTime =
+          pickedTime.hour.toString() + ":" + pickedTime.minute.toString();
+      print(_formatedTime);
+      if (activity == "start") {
         setState(() {
-          _startTime = _formatedTime;
+          _startTime = DateFormat.Hm().parse(_formatedTime);
         });
-      } else if (isStartTime == false) {
+      } else if (activity == "end") {
         setState(() {
-          _endTime = _formatedTime;
+          _endTime = DateFormat.Hm().parse(_formatedTime);
         });
       }
     }
   }
 
-  _showTimePicker(BuildContext context) {
-    return showTimePicker(
+  _showTimePicker(BuildContext context,String activity) {
+    if (activity == "start")
+      return showTimePicker(
         context: context,
         initialEntryMode: TimePickerEntryMode.dial,
-        initialTime: TimeOfDay.now());
+        initialTime: TimeOfDay.fromDateTime(_startTime),
+      );
+
+    return showTimePicker(
+      context: context,
+      initialEntryMode: TimePickerEntryMode.dial,
+      initialTime: TimeOfDay.fromDateTime(_endTime),
+    );
   }
 
   _colorSelection() {
