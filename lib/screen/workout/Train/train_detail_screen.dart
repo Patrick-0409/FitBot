@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/movement.dart';
-import 'package:fiton/models/workout_data.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/Train/components/round_info_container.dart';
 import 'package:fiton/screen/workout/Train/train_timer.dart';

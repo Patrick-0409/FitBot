@@ -1,15 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/screen/authentication/components/rounded_button.dart';
-import 'package:fiton/screen/authentication/components/text_field_container.dart';
 import 'package:fiton/screen/authentication/signup/components/dob_selector.dart';
 import 'package:fiton/screen/authentication/signup/components/gender_selector.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/services/email_auth.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
-import 'package:fiton/screen/workout/Train/train_screen.dart';
-import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

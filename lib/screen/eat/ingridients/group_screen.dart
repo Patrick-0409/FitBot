@@ -1,10 +1,7 @@
-import 'package:fiton/models/dummy.dart';
 import 'package:fiton/models/recipe.dart';
-import 'package:fiton/screen/eat/components/dishes_card.dart';
 import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/ingridients/components/group_card.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/services/recipe_service.dart';
 import 'package:flutter/material.dart';

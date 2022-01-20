@@ -1,5 +1,5 @@
 import 'package:fiton/screen/authentication/components/text_field_container.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/services/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
