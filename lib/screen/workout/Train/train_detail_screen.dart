@@ -178,6 +178,7 @@ class TrainDetailScreen extends StatelessWidget {
                   second: second,
                   movement: movement,
                   burn: burn,
+                  round: round,
                 ),
               ),
             ),
