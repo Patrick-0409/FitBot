@@ -176,7 +176,8 @@ class _TrainTimerState extends State<TrainTimer> {
                       widget.movement[order].name,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18.0,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
