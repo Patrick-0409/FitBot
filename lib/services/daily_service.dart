@@ -36,16 +36,22 @@ class DailyService {
           .collection('daily')
           .where('user', isEqualTo: user?.uid)
           .where('date',
-              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
           .where('date',
-              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
           .get()
           .then(
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
             temp = querySnapshot.docs[0]['burn'];
             // print(temp);
-          }else{
+          } else {
             temp = 0;
           }
         },
@@ -57,6 +63,41 @@ class DailyService {
     return temp;
   }
 
+  Future<List> getFoodDaily(String time) async {
+    List temp = [];
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('user', isEqualTo: user?.uid)
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
+          .where('date',
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
+          .get()
+          .then(
+        (querySnapshot) {
+          if (querySnapshot.docs.length > 0) {
+            // print(querySnapshot.docs[0][time]);
+            // print("ada datanya");
+            temp = querySnapshot.docs[0][time];
+          } else {
+            temp = [];
+          }
+        },
+      );
+    } catch (e) {
+      print(e);
+      temp = [];
+    }
+    return temp;
+  }
+
   Future<String> getSingleDaily() async {
     String temp = "";
     try {
@@ -64,9 +105,15 @@ class DailyService {
           .collection('daily')
           .where('user', isEqualTo: user?.uid)
           .where('date',
-              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
           .where('date',
-              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
           .get()
           .then(
         (querySnapshot) {
@@ -74,7 +121,7 @@ class DailyService {
             print(querySnapshot.docs[0]['id']);
             print("ada datanya");
             temp = querySnapshot.docs[0]['id'];
-          }else{
+          } else {
             temp = "0";
           }
         },
@@ -93,21 +140,26 @@ class DailyService {
           .collection('daily')
           .where('user', isEqualTo: user?.uid)
           .where('date',
-              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
           .where('date',
-              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
           .get()
           .then(
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
-            if(querySnapshot.docs[0][time].length>0){
+            if (querySnapshot.docs[0][time].length > 0) {
               // print(querySnapshot.docs[0][time][1]);
               temp = int.parse(querySnapshot.docs[0][time][1]);
-            }
-            else{
+            } else {
               temp = 0;
             }
-          }else{
+          } else {
             temp = 0;
           }
         },
@@ -126,21 +178,26 @@ class DailyService {
           .collection('daily')
           .where('user', isEqualTo: user?.uid)
           .where('date',
-              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
           .where('date',
-              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
           .get()
           .then(
         (querySnapshot) {
           if (querySnapshot.docs.length > 0) {
-            if(querySnapshot.docs[0][time].length>0){
+            if (querySnapshot.docs[0][time].length > 0) {
               // print(querySnapshot.docs[0][time]);
               temp = true;
-            }
-            else{
+            } else {
               temp = false;
             }
-          }else{
+          } else {
             temp = false;
           }
         },
@@ -159,9 +216,15 @@ class DailyService {
           .collection('daily')
           .where('user', isEqualTo: user?.uid)
           .where('date',
-              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now())).millisecondsSinceEpoch))
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(DateTime.now()))
+                      .millisecondsSinceEpoch))
           .where('date',
-              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd().parse(DateFormat.yMd().format(DateTime.now().add(const Duration(days: 1)))).millisecondsSinceEpoch))
+              isLessThan: Timestamp.fromMillisecondsSinceEpoch(DateFormat.yMd()
+                  .parse(DateFormat.yMd()
+                      .format(DateTime.now().add(const Duration(days: 1))))
+                  .millisecondsSinceEpoch))
           .get()
           .then(
         (querySnapshot) {
@@ -169,7 +232,7 @@ class DailyService {
             // print(querySnapshot.docs[0]['date']);
             // print("ada datanya");
             temp = true;
-          }else{
+          } else {
             temp = false;
           }
         },
@@ -181,14 +244,13 @@ class DailyService {
     return temp;
   }
 
-  int _countSleep(String _sleep, String _wake){
+  int _countSleep(String _sleep, String _wake) {
     var format = DateFormat("HH:mm");
     var wake = format.parse(_wake);
     var sleep = format.parse(_sleep);
-    int diff = sleep.difference(wake).inHours;
-    if(diff.isNegative)
-      return diff+24;
-    return diff; 
+    int diff = wake.difference(sleep).inHours;
+    if (diff.isNegative) return diff + 24;
+    return diff;
   }
 
   Future<double> getSleepAvg() async {
@@ -206,16 +268,48 @@ class DailyService {
           .orderBy('date')
           .get()
           .then((querySnapshot) {
-            if (querySnapshot.docs.length > 0) {
-              for (var i = 0; i < querySnapshot.docs.length; i++) {
-                temp += _countSleep(querySnapshot.docs[i]['sleep'],querySnapshot.docs[i]['wake']);
-              }
-              temp/=querySnapshot.docs.length;
-              return temp;
-            } else {
-              return temp;
-            }
-          });
+        if (querySnapshot.docs.length > 0) {
+          for (var i = 0; i < querySnapshot.docs.length; i++) {
+            temp += _countSleep(
+                querySnapshot.docs[i]['sleep'], querySnapshot.docs[i]['wake']);
+          }
+          temp /= querySnapshot.docs.length;
+          return temp;
+        } else {
+          return temp;
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+    return temp;
+  }
+
+  Future<double> getBurnAvg() async {
+    double temp = 0.0;
+    try {
+      await FirebaseFirestore.instance
+          .collection('daily')
+          .where('date',
+              isGreaterThanOrEqualTo: Timestamp.fromMillisecondsSinceEpoch(
+                  DateFormat.yMd()
+                      .parse(DateFormat.yMd().format(
+                          DateTime.now().subtract(const Duration(days: 1))))
+                      .millisecondsSinceEpoch))
+          .where('user', isEqualTo: user?.uid)
+          .orderBy('date')
+          .get()
+          .then((querySnapshot) {
+        if (querySnapshot.docs.length > 0) {
+          for (var i = 0; i < querySnapshot.docs.length; i++) {
+            temp = querySnapshot.docs[i]['burn'].toDouble();
+          }
+          temp /= querySnapshot.docs.length;
+          return temp;
+        } else {
+          return temp;
+        }
+      });
     } catch (e) {
       print(e);
     }
@@ -237,13 +331,17 @@ class DailyService {
           .orderBy('date')
           .get()
           .then((querySnapshot) {
-            if (querySnapshot.docs.length > 0) {
-              temp = querySnapshot.docs[1]['weight'].toDouble()-querySnapshot.docs[0]['weight'].toDouble();
-              return temp;
-            } else {
-              return temp;
-            }
-          });
+        if (querySnapshot.docs.length > 0) {
+          if (querySnapshot.docs.length > 1)
+            temp = querySnapshot.docs[1]['weight'].toDouble() -
+                querySnapshot.docs[0]['weight'].toDouble();
+          else
+            temp = querySnapshot.docs[0]['weight'].toDouble();
+          return temp;
+        } else {
+          return temp;
+        }
+      });
     } catch (e) {
       print(e);
     }
@@ -265,15 +363,15 @@ class DailyService {
           .orderBy('date')
           .get()
           .then((querySnapshot) {
-            if (querySnapshot.docs.length > 0) {
-              for (var i = 0; i < querySnapshot.docs.length; i++) {
-                itemsList.add(querySnapshot.docs[i].data());
-              }
-              return itemsList;
-            } else {
-              return itemsList;
-            }
-          });
+        if (querySnapshot.docs.length > 0) {
+          for (var i = 0; i < querySnapshot.docs.length; i++) {
+            itemsList.add(querySnapshot.docs[i].data());
+          }
+          return itemsList;
+        } else {
+          return itemsList;
+        }
+      });
     } catch (e) {
       print(e);
     }

@@ -105,11 +105,11 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
                   ),
                 ),
                 onDateChange: (date) {
-                  if(count==0){
+                  if (count == 0) {
                     _selectedDate = date;
                     _fetchSchedules(DateFormat.yMd().format(date));
                   }
-                    count++;
+                  count++;
                 },
               ),
             ),
@@ -166,8 +166,11 @@ class _SchedulerScreenState extends State<SchedulerScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddForm()))
-            .then((value) {
+          context,
+          MaterialPageRoute(
+            builder: (context) => AddForm(),
+          ),
+        ).then((value) {
           if (value != null) _addSchedules(value);
         }),
         tooltip: 'Increment',

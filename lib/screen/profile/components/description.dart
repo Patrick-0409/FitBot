@@ -307,7 +307,6 @@ class Description extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(),
       ],
     );
   }

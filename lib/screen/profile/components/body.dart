@@ -149,11 +149,11 @@ class _BodyState extends State<Body> {
                 ),
                 SizedBox(height: 10),
                 Description(
-                    size: size,
-                    weight: widget.user.weight!,
-                    height: widget.user.height!,
-                    age: getAge(widget.user.birthday!)
-                        .toString(),),
+                  size: size,
+                  weight: widget.user.weight!,
+                  height: widget.user.height!,
+                  age: getAge(widget.user.birthday!).toString(),
+                ),
                 SizedBox(height: 10),
                 Container(
                   width: size.width,
@@ -238,8 +238,13 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) +
-                                                " kg",
+                                            snapshot.data!.isNegative != true
+                                                ? "+" +
+                                                    snapshot.data!
+                                                        .toStringAsFixed(1)
+                                                : snapshot.data!
+                                                        .toStringAsFixed(1) +
+                                                    " kg",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -300,7 +305,7 @@ class _BodyState extends State<Body> {
                                   ),
                                   Spacer(),
                                   FutureBuilder<double>(
-                                    future: RunsService().getCalorieAvg(),
+                                    future: DailyService().getBurnAvg(),
                                     builder: (BuildContext context,
                                         AsyncSnapshot<double> snapshot) {
                                       if (snapshot.hasData) {

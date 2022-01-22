@@ -3,12 +3,12 @@ import 'package:fiton/constant.dart';
 import 'package:fiton/models/place.dart';
 import 'package:fiton/models/user.dart';
 import 'package:fiton/screen/article/article_screen.dart';
-import 'package:fiton/screen/eat/detail/eat_detail_screen.dart';
 import 'package:fiton/screen/eat/eat_screen.dart';
 import 'package:fiton/screen/homepage/components/nearby_card.dart';
 import 'package:fiton/screen/homepage/components/scheduler_home.dart';
 import 'package:fiton/screen/homepage/components/see_all_screen.dart';
 import 'package:fiton/screen/homepage/daily_input/daily_input.dart';
+import 'package:fiton/screen/homepage/eating%20diary/eat_history.dart';
 import 'package:fiton/screen/homepage/eating%20diary/eating_kuisoner.dart';
 import 'package:fiton/screen/homepage/eating%20diary/input_eat_menu.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
@@ -51,21 +51,21 @@ class _BodyState extends State<Body> {
     int lunch = await DailyService().countFood("lunch");
     int dinner = await DailyService().countFood("dinner");
     int burn = await DailyService().getBurnData();
-    int run = await RunsService().getCalorie();
     double tempActive = active == 1
-        ? 1
-        : active == 2
-            ? 0.9
-            : active == 3
-                ? 0.8
-                : 0.6;
-    double tempWant = want == 1
         ? 1.2
-        : want == 2
+        : active == 2
             ? 1.4
-            : want == 3
+            : active == 3
                 ? 1.5
                 : 1.55;
+
+    double tempWant = want == 1
+        ? 1
+        : want == 2
+            ? 0.9
+            : want == 3
+                ? 0.8
+                : 0.6;
     int tempGender = gender == "male" ? 5 : -161;
     int calorie = ((10 * int.parse(weight)) +
             (6.25 * int.parse(height)) -
@@ -76,8 +76,7 @@ class _BodyState extends State<Body> {
         breakfast -
         lunch -
         dinner +
-        burn +
-        run;
+        burn;
   }
 
   @override
@@ -174,7 +173,7 @@ class _BodyState extends State<Body> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(14),
                 ),
-                padding: EdgeInsets.only(left: 10, right: 5, top: 5),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -215,8 +214,10 @@ class _BodyState extends State<Body> {
                                                     .textTheme
                                                     .bodyText2!
                                                     .copyWith(
-                                                        color:
-                                                            Color(0XFF1A9F1F),
+                                                        color: snapshot.data! <
+                                                                0
+                                                            ? Colors.red
+                                                            : Color(0XFF1A9F1F),
                                                         fontSize: 22),
                                               );
                                             }
@@ -291,24 +292,29 @@ class _BodyState extends State<Body> {
                           else
                             showDialog(
                               context: context,
-                              builder: (context) => AlertDialog(
-                                title: Text('Warning'),
-                                content: Text(
-                                    'You have submitted daily stats today!'),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        Navigator.pushReplacement(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (context, animation1, animation2) => HomeScreen(),
-                                            transitionDuration: Duration.zero,
-                                          ),
-                                        );
-                                      },
-                                      child: Text('Ok'))
-                                ],
+                              builder: (context) => WillPopScope(
+                                onWillPop: () async => false,
+                                child: AlertDialog(
+                                  title: Text('Warning'),
+                                  content: Text(
+                                      'You have submitted daily stats today!'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.pushReplacement(
+                                            context,
+                                            PageRouteBuilder(
+                                              pageBuilder: (context, animation1,
+                                                      animation2) =>
+                                                  HomeScreen(),
+                                              transitionDuration: Duration.zero,
+                                            ),
+                                          );
+                                        },
+                                        child: Text('Ok'))
+                                  ],
+                                ),
                               ),
                             );
                         },
@@ -346,8 +352,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/checklist.png",
+                            SvgPicture.asset(
+                              "assets/icons/schedule.svg",
                               color: Colors.black,
                             ),
                             Text(
@@ -375,14 +381,16 @@ class _BodyState extends State<Body> {
                       padding: const EdgeInsets.only(bottom: 15),
                       child: GestureDetector(
                         onTap: () async {
-                          bool temp =
-                              await UserService().checkContains(user.uid);
-                          if (temp == true) {
+                          bool temp = await _checkDaily();
+                          print(temp);
+                          if (temp == false) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return KuisonerScreen();
+                                  return DailyInput(
+                                    user: userstore!,
+                                  );
                                 },
                               ),
                             ).then((value) {
@@ -421,27 +429,12 @@ class _BodyState extends State<Body> {
                                   ),
                                 );
                               else
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => AlertDialog(
-                                    title: Text('Warning'),
-                                    content: Text(
-                                        'You have submitted ${time} food!'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                          Navigator.pushReplacement(
-                                            context,
-                                            PageRouteBuilder(
-                                              pageBuilder: (context, animation1, animation2) => HomeScreen(),
-                                              transitionDuration: Duration.zero,
-                                            ),
-                                          );
-                                        },
-                                        child: Text('Ok'),
-                                      )
-                                    ],
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return EatHistory();
+                                    },
                                   ),
                                 );
                             }
@@ -481,8 +474,8 @@ class _BodyState extends State<Body> {
                                 },
                               ),
                             ),
-                            Image.asset(
-                              "assets/icons/schedule.png",
+                            SvgPicture.asset(
+                              "assets/icons/checklist.svg",
                               color: Colors.black,
                             ),
                             Text(

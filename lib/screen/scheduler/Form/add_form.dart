@@ -24,9 +24,10 @@ class _AddToDoState extends State<AddForm> {
   final TextEditingController _locationController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
 
-  DateTime _selectedDate = DateTime.now();
-  String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
-  String _endTime = "9:30 PM ";
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now();
+  DateTime _startTime = (DateTime.now()).add(Duration(minutes: 5));
+  DateTime _endTime = (DateTime.now()).add(Duration(hours: 1,minutes: 5));
   int _selectedRemind = 0;
   List<int> remindList = [0, 5, 10, 15, 20];
   int _selectedColor = 0;
@@ -85,19 +86,45 @@ class _AddToDoState extends State<AddForm> {
                       validator: _requiredText,
                     ),
                     InputField(
-                      title: "Date",
-                      hint: DateFormat.yMd().format(_selectedDate),
+                      title: "Start Date",
+                      hint: DateFormat.yMd().format(_startDate),
                       widget: IconButton(
                         onPressed: () async {
                           final datePick = await showDatePicker(
-                              context: context,
-                              initialDate: new DateTime.now(),
-                              firstDate: new DateTime(1900),
-                              lastDate: new DateTime(2100));
+                            context: context,
+                            initialDate: new DateTime.now(),
+                            firstDate: new DateTime(1900),
+                            lastDate: new DateTime(2100),
+                          );
                           if (datePick != null) {
                             setState(
                               () {
-                                _selectedDate = datePick;
+                                _startDate = datePick;
+                              },
+                            );
+                          }
+                        },
+                        icon: Icon(
+                          Icons.calendar_today_outlined,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    InputField(
+                      title: "End Date",
+                      hint: DateFormat.yMd().format(_endDate),
+                      widget: IconButton(
+                        onPressed: () async {
+                          final datePick = await showDatePicker(
+                            context: context,
+                            initialDate: new DateTime.now(),
+                            firstDate: new DateTime(1900),
+                            lastDate: new DateTime(2100),
+                          );
+                          if (datePick != null) {
+                            setState(
+                              () {
+                                _endDate = datePick;
                               },
                             );
                           }
@@ -113,10 +140,10 @@ class _AddToDoState extends State<AddForm> {
                         Expanded(
                           child: InputField(
                             title: "Start Time",
-                            hint: _startTime,
+                            hint: DateFormat.Hm().format(_startTime).toString(),
                             widget: IconButton(
                               onPressed: () {
-                                _getTimeFromUser(isStartTime: true);
+                                _getTimeFromUser('start');
                               },
                               icon: Icon(Icons.access_time_rounded),
                             ),
@@ -126,10 +153,10 @@ class _AddToDoState extends State<AddForm> {
                         Expanded(
                           child: InputField(
                             title: "End Time",
-                            hint: _endTime,
+                            hint: DateFormat.Hm().format(_endTime).toString(),
                             widget: IconButton(
                               onPressed: () {
-                                _getTimeFromUser(isStartTime: false);
+                                _getTimeFromUser('end');
                               },
                               icon: Icon(Icons.access_time_rounded),
                             ),
@@ -176,11 +203,12 @@ class _AddToDoState extends State<AddForm> {
                               Schedule sc = Schedule(
                                 title: _titleController.text,
                                 location: _locationController.text,
-                                date: DateFormat.yMd().format(_selectedDate),
+                                startDate: DateFormat.yMd().format(_startDate),
+                                endDate: DateFormat.yMd().format(_endDate),
                                 startTime: DateFormat.Hm()
-                                    .format(DateFormat.jm().parse(_startTime)),
+                                    .format(_startTime),
                                 endTime: DateFormat.Hm()
-                                    .format(DateFormat.jm().parse(_endTime)),
+                                    .format(_endTime),
                                 color: _selectedColor,
                                 remind: _selectedRemind,
                                 isCompleted: 0,
@@ -234,27 +262,39 @@ class _AddToDoState extends State<AddForm> {
     return null;
   }
 
-  _getTimeFromUser({required bool isStartTime}) async {
-    var pickedTime = await _showTimePicker(this.context);
-    String _formatedTime = pickedTime.format(context);
+  _getTimeFromUser(String activity) async {
+    TimeOfDay pickedTime = await _showTimePicker(this.context,activity);
     if (pickedTime == null) {
       print("Time Canceled");
-    } else if (isStartTime == true) {
-      setState(() {
-        _startTime = _formatedTime;
-      });
-    } else if (isStartTime == false) {
-      setState(() {
-        _endTime = _formatedTime;
-      });
+    } else {
+      String _formatedTime =
+          pickedTime.hour.toString() + ":" + pickedTime.minute.toString();
+      print(_formatedTime);
+      if (activity == "start") {
+        setState(() {
+          _startTime = DateFormat.Hm().parse(_formatedTime);
+        });
+      } else if (activity == "end") {
+        setState(() {
+          _endTime = DateFormat.Hm().parse(_formatedTime);
+        });
+      }
     }
   }
 
-  _showTimePicker(BuildContext context) {
-    return showTimePicker(
+  _showTimePicker(BuildContext context,String activity) {
+    if (activity == "start")
+      return showTimePicker(
         context: context,
         initialEntryMode: TimePickerEntryMode.dial,
-        initialTime: TimeOfDay.now());
+        initialTime: TimeOfDay.fromDateTime(_startTime),
+      );
+
+    return showTimePicker(
+      context: context,
+      initialEntryMode: TimePickerEntryMode.dial,
+      initialTime: TimeOfDay.fromDateTime(_endTime),
+    );
   }
 
   _colorSelection() {

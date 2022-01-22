@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
 import 'package:fiton/screen/authentication/signup/components/user_image.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/services/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +20,6 @@ class AvatarName extends StatefulWidget {
 }
 
 class _AvatarNameState extends State<AvatarName> {
-  File? image;
-  String? basename;
-  String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +39,7 @@ class _AvatarNameState extends State<AvatarName> {
                   UserImage(
                     onFileChanged: (imageUrl) {
                       setState(() {
-                        provider.imageUrl = imageUrl;
-                        this.imageUrl = imageUrl;
+                        provider.imageUrl = imageUrl == "" ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : imageUrl;
                       });
                     },
                   ),
@@ -70,19 +66,5 @@ class _AvatarNameState extends State<AvatarName> {
         ),
       ],
     );
-  }
-
-  Future pickImage() async{
-    try{
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if(image == null) return;
-
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
-      this.basename = p.basename(image.path);
-      print(this.basename);
-    } on PlatformException catch (e){
-      print('Failed to pick image $e');
-    }
   }
 }

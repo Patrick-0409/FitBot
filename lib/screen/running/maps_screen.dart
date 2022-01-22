@@ -1,11 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fiton/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-import 'model/entry.dart';
+import '../../models/entry.dart';
 
 class MapScreen extends StatefulWidget {
   @override
@@ -100,11 +101,12 @@ class _MapScreenState extends State<MapScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              margin: EdgeInsets.fromLTRB(10, 0, 10, 40),
+              // margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
               height: 145,
               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                color: kBackgroundColor,
+              ),
               child: Column(
                 children: [
                   Row(
@@ -112,23 +114,23 @@ class _MapScreenState extends State<MapScreen> {
                     children: [
                       Column(
                         children: [
-                          Text("SPEED (KM/H)",
+                          Text("Speed (km/h)",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w300)),
                           Text(_speed.toStringAsFixed(2),
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 30,
                                   fontWeight: FontWeight.w300))
                         ],
                       ),
                       Column(
                         children: [
-                          Text("TIME",
+                          Text("Time",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w300)),
                           StreamBuilder<int>(
@@ -144,7 +146,7 @@ class _MapScreenState extends State<MapScreen> {
                                   StopWatchTimer.getDisplayTimeSecond(_time);
                               return Text(_displayTime,
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontSize: 30,
                                       fontWeight: FontWeight.w300));
                             },
@@ -153,16 +155,19 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                       Column(
                         children: [
-                          Text("DISTANCE (KM)",
+                          Text("Distance (km)",
                               style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   fontSize: 10,
                                   fontWeight: FontWeight.w300)),
-                          Text((_dist / 1000).toStringAsFixed(2),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w300))
+                          Text(
+                            (_dist / 1000).toStringAsFixed(2),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          )
                         ],
                       )
                     ],
@@ -170,7 +175,7 @@ class _MapScreenState extends State<MapScreen> {
                   Divider(),
                   IconButton(
                     icon: Icon(
-                      Icons.stop_circle_outlined,
+                      Icons.cancel_outlined,
                       size: 50,
                       color: Colors.redAccent,
                     ),

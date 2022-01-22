@@ -5,13 +5,11 @@ import 'package:fiton/screen/authentication/components/rounded_password_field.da
 import 'package:fiton/screen/authentication/login/components/account_checker.dart';
 import 'package:fiton/screen/authentication/login/components/background.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
-import 'package:fiton/screen/provider/email_auth.dart';
+import 'package:fiton/services/email_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'avatar_name.dart';
-import 'dob_selector.dart';
-import 'gender_selector.dart';
 
 class Body extends StatefulWidget {
   @override

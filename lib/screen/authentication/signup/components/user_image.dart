@@ -10,7 +10,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as storage;
 
 class UserImage extends StatefulWidget {
-
   final Function(String imageUrl) onFileChanged;
 
   UserImage({
@@ -22,7 +21,6 @@ class UserImage extends StatefulWidget {
 }
 
 class _UserImageState extends State<UserImage> {
-
   final ImagePicker _picker = ImagePicker();
 
   String? imageUrl;
@@ -37,20 +35,18 @@ class _UserImageState extends State<UserImage> {
             highlightColor: Colors.white,
             onTap: () => _selectPhoto(),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-              decoration: BoxDecoration(
-                  color: Colors.white ,
-                  borderRadius: BorderRadius.all(Radius.circular(50))
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.add_a_photo, size: 50, color: Theme.of(context).primaryColor)
-                ],
-            )),
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(50))),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.add_a_photo,
+                        size: 50, color: Theme.of(context).primaryColor)
+                  ],
+                )),
           ),
-          
-
         if (imageUrl != null)
           InkWell(
             splashColor: Colors.transparent,
@@ -67,31 +63,42 @@ class _UserImageState extends State<UserImage> {
   }
 
   Future _selectPhoto() async {
-    await showModalBottomSheet(context: context, builder: (context) => BottomSheet(
-      builder: (context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(leading: Icon(Icons.add_a_photo), title: Text('Camera'), onTap: () {
-            Navigator.of(context).pop();
-            _pickImage(ImageSource.camera);
-          }),
-          ListTile(leading: Icon(Icons.filter), title: Text('Pick a file'), onTap: () {
-            Navigator.of(context).pop();
-            _pickImage(ImageSource.gallery);
-          }),
-        ],
-      ),
-      onClosing: () {},
-    ));
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) => BottomSheet(
+              builder: (context) => Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                      leading: Icon(Icons.add_a_photo),
+                      title: Text('Camera'),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _pickImage(ImageSource.camera);
+                      }),
+                  ListTile(
+                      leading: Icon(Icons.filter),
+                      title: Text('Pick a file'),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        _pickImage(ImageSource.gallery);
+                      }),
+                ],
+              ),
+              onClosing: () {},
+            ));
   }
 
   Future _pickImage(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(source: source, imageQuality: 50);
+    final pickedFile =
+        await _picker.pickImage(source: source, imageQuality: 50);
     if (pickedFile == null) {
       return;
     }
 
-    var file = await ImageCropper.cropImage(sourcePath: pickedFile.path, aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1));
+    var file = await ImageCropper.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1));
     if (file == null) {
       return;
     }
@@ -102,7 +109,8 @@ class _UserImageState extends State<UserImage> {
   }
 
   Future<File> compressImagePath(String path, int quality) async {
-    final newPath = p.join((await getTemporaryDirectory()).path, '${DateTime.now()}.${p.extension(path)}');
+    final newPath = p.join((await getTemporaryDirectory()).path,
+        '${DateTime.now()}.${p.extension(path)}');
 
     final result = await FlutterImageCompress.compressAndGetFile(
       path,
@@ -114,14 +122,17 @@ class _UserImageState extends State<UserImage> {
   }
 
   Future _uploadFile(String path) async {
-    final ref = storage.FirebaseStorage.instance.ref()
-      .child('images')
-      .child('${DateTime.now().toIso8601String() + p.basename(path)}');
+    final ref = storage.FirebaseStorage.instance
+        .ref()
+        .child('images')
+        .child('${DateTime.now().toIso8601String() + p.basename(path)}');
 
     final result = await ref.putFile(File(path));
     final fileUrl = await result.ref.getDownloadURL();
 
-    setState(() { imageUrl = fileUrl; });
+    setState(() {
+      imageUrl = fileUrl;
+    });
     widget.onFileChanged(fileUrl);
   }
 }

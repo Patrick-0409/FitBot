@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/movement.dart';
-import 'package:fiton/models/workout_data.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:fiton/screen/workout/Train/components/round_info_container.dart';
 import 'package:fiton/screen/workout/Train/train_timer.dart';
@@ -170,34 +168,30 @@ class TrainDetailScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 10),
-          Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => TrainTimer(
-                    name: name,
-                    second: second,
-                    movement: movement,
-                    burn: burn,
-                  ),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => TrainTimer(
+                  name: name,
+                  second: second,
+                  movement: movement,
+                  burn: burn,
+                  round: round,
                 ),
               ),
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                margin: EdgeInsets.only(bottom: 10),
-                width: size.width * 0.92,
-                decoration: BoxDecoration(
-                  color: kBackgroundColor.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Text(
-                  'Start workout',
-                  style: TextStyle(fontSize: 18.0, color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
+            ),
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              margin: EdgeInsets.only(bottom: 10),
+              width: size.width * 0.92,
+              decoration: BoxDecoration(
+                color: Color(0XFF3B7C81),
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Text(
+                'Start workout',
+                style: TextStyle(fontSize: 18.0, color: Colors.white),
+                textAlign: TextAlign.center,
               ),
             ),
           ),

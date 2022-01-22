@@ -1,6 +1,8 @@
-import 'package:fiton/screen/running/model/entry.dart';
+import 'package:fiton/models/entry.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../../../constant.dart';
 
 class EntryCard extends StatelessWidget {
   final Entry entry;
@@ -9,9 +11,10 @@ class EntryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10),
+      color: kChat,
+      margin: EdgeInsets.fromLTRB(0, 5, 0, 10),
       child: Container(
-          padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
             children: [
               Row(

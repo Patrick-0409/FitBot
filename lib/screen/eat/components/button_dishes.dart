@@ -28,7 +28,7 @@ class ButtonDishes extends StatelessWidget {
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                padding: EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(top: 13, bottom: 5),
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(10),
@@ -36,7 +36,7 @@ class ButtonDishes extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     picture,
-                    SizedBox(height: 5),
+                    Spacer(),
                     text,
                   ],
                 ),

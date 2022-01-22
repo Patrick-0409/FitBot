@@ -127,7 +127,7 @@ class EmailSignInProvider extends ChangeNotifier {
   String get imageUrl => _imageUrl!;
 
   set imageUrl(String value) {
-    _imageUrl = value;
+    _imageUrl = value != null ? value : "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000";
     notifyListeners();
   }
 
@@ -185,7 +185,7 @@ class EmailSignInProvider extends ChangeNotifier {
         'uid': user.uid,
         'name': firstName+" "+lastName,
         'email': userEmail,
-        'imageUrl': imageUrl,
+        'imageUrl': imageUrl == null ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : imageUrl,
         'height': "",
         'weight': "",
         'active': null,

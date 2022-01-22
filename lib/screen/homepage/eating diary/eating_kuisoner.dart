@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/daily.dart';
-import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
-import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
 import 'package:fiton/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -20,10 +17,9 @@ class EatingKuisioner extends StatefulWidget {
 }
 
 class _EatingKuisionerState extends State<EatingKuisioner> {
-  String _breakfastTime =
-      DateFormat("hh:mm a").format(DateTime.now()).toString();
-  String _lunchTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
-  String _dinnerTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
+  DateTime _breakfastTime = DateFormat.Hm().parse('07:00');
+  DateTime _lunchTime = DateFormat.Hm().parse('12:00');
+  DateTime _dinnerTime = DateFormat.Hm().parse('19:00');
 
   final _formKey = GlobalKey<FormState>();
   final user = FirebaseAuth.instance.currentUser;
@@ -73,10 +69,10 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                   ),
                   InputField(
                     title: "Breakfast",
-                    hint: _breakfastTime,
+                    hint: DateFormat.Hm().format(_breakfastTime).toString(),
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isTime: 1);
+                        _getTimeFromUser("breakfast");
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
@@ -84,20 +80,20 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                   // SizedBox(width: 12),
                   InputField(
                     title: "Lunch",
-                    hint: _lunchTime,
+                    hint: DateFormat.Hm().format(_lunchTime).toString(),
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isTime: 2);
+                        _getTimeFromUser("lunch");
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
                   ),
                   InputField(
                     title: "Dinner",
-                    hint: _dinnerTime,
+                    hint: DateFormat.Hm().format(_dinnerTime).toString(),
                     widget: IconButton(
                       onPressed: () {
-                        _getTimeFromUser(isTime: 3);
+                        _getTimeFromUser("dinner");
                       },
                       icon: Icon(Icons.access_time_rounded),
                     ),
@@ -105,16 +101,14 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      String breakfast = DateFormat.Hm()
-                          .format(DateFormat.jm().parse(_breakfastTime));
-                      String lunch = DateFormat.Hm()
-                          .format(DateFormat.jm().parse(_lunchTime));
-                      String dinner = DateFormat.Hm()
-                          .format(DateFormat.jm().parse(_dinnerTime));
+                      String breakfast = DateFormat.Hm().format(_breakfastTime);
+                      String lunch = DateFormat.Hm().format(_lunchTime);
+                      String dinner = DateFormat.Hm().format(_dinnerTime);
                       NotificationService.showDailyScheduledNotification(
                         id: 21,
                         title: 'FitOn',
-                        body: 'Don\'t forget to eat breakfast, and have a good day!',
+                        body:
+                            'Don\'t forget to eat breakfast, and have a good day!',
                         payload: 'schedule',
                         scheduledTime: breakfast,
                       );
@@ -128,7 +122,8 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
                       NotificationService.showDailyScheduledNotification(
                         id: 23,
                         title: 'FitOn',
-                        body: 'It\'s dinner time, and after that have a good rest!',
+                        body:
+                            'It\'s dinner time, and after that have a good rest!',
                         payload: 'schedule',
                         scheduledTime: dinner,
                       );
@@ -182,16 +177,19 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
     }
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Submit succeeded'),
-        content: Text('Thank you for completing your data!'),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Ok'))
-        ],
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Text('Submit succeeded'),
+          content: Text('Thank you for completing your data!'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'))
+          ],
+        ),
       ),
     );
 
@@ -206,31 +204,47 @@ class _EatingKuisionerState extends State<EatingKuisioner> {
     );
   }
 
-  _getTimeFromUser({required int isTime}) async {
-    var pickedTime = await _showTimePicker(this.context);
-    String _formatedTime = pickedTime.format(context);
+  _getTimeFromUser(String time) async {
+    TimeOfDay pickedTime = await _showTimePicker(this.context, time);
     if (pickedTime == null) {
       print("Time Canceled");
-    } else if (isTime == 1) {
-      setState(() {
-        _breakfastTime = _formatedTime;
-      });
-    } else if (isTime == 2) {
-      setState(() {
-        _lunchTime = _formatedTime;
-      });
-    } else if (isTime == 3) {
-      setState(() {
-        _dinnerTime = _formatedTime;
-      });
+    } else {
+      String _formatedTime =
+          pickedTime.hour.toString() + ":" + pickedTime.minute.toString();
+      if (time == "breakfast") {
+        setState(() {
+          _breakfastTime = DateFormat.Hm().parse(_formatedTime);
+        });
+      } else if (time == "lunch") {
+        setState(() {
+          _lunchTime = DateFormat.Hm().parse(_formatedTime);
+        });
+      } else if (time == "dinner") {
+        setState(() {
+          _dinnerTime = DateFormat.Hm().parse(_formatedTime);
+        });
+      }
     }
   }
 
-  _showTimePicker(BuildContext context) {
+  _showTimePicker(BuildContext context, String activity) {
+    if (activity == "breakfast")
+      return showTimePicker(
+        context: context,
+        initialEntryMode: TimePickerEntryMode.dial,
+        initialTime: TimeOfDay.fromDateTime(_breakfastTime),
+      );
+    else if (activity == "lunch")
+      return showTimePicker(
+        context: context,
+        initialEntryMode: TimePickerEntryMode.dial,
+        initialTime: TimeOfDay.fromDateTime(_lunchTime),
+      );
+
     return showTimePicker(
       context: context,
       initialEntryMode: TimePickerEntryMode.dial,
-      initialTime: TimeOfDay.now(),
+      initialTime: TimeOfDay.fromDateTime(_dinnerTime),
     );
   }
 }
