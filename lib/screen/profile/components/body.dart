@@ -238,8 +238,13 @@ class _BodyState extends State<Body> {
                                             color: kStastC,
                                           ),
                                           text: Text(
-                                            snapshot.data!.toStringAsFixed(1) +
-                                                " kg",
+                                            snapshot.data!.isNegative != true
+                                                ? "+" +
+                                                    snapshot.data!
+                                                        .toStringAsFixed(1)
+                                                : snapshot.data!
+                                                        .toStringAsFixed(1) +
+                                                    " kg",
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!

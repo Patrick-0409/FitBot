@@ -46,7 +46,7 @@ class Daily {
       date: map['date'].toDate(),
       sleep: map['sleep'],
       wake: map['wake'],
-      weight: map['weight'],
+      weight: map['weight'].toInt(),
       user: map['user'],
       burn: map['burn']
     );

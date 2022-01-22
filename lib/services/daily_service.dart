@@ -333,8 +333,8 @@ class DailyService {
           .then((querySnapshot) {
         if (querySnapshot.docs.length > 0) {
           if (querySnapshot.docs.length > 1)
-            temp = querySnapshot.docs[0]['weight'].toDouble() -
-                querySnapshot.docs[1]['weight'].toDouble();
+            temp = querySnapshot.docs[1]['weight'].toDouble() -
+                querySnapshot.docs[0]['weight'].toDouble();
           else
             temp = querySnapshot.docs[0]['weight'].toDouble();
           return temp;
