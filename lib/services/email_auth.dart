@@ -6,10 +6,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
 class EmailSignInProvider extends ChangeNotifier {
-
-  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('users');
 
   UploadTask? task;
   bool? _isLoading;
@@ -24,7 +23,8 @@ class EmailSignInProvider extends ChangeNotifier {
   String? _lastName;
   String? _basename;
   String? _gender;
-  String? _imageUrl;
+  String _imageUrl =
+      "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000";
   FirebaseAuthException? _message;
   DateTime? _dob;
 
@@ -51,7 +51,6 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   String get weight => _weight!;
 
   set weight(String value) {
@@ -65,8 +64,6 @@ class EmailSignInProvider extends ChangeNotifier {
     _height = value;
     notifyListeners();
   }
-
-
 
   int get active => _active!;
 
@@ -124,10 +121,10 @@ class EmailSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get imageUrl => _imageUrl!;
+  String get imageUrl => _imageUrl;
 
   set imageUrl(String value) {
-    _imageUrl = value != null ? value : "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000";
+    _imageUrl = value;
     notifyListeners();
   }
 
@@ -147,30 +144,24 @@ class EmailSignInProvider extends ChangeNotifier {
 
   Future save(String uid) async {
     try {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(uid)
-            .update({
-              'birthday':dob,
-              'gender':gender,
-              'weight':weight,
-              'height':height,
-              'active':active,
-              'want':want,
-            });
+      await FirebaseFirestore.instance.collection('users').doc(uid).update({
+        'birthday': dob,
+        'gender': gender,
+        'weight': weight,
+        'height': height,
+        'active': active,
+        'want': want,
+      });
     } catch (e) {
-      print("error pas save "+e.toString());
+      print("error pas save " + e.toString());
     }
   }
 
   Future<bool> register() async {
     UserCredential? result;
     try {
-
       result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: userEmail,
-          password: userPassword
-      );
+          email: userEmail, password: userPassword);
       _message = null;
     } on FirebaseAuthException catch (err) {
       isLoading = false;
@@ -178,14 +169,16 @@ class EmailSignInProvider extends ChangeNotifier {
       return false;
     }
 
-    try{
+    try {
       User? user = result.user;
+      print(imageUrl);
+      print(_imageUrl);
 
       await userCollection.doc(user!.uid).set({
         'uid': user.uid,
-        'name': firstName+" "+lastName,
+        'name': firstName + " " + lastName,
         'email': userEmail,
-        'imageUrl': imageUrl == null ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : imageUrl,
+        'imageUrl': _imageUrl == "" ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : _imageUrl,
         'height': "",
         'weight': "",
         'active': null,
@@ -196,11 +189,10 @@ class EmailSignInProvider extends ChangeNotifier {
         'gender': "",
       });
       return true;
-    }catch (err) {
+    } on FirebaseFirestore catch (err) {
+      print(err);
       isLoading = false;
       return false;
     }
   }
-
-
 }

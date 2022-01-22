@@ -80,7 +80,7 @@ class _SchedulerHomeState extends State<SchedulerHome> {
                       return SchedulerScreen();
                     },
                   ),
-                );
+                ).then((value) => _fetchSchedules(DateFormat.yMd().format(DateTime.now())));
               },
               child: Row(
                 children: [

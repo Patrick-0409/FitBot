@@ -30,7 +30,7 @@ class UserStore{
   factory UserStore.fromJson(DocumentSnapshot snapshot) => UserStore(
     uid: snapshot["uid"],
     name: snapshot["name"],
-    imageUrl: snapshot["imageUrl"] == null ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : snapshot["imageUrl"],
+    imageUrl: snapshot["imageUrl"] == "" ? "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000" : snapshot["imageUrl"],
     email: snapshot["email"],
     gender: snapshot["gender"] == null ? "" : snapshot["gender"],
     weight: snapshot["weight"].toString(),
@@ -41,20 +41,4 @@ class UserStore{
     birthday: snapshot["birthday"] == null ? null : snapshot["birthday"].toDate(),
   );
 
-  
-  Map<String, dynamic> toMap() {
-    return {
-      "uid": uid,
-      "name": name,
-      "image": imageUrl,
-      "email": email,
-      "gender": gender,
-      "weight": weight,
-      "height": height,
-      "active": active,
-      "want": want,
-      "difficulty": difficulty,
-      "birthday": birthday,
-    };
-  }
 }

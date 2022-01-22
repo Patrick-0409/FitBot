@@ -28,7 +28,11 @@ class UserService {
             .then((QuerySnapshot querySnapshot) {
               if (querySnapshot.docs.length>0) {
                 Map<String, dynamic> data = querySnapshot.docs[0].data()! as Map<String, dynamic>;
-                return data['imageUrl'].toString();
+                String imageUrl = "https://img.freepik.com/free-photo/young-fitness-man-studio_7502-5008.jpg?size=626&ext=jpg&ga=GA1.2.1278783015.1641168000";
+                if(data['imageUrl']!=null){
+                    imageUrl = data['imageUrl'];
+                }
+                return imageUrl;
               }
               return '0';
             });

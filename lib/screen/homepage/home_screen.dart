@@ -57,8 +57,9 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: GestureDetector(
                   onTap: () async {
                     bool temp = await UserService().checkContains(user.uid);
-                    final userstore = await UserService().getUser(user.uid);
+                    var userstore = await UserService().getUser(user.uid);
                     if (temp == true) {
+                      userstore = await UserService().getUser(user.uid);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -68,6 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ).then((value) async {
                         if (value == true) {
+                          userstore = await UserService().getUser(user.uid);
                           bool tempData = await DailyService().checkDaily();
                           if (tempData == false)
                             Navigator.push(
@@ -79,8 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 },
                               ),
-                            ).then((valuee) {
+                            ).then((valuee) async {
                               if (valuee == true)
+                                userstore = await UserService().getUser(user.uid);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -91,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                             });
                           else {
-                            final userstore =
+                            userstore =
                                 await UserService().getUser(user.uid);
                             Navigator.push(
                               context,
@@ -106,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     } else {
                       bool tempData = await DailyService().checkDaily();
+                      userstore = await UserService().getUser(user.uid);
                       if (tempData == false)
                         Navigator.push(
                           context,
@@ -116,8 +120,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               );
                             },
                           ),
-                        ).then((valuee) {
+                        ).then((valuee) async {
                           if (valuee == true)
+                          userstore = await UserService().getUser(user.uid);
                             Navigator.push(
                               context,
                               MaterialPageRoute(

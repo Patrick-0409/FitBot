@@ -117,7 +117,7 @@ class _BodyState extends State<Body> {
       return "Good Morning";
     else if (temp >= 12 && temp < 18)
       return "Good Afternoon";
-    else if (temp >= 18) return "Good Night";
+    else if (temp >= 18) return "Good Evening";
 
     return "Hello";
   }
