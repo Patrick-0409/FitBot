@@ -5,6 +5,7 @@ import 'package:fiton/screen/profile/profile_screen.dart';
 import 'package:fiton/screen/scheduler/scheduler_screen.dart';
 import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
+import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/notification_service.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:fiton/services/user_service.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../constant.dart';
 import 'components/body.dart';
+import 'daily_input/daily_input.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -55,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: GestureDetector(
                   onTap: () async {
                     bool temp = await UserService().checkContains(user.uid);
+                    final userstore = await UserService().getUser(user.uid);
                     if (temp == true) {
                       Navigator.push(
                         context,
@@ -64,27 +67,75 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                       ).then((value) async {
-                        final userstore = await UserService().getUser(user.uid);
-                        if (value == true)
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ProfileScreen(user: userstore);
-                              },
-                            ),
-                          );
+                        if (value == true) {
+                          bool tempData = await DailyService().checkDaily();
+                          if (tempData == false)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DailyInput(
+                                    user: userstore,
+                                  );
+                                },
+                              ),
+                            ).then((valuee) {
+                              if (valuee == true)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ProfileScreen(user: userstore);
+                                    },
+                                  ),
+                                );
+                            });
+                          else {
+                            final userstore =
+                                await UserService().getUser(user.uid);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProfileScreen(user: userstore);
+                                },
+                              ),
+                            );
+                          }
+                        }
                       });
                     } else {
-                      final userstore = await UserService().getUser(user.uid);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ProfileScreen(user: userstore);
-                          },
-                        ),
-                      );
+                      bool tempData = await DailyService().checkDaily();
+                      if (tempData == false)
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return DailyInput(
+                                user: userstore,
+                              );
+                            },
+                          ),
+                        ).then((valuee) {
+                          if (valuee == true)
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return ProfileScreen(user: userstore);
+                                },
+                              ),
+                            );
+                        });
+                      else
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ProfileScreen(user: userstore);
+                            },
+                          ),
+                        );
                     }
                   },
                   child: FutureBuilder<String>(
