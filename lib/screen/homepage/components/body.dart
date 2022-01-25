@@ -18,7 +18,6 @@ import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
-import 'package:fiton/services/runs_service.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -636,7 +635,7 @@ class _BodyState extends State<Body> {
                                     '%2C' +
                                     place.lng!.toString() +
                                     '&query_place_id=' +
-                                    place.place_id!),
+                                    place.placeId!),
                             child: Container(
                               width: 200,
                               margin: EdgeInsets.only(right: 13),

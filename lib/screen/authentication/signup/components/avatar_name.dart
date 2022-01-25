@@ -1,15 +1,8 @@
-import 'dart:io';
-
 import 'package:fiton/screen/authentication/components/rounded_name_field.dart';
 import 'package:fiton/screen/authentication/signup/components/user_image.dart';
 import 'package:fiton/services/email_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as p;
-
-import '../../../../constant.dart';
 
 class AvatarName extends StatefulWidget {
   const AvatarName({

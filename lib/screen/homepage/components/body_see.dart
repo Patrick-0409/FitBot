@@ -3,7 +3,6 @@ import 'package:fiton/screen/homepage/components/nearby_card_dtl.dart';
 import 'package:fiton/services/geolocator_service.dart';
 import 'package:fiton/services/places_services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -58,7 +57,7 @@ class _BodySeeState extends State<BodySee> {
                                   '%2C' +
                                   place.lng!.toString() +
                                   '&query_place_id=' +
-                                  place.place_id!);
+                                  place.placeId!);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 5),

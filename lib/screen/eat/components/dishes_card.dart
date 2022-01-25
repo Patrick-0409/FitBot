@@ -1,7 +1,5 @@
-import 'package:fiton/models/recipe.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:flutter/material.dart';
-
 import '../../../constant.dart';
 
 class DishesCard extends StatelessWidget {

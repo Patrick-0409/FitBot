@@ -17,12 +17,12 @@ class Place{
   final String? name;
   final num? lat;
   final num? lng;
-  final String? place_id;
+  final String? placeId;
   final num? rating;
   final num? userRatingCount;
   final String? vicinity;
 
-  Place({required this.photos, this.name, this.rating, this.lat, this.lng, this.place_id, this.userRatingCount, this.vicinity});
+  Place({required this.photos, this.name, this.rating, this.lat, this.lng, this.placeId, this.userRatingCount, this.vicinity});
 
   factory Place.fromJson(Map<String, dynamic> json) => Place(
     photos: json["photos"] != null ? List<Photo>.from(
@@ -30,7 +30,7 @@ class Place{
     name: json["name"],
     lat: json["geometry"]["location"]["lat"],
     lng: json["geometry"]["location"]["lng"],
-    place_id: json["place_id"],
+    placeId: json["place_id"],
     rating: json["rating"],
     userRatingCount: json["userRatingCount"],
     vicinity: json["vicinity"],
@@ -40,14 +40,14 @@ class Place{
 
 
 class Photo{
-  final String? photo_reference;
-  final String? html_attributions;
+  final String? photoReference;
+  final String? htmlAttributions;
 
-  Photo({required this.photo_reference,required this.html_attributions});
+  Photo({required this.photoReference,required this.htmlAttributions});
 
   factory Photo.fromJson(Map<String, dynamic> json) => Photo(
-    photo_reference: json["photo_reference"] as String,
-    html_attributions: json["html_attributions"][0] as String
+    photoReference: json["photo_reference"] as String,
+    htmlAttributions: json["html_attributions"][0] as String
   );
 
 }

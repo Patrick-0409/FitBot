@@ -3,7 +3,6 @@ import 'package:fiton/models/schedule.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:intl/intl.dart';
 
 import '../scheduler_screen.dart';
 

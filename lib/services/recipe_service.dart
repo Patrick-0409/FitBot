@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 class RecipesService {
 
-  final CollectionReference foodCol = FirebaseFirestore.instance.collection("favoriteRecipes");
+  final CollectionReference foodCol = FirebaseFirestore.instance.collection("recipes");
   final user = FirebaseAuth.instance.currentUser;
   
   Future<RecipeModel> getRecipes(String url) async {
@@ -38,7 +38,7 @@ class RecipesService {
                     List<String>? ingredientLines,
                     String? url
                     ) async {
-    final ref = FirebaseFirestore.instance.collection('favoriteRecipes').doc();
+    final ref = FirebaseFirestore.instance.collection('recipes').doc();
     Food temp = new Food(
       id: ref.id,
       label: label,
@@ -80,7 +80,7 @@ class RecipesService {
     List itemsList = [];
     try {
     await FirebaseFirestore.instance
-            .collection('favoriteRecipes')
+            .collection('recipes')
             .get()
             .then((querySnapshot) {
                   if (querySnapshot.docs.length>0) {
@@ -102,7 +102,7 @@ class RecipesService {
     List itemsList = [];
     try {
     await FirebaseFirestore.instance
-            .collection('favoriteRecipes')
+            .collection('recipes')
             .where('favorited', arrayContains: user!.uid)
             .get()
             .then((querySnapshot) {
@@ -147,7 +147,7 @@ class RecipesService {
   Future addFav(String? id) async {
     try {
         await FirebaseFirestore.instance
-            .collection('favoriteRecipes')
+            .collection('recipes')
             .doc(id)
             .update({
               'favorited':FieldValue.arrayUnion([user!.uid])
@@ -160,7 +160,7 @@ class RecipesService {
   Future deleteFav(String? id) async {
     try {
         await FirebaseFirestore.instance
-            .collection('favoriteRecipes')
+            .collection('recipes')
             .doc(id)
             .update({
               'favorited':FieldValue.arrayRemove([user!.uid])
@@ -172,7 +172,7 @@ class RecipesService {
 
   Future<bool> checkContains(String? id) async {
     var temp = FirebaseFirestore.instance
-            .collection('favoriteRecipes')
+            .collection('recipes')
             .where('id',isEqualTo: id)
             .where('favorited', arrayContains: user!.uid)
             .get()

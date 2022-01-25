@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../constant.dart';
-
 class TimerButton extends StatelessWidget {
   final String text;
   final Function() press;

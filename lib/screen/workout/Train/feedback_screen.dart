@@ -4,6 +4,7 @@ import 'package:fiton/screen/workout/Train/components/answer_button.dart';
 import 'package:fiton/services/user_service.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class FeedbackScreen extends StatelessWidget {
   FeedbackScreen({
     Key? key,

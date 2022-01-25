@@ -1,4 +1,3 @@
-import 'package:fiton/constant.dart';
 import 'package:fiton/models/daily.dart';
 import 'package:fiton/models/entry.dart';
 import 'package:fiton/services/daily_service.dart';
@@ -8,6 +7,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class WeeklyBarChart extends StatefulWidget {
   WeeklyBarChart({Key? key, required this.choose}) : super(key: key);
   int choose;

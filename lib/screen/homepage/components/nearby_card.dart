@@ -20,7 +20,7 @@ class NearbyCard extends StatelessWidget {
         image: DecorationImage(
           image: place.photos.length > 0 ? NetworkImage(
               'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=' +
-                  place.photos[0].photo_reference! +
+                  place.photos[0].photoReference! +
                   '&key=' +
                   apiKey) : NetworkImage('https://i.giphy.com/media/jAYUbVXgESSti/giphy.webp'),
           fit: BoxFit.cover,

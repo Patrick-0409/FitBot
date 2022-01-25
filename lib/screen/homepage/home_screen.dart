@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/screen/Chatbot/chatbot_screen.dart';
 import 'package:fiton/screen/authentication/login/login_screen.dart';
 import 'package:fiton/screen/profile/profile_screen.dart';
-import 'package:fiton/screen/scheduler/scheduler_screen.dart';
-import 'package:fiton/screen/workout/Train/feedback_screen.dart';
 import 'package:fiton/screen/workout/kuisoner/kuisoner_screen.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:fiton/services/notification_service.dart';

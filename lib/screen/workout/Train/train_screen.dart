@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constant.dart';
 
+// ignore: must_be_immutable
 class TrainScreen extends StatefulWidget {
   TrainScreen({Key? key, required this.user}) : super(key: key);
   UserStore user;

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';

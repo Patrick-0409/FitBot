@@ -1,7 +1,6 @@
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
 import 'package:flutter/material.dart';
 import '../../../constant.dart';
-import '../home_screen.dart';
 import 'body_see.dart';
 
 class SeeAllScreen extends StatelessWidget {

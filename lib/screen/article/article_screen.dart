@@ -1,9 +1,6 @@
 import 'package:fiton/constant.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'components/favorite_body.dart';
 import 'components/trending_body.dart';
 

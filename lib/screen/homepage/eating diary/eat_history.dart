@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fiton/models/daily.dart';
-import 'package:fiton/screen/eat/detail/components/circle_button.dart';
 import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
-import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
 import 'package:fiton/services/daily_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +29,6 @@ class _EatHistoryState extends State<EatHistory> {
   final _caloriesController3 = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
     Size size = MediaQuery.of(context).size;
 
     String tempTime = DateFormat.Hm().format(DateTime.now());
@@ -329,29 +324,5 @@ class _EatHistoryState extends State<EatHistory> {
       return "Enter food correctly!";
     }
     return null;
-  }
-
-  _getTimeFromUser({required bool isStartTime}) async {
-    var pickedTime = await _showTimePicker(this.context);
-    String _formatedTime = pickedTime.format(context);
-    if (pickedTime == null) {
-      print("Time Canceled");
-    } else if (isStartTime == true) {
-      setState(() {
-        _startTime = _formatedTime;
-      });
-    } else if (isStartTime == false) {
-      setState(() {
-        _endTime = _formatedTime;
-      });
-    }
-  }
-
-  _showTimePicker(BuildContext context) {
-    return showTimePicker(
-      context: context,
-      initialEntryMode: TimePickerEntryMode.dial,
-      initialTime: TimeOfDay.now(),
-    );
   }
 }
