@@ -13,6 +13,7 @@ import 'package:wakelock/wakelock.dart';
 
 import 'components/home_button.dart';
 
+// ignore: must_be_immutable
 class TrainTimer extends StatefulWidget {
   TrainTimer({
     Key? key,

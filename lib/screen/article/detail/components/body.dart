@@ -1,11 +1,11 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:fiton/screen/article/components/network_image_ssl.dart';
 import 'package:fiton/services/news_api_manager.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:timeago/timeago.dart' as TimeAgo;
 import '../../../../constant.dart';
 
+// ignore: must_be_immutable
 class Body extends StatelessWidget {
   var id;
   final bool? contain;

@@ -4,7 +4,6 @@ class OrDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // TODO: implement build
     return Container(
       margin: EdgeInsets.symmetric(vertical: size.height * 0.02),
       width: size.width * 0.87,

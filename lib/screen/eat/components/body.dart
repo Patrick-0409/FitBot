@@ -48,7 +48,7 @@ class _BodyState extends State<Body> {
   
   @override
   Widget build(BuildContext context) {
-    final Size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 15),
       child: SafeArea(
@@ -75,7 +75,7 @@ class _BodyState extends State<Body> {
               ),
               SizedBox(height: 10),
               Container(
-                width: Size.width * 0.9,
+                width: size.width * 0.9,
                 height: 35,
                 decoration: BoxDecoration(
                   color: kSearchBarColor.withOpacity(0.1),
@@ -198,7 +198,7 @@ class _BodyState extends State<Body> {
               Row(
                 children: <Widget>[
                   ButtonDishes(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -220,7 +220,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -242,7 +242,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -264,7 +264,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(width: 10),
                   ButtonDishes(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -363,7 +363,7 @@ class _BodyState extends State<Body> {
               Row(
                 children: <Widget>[
                   ButtonTimeBased(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -390,7 +390,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,
@@ -415,7 +415,7 @@ class _BodyState extends State<Body> {
                   ),
                   SizedBox(width: 20),
                   ButtonTimeBased(
-                    size: Size,
+                    size: size,
                     press: () {
                       Navigator.push(
                         context,

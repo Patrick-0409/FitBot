@@ -2,16 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fiton/models/daily.dart';
 import 'package:fiton/models/user.dart';
-import 'package:fiton/screen/eat/detail/components/circle_button.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/input_field.dart';
 import 'package:fiton/screen/workout/Train/components/home_button.dart';
-import 'package:fiton/screen/workout/kuisoner/components/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constant.dart';
 
+// ignore: must_be_immutable
 class DailyInput extends StatefulWidget {
   DailyInput({Key? key, required this.user}) : super(key: key);
   UserStore user;

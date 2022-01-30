@@ -21,13 +21,12 @@ class _DobSelectorState extends State<DobSelector> {
     });
   }
 
-  TextEditingController TEController = TextEditingController();
+  TextEditingController teController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EmailSignInProvider>(context);
     Size size = MediaQuery.of(context).size;
     late String birthDateInString;
-    bool isDateSelected = false;
     late DateTime birthDate;
     return TextFieldContainer(
       height: size.height * 0.064,
@@ -44,11 +43,10 @@ class _DobSelectorState extends State<DobSelector> {
             setState(
               () {
                 birthDate = datePick;
-                isDateSelected = true;
                 birthDateInString =
                     "${birthDate.day}-${birthDate.month}-${birthDate.year}";
                 provider.dob = birthDate;
-                TEController.text = birthDateInString;
+                teController.text = birthDateInString;
               },
             );
           }
@@ -73,7 +71,7 @@ class _DobSelectorState extends State<DobSelector> {
           ),
           suffixIcon: _errorWidget,
         ),
-        controller: TEController,
+        controller: teController,
         validator: (value) {
           if (value!.isEmpty) {
             errorWidget = new ErrorIcon(true);
@@ -88,6 +86,7 @@ class _DobSelectorState extends State<DobSelector> {
   }
 }
 
+// ignore: must_be_immutable
 class ErrorIcon extends StatelessWidget {
   bool _isError;
 

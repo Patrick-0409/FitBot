@@ -7,7 +7,7 @@ import 'package:fiton/models/news.dart';
 // ignore: camel_case_types
 class API_Manager {
   
-  final CollectionReference newsCol = FirebaseFirestore.instance.collection("favorites");
+  final CollectionReference newsCol = FirebaseFirestore.instance.collection("articles");
   final user = FirebaseAuth.instance.currentUser;
   
   Future<NewsModel> getNews(String url) async {
@@ -37,7 +37,7 @@ class API_Manager {
                     String? urlToImage,
                     DateTime? publishedAt,
                     String? content) async {
-    final ref = FirebaseFirestore.instance.collection('favorites').doc();
+    final ref = FirebaseFirestore.instance.collection('articles').doc();
     News temp = new News(
       id: ref.id,
       source: source!,
@@ -75,7 +75,7 @@ class API_Manager {
 
   Future<bool> checkContains(String? id) async {
     var temp = FirebaseFirestore.instance
-            .collection('favorites')
+            .collection('articles')
             .where('id',isEqualTo: id)
             .where('favorited', arrayContains: user!.uid)
             .get()
@@ -93,7 +93,7 @@ class API_Manager {
     List itemsList = [];
     try {
     await FirebaseFirestore.instance
-            .collection('favorites')
+            .collection('articles')
             .where('favorited', arrayContains: user!.uid)
             .get()
             .then((querySnapshot) {
@@ -115,7 +115,7 @@ class API_Manager {
   Future addFav(String? id) async {
     try {
         await FirebaseFirestore.instance
-            .collection('favorites')
+            .collection('articles')
             .doc(id)
             .update({
               'favorited':FieldValue.arrayUnion([user!.uid])
@@ -128,7 +128,7 @@ class API_Manager {
   Future deleteFav(String? id) async {
     try {
         await FirebaseFirestore.instance
-            .collection('favorites')
+            .collection('articles')
             .doc(id)
             .update({
               'favorited':FieldValue.arrayRemove([user!.uid])

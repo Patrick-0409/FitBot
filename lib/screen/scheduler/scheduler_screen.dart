@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:fiton/constant.dart';
 import 'package:fiton/models/schedule.dart';
-import 'package:fiton/screen/homepage/home_screen.dart';
 import 'package:fiton/screen/scheduler/Form/add_form.dart';
 import 'package:fiton/screen/scheduler/components/add_taskbar.dart';
 import 'package:fiton/screen/scheduler/components/schedule_card.dart';

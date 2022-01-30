@@ -9,6 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'description.dart';
 
+// ignore: must_be_immutable
 class Body extends StatefulWidget {
   Body({Key? key, required this.user}) : super(key: key);
 

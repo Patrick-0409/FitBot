@@ -75,6 +75,7 @@ class _RoundedInputFieldState extends State<RoundedInputField> {
   }
 }
 
+// ignore: must_be_immutable
 class ErrorIcon extends StatelessWidget {
   bool _isError;
 

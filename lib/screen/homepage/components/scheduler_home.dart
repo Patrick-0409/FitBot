@@ -1,13 +1,9 @@
-import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:fiton/models/schedule.dart';
 import 'package:fiton/screen/scheduler/components/schedule_card.dart';
 import 'package:fiton/screen/scheduler/scheduler_screen.dart';
 import 'package:fiton/services/schedule_service.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
-import '../../../constant.dart';
 
 class SchedulerHome extends StatefulWidget {
   final Size size;
@@ -80,7 +76,7 @@ class _SchedulerHomeState extends State<SchedulerHome> {
                       return SchedulerScreen();
                     },
                   ),
-                );
+                ).then((value) => _fetchSchedules(DateFormat.yMd().format(DateTime.now())));
               },
               child: Row(
                 children: [

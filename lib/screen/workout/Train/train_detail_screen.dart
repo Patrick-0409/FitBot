@@ -6,6 +6,7 @@ import 'package:fiton/screen/workout/Train/components/round_info_container.dart'
 import 'package:fiton/screen/workout/Train/train_timer.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class TrainDetailScreen extends StatelessWidget {
   TrainDetailScreen({
     Key? key,

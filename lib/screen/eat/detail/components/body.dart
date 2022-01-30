@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../constant.dart';
 
 
+// ignore: must_be_immutable
 class Body extends StatefulWidget {
   var id;
   final bool? contain;
