@@ -40,7 +40,7 @@ class _MapScreenState extends State<MapScreen> {
   @override
   void dispose() async {
     super.dispose();
-    await _stopWatchTimer.dispose(); // Need to call dispose function.
+    await _stopWatchTimer.dispose();
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -101,7 +101,6 @@ class _MapScreenState extends State<MapScreen> {
             alignment: Alignment.bottomCenter,
             child: Container(
               width: double.infinity,
-              // margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
               height: 145,
               padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
               decoration: BoxDecoration(
